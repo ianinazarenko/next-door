@@ -1,28 +1,28 @@
 :root {
     /* Colors - Light Theme */
-    --light-bg-primary: #F8F8F8;
-    --light-bg-secondary: #FFFFFF;
+    --light-bg-primary: #f8f8f8;
+    --light-bg-secondary: #ffffff;
     --light-text-primary: #212121;
     --light-text-secondary: #757575;
-    --light-accent: #0070F3;
-    --light-accent-hover: #005BC4;
-    --light-border: #E0E0E0;
-    --light-success: #4CAF50;
-    --light-error: #F44336;
+    --light-accent: #0070f3;
+    --light-accent-hover: #005bc4;
+    --light-border: #e0e0e0;
+    --light-success: #4caf50;
+    --light-error: #f44336;
 
     /* Colors - Dark Theme */
-    --dark-bg-primary: #1A1A1A;
-    --dark-bg-secondary: #2B2B2B;
-    --dark-text-primary: #E0E0E0;
-    --dark-text-secondary: #A0A0A0;
-    --dark-accent: #0096FF;
-    --dark-accent-hover: #0077CC;
+    --dark-bg-primary: #1a1a1a;
+    --dark-bg-secondary: #2b2b2b;
+    --dark-text-primary: #e0e0e0;
+    --dark-text-secondary: #a0a0a0;
+    --dark-accent: #0096ff;
+    --dark-accent-hover: #0077cc;
     --dark-border: #424242;
-    --dark-success: #66BB6A;
-    --dark-error: #EF5350;
+    --dark-success: #66bb6a;
+    --dark-error: #ef5350;
 
     /* Typography - Font Family */
-    --font-body: 'Inter', 'Roboto', sans-serif; /* Или 'Nunito', sans-serif; */
+    --font-body: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 
     /* Typography - Line Height */
     --line-height-body: 1.6;
@@ -33,42 +33,43 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
 
-    /* Typography - H1 */
-    --h1-desktop: 4.8rem;
-    --h1-tablet: 3.8rem;
+    /* Typography */
     --h1-mobile: 3.2rem;
+    --h1-tablet: 3.8rem;
+    --h1-desktop: 4.8rem;
+    --h1-letter-spacing-mobile: -0.01em;
+    --h1-letter-spacing-tablet: -0.02em;
     --h1-letter-spacing-desktop: -0.02em;
-    --h1-letter-spacing-tablet-mobile: -0.01em;
 
-    /* Typography - H2 */
-    --h2-desktop: 3.6rem;
-    --h2-tablet: 3.0rem;
+    /* H2 Headings */
     --h2-mobile: 2.6rem;
+    --h2-tablet: 3rem;
+    --h2-desktop: 3.6rem;
 
-    /* Typography - H3 */
-    --h3-desktop: 2.8rem;
-    --h3-tablet: 2.4rem;
+    /* H3 Headings */
     --h3-mobile: 2.2rem;
+    --h3-tablet: 2.4rem;
+    --h3-desktop: 2.8rem;
 
-    /* Typography - H4 */
-    --h4-desktop: 2.2rem;
-    --h4-tablet: 2.0rem;
+    /* H4 Headings */
     --h4-mobile: 1.8rem;
+    --h4-tablet: 2rem;
+    --h4-desktop: 2.2rem;
 
-    /* Typography - Card Title */
-    --card-title-desktop: 1.8rem;
-    --card-title-tablet: 1.6rem;
+    /* Card Typography */
     --card-title-mobile: 1.6rem;
+    --card-title-tablet: 1.6rem;
+    --card-title-desktop: 1.8rem;
 
-    /* Typography - Card Description */
-    --card-description-desktop: 1.6rem;
-    --card-description-tablet: 1.4rem;
+    /* Card Descriptions */
     --card-description-mobile: 1.4rem;
+    --card-description-tablet: 1.4rem;
+    --card-description-desktop: 1.6rem;
 
-    /* Typography - Card Meta */
-    --card-meta-desktop: 1.4rem;
-    --card-meta-tablet: 1.2rem;
+    /* Card Meta */
     --card-meta-mobile: 1.2rem;
+    --card-meta-tablet: 1.2rem;
+    --card-meta-desktop: 1.4rem;
 
     /* Border Radius */
     --radius-card: 0.8rem;
@@ -76,7 +77,7 @@
     --radius-input: 0.6rem;
     --radius-small: 0.4rem;
 
-    /* Spacing - Padding - Buttons */
+    /* Spacing */
     --padding-button-sm-y: 0.8rem;
     --padding-button-sm-x: 1.6rem;
     --padding-button-md-y: 1.2rem;
@@ -84,36 +85,38 @@
     --padding-button-lg-y: 1.6rem;
     --padding-button-lg-x: 3.2rem;
 
-    /* Spacing - Padding - Cards */
+    /* Card Padding */
     --padding-card-mobile: 1.6rem;
     --padding-card-tablet: 2.4rem;
-    --padding-card-desktop: 2.4rem; /* or 3.2rem */
+    --padding-card-desktop: 2.4rem;
 
-    /* Spacing - Padding - Inputs */
+    /* Input Padding */
     --padding-input-y: 1.2rem;
     --padding-input-x: 1.6rem;
 
-    /* Spacing - Padding - Modals */
+    /* Modal Padding */
     --padding-modal-y: 2.4rem;
     --padding-modal-x: 3.2rem;
 
-    /* Spacing - Margin/Gap */
-    --margin-gap-base: 1.6rem; /* For form elements, text-heading spacing */
+    /* Margin/Gap */
+    --margin-gap-base: 1.6rem;
     --margin-gap-section-mobile: 4.8rem;
     --margin-gap-section-tablet: 6.4rem;
-    --margin-gap-section-desktop: 8.0rem;
+    --margin-gap-section-desktop: 8rem;
     --gap-card-mobile: 1.6rem;
     --gap-card-desktop: 2.4rem;
 
     /* Layout - Breakpoints */
     --breakpoint-tablet: 768px;
-    --breakpoint-desktop: 1024px;
-    --breakpoint-large-screen: 1440px;
+    --breakpoint-laptop: 1024px;
+    --breakpoint-desktop: 1440px;
 
     /* Layout - Container */
-    --container-max-width: 128rem; /* 1280px */
-    --container-padding-x: 2.4rem;
-    
+    --container-max-width: 128rem;
+    --container-padding-x-mobile: 1.6rem;
+    --container-padding-x-tablet: 2.4rem;
+    --container-padding-x-desktop: 4.6rem;
+
     /* Default theme (light) */
     --bg-primary: var(--light-bg-primary);
     --bg-secondary: var(--light-bg-secondary);
@@ -124,10 +127,10 @@
     --border: var(--light-border);
     --success: var(--light-success);
     --error: var(--light-error);
-    
+
     /* General variables for easy use */
     --content-max-width: var(--container-max-width);
-    --content-padding-x: var(--container-padding-x);
+    --content-padding-x: var(--container-padding-x-mobile);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -141,6 +144,20 @@
         --border: var(--dark-border);
         --success: var(--dark-success);
         --error: var(--dark-error);
+    }
+}
+
+/* Tablet and up */
+@media (width >= 768px) {
+    :root {
+        --content-padding-x: var(--container-padding-x-tablet);
+    }
+}
+
+/* Desktop and up */
+@media (width >= 1024px) {
+    :root {
+        --content-padding-x: var(--container-padding-x-desktop);
     }
 }
 

@@ -9,58 +9,57 @@ body {
 
 /* Heading Classes */
 .h1 {
-    font-size: var(--h1-desktop);
+    font-size: var(--h1-mobile);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-heading);
-    letter-spacing: var(--h1-letter-spacing-desktop);
+    letter-spacing: var(--h1-letter-spacing-mobile);
 }
 
 .h2 {
-    font-size: var(--h2-desktop);
+    font-size: var(--h2-mobile);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-heading);
 }
 
 .h3 {
-    font-size: var(--h3-desktop);
+    font-size: var(--h3-mobile);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-heading);
 }
 
 .h4 {
-    font-size: var(--h4-desktop);
+    font-size: var(--h4-mobile);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-heading);
 }
 
 /* Card Typography Classes */
 .card-title {
-    font-size: var(--card-title-desktop);
+    font-size: var(--card-title-mobile);
     font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-heading); /* Can be adjusted if needed */
+    line-height: var(--line-height-heading);
     color: var(--text-primary);
 }
 
 .card-description {
-    font-size: var(--card-description-desktop);
+    font-size: var(--card-description-mobile);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
     color: var(--text-secondary);
 }
 
 .card-meta {
-    font-size: var(--card-meta-desktop);
+    font-size: var(--card-meta-mobile);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
     color: var(--text-secondary);
 }
 
-/* Responsive adjustments using media queries */
-@media (width <= 1024px) {
-    /* Tablet breakpoint */
+/* Tablet and up */
+@media (width >= 768px) {
     .h1 {
         font-size: var(--h1-tablet);
-        letter-spacing: var(--h1-letter-spacing-tablet-mobile);
+        letter-spacing: var(--h1-letter-spacing-tablet);
     }
 
     .h2 {
@@ -88,33 +87,34 @@ body {
     }
 }
 
-@media (width <= 767px) {
-    /* Mobile breakpoint */
+/* Desktop and up */
+@media (width >= 1024px) {
     .h1 {
-        font-size: var(--h1-mobile);
+        font-size: var(--h1-desktop);
+        letter-spacing: var(--h1-letter-spacing-desktop);
     }
 
     .h2 {
-        font-size: var(--h2-mobile);
+        font-size: var(--h2-desktop);
     }
 
     .h3 {
-        font-size: var(--h3-mobile);
+        font-size: var(--h3-desktop);
     }
 
     .h4 {
-        font-size: var(--h4-mobile);
+        font-size: var(--h4-desktop);
     }
 
     .card-title {
-        font-size: var(--card-title-mobile);
+        font-size: var(--card-title-desktop);
     }
 
     .card-description {
-        font-size: var(--card-description-mobile);
+        font-size: var(--card-description-desktop);
     }
 
     .card-meta {
-        font-size: var(--card-meta-mobile);
+        font-size: var(--card-meta-desktop);
     }
 }
