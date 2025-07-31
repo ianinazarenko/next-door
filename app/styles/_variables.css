@@ -1,0 +1,171 @@
+:root {
+    /* Colors - Light Theme */
+    --light-bg-primary: #F8F8F8;
+    --light-bg-secondary: #FFFFFF;
+    --light-text-primary: #212121;
+    --light-text-secondary: #757575;
+    --light-accent: #0070F3;
+    --light-accent-hover: #005BC4;
+    --light-border: #E0E0E0;
+    --light-success: #4CAF50;
+    --light-error: #F44336;
+
+    /* Colors - Dark Theme */
+    --dark-bg-primary: #1A1A1A;
+    --dark-bg-secondary: #2B2B2B;
+    --dark-text-primary: #E0E0E0;
+    --dark-text-secondary: #A0A0A0;
+    --dark-accent: #0096FF;
+    --dark-accent-hover: #0077CC;
+    --dark-border: #424242;
+    --dark-success: #66BB6A;
+    --dark-error: #EF5350;
+
+    /* Typography - Font Family */
+    --font-body: 'Inter', 'Roboto', sans-serif; /* Или 'Nunito', sans-serif; */
+
+    /* Typography - Line Height */
+    --line-height-body: 1.6;
+    --line-height-heading: 1.3;
+
+    /* Typography - Font Weights */
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Typography - H1 */
+    --h1-desktop: 4.8rem;
+    --h1-tablet: 3.8rem;
+    --h1-mobile: 3.2rem;
+    --h1-letter-spacing-desktop: -0.02em;
+    --h1-letter-spacing-tablet-mobile: -0.01em;
+
+    /* Typography - H2 */
+    --h2-desktop: 3.6rem;
+    --h2-tablet: 3.0rem;
+    --h2-mobile: 2.6rem;
+
+    /* Typography - H3 */
+    --h3-desktop: 2.8rem;
+    --h3-tablet: 2.4rem;
+    --h3-mobile: 2.2rem;
+
+    /* Typography - H4 */
+    --h4-desktop: 2.2rem;
+    --h4-tablet: 2.0rem;
+    --h4-mobile: 1.8rem;
+
+    /* Typography - Card Title */
+    --card-title-desktop: 1.8rem;
+    --card-title-tablet: 1.6rem;
+    --card-title-mobile: 1.6rem;
+
+    /* Typography - Card Description */
+    --card-description-desktop: 1.6rem;
+    --card-description-tablet: 1.4rem;
+    --card-description-mobile: 1.4rem;
+
+    /* Typography - Card Meta */
+    --card-meta-desktop: 1.4rem;
+    --card-meta-tablet: 1.2rem;
+    --card-meta-mobile: 1.2rem;
+
+    /* Border Radius */
+    --radius-card: 0.8rem;
+    --radius-button: 0.6rem;
+    --radius-input: 0.6rem;
+    --radius-small: 0.4rem;
+
+    /* Spacing - Padding - Buttons */
+    --padding-button-sm-y: 0.8rem;
+    --padding-button-sm-x: 1.6rem;
+    --padding-button-md-y: 1.2rem;
+    --padding-button-md-x: 2.4rem;
+    --padding-button-lg-y: 1.6rem;
+    --padding-button-lg-x: 3.2rem;
+
+    /* Spacing - Padding - Cards */
+    --padding-card-mobile: 1.6rem;
+    --padding-card-tablet: 2.4rem;
+    --padding-card-desktop: 2.4rem; /* or 3.2rem */
+
+    /* Spacing - Padding - Inputs */
+    --padding-input-y: 1.2rem;
+    --padding-input-x: 1.6rem;
+
+    /* Spacing - Padding - Modals */
+    --padding-modal-y: 2.4rem;
+    --padding-modal-x: 3.2rem;
+
+    /* Spacing - Margin/Gap */
+    --margin-gap-base: 1.6rem; /* For form elements, text-heading spacing */
+    --margin-gap-section-mobile: 4.8rem;
+    --margin-gap-section-tablet: 6.4rem;
+    --margin-gap-section-desktop: 8.0rem;
+    --gap-card-mobile: 1.6rem;
+    --gap-card-desktop: 2.4rem;
+
+    /* Layout - Breakpoints */
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+    --breakpoint-large-screen: 1440px;
+
+    /* Layout - Container */
+    --container-max-width: 128rem; /* 1280px */
+    --container-padding-x: 2.4rem;
+    
+    /* Default theme (light) */
+    --bg-primary: var(--light-bg-primary);
+    --bg-secondary: var(--light-bg-secondary);
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+    --accent: var(--light-accent);
+    --accent-hover: var(--light-accent-hover);
+    --border: var(--light-border);
+    --success: var(--light-success);
+    --error: var(--light-error);
+    
+    /* General variables for easy use */
+    --content-max-width: var(--container-max-width);
+    --content-padding-x: var(--container-padding-x);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: var(--dark-bg-primary);
+        --bg-secondary: var(--dark-bg-secondary);
+        --text-primary: var(--dark-text-primary);
+        --text-secondary: var(--dark-text-secondary);
+        --accent: var(--dark-accent);
+        --accent-hover: var(--dark-accent-hover);
+        --border: var(--dark-border);
+        --success: var(--dark-success);
+        --error: var(--dark-error);
+    }
+}
+
+/* Явный выбор пользователя - темная тема */
+[data-theme='dark'] {
+    --bg-primary: var(--dark-bg-primary);
+    --bg-secondary: var(--dark-bg-secondary);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --accent: var(--dark-accent);
+    --accent-hover: var(--dark-accent-hover);
+    --border: var(--dark-border);
+    --success: var(--dark-success);
+    --error: var(--dark-error);
+}
+
+/* Явный выбор пользователя - светлая тема */
+[data-theme='light'] {
+    --bg-primary: var(--light-bg-primary);
+    --bg-secondary: var(--light-bg-secondary);
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+    --accent: var(--light-accent);
+    --accent-hover: var(--light-accent-hover);
+    --border: var(--light-border);
+    --success: var(--light-success);
+    --error: var(--light-error);
+}

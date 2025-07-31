@@ -1,0 +1,120 @@
+@import url('./_variables.css');
+
+/* Base Typography */
+body {
+    font-family: var(--font-body);
+    line-height: var(--line-height-body);
+    color: var(--text-primary);
+}
+
+/* Heading Classes */
+.h1 {
+    font-size: var(--h1-desktop);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--h1-letter-spacing-desktop);
+}
+
+.h2 {
+    font-size: var(--h2-desktop);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading);
+}
+
+.h3 {
+    font-size: var(--h3-desktop);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+}
+
+.h4 {
+    font-size: var(--h4-desktop);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+}
+
+/* Card Typography Classes */
+.card-title {
+    font-size: var(--card-title-desktop);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading); /* Can be adjusted if needed */
+    color: var(--text-primary);
+}
+
+.card-description {
+    font-size: var(--card-description-desktop);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+    color: var(--text-secondary);
+}
+
+.card-meta {
+    font-size: var(--card-meta-desktop);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+    color: var(--text-secondary);
+}
+
+/* Responsive adjustments using media queries */
+@media (width <= 1024px) {
+    /* Tablet breakpoint */
+    .h1 {
+        font-size: var(--h1-tablet);
+        letter-spacing: var(--h1-letter-spacing-tablet-mobile);
+    }
+
+    .h2 {
+        font-size: var(--h2-tablet);
+    }
+
+    .h3 {
+        font-size: var(--h3-tablet);
+    }
+
+    .h4 {
+        font-size: var(--h4-tablet);
+    }
+
+    .card-title {
+        font-size: var(--card-title-tablet);
+    }
+
+    .card-description {
+        font-size: var(--card-description-tablet);
+    }
+
+    .card-meta {
+        font-size: var(--card-meta-tablet);
+    }
+}
+
+@media (width <= 767px) {
+    /* Mobile breakpoint */
+    .h1 {
+        font-size: var(--h1-mobile);
+    }
+
+    .h2 {
+        font-size: var(--h2-mobile);
+    }
+
+    .h3 {
+        font-size: var(--h3-mobile);
+    }
+
+    .h4 {
+        font-size: var(--h4-mobile);
+    }
+
+    .card-title {
+        font-size: var(--card-title-mobile);
+    }
+
+    .card-description {
+        font-size: var(--card-description-mobile);
+    }
+
+    .card-meta {
+        font-size: var(--card-meta-mobile);
+    }
+}

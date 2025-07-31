@@ -1,0 +1,73 @@
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    font-size: 5.2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.05em;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 2em 0;
+    text-transform: uppercase;
+    font-weight: 900;
+    line-height: 1.5;
+    letter-spacing: 0.35em;
+}
+
+h2 {
+    font-size: 4.2rem;
+}
+
+h3 {
+    font-size: 3.6rem;
+}
+
+h4 {
+    font-size: 3rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 0 4.6rem;
+}
+
+.page {
+    min-height: calc(100vh - 6.4rem);
+}
+
+.iconButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 0.8rem;
+    border: 2px solid var(--text);
+    background-color: transparent;
+    color: var(--text);
+    transition:
+        border-color var(--trs),
+        color var(--trs);
+    cursor: pointer;
+}
+
+.iconButton:hover {
+    border-color: var(--accent1);
+    color: var(--accent1);
+}
