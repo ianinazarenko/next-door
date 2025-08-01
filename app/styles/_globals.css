@@ -1,3 +1,10 @@
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+    min-height: 1vw;
+    font-size: 10px;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;
@@ -18,7 +25,8 @@ a {
 }
 
 .page {
-    min-height: calc(100vh - 6.4rem);
+    min-height: calc(100dvh - 6.4rem);
+    padding-top: var(--margin-gap-section-mobile);
 }
 
 /* Tablet and up */
@@ -26,11 +34,19 @@ a {
     .container {
         padding: 0 2.4rem;
     }
+
+    .page {
+        padding-top: var(--margin-gap-section-tablet);
+    }
 }
 
 /* Desktop and up */
 @media (width >= 1024px) {
     .container {
         padding: 0 4.6rem;
+    }
+
+    .page {
+        padding-top: var(--margin-gap-section-desktop);
     }
 }

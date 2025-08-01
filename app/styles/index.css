@@ -1,5 +1,5 @@
 @import url('tailwindcss');
-@import url('_variables.css');
-@import url('_typography.css');
 @import url('_base.css');
+@import url('_variables.css');
 @import url('_globals.css');
+@import url('_typography.css');
