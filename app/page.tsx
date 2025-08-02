@@ -1,5 +1,4 @@
 // import Image from 'next/image';
-import { Tab, TabGroup, TabList } from '@headlessui/react';
 
 export default function Home() {
     return (
