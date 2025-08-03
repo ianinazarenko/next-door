@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import './styles/index.css';
 
-import ReduxProvider from '@/lib/providers/ReduxProvider';
+import AppProviders from '@/lib/providers/AppProviders';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -25,9 +25,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${inter.className} antialiased`}>
-                <ReduxProvider>
+                <AppProviders>
                     <main>{children}</main>
-                </ReduxProvider>
+                </AppProviders>
             </body>
         </html>
     );
