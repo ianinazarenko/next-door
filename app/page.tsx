@@ -1,6 +1,7 @@
 // import Image from 'next/image';
 
 import CurrentComplexTemp from '@/app/components/temp/CurrentComplexTemp';
+import ThemeToggleTemp from '@/app/components/temp/ThemeToggleTemp';
 
 export default function Home() {
     return (
@@ -9,6 +10,8 @@ export default function Home() {
                 <h1 className={'h1'}>hello world!</h1>
 
                 <CurrentComplexTemp />
+
+                <ThemeToggleTemp />
             </div>
         </div>
     );
