@@ -17,9 +17,9 @@ a {
 }
 
 /* Container */
-.container {
+.c-container {
     width: 100%;
-    max-width: 120rem;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 1.6rem;
 }
@@ -31,7 +31,7 @@ a {
 
 /* Tablet and up */
 @media (width >= 768px) {
-    .container {
+    .c-container {
         padding: 0 2.4rem;
     }
 
@@ -40,13 +40,20 @@ a {
     }
 }
 
-/* Desktop and up */
+/* Laptop and up */
 @media (width >= 1024px) {
-    .container {
+    .c-container {
         padding: 0 4.6rem;
     }
 
     .page {
         padding-top: var(--margin-gap-section-desktop);
+    }
+}
+
+/* Desktop and up */
+@media (width >= 1280px) {
+    .c-container {
+        max-width: var(--container-max-width);
     }
 }
