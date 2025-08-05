@@ -5,6 +5,7 @@ import './globals.css';
 import './styles/index.css';
 
 import AppProviders from '@/lib/providers/AppProviders';
+import TheHeader from '@/app/components/common/header/TheHeader';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -26,6 +27,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${inter.className} antialiased`}>
                 <AppProviders>
+                    <TheHeader />
                     <main>{children}</main>
                 </AppProviders>
             </body>

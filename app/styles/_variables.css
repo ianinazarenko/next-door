@@ -1,7 +1,7 @@
 :root {
     /* Colors - Light Theme */
-    --light-bg-primary: #f8f8f8;
-    --light-bg-secondary: #ffffff;
+    --light-bg-primary: #f9f9f9;
+    --light-bg-secondary: #f0f0f4;
     --light-text-primary: #212121;
     --light-text-secondary: #757575;
     --light-accent: #0070f3;
@@ -76,6 +76,11 @@
     --radius-button: 0.6rem;
     --radius-input: 0.6rem;
     --radius-small: 0.4rem;
+
+    /* Button Sizes */
+    --button-sm-height: 3.2rem;
+    --button-md-height: 4rem;
+    --button-lg-height: 4.8rem;
 
     /* Spacing */
     --padding-button-sm-y: 0.8rem;

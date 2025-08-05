@@ -1,7 +1,5 @@
 :where(*) {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 html {
@@ -108,8 +106,6 @@ time,
 mark,
 audio,
 video {
-    margin: 0;
-    padding: 0;
     border: 0;
     vertical-align: baseline;
     font: inherit;
@@ -165,4 +161,12 @@ input,
 select,
 textarea {
     appearance: none;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+    cursor: pointer;
 }

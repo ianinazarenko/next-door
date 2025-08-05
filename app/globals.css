@@ -1,2 +1,27 @@
-/* stylelint-disable-next-line */
+/* stylelint-disable */
 @import 'tailwindcss';
+
+@theme {
+    --spacing: 0.4rem;
+    --breakpoint-ul: 90rem; /* 1440px */
+}
+/* stylelint-enable */
+
+/*
+Temp comment to switch from desktop-first to mobile-first
+$breakpoints: (
+    mobile: 767px,    // width < 768
+    tablet: 1023px,   // width < 1024
+    laptop: 1279px,   // width < 1280
+    desktop: 1439px,  // width < 1440
+    ultra: 1919px     // width < 1920
+);
+
+$breakpoints: (
+  md: 768px, // width >= 768, tablet
+  lg: 1024px, // width >= 1024, laptop
+  xl: 1280px, // width >= 1280, desktop
+  ul: 1440px, // width >= 1440, ultra
+  '2xl': 1536px, // width >= 1536
+);
+*/
