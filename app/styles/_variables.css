@@ -1,4 +1,11 @@
 :root {
+    /*
+        For 5 variants: xs, sm, md, lg, xl
+        For 3 variants: mob, tab, desk
+        For 3 colors: primary, secondary, tertiary
+        For 2 themes: light, dark
+    */
+
     /* Colors - Light Theme */
     --light-bg-primary: #f9f9f9;
     --light-bg-secondary: #f0f0f4;
@@ -34,93 +41,90 @@
     --font-weight-bold: 700;
 
     /* Typography */
-    --h1-mobile: 3.2rem;
-    --h1-tablet: 3.8rem;
-    --h1-desktop: 4.8rem;
-    --h1-letter-spacing-mobile: -0.01em;
-    --h1-letter-spacing-tablet: -0.02em;
-    --h1-letter-spacing-desktop: -0.02em;
+    --h1-mob: 3.2rem;
+    --h1-tab: 3.8rem;
+    --h1-desk: 4.8rem;
+    --h1-letter-spacing-mob: -0.01em;
+    --h1-letter-spacing-tab: -0.02em;
+    --h1-letter-spacing-desk: -0.02em;
 
     /* H2 Headings */
-    --h2-mobile: 2.6rem;
-    --h2-tablet: 3rem;
-    --h2-desktop: 3.6rem;
+    --h2-mob: 2.6rem;
+    --h2-tab: 3rem;
+    --h2-desk: 3.6rem;
 
     /* H3 Headings */
-    --h3-mobile: 2.2rem;
-    --h3-tablet: 2.4rem;
-    --h3-desktop: 2.8rem;
+    --h3-mob: 2.2rem;
+    --h3-tab: 2.4rem;
+    --h3-desk: 2.8rem;
 
     /* H4 Headings */
-    --h4-mobile: 1.8rem;
-    --h4-tablet: 2rem;
-    --h4-desktop: 2.2rem;
+    --h4-mob: 1.8rem;
+    --h4-tab: 2rem;
+    --h4-desk: 2.2rem;
 
-    /* Card Typography */
-    --card-title-mobile: 1.6rem;
-    --card-title-tablet: 1.6rem;
-    --card-title-desktop: 1.8rem;
+    /* Card Title Font Size */
+    --card-title-mob: 1.6rem;
+    --card-title-tab: 1.6rem;
+    --card-title-desk: 1.8rem;
 
-    /* Card Descriptions */
-    --card-description-mobile: 1.4rem;
-    --card-description-tablet: 1.4rem;
-    --card-description-desktop: 1.6rem;
+    /* Card Descriptions Font Size */
+    --card-description-mob: 1.4rem;
+    --card-description-tab: 1.4rem;
+    --card-description-desk: 1.6rem;
 
-    /* Card Meta */
-    --card-meta-mobile: 1.2rem;
-    --card-meta-tablet: 1.2rem;
-    --card-meta-desktop: 1.4rem;
+    /* Card Meta Font Size */
+    --card-meta-mob: 1.2rem;
+    --card-meta-tab: 1.2rem;
+    --card-meta-desk: 1.4rem;
 
     /* Border Radius */
     --radius-card: 0.8rem;
-    --radius-button: 0.6rem;
+    --radius-btn: 0.6rem;
     --radius-input: 0.6rem;
     --radius-small: 0.4rem;
 
-    /* Button Sizes */
-    --button-sm-height: 3.2rem;
-    --button-md-height: 4rem;
-    --button-lg-height: 4.8rem;
+    /* Buttons Sizes */
+    --btn-mob-height: 3.2rem;
+    --btn-tab-height: 4rem;
+    --btn-desk-height: 4.8rem;
 
     /* Spacing */
-    --padding-button-sm-y: 0.8rem;
-    --padding-button-sm-x: 1.6rem;
-    --padding-button-md-y: 1.2rem;
-    --padding-button-md-x: 2.4rem;
-    --padding-button-lg-y: 1.6rem;
-    --padding-button-lg-x: 3.2rem;
+    --p-xs: 0.8rem;
+    --p-sm: 1.6rem;
+    --p-md: 2.4rem;
+    --p-lg: 3.2rem;
+    --p-xl: 4rem;
+
+    /* Buttons Spacing */
+    --p-btn-m: 1.2rem;
+    --p-btn-t: 1.6rem;
+    --p-btn-d: 3.2rem;
 
     /* Card Padding */
-    --padding-card-mobile: 1.6rem;
-    --padding-card-tablet: 2.4rem;
-    --padding-card-desktop: 2.4rem;
+    --p-card-mob: 1.6rem;
+    --p-card-tab: 2.4rem;
+    --p-card-desk: 2.4rem;
 
     /* Input Padding */
-    --padding-input-y: 1.2rem;
-    --padding-input-x: 1.6rem;
-
-    /* Modal Padding */
-    --padding-modal-y: 2.4rem;
-    --padding-modal-x: 3.2rem;
+    --p-input-y: 1.2rem;
+    --p-input-x: 1.6rem;
 
     /* Margin/Gap */
     --margin-gap-base: 1.6rem;
-    --margin-gap-section-mobile: 4.8rem;
-    --margin-gap-section-tablet: 6.4rem;
-    --margin-gap-section-desktop: 8rem;
-    --gap-card-mobile: 1.6rem;
-    --gap-card-desktop: 2.4rem;
+    --margin-gap-section-mob: 4.8rem;
+    --margin-gap-section-tab: 6.4rem;
+    --margin-gap-section-desk: 8rem;
+    --gap-card-mob: 1.6rem;
+    --gap-card-desk: 2.4rem;
 
     /* Layout - Breakpoints */
-    --breakpoint-tablet: 768px;
+    --breakpoint-tab: 768px;
     --breakpoint-laptop: 1024px;
-    --breakpoint-desktop: 1440px;
+    --breakpoint-desk: 1440px;
 
     /* Layout - Container */
     --container-max-width: 128rem;
-    --container-padding-x-mobile: 1.6rem;
-    --container-padding-x-tablet: 2.4rem;
-    --container-padding-x-desktop: 4.6rem;
 
     /* Default theme (light) */
     --bg-primary: var(--light-bg-primary);
@@ -135,7 +139,8 @@
 
     /* General variables for easy use */
     --content-max-width: var(--container-max-width);
-    --content-padding-x: var(--container-padding-x-mobile);
+    --content-p: var(--p-sm);
+    --margin-gap-seciton: var(--margin-gap-section-mob);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -152,17 +157,19 @@
     }
 }
 
-/* Tablet and up */
+/* tab and up */
 @media (width >= 768px) {
     :root {
-        --content-padding-x: var(--container-padding-x-tablet);
+        --content-p: var(--p-md);
+        --margin-gap-seciton: var(--margin-gap-section-tab);
     }
 }
 
-/* Desktop and up */
+/* desk and up */
 @media (width >= 1024px) {
     :root {
-        --content-padding-x: var(--container-padding-x-desktop);
+        --content-p: var(--p-xl);
+        --margin-gap-seciton: var(--margin-gap-section-desk);
     }
 }
 

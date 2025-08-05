@@ -9,47 +9,47 @@ body {
 
 /* Heading Classes */
 .h1 {
-    font-size: var(--h1-mobile);
+    font-size: var(--h1-mob);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-heading);
-    letter-spacing: var(--h1-letter-spacing-mobile);
+    letter-spacing: var(--h1-letter-spacing-mob);
 }
 
 .h2 {
-    font-size: var(--h2-mobile);
+    font-size: var(--h2-mob);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-heading);
 }
 
 .h3 {
-    font-size: var(--h3-mobile);
+    font-size: var(--h3-mob);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-heading);
 }
 
 .h4 {
-    font-size: var(--h4-mobile);
+    font-size: var(--h4-mob);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-heading);
 }
 
 /* Card Typography Classes */
 .card-title {
-    font-size: var(--card-title-mobile);
+    font-size: var(--card-title-mob);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-heading);
     color: var(--text-primary);
 }
 
 .card-description {
-    font-size: var(--card-description-mobile);
+    font-size: var(--card-description-mob);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
     color: var(--text-secondary);
 }
 
 .card-meta {
-    font-size: var(--card-meta-mobile);
+    font-size: var(--card-meta-mob);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
     color: var(--text-secondary);
@@ -58,63 +58,63 @@ body {
 /* Tablet and up */
 @media (width >= 768px) {
     .h1 {
-        font-size: var(--h1-tablet);
-        letter-spacing: var(--h1-letter-spacing-tablet);
+        font-size: var(--h1-tab);
+        letter-spacing: var(--h1-letter-spacing-tab);
     }
 
     .h2 {
-        font-size: var(--h2-tablet);
+        font-size: var(--h2-tab);
     }
 
     .h3 {
-        font-size: var(--h3-tablet);
+        font-size: var(--h3-tab);
     }
 
     .h4 {
-        font-size: var(--h4-tablet);
+        font-size: var(--h4-tab);
     }
 
     .card-title {
-        font-size: var(--card-title-tablet);
+        font-size: var(--card-title-tab);
     }
 
     .card-description {
-        font-size: var(--card-description-tablet);
+        font-size: var(--card-description-tab);
     }
 
     .card-meta {
-        font-size: var(--card-meta-tablet);
+        font-size: var(--card-meta-tab);
     }
 }
 
 /* Desktop and up */
 @media (width >= 1024px) {
     .h1 {
-        font-size: var(--h1-desktop);
-        letter-spacing: var(--h1-letter-spacing-desktop);
+        font-size: var(--h1-desk);
+        letter-spacing: var(--h1-letter-spacing-desk);
     }
 
     .h2 {
-        font-size: var(--h2-desktop);
+        font-size: var(--h2-desk);
     }
 
     .h3 {
-        font-size: var(--h3-desktop);
+        font-size: var(--h3-desk);
     }
 
     .h4 {
-        font-size: var(--h4-desktop);
+        font-size: var(--h4-desk);
     }
 
     .card-title {
-        font-size: var(--card-title-desktop);
+        font-size: var(--card-title-desk);
     }
 
     .card-description {
-        font-size: var(--card-description-desktop);
+        font-size: var(--card-description-desk);
     }
 
     .card-meta {
-        font-size: var(--card-meta-desktop);
+        font-size: var(--card-meta-desk);
     }
 }

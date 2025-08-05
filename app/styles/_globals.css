@@ -21,12 +21,12 @@ a {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 1.6rem;
+    padding: 0 var(--content-p);
 }
 
 .page {
     min-height: calc(100dvh - 6.4rem);
-    padding-top: var(--margin-gap-section-mobile);
+    padding-top: var(--margin-gap-section-mob);
 }
 
 /* Tablet and up */
@@ -36,7 +36,7 @@ a {
     }
 
     .page {
-        padding-top: var(--margin-gap-section-tablet);
+        padding-top: var(--margin-gap-section-tab);
     }
 }
 
@@ -47,7 +47,7 @@ a {
     }
 
     .page {
-        padding-top: var(--margin-gap-section-desktop);
+        padding-top: var(--margin-gap-section-desk);
     }
 }
 
