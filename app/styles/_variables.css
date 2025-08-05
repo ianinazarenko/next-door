@@ -72,6 +72,7 @@
     --card-description-mob: 1.4rem;
     --card-description-tab: 1.4rem;
     --card-description-desk: 1.6rem;
+    --input-text: 1.6rem;
 
     /* Card Meta Font Size */
     --card-meta-mob: 1.2rem;
@@ -85,9 +86,9 @@
     --radius-small: 0.4rem;
 
     /* Buttons Sizes */
-    --btn-mob-height: 3.2rem;
-    --btn-tab-height: 4rem;
-    --btn-desk-height: 4.8rem;
+    --btn-height-mob: 3.2rem;
+    --btn-height-tab: 4rem;
+    --btn-height-desk: 4rem;
 
     /* Spacing */
     --p-xs: 0.8rem;
@@ -97,9 +98,9 @@
     --p-xl: 4rem;
 
     /* Buttons Spacing */
-    --p-btn-m: 1.2rem;
-    --p-btn-t: 1.6rem;
-    --p-btn-d: 3.2rem;
+    --p-btn-mob: 1.2rem;
+    --p-btn-tab: 1.6rem;
+    --p-btn-desk: 3.2rem;
 
     /* Card Padding */
     --p-card-mob: 1.6rem;
@@ -107,7 +108,7 @@
     --p-card-desk: 2.4rem;
 
     /* Input Padding */
-    --p-input-y: 1.2rem;
+    --p-input-y: 0.8rem;
     --p-input-x: 1.6rem;
 
     /* Margin/Gap */
@@ -141,6 +142,8 @@
     --content-max-width: var(--container-max-width);
     --content-p: var(--p-sm);
     --margin-gap-seciton: var(--margin-gap-section-mob);
+    --p-btn: var(--p-btn-mob);
+    --btn-height: var(--btn-height-mob);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -162,6 +165,8 @@
     :root {
         --content-p: var(--p-md);
         --margin-gap-seciton: var(--margin-gap-section-tab);
+        --p-btn: var(--p-btn-tab);
+        --btn-height: var(--btn-height-tab);
     }
 }
 
@@ -170,6 +175,8 @@
     :root {
         --content-p: var(--p-xl);
         --margin-gap-seciton: var(--margin-gap-section-desk);
+        --p-btn: var(--p-btn-desk);
+        --btn-height: var(--btn-height-desk);
     }
 }
 
