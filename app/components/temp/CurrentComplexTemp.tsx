@@ -3,6 +3,7 @@
 import { AppDispatch, RootState } from '@/lib/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedComplex } from '@/lib/store/slices/complexSlice';
+import CButton from '@/app/components/ui/CButton';
 
 function CurrentComplexTemp(): React.ReactNode {
     const selectedComplex = useSelector((state: RootState) => state.complex.selectedComplex);
@@ -15,14 +16,9 @@ function CurrentComplexTemp(): React.ReactNode {
 
     return (
         <>
-            <p className={'card-meta'}>Current Complex: {selectedComplex ?? 'not selected'}</p>
-            <button
-                onClick={onClick}
-                type="button"
-                className={'btn btn-primary'}
-            >
-                Select complex
-            </button>
+            <p className={'card-meta mt-4 mb-3'}>Current Complex: {selectedComplex ?? 'not selected'}</p>
+
+            <CButton onClick={onClick}>Select complex</CButton>
         </>
     );
 }

@@ -16,17 +16,17 @@ function TempUIKit() {
     ];
 
     return (
-        <div>
-            <div className="py-(--p-md)">
+        <div className='max-w-2xl'>
+            <div className='py-(--p-md)'>
                 <CButton onClick={onClick}>Label</CButton>
             </div>
-            <div className="py-(--p-md)">
+            <div className='py-(--p-md)'>
                 <CInput
                     label={'Your name'}
                     description={'Use your real name so people will recognize you.'}
                 />
             </div>
-            <div className="py-(--p-md)">
+            <div className='py-(--p-md)'>
                 <CSelect
                     label={'Make your choice'}
                     description={'We currently only ship to North America.'}

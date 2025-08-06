@@ -35,7 +35,7 @@ function CSelect({ label, description, specs, name, ariaLabel }: ISelectProps) {
                     ))}
                 </Select>
                 <ChevronDown
-                    className='pointer-events-none absolute top-2.5 right-2.5 size-3 text-(--text-secondary)'
+                    className='pointer-events-none absolute top-4 right-4 size-3 text-(--text-secondary)'
                     aria-hidden='true'
                 />
             </div>
