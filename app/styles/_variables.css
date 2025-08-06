@@ -13,6 +13,7 @@
     --light-text-secondary: #757575;
     --light-accent: #0070f3;
     --light-accent-hover: #005bc4;
+    --light-accent-50: #cce3ff;
     --light-border: #e0e0e0;
     --light-success: #4caf50;
     --light-error: #f44336;
@@ -24,6 +25,7 @@
     --dark-text-secondary: #a0a0a0;
     --dark-accent: #0096ff;
     --dark-accent-hover: #0077cc;
+    --dark-accent-50: #1e3247;
     --dark-border: #424242;
     --dark-success: #66bb6a;
     --dark-error: #ef5350;
@@ -134,6 +136,7 @@
     --text-secondary: var(--light-text-secondary);
     --accent: var(--light-accent);
     --accent-hover: var(--light-accent-hover);
+    --accent-50: var(--light-accent-50);
     --border: var(--light-border);
     --success: var(--light-success);
     --error: var(--light-error);
@@ -154,6 +157,7 @@
         --text-secondary: var(--dark-text-secondary);
         --accent: var(--dark-accent);
         --accent-hover: var(--dark-accent-hover);
+        --accent-50: var(--dark-accent-50);
         --border: var(--dark-border);
         --success: var(--dark-success);
         --error: var(--dark-error);
@@ -188,6 +192,7 @@
     --text-secondary: var(--dark-text-secondary);
     --accent: var(--dark-accent);
     --accent-hover: var(--dark-accent-hover);
+    --accent-50: var(--dark-accent-50);
     --border: var(--dark-border);
     --success: var(--dark-success);
     --error: var(--dark-error);
@@ -201,6 +206,7 @@
     --text-secondary: var(--light-text-secondary);
     --accent: var(--light-accent);
     --accent-hover: var(--light-accent-hover);
+    --accent-50: var(--light-accent-50);
     --border: var(--light-border);
     --success: var(--light-success);
     --error: var(--light-error);
