@@ -15,8 +15,56 @@ datasource db {
 }
 
 model Post {
+  id         String    @id @default(cuid())
+  title      String
+  shortText  String
+  fullText   String
+  authorName String
+  phone      String?
+  whatsapp   String?
+  image      String?
+  deadline   DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  comments   Comment[]
+  complexId  String
+  complex    Complex   @relation(fields: [complexId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category  @relation(fields: [categoryId], references: [id])
+
+  @@index([categoryId])
+  @@index([complexId])
+}
+
+model Category {
+  id    String @id @default(cuid())
+  name  String
+  posts Post[]
+}
+
+model Complex {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  address     String?
+  metro       String?
+  description String?
+  timeToMetro Int?
+  posts       Post[]
+}
+
+// features    Features[]
+// infra       Infra[]
+// contacts    ComplexContacts[]
+
+model Comment {
   id        String   @id @default(cuid())
-  title     String
-  content   String
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    String // temp till there is no User
+  text      String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
 }
