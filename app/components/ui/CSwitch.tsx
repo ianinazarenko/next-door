@@ -5,7 +5,7 @@ interface ICSwitchProps {
     color?: 'accent' | 'success' | 'bg-secondary';
     bg: 'accent-50' | 'bg-secondary';
     children?: React.ReactNode;
-    checked: boolean | null;
+    checked: boolean;
     onChange: (checked: boolean) => void;
 }
 

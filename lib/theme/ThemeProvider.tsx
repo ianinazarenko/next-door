@@ -9,9 +9,9 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [systemTheme, setSystemTheme] = useState(DEFAULT_THEME);
 
     useEffect(() => {
-        const stored = (localStorage.getItem('theme') as ETheme) ?? ETheme.System;
         const mediaQuery = window.matchMedia(MEDIA_QUERY);
 
+        const stored = (localStorage.getItem('theme') as ETheme) ?? ETheme.System;
         const system = mediaQuery.matches ? ETheme.Dark : ETheme.Light;
         const applied = stored === ETheme.System ? ETheme.System : stored;
 
