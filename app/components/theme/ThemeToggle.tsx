@@ -6,7 +6,7 @@ import { ETheme } from '@/lib/theme/types';
 // Utils
 import clsx from 'clsx';
 // Hooks
-import { useTheme } from '@/lib/hooks/theme/useTheme';
+import { useTheme } from '@/utils/hooks/theme/useTheme';
 // Components
 import { SunMoon } from 'lucide-react';
 import ThemeSwitch from '@/app/components/theme/ThemeSwitch';

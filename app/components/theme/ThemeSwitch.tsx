@@ -3,7 +3,7 @@ import { ETheme } from '@/lib/theme/types';
 // Utils
 import clsx from 'clsx';
 // Hooks
-import { useTheme } from '@/lib/hooks/theme/useTheme';
+import { useTheme } from '@/utils/hooks/theme/useTheme';
 // Components
 import { Moon, Sun } from 'lucide-react';
 import CSwitch from '@/app/components/ui/CSwitch';
