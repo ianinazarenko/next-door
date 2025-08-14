@@ -6,6 +6,7 @@ import './styles/index.css';
 
 import AppProviders from '@/lib/providers/AppProviders';
 import TheHeader from '@/app/components/common/header/TheHeader';
+import TheMenuMob from '@/app/components/common/menu/TheMenuMob';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -24,11 +25,14 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang='en'>
             <body className={`${inter.className} antialiased`}>
                 <AppProviders>
                     <TheHeader />
+
                     <main>{children}</main>
+
+                    <TheMenuMob />
                 </AppProviders>
             </body>
         </html>
