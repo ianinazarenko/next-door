@@ -44,14 +44,14 @@ body {
 .card-description {
     font-size: var(--card-description-mob);
     font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-body);
+    line-height: var(--line-height-description);
     color: var(--text-secondary);
 }
 
 .card-meta {
     font-size: var(--card-meta-mob);
     font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-body);
+    line-height: var(--line-height-heading);
     color: var(--text-secondary);
 }
 
