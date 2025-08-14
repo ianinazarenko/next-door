@@ -15,6 +15,7 @@
     --light-accent-hover: #005bc4;
     --light-accent-50: #cce3ff;
     --light-border: #e0e0e0;
+    --light-semi-border: transparent;
     --light-success: #4caf50;
     --light-error: #f44336;
 
@@ -27,6 +28,7 @@
     --dark-accent-hover: #0077cc;
     --dark-accent-50: #1e3247;
     --dark-border: #424242;
+    --dark-semi-border: #424242;
     --dark-success: #66bb6a;
     --dark-error: #ef5350;
 
@@ -106,6 +108,14 @@
     --btn-height-tab: 4rem;
     --btn-height-desk: 4.4rem;
 
+    /* Menu Panel Heigh */
+    --panel-height: 8.6rem;
+
+    /* Header Height */
+    --header-height-mob: 5.6rem;
+    --header-height-tab: 6.8rem;
+    --header-height-desk: 6.8rem;
+
     /* Spacing */
     --p-xs: 0.8rem;
     --p-sm: 1.6rem;
@@ -158,6 +168,7 @@
     --accent-hover: var(--light-accent-hover);
     --accent-50: var(--light-accent-50);
     --border: var(--light-border);
+    --semi-border: var(--light-semi-border);
     --success: var(--light-success);
     --error: var(--light-error);
 
@@ -167,6 +178,7 @@
     --margin-gap-seciton: var(--margin-gap-section-mob);
     --p-btn: var(--p-btn-mob);
     --btn-height: var(--btn-height-mob);
+    --header-height: var(--header-height-mob);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -179,6 +191,7 @@
         --accent-hover: var(--dark-accent-hover);
         --accent-50: var(--dark-accent-50);
         --border: var(--dark-border);
+        --semi-border: var(--dark-semi-border);
         --success: var(--dark-success);
         --error: var(--dark-error);
     }
@@ -191,6 +204,7 @@
         --margin-gap-seciton: var(--margin-gap-section-tab);
         --p-btn: var(--p-btn-tab);
         --btn-height: var(--btn-height-tab);
+        --header-height: var(--header-height-tab);
     }
 }
 
@@ -201,6 +215,7 @@
         --margin-gap-seciton: var(--margin-gap-section-desk);
         --p-btn: var(--p-btn-desk);
         --btn-height: var(--btn-height-desk);
+        --header-height: var(--header-height-desk);
     }
 }
 
@@ -214,6 +229,7 @@
     --accent-hover: var(--dark-accent-hover);
     --accent-50: var(--dark-accent-50);
     --border: var(--dark-border);
+    --semi-border: var(--dark-semi-border);
     --success: var(--dark-success);
     --error: var(--dark-error);
 }
@@ -228,6 +244,7 @@
     --accent-hover: var(--light-accent-hover);
     --accent-50: var(--light-accent-50);
     --border: var(--light-border);
+    --semi-border: var(--light-semi-border);
     --success: var(--light-success);
     --error: var(--light-error);
 }

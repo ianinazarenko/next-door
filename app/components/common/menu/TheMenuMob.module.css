@@ -18,6 +18,8 @@
     height: 7.8rem;
     border-radius: 2rem;
     background-color: var(--bg-primary);
+    outline: 1px solid var(--semi-border);
+    outline-offset: -1px;
     gap: 2rem;
     box-shadow: var(--box-shadow);
 

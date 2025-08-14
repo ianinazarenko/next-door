@@ -1,0 +1,8 @@
+.footer {
+    padding-top: var(--margin-gap-base);
+    padding-bottom: calc(var(--panel-height) + var(--margin-gap-base));
+
+    @media (width >= 1280px) {
+        padding-bottom: var(--margin-gap-base);
+    }
+}

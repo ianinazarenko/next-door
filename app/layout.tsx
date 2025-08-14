@@ -7,6 +7,7 @@ import './styles/index.css';
 import AppProviders from '@/lib/providers/AppProviders';
 import TheHeader from '@/app/components/common/header/TheHeader';
 import TheMenuMob from '@/app/components/common/menu/TheMenuMob';
+import TheFooter from '@/app/components/common/footer/TheFooter';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -33,6 +34,8 @@ export default function RootLayout({
                     <main>{children}</main>
 
                     <TheMenuMob />
+
+                    <TheFooter />
                 </AppProviders>
             </body>
         </html>
