@@ -1,9 +1,13 @@
+import s from './TheHeader.module.css';
 import ThemeToggle from '@/app/components/theme/ThemeToggle';
+import HeaderMenu from '@/app/components/common/header/HeaderMenu';
 
 function TheHeader() {
     return (
-        <header className="l-0 fixed top-0 z-50 w-full py-3 md:py-4">
-            <div className={'c-container'}>
+        <header className={s.header}>
+            <div className={'c-container flex items-center justify-between'}>
+                <HeaderMenu />
+
                 <ThemeToggle />
             </div>
         </header>

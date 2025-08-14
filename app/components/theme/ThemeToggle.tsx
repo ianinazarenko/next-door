@@ -17,7 +17,7 @@ function ThemeToggle(): ReactElement {
     const basicClasses =
         'flex size-8 flex-initial items-center justify-center rounded-full transition-colors hover:text-(--accent-hover) md:size-9';
     return (
-        <div className='flex items-center justify-end gap-4'>
+        <div className='ml-auto flex items-center justify-end gap-4'>
             <p>Theme is: {theme}</p>
 
             <ThemeSwitch

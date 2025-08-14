@@ -3,7 +3,7 @@
 // Types
 import { IPanelItem } from '@/types/menu';
 // Data
-import { PANEL_LIST } from '@/utils/data/menu';
+import { MENU_LIST } from '@/utils/data/menu';
 // Utils
 import clsx from 'clsx';
 // Hooks
@@ -18,7 +18,7 @@ export default function TheMenuMob() {
     return (
         <div className={s.panel}>
             <div className={s.wrapper}>
-                {PANEL_LIST.map((item: IPanelItem, index: number) => {
+                {MENU_LIST.map((item: IPanelItem, index: number) => {
                     const Icon = item.icon;
                     return (
                         <Link
