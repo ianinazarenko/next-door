@@ -25,7 +25,7 @@ a {
 }
 
 .page {
-    min-height: calc(100dvh - var(--header-height));
+    min-height: calc(100dvh - var(--header-height) - var(--panel-height));
     padding-top: calc(var(--header-height) + var(--margin-gap-seciton) / 2);
 }
 
@@ -59,6 +59,11 @@ a {
 @media (width >= 1280px) {
     .c-container {
         max-width: var(--container-max-width);
+    }
+
+    .page {
+        min-height: calc(100dvh - var(--header-height));
+        padding-top: calc(var(--header-height) + var(--margin-gap-seciton) / 2);
     }
 
     .ppt {

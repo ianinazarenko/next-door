@@ -12,8 +12,8 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
         console.error(error);
     }, [error]);
     return (
-        <div className={'page c-container'}>
-            <div className={'flex flex-col items-center justify-center pt-20'}>
+        <div className={'page c-container flex flex-col items-center justify-center'}>
+            <div className={'flex h-full flex-col items-center justify-center'}>
                 <div className={'h1'}>{CODE}</div>
                 <div className={'card-description'}>{TEXT}</div>
 
