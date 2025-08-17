@@ -1,10 +1,9 @@
 .section {
     position: relative;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
     min-height: 60dvh;
     background-color: var(--bg-secondary);
+    flex-direction: column;
 
     @media (width >= 768px) {
         min-height: 50rem;
@@ -21,19 +20,35 @@
     }
 }
 
+.container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex: 1;
+    padding: var(--content-p);
+
+    @media (width >= 768px) {
+        padding: var(--content-p);
+    }
+
+    @media (width >= 1280px) {
+        width: 100%;
+        max-width: var(--container-max-width);
+        margin: 0 auto;
+    }
+}
+
 .wrapper {
     position: relative;
     z-index: 2;
     width: 100%;
-    margin: var(--p-xs);
-    padding: var(--p-sm);
+    padding: var(--p-sm) var(--p-xs);
     border-radius: var(--radius-panel);
     background-color: var(--opacity-60);
     backdrop-filter: blur(10px);
 
     @media (width >= 768px) {
         width: auto;
-        margin: var(--p-sm);
         padding: var(--p-lg);
     }
 }

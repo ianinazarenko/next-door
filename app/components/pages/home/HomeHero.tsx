@@ -23,10 +23,12 @@ export default function HomeHero() {
                 fill
             />
 
-            <div className={s.wrapper}>
-                <h1 className={'h1'}>{HEADING}</h1>
-                <p className={clsx('card-description', s.desc)}>{DESC_TOP}</p>
-                <p className={clsx('card-description', s.desc)}>{DESC_BOTTOM}</p>
+            <div className={s.container}>
+                <div className={s.wrapper}>
+                    <h1 className={'h1'}>{HEADING}</h1>
+                    <p className={clsx('card-description', s.desc)}>{DESC_TOP}</p>
+                    <p className={clsx('card-description', s.desc)}>{DESC_BOTTOM}</p>
+                </div>
             </div>
         </section>
     );

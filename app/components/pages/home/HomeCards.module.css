@@ -1,0 +1,18 @@
+.list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: var(--gap-card-mob);
+    margin: var(--margin-gap-seciton) 0;
+
+    @media (width >= 768px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        gap: var(--gap-card-desk);
+    }
+
+    @media (width >= 1280px) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+    }
+}
