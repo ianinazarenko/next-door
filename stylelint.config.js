@@ -4,6 +4,7 @@ module.exports = {
     rules: {
         'declaration-block-single-line-max-declarations': 1,
         'color-hex-length': 'long',
+        'selector-class-pattern': '^((_?[a-z][a-zA-Z0-9_]*)|([a-z][a-z0-9_]*(?:-[a-z0-9_]+)*))$',
         'order/properties-order': [
             [
                 'content',

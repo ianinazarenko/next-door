@@ -40,6 +40,7 @@
     --opacity-white-80: rgb(255 255 255 / 80%);
     --opacity-white-50: rgb(39 42 47 / 50%);
     --opacity-black-60: rgb(39 42 47 / 60%);
+    --opacity-black-40: rgb(39 42 47 / 40%);
 
     /* Transition */
     --trs: 0.4s linear;
@@ -152,6 +153,7 @@
 
     /* Layout - Container */
     --container-max-width: 128rem;
+    --hero-max-width: 144rem;
 
     /* Box-shadow */
     --box-shadow: 0px 11px 82px 30px rgb(60 61 66 / 5%), 0px 4px 44px 0px rgb(79 80 157 / 6%);
@@ -171,6 +173,7 @@
     --semi-border: var(--light-semi-border);
     --success: var(--light-success);
     --error: var(--light-error);
+    --opacity-60: var(--opacity-white-60);
 
     /* General variables for easy use */
     --content-max-width: var(--container-max-width);
@@ -194,6 +197,7 @@
         --semi-border: var(--dark-semi-border);
         --success: var(--dark-success);
         --error: var(--dark-error);
+        --opacity-60: var(--opacity-black-60);
     }
 }
 
@@ -232,6 +236,7 @@
     --semi-border: var(--dark-semi-border);
     --success: var(--dark-success);
     --error: var(--dark-error);
+    --opacity-60: var(--opacity-black-60);
 }
 
 /* Явный выбор пользователя - светлая тема */
@@ -247,4 +252,5 @@
     --semi-border: var(--light-semi-border);
     --success: var(--light-success);
     --error: var(--light-error);
+    --opacity-60: var(--opacity-white-60);
 }
