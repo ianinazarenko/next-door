@@ -8,7 +8,7 @@ export const PAGES = {
     },
     POSTS: {
         slug: EPages.Posts,
-        title: 'Posts',
+        title: 'Board',
         link: `/${EPages.Posts}`,
     },
     COMPLEXES: {
