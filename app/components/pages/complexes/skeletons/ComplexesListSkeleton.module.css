@@ -1,0 +1,31 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-card-mob);
+    padding: var(--p-card-mob);
+}
+
+.img {
+    flex-shrink: 0;
+    width: 10rem;
+    height: 10rem;
+    border-radius: var(--radius-card);
+    background-color: var(--bg-secondary);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+}
+
+.title {
+    width: 60%;
+    height: 2.4rem;
+}
+
+.address {
+    width: 80%;
+    height: 2rem;
+}

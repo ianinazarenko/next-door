@@ -4,3 +4,10 @@
     gap: var(--gap-card-mob);
     padding: var(--p-card-mob);
 }
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+}

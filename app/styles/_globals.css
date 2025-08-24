@@ -40,6 +40,47 @@ a {
     }
 }
 
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.4rem;
+    background-color: var(--bg-secondary);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -25%;
+        left: 0;
+        z-index: 2;
+        display: block;
+        width: 100%;
+        height: 150%;
+        background-color: var(--bg-primary);
+        transform: skewX(-10deg);
+        animation: translate-left 1.5s infinite;
+    }
+}
+
+@keyframes translate-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-110%) skewX(-10deg);
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(110%) skewX(-10deg);
+    }
+}
+
 /* Color themes */
 @media (prefers-color-scheme: dark) {
     .bg-overlay-dark {

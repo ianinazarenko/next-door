@@ -4,7 +4,7 @@ import ComplexesImgDefault from '@/app/components/common/placeholders/ComplexesI
 
 interface IProps {
     title: string;
-    address: string;
+    address: string | null;
     img?: string;
 }
 
@@ -20,7 +20,7 @@ export default function ComplexesCard({ title, address, img = '' }: IProps) {
                 <ComplexesImgDefault />
             )}
 
-            <div>
+            <div className={s.info}>
                 {title && <h3 className={'card-title'}>{title}</h3>}
                 {address && <p className={'card-description'}>{address}</p>}
             </div>

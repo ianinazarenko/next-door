@@ -1,17 +1,18 @@
+import { IComplexBase } from '@/types/complexes';
 import ComplexesCard from '@/app/components/pages/complexes/ComplexesCard';
 
 const TITLE = 'Available Complexes';
 
-export default function ComplexesList() {
+export default function ComplexesList({ complexes }: { complexes: IComplexBase[] }) {
     return (
         <div>
             <h2 className={'h4'}>{TITLE}</h2>
 
-            {[1, 2, 3, 4, 5, 6].map((item) => (
+            {complexes.map((item) => (
                 <ComplexesCard
-                    key={item}
-                    title={'Title'}
-                    address={'address'}
+                    key={item.id}
+                    title={item.name}
+                    address={item.address}
                 />
             ))}
         </div>
