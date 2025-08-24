@@ -1,0 +1,6 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-card-mob);
+    padding: var(--p-card-mob);
+}
