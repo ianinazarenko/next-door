@@ -2,23 +2,26 @@ import s from './HomeHero.module.css';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-export default function HomeHero() {
-    const HEADING = 'Help is Next Door';
-    const DESC_TOP = 'There is always someone nearby who can help.';
-    const DESC_BOTTOM = 'Join our community!';
+const HEADING = 'Help is Next Door';
+const DESC_TOP = 'There is always someone nearby who can help.';
+const DESC_BOTTOM = 'Join our community!';
+const ALT = 'Home Hero';
+const IMG_MOB = '/images/home/home-hero-mob.jpg';
+const IMG_DESK = '/images/home/home-hero-desk.jpg';
 
+export default function HomeHero() {
     return (
         <section className={clsx(s.section, 'bg-overlay-dark')}>
             <Image
-                src={'/images/home/home-hero-mob.jpg'}
-                alt={'Home Hero'}
+                src={IMG_MOB}
+                alt={ALT}
                 className={clsx(s.img)}
                 fill
             />
 
             <Image
-                src={'/images/home/home-hero-desk.jpg'}
-                alt={'Home Hero'}
+                src={IMG_DESK}
+                alt={ALT}
                 className={clsx(s.img, s._desk)}
                 fill
             />
