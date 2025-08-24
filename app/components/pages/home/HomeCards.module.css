@@ -3,7 +3,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
     gap: var(--gap-card-mob);
-    margin: var(--margin-gap-seciton) 0;
+    margin: var(--margin-gap-section) 0;
 
     @media (width >= 768px) {
         grid-template-columns: 1fr 1fr;

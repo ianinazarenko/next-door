@@ -10,7 +10,7 @@
     }
 
     @media (width >= 1280px) {
-        min-height: calc(100dvh - var(--header-height) - var(--margin-gap-seciton));
+        min-height: calc(100dvh - var(--header-height) - var(--margin-gap-section));
     }
 
     @media (width >= 1440px) {

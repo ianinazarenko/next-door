@@ -178,7 +178,7 @@
     /* General variables for easy use */
     --content-max-width: var(--container-max-width);
     --content-p: var(--p-sm);
-    --margin-gap-seciton: var(--margin-gap-section-mob);
+    --margin-gap-section: var(--margin-gap-section-mob);
     --p-btn: var(--p-btn-mob);
     --btn-height: var(--btn-height-mob);
     --header-height: var(--header-height-mob);
@@ -205,7 +205,7 @@
 @media (width >= 768px) {
     :root {
         --content-p: var(--p-md);
-        --margin-gap-seciton: var(--margin-gap-section-tab);
+        --margin-gap-section: var(--margin-gap-section-tab);
         --p-btn: var(--p-btn-tab);
         --btn-height: var(--btn-height-tab);
         --header-height: var(--header-height-tab);
@@ -216,7 +216,7 @@
 @media (width >= 1024px) {
     :root {
         --content-p: var(--p-xl);
-        --margin-gap-seciton: var(--margin-gap-section-desk);
+        --margin-gap-section: var(--margin-gap-section-desk);
         --p-btn: var(--p-btn-desk);
         --btn-height: var(--btn-height-desk);
         --header-height: var(--header-height-desk);
