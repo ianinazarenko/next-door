@@ -40,6 +40,10 @@ a {
     }
 }
 
+.section {
+    padding: var(--margin-gap-section) 0;
+}
+
 .skeleton {
     position: relative;
     overflow: hidden;
@@ -125,7 +129,8 @@ a {
 /* Tablet and up */
 @media (width >= 768px) {
     .c-container {
-        padding: 0 2.4rem;
+        padding-right: 2.4rem;
+        padding-left: 2.4rem;
     }
 
     .ppt {
@@ -136,7 +141,8 @@ a {
 /* Laptop and up */
 @media (width >= 1024px) {
     .c-container {
-        padding: 0 4.6rem;
+        padding-right: 4.6rem;
+        padding-left: 4.6rem;
     }
 
     .ppt {

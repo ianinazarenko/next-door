@@ -43,7 +43,7 @@
     --opacity-black-40: rgb(39 42 47 / 40%);
 
     /* Transition */
-    --trs: 0.4s linear;
+    --trs: 0.3s linear;
 
     /* Typography - Font Family */
     --font-body: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;

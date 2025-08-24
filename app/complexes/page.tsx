@@ -23,7 +23,7 @@ export default async function ComplexesPage() {
                 <p className={'card-description'}>{DESC}</p>
             </div>
 
-            <div>
+            <div className={s.search}>
                 <CInput />
             </div>
 

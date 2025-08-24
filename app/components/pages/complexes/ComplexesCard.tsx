@@ -1,4 +1,5 @@
 import s from './ComplexesCard.module.css';
+import clsx from 'clsx';
 import Image from 'next/image';
 import ComplexesImgDefault from '@/app/components/common/placeholders/ComplexesImgDefault';
 
@@ -11,17 +12,20 @@ interface IProps {
 export default function ComplexesCard({ title, address, img = '' }: IProps) {
     return (
         <div className={s.card}>
-            {img ? (
-                <Image
-                    src={img}
-                    alt={'Alt'}
-                />
-            ) : (
-                <ComplexesImgDefault />
-            )}
+            <div className={s.img}>
+                {/* TODO: add sizes */}
+                {img ? (
+                    <Image
+                        src={img}
+                        alt={`Complex ${title}`}
+                    />
+                ) : (
+                    <ComplexesImgDefault />
+                )}
+            </div>
 
             <div className={s.info}>
-                {title && <h3 className={'card-title'}>{title}</h3>}
+                {title && <h3 className={clsx('card-title', s.title)}>{title}</h3>}
                 {address && <p className={'card-description'}>{address}</p>}
             </div>
         </div>
