@@ -17,8 +17,7 @@ export default function ComplexesList({ complexes }: { complexes: IComplexBase[]
                 {complexes.map((item) => (
                     <ComplexesCard
                         key={item.id}
-                        title={item.name}
-                        address={item.address}
+                        {...item}
                     />
                 ))}
             </div>

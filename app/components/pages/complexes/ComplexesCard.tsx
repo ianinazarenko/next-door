@@ -1,15 +1,16 @@
+// Types
+import { IComplexBase } from '@/types/complexes';
+// Styles
 import s from './ComplexesCard.module.css';
 import clsx from 'clsx';
+// Constants
+import { PAGES } from '@/utils/data/pages';
+// Components
 import Image from 'next/image';
+import Link from 'next/link';
 import ComplexesImgDefault from '@/app/components/common/placeholders/ComplexesImgDefault';
 
-interface IProps {
-    title: string;
-    address: string | null;
-    img?: string;
-}
-
-export default function ComplexesCard({ title, address, img = '' }: IProps) {
+export default function ComplexesCard({ slug, name, address, img = '' }: IComplexBase & { img?: string }) {
     return (
         <div className={s.card}>
             <div className={s.img}>
@@ -17,7 +18,7 @@ export default function ComplexesCard({ title, address, img = '' }: IProps) {
                 {img ? (
                     <Image
                         src={img}
-                        alt={`Complex ${title}`}
+                        alt={`Complex ${name}`}
                     />
                 ) : (
                     <ComplexesImgDefault />
@@ -25,9 +26,17 @@ export default function ComplexesCard({ title, address, img = '' }: IProps) {
             </div>
 
             <div className={s.info}>
-                {title && <h3 className={clsx('card-title', s.title)}>{title}</h3>}
+                {name && <h3 className={clsx('card-title', s.title)}>{name}</h3>}
                 {address && <p className={'card-description'}>{address}</p>}
             </div>
+
+            {slug && (
+                <Link
+                    href={`${PAGES.COMPLEXES.link}/${slug}`}
+                    className={s.link}
+                    aria-label={`View details of ${name}`}
+                />
+            )}
         </div>
     );
 }
