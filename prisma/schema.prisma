@@ -53,6 +53,9 @@ model Complex {
   description String?
   timeToMetro Int?
   posts       Post[]
+
+  @@index([name])
+  @@index([address])
 }
 
 // features    Features[]
