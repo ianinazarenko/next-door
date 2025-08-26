@@ -6,15 +6,18 @@ import s from './page.module.css';
 import { fetchComplexes } from '@/lib/queries';
 // Components
 import { Suspense } from 'react';
-import CInput from '@/app/components/ui/CInput';
 import ComplexesList from '@/app/components/pages/complexes/ComplexesList';
 import ComplexesListSkeleton from '@/app/components/pages/complexes/skeletons/ComplexesListSkeleton';
+import ComplexesSearch from '@/app/components/pages/complexes/ComplexesSearch';
 
 const TITLE = 'Residential Complexes';
 const DESC = 'Find your community to get started';
 
-export default async function ComplexesPage() {
-    const complexes: IComplexBase[] = await fetchComplexes({ limit: 10, offset: 0 });
+export interface IComplexesSearch { search?: string; page?: string }
+
+export default async function ComplexesPage({searchParams}: { searchParams: Promise<IComplexesSearch> }) {
+    const params = await searchParams;
+    const complexes: IComplexBase[] = await fetchComplexes({ limit: 10, offset: 0, search: params.search ?? '' });
 
     return (
         <div className={`page c-container`}>
@@ -24,7 +27,7 @@ export default async function ComplexesPage() {
             </div>
 
             <div className={s.search}>
-                <CInput />
+                <ComplexesSearch />
             </div>
 
             <Suspense fallback={<ComplexesListSkeleton />}>
