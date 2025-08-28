@@ -1,28 +1,19 @@
 import { IComplexFull } from '@/types/complexes';
+import { COMPLEX_IMG, DEFAULT_IMG } from '@/utils/data/complex-images';
 import BlockHero from '@/app/components/common/blocks/BlockHero';
 
-// TODO: add images to complexes
-const IMG: Record<string, { mob: string; desk: string }> = {
-    'pixel-park': {
-        mob: '/images/complexes/complex-1-mob.jpg',
-        desk: '/images/complexes/complex-1-desk.jpg',
-    },
-    'bugless-heights': {
-        mob: '/images/complexes/complex-2-mob.jpg',
-        desk: '/images/complexes/complex-2-desk.jpg',
-    },
-};
+function getImages(slug: string) {
+    return COMPLEX_IMG[slug] || DEFAULT_IMG;
+}
 
 export default function ComplexHero({ complex }: { complex: IComplexFull }) {
     const { name, address, slug } = complex;
-
-    const imgMob = IMG[slug].mob;
-    const imgDesk = IMG[slug].desk;
+    const { mob, desk } = getImages(slug);
 
     return (
         <BlockHero
-            imgMob={imgMob}
-            imgDesk={imgDesk}
+            imgMob={mob}
+            imgDesk={desk}
             heading={name}
             deskMeta={address}
         />
