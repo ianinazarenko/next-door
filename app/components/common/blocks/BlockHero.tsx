@@ -16,27 +16,20 @@ interface IProps {
 export default function BlockHero({ imgMob, imgDesk, heading, deskMeta, descTop, descBottom }: IProps) {
     return (
         <section className={clsx(s.section, 'bg-overlay-dark')}>
-            {imgMob && (
-                <Image
-                    src={imgMob}
-                    alt={ALT}
-                    className={clsx(s.img)}
-                    sizes={'100vw'}
-                    priority
-                    fill
+            <picture>
+                <source
+                    media='(max-width: 768px)'
+                    srcSet={imgMob}
                 />
-            )}
-
-            {imgDesk && (
                 <Image
                     src={imgDesk}
                     alt={ALT}
-                    className={clsx(s.img, s._desk)}
-                    sizes={'100vw'}
+                    className={s.img}
+                    sizes='100vw'
                     priority
                     fill
                 />
-            )}
+            </picture>
 
             <div className={s.container}>
                 <div className={s.wrapper}>

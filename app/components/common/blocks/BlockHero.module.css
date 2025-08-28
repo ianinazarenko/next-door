@@ -64,16 +64,4 @@
 .img {
     z-index: 0;
     object-fit: cover;
-
-    &._desk {
-        display: none;
-    }
-
-    @media (width >= 1280px) {
-        display: none;
-
-        &._desk {
-            display: block;
-        }
-    }
 }
