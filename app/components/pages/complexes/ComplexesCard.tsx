@@ -19,6 +19,7 @@ export default function ComplexesCard({ slug, name, address, img = '' }: IComple
                         src={img}
                         alt={`Complex ${name}`}
                         className={'img-cover'}
+                        sizes={'(max-width: 768px) 10rem, (max-width: 1024px) 50vw, 33vw'}
                         fill
                     />
                 ) : (

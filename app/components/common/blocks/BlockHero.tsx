@@ -21,6 +21,8 @@ export default function BlockHero({ imgMob, imgDesk, heading, deskMeta, descTop,
                     src={imgMob}
                     alt={ALT}
                     className={clsx(s.img)}
+                    sizes={'100vw'}
+                    priority
                     fill
                 />
             )}
@@ -30,6 +32,8 @@ export default function BlockHero({ imgMob, imgDesk, heading, deskMeta, descTop,
                     src={imgDesk}
                     alt={ALT}
                     className={clsx(s.img, s._desk)}
+                    sizes={'100vw'}
+                    priority
                     fill
                 />
             )}
