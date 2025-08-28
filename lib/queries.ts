@@ -36,18 +36,28 @@ export async function fetchComplexes({
         return res ?? [];
     } catch (error) {
         console.error('[queries/fetchComplexes]: Error fetching complexes:', error);
-        throw error;
+        throw new Error('Failed to fetch complexes. Please try again later.');
     }
 }
 
 export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
+    if (!slug?.trim()) {
+        console.error('[queries/fetchComplex]: Error fetching complex: not slug provided');
+        throw new Error(`Need to provide slug to fetch complex`);
+    }
+
     try {
         return await prisma.complex.findUnique({
             where: { slug },
-            include: { posts: true },
+            include: {
+                posts: {
+                    orderBy: { createdAt: 'desc' },
+                    take: 10,
+                },
+            },
         });
     } catch (error) {
-        console.error('[queries/fetchComplex]: Error fetching complex:', error);
-        throw error;
+        console.error('[queries/fetchComplex]: Error fetching complex:', { slug, error });
+        throw new Error(`Failed to fetch complex with slug: ${slug}`);
     }
 }
