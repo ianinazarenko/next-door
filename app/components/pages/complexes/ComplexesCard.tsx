@@ -14,11 +14,12 @@ export default function ComplexesCard({ slug, name, address, img = '' }: IComple
     return (
         <div className={s.card}>
             <div className={s.img}>
-                {/* TODO: add sizes */}
                 {img ? (
                     <Image
                         src={img}
                         alt={`Complex ${name}`}
+                        className={'img-cover'}
+                        fill
                     />
                 ) : (
                     <ComplexesImgDefault />

@@ -10,6 +10,6 @@ export interface IComplexBase {
 export interface IComplexFull extends IComplexBase {
     metro: string | null;
     description: string | null;
-    timeToMetro: string | null;
+    timeToMetro: number | null;
     posts: Post[] | null;
 }

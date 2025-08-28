@@ -1,4 +1,4 @@
-import { IComplexBase } from '@/types/complexes';
+import { IComplexBase, IComplexFull } from '@/types/complexes';
 import { prisma } from '@/lib/db';
 
 export async function fetchComplexes({
@@ -36,6 +36,18 @@ export async function fetchComplexes({
         return res ?? [];
     } catch (error) {
         console.error('[queries/fetchComplexes]: Error fetching complexes:', error);
+        throw error;
+    }
+}
+
+export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
+    try {
+        return await prisma.complex.findUnique({
+            where: { slug },
+            include: { posts: true },
+        });
+    } catch (error) {
+        console.error('[queries/fetchComplex]: Error fetching complex:', error);
         throw error;
     }
 }
