@@ -1,7 +1,8 @@
 import { fetchComplex } from '@/lib/queries';
+
+import { Suspense } from 'react';
 import ComplexNotFound from '@/app/components/pages/complexes/complex/not-found/ComplexNotFound';
 import ComplexHero from '@/app/components/pages/complexes/complex/hero/ComplexHero';
-import { Suspense } from 'react';
 import ComplexHeroSkeleton from '@/app/components/pages/complexes/complex/skeleton/ComplexHeroSkeleton';
 
 export const revalidate = 86400; // 60 * 60 * 24 – once in 24 hours
