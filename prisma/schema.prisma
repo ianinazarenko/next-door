@@ -45,14 +45,17 @@ model Category {
 }
 
 model Complex {
-  id          String  @id @default(cuid())
-  name        String
-  slug        String  @unique
-  address     String?
-  metro       String?
-  description String?
-  timeToMetro Int?
-  posts       Post[]
+  id                  String             @id @default(cuid())
+  name                String
+  slug                String             @unique
+  address             String?
+  metro               String?
+  description         String?
+  timeToMetro         Int?
+  posts               Post[]
+  managementCompany   ManagementCompany? @relation(fields: [managementCompanyId], references: [id])
+  managementCompanyId String?
+  usefulPhones        UsefulPhone[]
 
   @@index([name])
   @@index([address])
@@ -60,7 +63,6 @@ model Complex {
 
 // features    Features[]
 // infra       Infra[]
-// contacts    ComplexContacts[]
 
 model Comment {
   id        String   @id @default(cuid())
@@ -72,4 +74,21 @@ model Comment {
   updatedAt DateTime @updatedAt
 
   @@index([postId])
+}
+
+model ManagementCompany {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  slug    String    @unique
+  phone   String?
+  email   String?
+  Complex Complex[]
+}
+
+model UsefulPhone {
+  id        String  @id @default(cuid())
+  name      String
+  number    String
+  complexId String
+  complex   Complex @relation(fields: [complexId], references: [id], onDelete: Cascade)
 }

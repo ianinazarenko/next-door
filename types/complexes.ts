@@ -7,9 +7,25 @@ export interface IComplexBase {
     address: string | null;
 }
 
+export interface IUsefulPhone {
+    id: string;
+    name: string;
+    number: string;
+}
+
+export interface IManagementCompany {
+    id: string;
+    name: string;
+    slug: string;
+    phone: string | null;
+    email: string | null;
+}
+
 export interface IComplexFull extends IComplexBase {
     metro: string | null;
     description: string | null;
     timeToMetro: number | null;
     posts: Post[] | null;
+    usefulPhones: IUsefulPhone[];
+    managementCompany: IManagementCompany | null;
 }
