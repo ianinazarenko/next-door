@@ -29,7 +29,6 @@ export default function ComplexesSearch() {
         debouncedSearch(value);
     }
 
-    console.log('ComplexesSearch render');
     return (
         <div className='relative'>
             <CInput
