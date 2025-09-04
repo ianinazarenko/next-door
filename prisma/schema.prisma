@@ -56,6 +56,8 @@ model Complex {
   managementCompany   ManagementCompany? @relation(fields: [managementCompanyId], references: [id])
   managementCompanyId String?
   usefulPhones        UsefulPhone[]
+  phone               String?
+  email               String?
 
   @@index([name])
   @@index([address])

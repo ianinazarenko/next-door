@@ -28,4 +28,6 @@ export interface IComplexFull extends IComplexBase {
     posts: Post[] | null;
     usefulPhones: IUsefulPhone[];
     managementCompany: IManagementCompany | null;
+    phone: string | null;
+    email: string | null;
 }
