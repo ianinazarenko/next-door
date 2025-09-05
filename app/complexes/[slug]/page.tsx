@@ -19,8 +19,6 @@ export default async function ComplexPage({ params }: { params: Promise<{ slug: 
             return notFound();
         }
 
-        console.log(complex);
-
         return (
             <div className={'page'}>
                 <Suspense fallback={<ComplexHeroSkeleton />}>
