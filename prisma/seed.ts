@@ -5,8 +5,17 @@ const prisma = new PrismaClient();
 async function main() {
     console.log('database seed...');
 
-    const { pixelPark, buglessHeights } = await createComplexes();
+    const { patchManagement, renderWorks } = await createManagementCompanies();
+    const { pixelPark, buglessHeights } = await createComplexes({
+        patchManagementId: patchManagement.id,
+        renderWorksId: renderWorks.id,
+    });
     const { buy, sell, giveAway, offerHelp, requestHelp, event } = await createCategories();
+
+    await createUsefulPhones({
+        pixelParkId: pixelPark.id,
+        buglessHeightsId: buglessHeights.id,
+    });
 
     const { post1, post3, post4 } = await createPosts({
         pixelParkId: pixelPark.id,
@@ -28,7 +37,13 @@ async function main() {
     console.log('Database seeded successfully!');
 }
 
-async function createComplexes() {
+async function createComplexes({
+    patchManagementId,
+    renderWorksId,
+}: {
+    patchManagementId: string;
+    renderWorksId: string;
+}) {
     const pixelPark = await prisma.complex.upsert({
         where: { slug: 'pixel-park' },
         update: {},
@@ -40,6 +55,7 @@ async function createComplexes() {
             description:
                 'A modern complex for tech lovers. Every apartment comes with built-in Ethernet ports, ergonomic coffee machines, and a neighbor who will fix your Wi-Fi at 2 AM.',
             timeToMetro: 5,
+            managementCompanyId: patchManagementId,
         },
     });
 
@@ -54,6 +70,7 @@ async function createComplexes() {
             description:
                 'A peaceful community where bugs are rare and commits are always clean. Weekly meetups in the courtyard to discuss life, code, and the meaning of semicolons.',
             timeToMetro: 8,
+            managementCompanyId: renderWorksId,
         },
     });
 
@@ -61,7 +78,6 @@ async function createComplexes() {
 }
 
 async function createCategories() {
-    // 🆕 Привела slug к одному стилю — через дефис
     const buy = await prisma.category.upsert({
         where: { slug: 'buy' },
         update: {},
@@ -99,6 +115,60 @@ async function createCategories() {
     });
 
     return { buy, sell, giveAway, offerHelp, requestHelp, event };
+}
+
+async function createUsefulPhones({
+    pixelParkId,
+    buglessHeightsId,
+}: {
+    pixelParkId: string;
+    buglessHeightsId: string;
+}) {
+    await prisma.usefulPhone.createMany({
+        data: [
+            {
+                name: 'Security Service',
+                number: '15551234567',
+                complexId: pixelParkId,
+            },
+            {
+                name: 'Plumber',
+                number: '15552345678',
+                complexId: pixelParkId,
+            },
+            {
+                name: 'Electrician',
+                number: '15553456789',
+                complexId: pixelParkId,
+            },
+            {
+                name: 'Emergency',
+                number: '911',
+                complexId: pixelParkId,
+            },
+        ],
+    });
+
+    await prisma.usefulPhone.createMany({
+        data: [
+            {
+                name: 'Plumber',
+                number: '15554567890',
+                complexId: buglessHeightsId,
+            },
+            {
+                name: 'Electrician',
+                number: '15555678901',
+                complexId: buglessHeightsId,
+            },
+            {
+                name: 'Emergency',
+                number: '911',
+                complexId: buglessHeightsId,
+            },
+        ],
+        skipDuplicates: true,
+    });
 }
 
 async function createPosts({
@@ -199,6 +269,40 @@ async function createComments({ deskId, sofaId, bbqId }: { deskId: string; sofaI
     await prisma.comment.create({
         data: { author: 'Sara Green', text: "I'll bring lemonade for the BBQ!", postId: bbqId },
     });
+}
+
+async function createManagementCompanies() {
+    const patchManagement = await prisma.managementCompany.upsert({
+        where: { slug: 'patch-management' },
+        update: {
+            name: 'Patch Management Co.',
+            phone: '15551234545',
+            email: 'patch.management@mail.com',
+        },
+        create: {
+            name: 'Patch Management Co.',
+            slug: 'patch-management',
+            phone: '15551234545',
+            email: 'patch.management@mail.com',
+        },
+    });
+
+    const renderWorks = await prisma.managementCompany.upsert({
+        where: { slug: 'render-works' },
+        update: {
+            name: 'RenderWorks Ltd.',
+            phone: '15559876567',
+            email: 'render_works@mail.com',
+        },
+        create: {
+            name: 'RenderWorks Ltd.',
+            slug: 'render-works',
+            phone: '15559876567',
+            email: 'render_works@mail.com',
+        },
+    });
+
+    return { patchManagement, renderWorks };
 }
 
 main()
