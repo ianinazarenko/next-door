@@ -9,6 +9,7 @@
     /* Colors - Light Theme */
     --light-bg-primary: #f9f9f9;
     --light-bg-secondary: #f0f0f4;
+    --light-bg-light: #ffffff;
     --light-text-primary: #212121;
     --light-text-secondary: #757575;
     --light-accent: #0070f3;
@@ -22,6 +23,7 @@
     /* Colors - Dark Theme */
     --dark-bg-primary: #1a1a1a;
     --dark-bg-secondary: #2b2b2b;
+    --dark-bg-light: #3b3b3b;
     --dark-text-primary: #e0e0e0;
     --dark-text-secondary: #a0a0a0;
     --dark-accent: #0096ff;
@@ -164,6 +166,7 @@
     /* Default theme (light) */
     --bg-primary: var(--light-bg-primary);
     --bg-secondary: var(--light-bg-secondary);
+    --bg-light: var(--light-bg-light);
     --text-primary: var(--light-text-primary);
     --text-secondary: var(--light-text-secondary);
     --accent: var(--light-accent);
@@ -188,6 +191,7 @@
     :root {
         --bg-primary: var(--dark-bg-primary);
         --bg-secondary: var(--dark-bg-secondary);
+        --bg-light: var(--dark-bg-light);
         --text-primary: var(--dark-text-primary);
         --text-secondary: var(--dark-text-secondary);
         --accent: var(--dark-accent);
@@ -227,6 +231,7 @@
 [data-theme='dark'] {
     --bg-primary: var(--dark-bg-primary);
     --bg-secondary: var(--dark-bg-secondary);
+    --bg-light: var(--dark-bg-light);
     --text-primary: var(--dark-text-primary);
     --text-secondary: var(--dark-text-secondary);
     --accent: var(--dark-accent);
@@ -244,6 +249,7 @@
     --bg-primary: var(--light-bg-primary);
     --bg-secondary: var(--light-bg-secondary);
     --text-primary: var(--light-text-primary);
+    --bg-light: var(--light-bg-light);
     --text-secondary: var(--light-text-secondary);
     --accent: var(--light-accent);
     --accent-hover: var(--light-accent-hover);

@@ -1,0 +1,23 @@
+.item {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    @media (width >= 768px) {
+        display: grid;
+        grid-template-columns: 28rem 1fr;
+    }
+}
+
+.value {
+    font-weight: bold;
+
+    @media (width >= 768px) {
+        font-weight: normal;
+    }
+}
+
+.link {
+    color: var(--accent);
+}

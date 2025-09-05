@@ -54,6 +54,8 @@ export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
                     orderBy: { createdAt: 'desc' },
                     take: 10,
                 },
+                managementCompany: true,
+                usefulPhones: true,
             },
         });
     } catch (error) {

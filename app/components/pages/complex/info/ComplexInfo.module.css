@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-gap-section);
+
+    @media (width >= 1280px) {
+        flex-direction: row;
+        align-items: stretch;
+
+        & > * {
+            flex: 1 1 auto;
+            height: 100%;
+        }
+    }
+}
