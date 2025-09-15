@@ -20,4 +20,9 @@
 
 .link {
     color: var(--accent);
+    transition: color var(--trs);
+
+    &:hover {
+        color: var(--accent-hover);
+    }
 }
