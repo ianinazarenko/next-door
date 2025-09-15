@@ -18,8 +18,8 @@ async function main() {
     });
 
     const { post1, post3, post4 } = await createPosts({
-        pixelParkId: pixelPark.id,
-        buglessHeightsId: buglessHeights.id,
+        pixelParkSlug: pixelPark.slug,
+        buglessHeightsSlug: buglessHeights.slug,
         buySlug: buy.slug,
         sellSlug: sell.slug,
         giveAwaySlug: giveAway.slug,
@@ -172,8 +172,8 @@ async function createUsefulPhones({
 }
 
 async function createPosts({
-    pixelParkId,
-    buglessHeightsId,
+    pixelParkSlug,
+    buglessHeightsSlug,
     buySlug,
     sellSlug,
     giveAwaySlug,
@@ -181,8 +181,8 @@ async function createPosts({
     requestHelpSlug,
     eventSlug,
 }: {
-    pixelParkId: string;
-    buglessHeightsId: string;
+    pixelParkSlug: string;
+    buglessHeightsSlug: string;
     buySlug: string;
     sellSlug: string;
     giveAwaySlug: string;
@@ -201,7 +201,7 @@ async function createPosts({
             whatsapp: '+123456789',
             image: 'https://via.placeholder.com/600x400',
             deadline: null,
-            complexId: pixelParkId,
+            complexSlug: pixelParkSlug,
             categorySlug: sellSlug,
         },
     });
@@ -217,7 +217,7 @@ async function createPosts({
             whatsapp: '+987654321',
             image: 'https://via.placeholder.com/600x400',
             deadline: null,
-            complexId: buglessHeightsId,
+            complexSlug: buglessHeightsSlug,
             categorySlug: giveAwaySlug,
         },
     });
@@ -233,7 +233,7 @@ async function createPosts({
             whatsapp: '+123123123',
             image: 'https://via.placeholder.com/600x400',
             deadline: '2025-08-20T00:00:00.000Z',
-            complexId: pixelParkId,
+            complexSlug: pixelParkSlug,
             categorySlug: requestHelpSlug,
         },
     });
@@ -249,7 +249,7 @@ async function createPosts({
             whatsapp: '+321321321',
             image: 'https://via.placeholder.com/600x400',
             deadline: '2025-08-15T00:00:00.000Z',
-            complexId: buglessHeightsId,
+            complexSlug: buglessHeightsSlug,
             categorySlug: eventSlug,
         },
     });
