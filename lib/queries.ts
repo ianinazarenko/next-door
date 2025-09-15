@@ -78,7 +78,7 @@ export async function fetchPosts({
     params: IPostsPageParams;
 }): Promise<IPostListItem[]> {
     try {
-        const where: Partial<IPostsPageParams> = {};
+        const where: Partial<IPostsPageParams> & { OR: Array<{ deadline: object | null }> } = { OR: [] };
 
         if (params.complexSlug) {
             where.complexSlug = params.complexSlug;
@@ -87,6 +87,8 @@ export async function fetchPosts({
         if (params.categorySlug) {
             where.categorySlug = params.categorySlug;
         }
+
+        where.OR = [{ deadline: null }, { deadline: { gte: new Date() } }];
 
         const res = await prisma.post.findMany({
             where: Object.keys(where).length > 0 ? where : undefined,
