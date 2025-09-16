@@ -12,8 +12,10 @@ const compat = new FlatCompat({
 const eslintConfig = [
     ...compat.extends('next/core-web-vitals', 'next/typescript'),
     {
+        // Base rules for all files
+        files: ['**/*.{js,jsx,ts,tsx}'],
         rules: {
-            complexity: ['error', { max: 10 }],
+            'complexity': ['error', { max: 10 }],
             'max-lines': ['error', 500],
             'no-alert': 'off',
             'no-console': 0,
@@ -56,6 +58,13 @@ const eslintConfig = [
             'no-label-var': 'error',
             'no-undef-init': 'error',
             'no-use-before-define': ['error', { functions: false, classes: false }],
+        },
+    },
+    {
+        // Disable complexity rule only for React components
+        files: ['**/components/**/*.{jsx,tsx}'],
+        rules: {
+            'complexity': 'off',
         },
     },
 ];

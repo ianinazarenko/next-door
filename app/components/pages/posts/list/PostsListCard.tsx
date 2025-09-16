@@ -11,16 +11,8 @@ import Link from 'next/link';
 export default function PostsListCard({ post }: { post: IPostListItem }) {
     const { id, title, shortText, authorName, deadline, commentsCount, createdAt, category } = post;
 
-    let deadlineDate: string | undefined;
-    let createdAtDate: string | undefined;
-
-    if (deadline) {
-        deadlineDate = dateFormatter.format(deadline);
-    }
-
-    if (createdAt) {
-        createdAtDate = dateFormatter.format(createdAt);
-    }
+    const deadlineDate: string | null = deadline ? dateFormatter.format(deadline) : null;
+    const createdAtDate: string | null = createdAt ? dateFormatter.format(createdAt) : null;
 
     const hasFooter = Boolean(deadlineDate || commentsCount);
     return (
