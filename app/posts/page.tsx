@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 import PostsHeader from '@/app/components/pages/posts/PostsHeader';
 import PostsFilters from '@/app/components/pages/posts/filters/PostsFilters';
 import PostsList from '@/app/components/pages/posts/list/PostsList';
+import PostsListSkeleton from '@/app/components/pages/posts/skeletons/PostsListSkeleton';
 
 export interface IPostsPageParams {
     categorySlug?: string;
@@ -27,7 +28,7 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
 
                 <PostsFilters />
 
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<PostsListSkeleton />}>
                     <PostsList posts={posts} />
                 </Suspense>
             </div>
