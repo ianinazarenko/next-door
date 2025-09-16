@@ -124,6 +124,10 @@ async function createUsefulPhones({
     pixelParkId: string;
     buglessHeightsId: string;
 }) {
+    // Clear existing useful phones to avoid duplicates
+    await prisma.usefulPhone.deleteMany({});
+
+    // Pixel Park useful phones
     await prisma.usefulPhone.createMany({
         data: [
             {
@@ -149,6 +153,7 @@ async function createUsefulPhones({
         ],
     });
 
+    // Bugless Heights useful phones
     await prisma.usefulPhone.createMany({
         data: [
             {
@@ -167,7 +172,6 @@ async function createUsefulPhones({
                 complexId: buglessHeightsId,
             },
         ],
-        skipDuplicates: true,
     });
 }
 
@@ -194,8 +198,7 @@ async function createPosts({
         data: {
             title: 'Selling a standing desk',
             shortText: 'Ergonomic standing desk, great condition',
-            fullText:
-                "I'm selling my adjustable standing desk. It's in great condition and perfect for home office setups. Price negotiable, pick up in Pixel Park.",
+            fullText: "I'm selling my adjustable standing desk. It's in great condition and perfect for home office setups. Price negotiable, pick up in Pixel Park.",
             authorName: 'Alex Coder',
             phone: '+123456789',
             whatsapp: '+123456789',
@@ -203,6 +206,8 @@ async function createPosts({
             deadline: null,
             complexSlug: pixelParkSlug,
             categorySlug: sellSlug,
+            createdAt: new Date('2025-09-04T07:30:18.629Z'),
+            updatedAt: new Date('2025-09-15T11:59:15.013Z'),
         },
     });
 
@@ -210,8 +215,7 @@ async function createPosts({
         data: {
             title: 'Free houseplants',
             shortText: 'Giving away two healthy monstera plants',
-            fullText:
-                'I have two large monstera plants that need a new home. Perfect for adding some greenery to your apartment. Free to a good home.',
+            fullText: 'I have two large monstera plants that need a new home. Perfect for adding some greenery to your apartment. Free to a good home.',
             authorName: 'Maya Bloom',
             phone: '+987654321',
             whatsapp: '+987654321',
@@ -219,6 +223,8 @@ async function createPosts({
             deadline: null,
             complexSlug: buglessHeightsSlug,
             categorySlug: giveAwaySlug,
+            createdAt: new Date('2025-09-04T07:30:18.707Z'),
+            updatedAt: new Date('2025-09-15T11:59:15.118Z'),
         },
     });
 
@@ -226,15 +232,16 @@ async function createPosts({
         data: {
             title: 'Need help moving furniture',
             shortText: 'Looking for someone to help move a sofa',
-            fullText:
-                'I need a hand moving a sofa from my apartment to the basement storage. Should take about 30 minutes. Beer and snacks included.',
+            fullText: 'I need a hand moving a sofa from my apartment to the basement storage. Should take about 30 minutes. Beer and snacks included.',
             authorName: 'Chris Lift',
             phone: '+123123123',
             whatsapp: '+123123123',
             image: 'https://via.placeholder.com/600x400',
-            deadline: '2025-08-20T00:00:00.000Z',
+            deadline: '2026-08-20T00:00:00.000Z',
             complexSlug: pixelParkSlug,
             categorySlug: requestHelpSlug,
+            createdAt: new Date('2025-09-04T07:30:18.745Z'),
+            updatedAt: new Date('2025-09-15T15:45:09.329Z'),
         },
     });
 
@@ -242,15 +249,16 @@ async function createPosts({
         data: {
             title: 'Community BBQ this Saturday',
             shortText: 'Join us for burgers, music and fun',
-            fullText:
-                "We're organizing a BBQ in the Bugless Heights courtyard this Saturday at 4 PM. Bring something to grill and a good mood!",
+            fullText: "We're organizing a BBQ in the Bugless Heights courtyard this Saturday at 4 PM. Bring something to grill and a good mood!",
             authorName: 'Event Committee',
             phone: '+321321321',
             whatsapp: '+321321321',
             image: 'https://via.placeholder.com/600x400',
-            deadline: '2025-08-15T00:00:00.000Z',
+            deadline: '2026-08-15T00:00:00.000Z',
             complexSlug: buglessHeightsSlug,
             categorySlug: eventSlug,
+            createdAt: new Date('2025-09-04T07:30:18.783Z'),
+            updatedAt: new Date('2025-09-15T15:45:09.329Z'),
         },
     });
 
@@ -258,16 +266,35 @@ async function createPosts({
 }
 
 async function createComments({ deskId, sofaId, bbqId }: { deskId: string; sofaId: string; bbqId: string }) {
+    const now = new Date();
     await prisma.comment.create({
-        data: { author: 'Jane Neighbor', text: 'Is the desk still available?', postId: deskId },
+        data: { 
+            author: 'Jane Neighbor', 
+            text: 'Is the desk still available?', 
+            postId: deskId,
+            createdAt: now,
+            updatedAt: now,
+        },
     });
 
     await prisma.comment.create({
-        data: { author: 'Mike Helper', text: 'I can help you with the sofa, just tell me when.', postId: sofaId },
+        data: { 
+            author: 'Mike Helper', 
+            text: 'I can help you with the sofa, just tell me when.', 
+            postId: sofaId,
+            createdAt: now,
+            updatedAt: now,
+        },
     });
 
     await prisma.comment.create({
-        data: { author: 'Sara Green', text: "I'll bring lemonade for the BBQ!", postId: bbqId },
+        data: { 
+            author: 'Sara Green', 
+            text: "I'll bring lemonade for the BBQ!", 
+            postId: bbqId,
+            createdAt: now,
+            updatedAt: now,
+        },
     });
 }
 
