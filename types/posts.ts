@@ -1,9 +1,10 @@
 import { ICategory } from '@/types/categories';
 import { IComplexFull } from '@/types/complexes';
+import { IComment } from '@/types/comments';
 
 // Base interface for posts
 export interface IPostBase {
-    id: string;
+    id: number;
     title: string;
     shortText: string;
     authorName: string;
@@ -25,7 +26,7 @@ export interface IPostFull extends IPostBase {
     fullText: string;
     phone: string | null;
     whatsapp: string | null;
-    comments: Comment[];
+    comments: IComment[];
     updatedAt: Date;
     complex: IComplexFull; // check what data is needed here
     category: ICategory;

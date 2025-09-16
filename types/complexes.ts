@@ -1,4 +1,4 @@
-import { Post } from './posts';
+import { IPostBase } from './posts';
 
 export interface IComplexBase {
     id: string;
@@ -25,7 +25,7 @@ export interface IComplexFull extends IComplexBase {
     metro: string | null;
     description: string | null;
     timeToMetro: number | null;
-    posts: Post[] | null;
+    posts: IPostBase[];
     usefulPhones: IUsefulPhone[];
     managementCompany: IManagementCompany | null;
     phone: string | null;
