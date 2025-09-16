@@ -1,0 +1,74 @@
+.card {
+    position: relative;
+    display: flex;
+    padding: var(--p-card-mob);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+    flex-direction: column;
+    gap: var(--gap-card-mob);
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    height: 2.4rem;
+    padding: 0 1.2rem;
+    border-radius: 2.4rem;
+    background-color: var(--bg-light);
+    font-size: 1.2rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background-color: var(--accent-50);
+    color: var(--text-secondary);
+}
+
+.line {
+    height: 1px;
+    color: var(--border);
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 0.4rem;
+}
+
+.commentIcon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}

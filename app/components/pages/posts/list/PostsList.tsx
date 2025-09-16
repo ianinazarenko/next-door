@@ -1,4 +1,7 @@
 import { IPostListItem } from '@/types/posts';
+import s from './PostsList.module.css';
+import clsx from 'clsx';
+import PostsListCard from '@/app/components/pages/posts/list/PostsListCard';
 
 interface IProps {
     posts: IPostListItem[];
@@ -6,9 +9,12 @@ interface IProps {
 
 export default function PostsList({ posts }: IProps) {
     return (
-        <section className={'section'}>
+        <section className={clsx('section', s.list)}>
             {posts.map((post) => (
-                <div key={post.id}>{post.title}</div>
+                <PostsListCard
+                    key={post.id}
+                    post={post}
+                />
             ))}
         </section>
     );
