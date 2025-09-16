@@ -198,7 +198,8 @@ async function createPosts({
         data: {
             title: 'Selling a standing desk',
             shortText: 'Ergonomic standing desk, great condition',
-            fullText: "I'm selling my adjustable standing desk. It's in great condition and perfect for home office setups. Price negotiable, pick up in Pixel Park.",
+            fullText:
+                "I'm selling my adjustable standing desk. It's in great condition and perfect for home office setups. Price negotiable, pick up in Pixel Park.",
             authorName: 'Alex Coder',
             phone: '+123456789',
             whatsapp: '+123456789',
@@ -215,7 +216,8 @@ async function createPosts({
         data: {
             title: 'Free houseplants',
             shortText: 'Giving away two healthy monstera plants',
-            fullText: 'I have two large monstera plants that need a new home. Perfect for adding some greenery to your apartment. Free to a good home.',
+            fullText:
+                'I have two large monstera plants that need a new home. Perfect for adding some greenery to your apartment. Free to a good home.',
             authorName: 'Maya Bloom',
             phone: '+987654321',
             whatsapp: '+987654321',
@@ -232,7 +234,8 @@ async function createPosts({
         data: {
             title: 'Need help moving furniture',
             shortText: 'Looking for someone to help move a sofa',
-            fullText: 'I need a hand moving a sofa from my apartment to the basement storage. Should take about 30 minutes. Beer and snacks included.',
+            fullText:
+                'I need a hand moving a sofa from my apartment to the basement storage. Should take about 30 minutes. Beer and snacks included.',
             authorName: 'Chris Lift',
             phone: '+123123123',
             whatsapp: '+123123123',
@@ -249,7 +252,8 @@ async function createPosts({
         data: {
             title: 'Community BBQ this Saturday',
             shortText: 'Join us for burgers, music and fun',
-            fullText: "We're organizing a BBQ in the Bugless Heights courtyard this Saturday at 4 PM. Bring something to grill and a good mood!",
+            fullText:
+                "We're organizing a BBQ in the Bugless Heights courtyard this Saturday at 4 PM. Bring something to grill and a good mood!",
             authorName: 'Event Committee',
             phone: '+321321321',
             whatsapp: '+321321321',
@@ -265,12 +269,12 @@ async function createPosts({
     return { post1, post2, post3, post4 };
 }
 
-async function createComments({ deskId, sofaId, bbqId }: { deskId: string; sofaId: string; bbqId: string }) {
+async function createComments({ deskId, sofaId, bbqId }: { deskId: number; sofaId: number; bbqId: number }) {
     const now = new Date();
     await prisma.comment.create({
-        data: { 
-            author: 'Jane Neighbor', 
-            text: 'Is the desk still available?', 
+        data: {
+            author: 'Jane Neighbor',
+            text: 'Is the desk still available?',
             postId: deskId,
             createdAt: now,
             updatedAt: now,
@@ -278,9 +282,9 @@ async function createComments({ deskId, sofaId, bbqId }: { deskId: string; sofaI
     });
 
     await prisma.comment.create({
-        data: { 
-            author: 'Mike Helper', 
-            text: 'I can help you with the sofa, just tell me when.', 
+        data: {
+            author: 'Mike Helper',
+            text: 'I can help you with the sofa, just tell me when.',
             postId: sofaId,
             createdAt: now,
             updatedAt: now,
@@ -288,9 +292,9 @@ async function createComments({ deskId, sofaId, bbqId }: { deskId: string; sofaI
     });
 
     await prisma.comment.create({
-        data: { 
-            author: 'Sara Green', 
-            text: "I'll bring lemonade for the BBQ!", 
+        data: {
+            author: 'Sara Green',
+            text: "I'll bring lemonade for the BBQ!",
             postId: bbqId,
             createdAt: now,
             updatedAt: now,

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -16,7 +10,6 @@ datasource db {
 }
 
 model Post {
-  id           String    @id @default(cuid())
   title        String
   shortText    String
   fullText     String
@@ -27,11 +20,12 @@ model Post {
   deadline     DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  comments     Comment[]
-  complexSlug  String
-  complex      Complex   @relation(fields: [complexSlug], references: [slug], onDelete: Cascade)
   categorySlug String
+  complexSlug  String
+  id           Int       @id @unique @default(autoincrement())
+  comments     Comment[]
   category     Category  @relation(fields: [categorySlug], references: [slug], onDelete: Cascade)
+  complex      Complex   @relation(fields: [complexSlug], references: [slug], onDelete: Cascade)
 
   @@index([categorySlug])
   @@index([complexSlug])
@@ -52,28 +46,25 @@ model Complex {
   metro               String?
   description         String?
   timeToMetro         Int?
-  posts               Post[]
-  managementCompany   ManagementCompany? @relation(fields: [managementCompanyId], references: [id])
   managementCompanyId String?
-  usefulPhones        UsefulPhone[]
-  phone               String?
   email               String?
+  phone               String?
+  managementCompany   ManagementCompany? @relation(fields: [managementCompanyId], references: [id])
+  posts               Post[]
+  usefulPhones        UsefulPhone[]
 
   @@index([name])
   @@index([address])
 }
 
-// features    Features[]
-// infra       Infra[]
-
 model Comment {
   id        String   @id @default(cuid())
-  postId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   author    String
   text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@index([postId])
 }
