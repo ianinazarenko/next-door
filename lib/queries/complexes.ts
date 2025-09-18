@@ -1,9 +1,7 @@
-// Types
 import { IComplexBase, IComplexFull } from '@/types/complexes';
-import { IPostListItem } from '@/types/posts';
-import { IPostsPageParams } from '@/app/posts/page';
-// Prisma
+import { ISpec } from '@/types/common';
 import { prisma } from '@/lib/db';
+import { prepareSpec } from '@/utils/helpers/data-utils';
 
 export async function fetchComplexes({
     limit,
@@ -68,70 +66,23 @@ export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
     }
 }
 
-export async function fetchPosts({
-    limit,
-    offset,
-    params,
-}: {
-    limit: number;
-    offset: number;
-    params: IPostsPageParams;
-}): Promise<IPostListItem[]> {
+export async function fetchComplexesSpecs(): Promise<ISpec[]> {
     try {
-        const where: Partial<IPostsPageParams> & { OR: Array<{ deadline: object | null }> } = { OR: [] };
-
-        if (params.complexSlug) {
-            where.complexSlug = params.complexSlug;
-        }
-
-        if (params.categorySlug) {
-            where.categorySlug = params.categorySlug;
-        }
-
-        where.OR = [{ deadline: null }, { deadline: { gte: new Date() } }];
-
-        const res = await prisma.post.findMany({
-            where: Object.keys(where).length > 0 ? where : undefined,
-
+        const res = await prisma.complex.findMany({
             select: {
                 id: true,
-                title: true,
-                shortText: true,
-                authorName: true,
-                image: true,
-                deadline: true,
-                createdAt: true,
-                complexSlug: true,
-                categorySlug: true,
-                category: {
-                    select: {
-                        id: true,
-                        slug: true,
-                        name: true,
-                    },
-                },
-
-                complex: {
-                    select: {
-                        name: true,
-                    },
-                },
-
-                _count: {
-                    select: {
-                        comments: true,
-                    },
-                },
+                slug: true,
+                name: true,
             },
-
-            orderBy: { createdAt: 'desc' }, // Изменил на desc для новых постов сверху
-            take: limit,
-            skip: offset,
         });
 
-        return res ? res.map(({ _count, ...post }) => ({ ...post, commentsCount: _count?.comments || 0 })) : [];
+        return prepareSpec(res, {
+            valueName: 'slug',
+            labelName: 'name',
+            allLabel: 'All Complexes',
+        });
     } catch (error) {
-        console.error('[queries/fetchPosts]: Error fetching posts:', error);
-        throw new Error('Failed to fetch posts. Please try again later.');
+        console.error('[queries/fetchComplexesSpecs]: Error fetching complexes specs');
+        throw new Error(`Failed to fetch complexes specs`);
     }
 }
