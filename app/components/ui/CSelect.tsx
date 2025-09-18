@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { Field, Select } from '@headlessui/react';
 import CLabel from '@/app/components/ui/CLabel';
 import CDescription from '@/app/components/ui/CDescription';
@@ -9,9 +10,12 @@ interface ISelectProps {
     specs: { label: string; value: string | number }[];
     name?: string;
     ariaLabel?: string;
+    disabled?: boolean;
+    value?: string | number;
+    onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-function CSelect({ label, description, specs, name, ariaLabel }: ISelectProps) {
+function CSelect({ label, description, specs, name, ariaLabel, disabled, value, onChange }: ISelectProps) {
     return (
         <Field className='w-full'>
             {label && <CLabel>{label}</CLabel>}
@@ -19,11 +23,14 @@ function CSelect({ label, description, specs, name, ariaLabel }: ISelectProps) {
 
             <div className='relative'>
                 <Select
+                    value={value}
                     name={name}
                     aria-label={ariaLabel}
                     className={
                         'mt-3 block w-full appearance-none rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)'
                     }
+                    disabled={disabled}
+                    onChange={onChange}
                 >
                     {specs.map((spec) => (
                         <option
