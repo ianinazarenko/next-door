@@ -1,7 +1,9 @@
 // Types
-import { IPostListItem } from '@/types/posts';
+import { IPostListItem, IPostsState } from '@/types/posts';
 // Utils
-import { fetchPosts } from '@/lib/queries';
+import { fetchComplexesSpecs } from '@/lib/queries/complexes';
+import { fetchCategoriesSpecs } from '@/lib/queries/categories';
+import { fetchPosts } from '@/lib/queries/posts';
 // Components
 import { Suspense } from 'react';
 import PostsHeader from '@/app/components/pages/posts/PostsHeader';
@@ -9,24 +11,19 @@ import PostsFilters from '@/app/components/pages/posts/filters/PostsFilters';
 import PostsList from '@/app/components/pages/posts/list/PostsList';
 import PostsListSkeleton from '@/app/components/pages/posts/skeletons/PostsListSkeleton';
 
-export interface IPostsPageParams {
-    categorySlug?: string;
-    complexSlug?: string;
-}
-
-export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsPageParams> }) {
+export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsState> }) {
     const params = await searchParams;
+    const complexSpecs = await fetchComplexesSpecs();
+    const categoriesSpecs = await fetchCategoriesSpecs();
 
     try {
         const posts: IPostListItem[] = await fetchPosts({ limit: 10, offset: 0, params });
-
-        console.log(posts);
 
         return (
             <div className={'page c-container'}>
                 <PostsHeader />
 
-                <PostsFilters />
+                <PostsFilters specs={{ complex: complexSpecs, category: categoriesSpecs }} />
 
                 <Suspense fallback={<PostsListSkeleton />}>
                     <PostsList posts={posts} />

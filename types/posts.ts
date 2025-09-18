@@ -31,3 +31,15 @@ export interface IPostFull extends IPostBase {
     complex: IComplexFull; // check what data is needed here
     category: ICategory;
 }
+
+// Posts State for Posts page
+export interface IPostsState {
+    complex: string;
+    category: string;
+}
+
+// Where params for query
+export interface IPostsWhereParams {
+    categorySlug?: string;
+    complexSlug?: string;
+}

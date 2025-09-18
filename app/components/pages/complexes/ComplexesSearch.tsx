@@ -1,6 +1,7 @@
 'use client';
 
 import { PAGES } from '@/utils/data/pages';
+import { EComplexesParams } from '@/utils/constants/complexes';
 import { ChangeEvent, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
@@ -14,9 +15,9 @@ export default function ComplexesSearch() {
     const debouncedSearch = useDebouncedCallback((search: string) => {
         const params = new URLSearchParams(searchParams);
         if (Boolean(search.trim())) {
-            params.set('search', search);
+            params.set(EComplexesParams.Search, search);
         } else {
-            params.delete('search');
+            params.delete(EComplexesParams.Search);
         }
 
         startTransition(() => {

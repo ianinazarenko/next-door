@@ -3,7 +3,7 @@ import { IComplexBase } from '@/types/complexes';
 // Styles
 import s from './page.module.css';
 // Utils
-import { fetchComplexes } from '@/lib/queries';
+import { fetchComplexes } from '@/lib/queries/complexes';
 // Components
 import { Suspense } from 'react';
 import ComplexesList from '@/app/components/pages/complexes/ComplexesList';

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { fetchComplex } from '@/lib/queries';
+import { fetchComplex } from '@/lib/queries/complexes';
 
 import { Suspense } from 'react';
 import ComplexHero from '@/app/components/pages/complex/hero/ComplexHero';
