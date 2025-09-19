@@ -1,6 +1,7 @@
 import { IPostListItem, IPostsState } from '@/types/posts';
 import { buildPostsWhere } from '@/utils/helpers/data-utils';
 import { prisma } from '@/lib/db';
+import { postsQuerySchema } from '@/utils/validation/schemas';
 
 export async function fetchPosts({
     limit,
@@ -12,6 +13,8 @@ export async function fetchPosts({
     params: IPostsState;
 }): Promise<IPostListItem[]> {
     try {
+        postsQuerySchema.parse({ limit, offset, params })
+        
         const where = buildPostsWhere(params);
 
         const res = await prisma.post.findMany({

@@ -1,7 +1,9 @@
 import { IComplexBase, IComplexFull } from '@/types/complexes';
 import { ISpec } from '@/types/common';
 import { prisma } from '@/lib/db';
+import { unstable_cache } from 'next/cache';
 import { prepareSpec } from '@/utils/helpers/data-utils';
+import { complexesQuerySchema } from '@/utils/validation/schemas';
 
 export async function fetchComplexes({
     limit,
@@ -13,6 +15,8 @@ export async function fetchComplexes({
     search?: string;
 }): Promise<IComplexBase[]> {
     try {
+        complexesQuerySchema.parse({ limit, offset, search });
+
         const res = await prisma.complex.findMany({
             where: search
                 ? {
@@ -66,7 +70,7 @@ export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
     }
 }
 
-export async function fetchComplexesSpecs(): Promise<ISpec[]> {
+export async function fetchComplexesSpecsCallback(): Promise<ISpec[]> {
     try {
         const res = await prisma.complex.findMany({
             select: {
@@ -86,3 +90,9 @@ export async function fetchComplexesSpecs(): Promise<ISpec[]> {
         throw new Error(`Failed to fetch complexes specs`);
     }
 }
+
+export const fetchComplexesSpecs = unstable_cache(
+    fetchComplexesSpecsCallback,
+    ['complexes-specs'],
+    { revalidate: 604800 } // 1 week
+);
