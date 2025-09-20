@@ -1,5 +1,5 @@
 import { ICategory } from '@/types/categories';
-import { IComplexFull } from '@/types/complexes';
+import { IComplexBase } from '@/types/complexes';
 import { IComment } from '@/types/comments';
 
 // Base interface for posts
@@ -28,7 +28,7 @@ export interface IPostFull extends IPostBase {
     whatsapp: string | null;
     comments: IComment[];
     updatedAt: Date;
-    complex: IComplexFull; // check what data is needed here
+    complex: IComplexBase; // check what data is needed here
     category: ICategory;
 }
 

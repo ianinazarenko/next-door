@@ -31,7 +31,7 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
             </div>
         );
     } catch (error) {
-        console.error('[PostsPage]: Error loading complexes:', error);
+        console.error('[PostsPage]: Error loading posts:', error);
         throw error;
     }
 }
