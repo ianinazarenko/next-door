@@ -8,6 +8,10 @@ interface IProps {
 }
 
 export default function PostsList({ posts }: IProps) {
+    if (!posts?.length) {
+        return <p className={'section'}>Sorry, no announcements found</p>;
+    }
+
     return (
         <section className={clsx('section', s.list)}>
             {posts.map((post) => (
@@ -16,6 +20,8 @@ export default function PostsList({ posts }: IProps) {
                     post={post}
                 />
             ))}
+
+            {/*  TODO: add pagination and loading */}
         </section>
     );
 }

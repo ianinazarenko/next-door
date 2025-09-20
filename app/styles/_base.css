@@ -70,3 +70,8 @@ select,
 textarea {
     cursor: pointer;
 }
+
+button:disabled,
+button[disabled] {
+    cursor: not-allowed !important;
+}

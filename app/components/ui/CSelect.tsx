@@ -3,8 +3,10 @@ import { Field, Select } from '@headlessui/react';
 import CLabel from '@/app/components/ui/CLabel';
 import CDescription from '@/app/components/ui/CDescription';
 import { ChevronDown } from 'lucide-react';
+import clsx from 'clsx';
 
 interface ISelectProps {
+    className?: string;
     label?: string;
     description?: string;
     specs: { label: string; value: string | number }[];
@@ -15,9 +17,9 @@ interface ISelectProps {
     onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-function CSelect({ label, description, specs, name, ariaLabel, disabled, value, onChange }: ISelectProps) {
+function CSelect({ className, label, description, specs, name, ariaLabel, disabled, value, onChange }: ISelectProps) {
     return (
-        <Field className='w-full'>
+        <Field className={clsx('w-full', className)}>
             {label && <CLabel>{label}</CLabel>}
             {description && <CDescription>{description}</CDescription>}
 
