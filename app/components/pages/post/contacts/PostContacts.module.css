@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    gap: var(--gap-card-mob);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--btn-height);
+    height: var(--btn-height);
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+}
+
+.icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
