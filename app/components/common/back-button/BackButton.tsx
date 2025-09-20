@@ -4,6 +4,7 @@ import CLinkButton from '@/app/components/ui/CLinkButton';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+const BTN_LABEL = 'Back';
 export default function BackButton({ backUrl }: { backUrl?: string }) {
     const [isHovering, setIsHovering] = useState<boolean>(false);
     const router = useRouter();
@@ -19,7 +20,7 @@ export default function BackButton({ backUrl }: { backUrl?: string }) {
         <div
             role={'button'}
             tabIndex={0}
-            className={'inline-block'}
+            className={'inline-block py-2'}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             onClick={handleBack}
@@ -28,7 +29,7 @@ export default function BackButton({ backUrl }: { backUrl?: string }) {
                 isHovering={isHovering}
                 isLeft
             >
-                Back
+                {BTN_LABEL}
             </CLinkButton>
         </div>
     );
