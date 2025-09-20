@@ -7,11 +7,11 @@
     border: 1px solid var(--border);
     flex-direction: column;
     gap: var(--gap-card-mob);
-    transition: box-shadow var(--trs);
+    transition: background-color var(--trs);
 
     @media (width >= 1280px) {
         &:hover {
-            box-shadow: var(--box-shadow-button);
+            background-color: var(--bg-secondary);
         }
     }
 }

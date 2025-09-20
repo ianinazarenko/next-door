@@ -19,7 +19,7 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
         <div className={s.card}>
             <div className={s.tag}>{category.name}</div>
 
-            <p className={'card-title'}>{title}</p>
+            <p className={clsx(s.title, 'card-title')}>{title}</p>
 
             <p className={clsx(s.text, 'card-description')}>{text}</p>
 

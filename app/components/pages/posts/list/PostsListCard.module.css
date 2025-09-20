@@ -4,9 +4,19 @@
     padding: var(--p-card-mob);
     border-radius: var(--radius-card);
     border: 1px solid var(--border);
-    background-color: var(--bg-secondary);
     flex-direction: column;
     gap: var(--gap-card-mob);
+    transition: background-color var(--trs);
+
+    @media (width >= 1280px) {
+        &:hover {
+            background-color: var(--bg-secondary);
+
+            .title {
+                color: var(--accent-hover);
+            }
+        }
+    }
 }
 
 .tag {
@@ -19,6 +29,10 @@
     border-radius: 2.4rem;
     background-color: var(--bg-light);
     font-size: 1.2rem;
+}
+
+.title {
+    transition: color var(--trs);
 }
 
 .info {
