@@ -86,8 +86,8 @@ export async function fetchComplexesSpecsCallback(): Promise<ISpec[]> {
             allLabel: 'All Complexes',
         });
     } catch (error) {
-        console.error('[queries/fetchComplexesSpecs]: Error fetching complexes specs');
-        throw new Error(`Failed to fetch complexes specs`);
+        console.error('[queries/fetchComplexesSpecs]: Error fetching complexes specs', error);
+        throw new Error('Failed to fetch complexes specs');
     }
 }
 

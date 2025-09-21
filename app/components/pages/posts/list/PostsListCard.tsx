@@ -5,7 +5,7 @@ import { dateFormatter } from '@/utils/helpers/date-utils';
 import s from './PostsListCard.module.css';
 import clsx from 'clsx';
 
-import { MessageCircle, User } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import UserPic from '@/app/components/common/user/UserPic';
 
