@@ -1,29 +1,19 @@
+import { CONTACTS } from '@/utils/data/post-contacts';
+import { IContactsProps } from '@/types/contacts';
 import s from './PostContacts.module.css';
-import { SiWhatsapp } from 'react-icons/si';
 import { Phone } from 'lucide-react';
+import { SiWhatsapp } from 'react-icons/si';
 
-interface IProps {
-    phone?: string | null;
-    whatsapp?: string | null;
-}
-
-const LINKS: Record<keyof IProps, (num: string) => string> = {
-    phone: (num: string) => `tel:${num}`,
-    whatsapp: (num: string) => `https://api.whatsapp.com/send?phone=${num.replace(/\D/g, '')}`,
-};
-
-const ICONS: Record<keyof IProps, React.ReactNode> = {
+const ICONS: Record<keyof IContactsProps, React.ReactNode> = {
     phone: <Phone className={s.icon} />,
     whatsapp: <SiWhatsapp size={16} />,
 };
-function buildLinks(contacts: IProps) {
-    return (Object.entries(contacts) as [keyof IProps, string | null][])
-        .map(([key, value]) => (value ? { key, href: LINKS[key](value) } : { key, href: null }))
-        .filter((item): item is { key: keyof IProps; href: string } => Boolean(item.href));
-}
 
-export default function PostContacts({ contacts }: { contacts: IProps }) {
-    const links: { key: keyof IProps; href: string }[] = buildLinks(contacts);
+export default function PostContacts({ contacts }: { contacts: IContactsProps }) {
+    const links = CONTACTS.filter((item) => contacts[item.key]).map((item) => ({
+        ...item,
+        href: item.getLink(contacts[item.key] ?? ''),
+    }));
 
     return (
         <div className={s.container}>
