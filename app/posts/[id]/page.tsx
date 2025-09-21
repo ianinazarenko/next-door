@@ -1,3 +1,5 @@
+import { PAGES } from '@/utils/data/pages';
+
 import { fetchPost } from '@/lib/queries/posts';
 import { notFound } from 'next/navigation';
 
@@ -7,6 +9,7 @@ import BackButton from '@/app/components/common/back-button/BackButton';
 
 export const revalidate = 300;
 
+const BACK_URL = PAGES.POSTS.link;
 export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const post = await fetchPost(id);
@@ -18,7 +21,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
     try {
         return (
             <div className={'page c-container'}>
-                <BackButton />
+                <BackButton backUrl={BACK_URL} />
 
                 <Suspense fallback={<div>Loading...</div>}>
                     <PostMain post={post} />
