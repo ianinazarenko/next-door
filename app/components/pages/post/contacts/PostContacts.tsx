@@ -9,6 +9,8 @@ const ICONS: Record<keyof IContactsProps, React.ReactNode> = {
     whatsapp: <SiWhatsapp size={16} />,
 };
 
+const SECTION_TITLE = 'Contact the author';
+
 export default function PostContacts({ contacts }: { contacts: IContactsProps }) {
     const links = CONTACTS.filter((item) => contacts[item.key]).map((item) => ({
         ...item,
@@ -16,18 +18,21 @@ export default function PostContacts({ contacts }: { contacts: IContactsProps })
     }));
 
     return (
-        <div className={s.container}>
-            {links.map((item) => (
-                <a
-                    key={item.key}
-                    href={item.href}
-                    target={item.key === 'phone' ? '_self' : '_blank'}
-                    rel={item.key === 'phone' ? undefined : 'noopener noreferrer'}
-                    className={'card-description'}
-                >
-                    <div className={s.item}>{ICONS[item.key]}</div>
-                </a>
-            ))}
-        </div>
+        <section>
+            <h2 className={'h4 py-4'}>{SECTION_TITLE}</h2>
+            <div className={s.container}>
+                {links.map((item) => (
+                    <a
+                        key={item.key}
+                        href={item.href}
+                        target={item.key === 'phone' ? '_self' : '_blank'}
+                        rel={item.key === 'phone' ? undefined : 'noopener noreferrer'}
+                        className={'card-description'}
+                    >
+                        <div className={s.item}>{ICONS[item.key]}</div>
+                    </a>
+                ))}
+            </div>
+        </section>
     );
 }
