@@ -1,0 +1,8 @@
+.card {
+    display: flex;
+    gap: var(--gap-card-mob);
+}
+
+.author {
+    color: var(--text-primary);
+}
