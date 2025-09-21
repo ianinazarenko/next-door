@@ -57,6 +57,11 @@ This is a **demo MVP** version of the project — already functional, but planne
   **Tailwind CSS** + **Headless UI** are used together to quickly build accessible and customizable UI components.  
   **CSS Modules** are used for styling other components that require full control over layout and custom styles.
 
+## Notes
+
+- Some images in this project are loaded from [Picsum.photos](https://picsum.photos/) as placeholders.
+- They are random and used for demonstration purposes only.
+
 ## Roadmap / Future Plans
 
 - Add user authentication and personal profiles (replace authorName/phone fields with `User` relation)
