@@ -6,7 +6,7 @@ import PostContacs from '@/app/components/pages/post/contacts/PostContacts';
 
 export default function PostMain({ post }: { post: IPostFull }) {
     const { title, shortText, category, createdAt, fullText, phone, whatsapp, authorName } = post;
-    console.log(post);
+
     return (
         <div className={s.container}>
             <PostHeader
