@@ -7,6 +7,7 @@ import clsx from 'clsx';
 
 import { MessageCircle, User } from 'lucide-react';
 import Link from 'next/link';
+import UserPic from '@/app/components/common/user/UserPic';
 
 export default function PostsListCard({ post }: { post: IPostListItem }) {
     const { id, title, shortText, authorName, deadline, commentsCount, createdAt, category } = post;
@@ -27,9 +28,7 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
             <div className={s.info}>
                 {authorName && (
                     <div className={s.author}>
-                        <div className={s.picture}>
-                            <User />
-                        </div>
+                        <UserPic className={s.picture} />
                         <p className={'card-meta'}>{authorName}</p>
                     </div>
                 )}
