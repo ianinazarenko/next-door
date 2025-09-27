@@ -7,7 +7,6 @@ interface IInputProps {
     label?: string;
     description?: string;
     placeholder?: string;
-    name: string;
     onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
