@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db';
 import { unstable_cache } from 'next/cache';
 import { prepareSpec } from '@/utils/helpers/data-utils';
 
-export async function fetchCategoriesSpecsCallback(): Promise<ISpec[]> {
+export async function fetchCategoriesSpecsCallback(hasAllOption: boolean): Promise<ISpec[]> {
     try {
         const res = await prisma.category.findMany({
             select: {
@@ -16,6 +16,7 @@ export async function fetchCategoriesSpecsCallback(): Promise<ISpec[]> {
             valueName: 'slug',
             labelName: 'name',
             allLabel: 'All Categories',
+            hasAllOption,
         });
     } catch (error) {
         console.error('[queries/fetchCategories]:', error);
@@ -24,7 +25,7 @@ export async function fetchCategoriesSpecsCallback(): Promise<ISpec[]> {
 }
 
 export const fetchCategoriesSpecs = unstable_cache(
-    fetchCategoriesSpecsCallback,
+    (hasAllOption: boolean = true) => fetchCategoriesSpecsCallback(hasAllOption),
     ['categories-specs'],
     { revalidate: 604800 } // 1 week
-  );
+);
