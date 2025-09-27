@@ -29,7 +29,7 @@ function CSelect({ className, label, description, specs, name, ariaLabel, disabl
                     name={name}
                     aria-label={ariaLabel}
                     className={
-                        'mt-3 block w-full appearance-none rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)'
+                        'mt-1 block w-full appearance-none rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)'
                     }
                     disabled={disabled}
                     onChange={onChange}

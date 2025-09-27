@@ -1,0 +1,10 @@
+.field {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.error {
+    position: absolute;
+    bottom: 0;
+    color: var(--error);
+}
