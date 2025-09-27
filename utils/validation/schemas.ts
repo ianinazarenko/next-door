@@ -1,5 +1,14 @@
 import { z } from 'zod';
 
+const e164PhoneNumber = (message = 'Invalid E.164 number') =>
+    z
+        .string()
+        .optional()
+        .refine((val) => {
+            if (!val) return true; // empty value is allowed
+            return /^\+[1-9]\d{1,14}$/.test(val); // E.164 check
+        }, message);
+
 export const postsQuerySchema = z.object({
     limit: z.number().min(1).max(100),
     offset: z.number().min(0),
@@ -16,12 +25,12 @@ export const complexesQuerySchema = z.object({
 });
 
 export const createPostSchema = z.object({
-    title: z.string().min(3, 'Title is required').max(10, 'Title is too long'),
-    shortText: z.string().min(3, 'Short text is required').max(50, 'Short text is too long'),
-    fullText: z.string().min(3, 'Text is required').max(500, 'Text is too long'),
+    title: z.string().trim().min(3, 'Title is required').max(10, 'Title is too long'),
+    shortText: z.string().trim().min(3, 'Short text is required').max(50, 'Short text is too long'),
+    fullText: z.string().trim().min(3, 'Text is required').max(500, 'Text is too long'),
     complex: z.string(),
     category: z.string(),
-    phone: z.e164().optional(),
-    whatsApp: z.e164().optional(),
+    phone: e164PhoneNumber(),
+    whatsApp: e164PhoneNumber(),
     // img: z.string().optional(),
 });

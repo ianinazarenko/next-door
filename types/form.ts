@@ -11,4 +11,5 @@ export interface INewPostField {
     specs?: string[];
     className?: string;
     rows?: number;
+    description?: string;
 }

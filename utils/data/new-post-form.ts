@@ -39,14 +39,16 @@ export const FIELDS: INewPostField[] = [
         name: 'phone',
         label: 'Phone',
         is: CInput,
-        placeholder: 'Your phone number',
+        placeholder: '+1234567890',
+        description: 'Phone number in international format',
         className: 'col',
     },
     {
         name: 'whatsApp',
         label: 'WhatsApp',
         is: CInput,
-        placeholder: 'Your WhatsApp number',
+        placeholder: '+441234567890',
+        description: 'Phone number in international format',
         className: 'col',
     },
     {
