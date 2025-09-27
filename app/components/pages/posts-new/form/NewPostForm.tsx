@@ -14,11 +14,16 @@ import s from './NewPostForm.module.css';
 import CButton from '@/app/components/ui/CButton';
 import FormField from '@/app/components/common/form/FormField';
 
+type TSpecTypes = Extract<keyof TSchema, 'category' | 'complex'>;
 interface IProps {
-    categoriesSpecs: ISpec[];
+    specs: Record<TSpecTypes, ISpec[]>;
 }
 
-export default function NewPostForm({ categoriesSpecs }: IProps) {
+const isSpecType = (key: string): key is TSpecTypes => {
+    return key === 'category' || key === 'complex';
+};
+
+export default function NewPostForm({ specs }: IProps) {
     const {
         register,
         handleSubmit,
@@ -47,7 +52,7 @@ export default function NewPostForm({ categoriesSpecs }: IProps) {
                     >
                         <Component
                             {...{ ...f, ...register(f.name) }}
-                            {...(f.name === 'category' && { specs: categoriesSpecs })}
+                            {...(isSpecType(f.name) ? { specs: specs[f.name] } : {})}
                         />
                     </FormField>
                 ))}

@@ -55,5 +55,14 @@ export const FIELDS: INewPostField[] = [
         is: CSelect,
         placeholder: 'Select category',
         specs: [],
+        className: 'col',
+    },
+    {
+        name: 'complex',
+        label: 'Complex',
+        is: CSelect,
+        placeholder: 'Select complex',
+        specs: [],
+        className: 'col',
     },
 ];

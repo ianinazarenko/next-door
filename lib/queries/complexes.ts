@@ -70,7 +70,7 @@ export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
     }
 }
 
-export async function fetchComplexesSpecsCallback(): Promise<ISpec[]> {
+export async function fetchComplexesSpecsCallback(hasAllOption: boolean): Promise<ISpec[]> {
     try {
         const res = await prisma.complex.findMany({
             select: {
@@ -84,6 +84,7 @@ export async function fetchComplexesSpecsCallback(): Promise<ISpec[]> {
             valueName: 'slug',
             labelName: 'name',
             allLabel: 'All Complexes',
+            hasAllOption,
         });
     } catch (error) {
         console.error('[queries/fetchComplexesSpecs]: Error fetching complexes specs', error);
@@ -92,7 +93,7 @@ export async function fetchComplexesSpecsCallback(): Promise<ISpec[]> {
 }
 
 export const fetchComplexesSpecs = unstable_cache(
-    fetchComplexesSpecsCallback,
+    (hasAllOption: boolean = true) => fetchComplexesSpecsCallback(hasAllOption),
     ['complexes-specs'],
     { revalidate: 604800 } // 1 week
 );

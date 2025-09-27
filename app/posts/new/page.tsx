@@ -1,4 +1,5 @@
 import { fetchCategoriesSpecs } from '@/lib/queries/categories';
+import { fetchComplexesSpecs } from '@/lib/queries/complexes';
 
 import { Suspense } from 'react';
 import NewPostHeader from '@/app/components/pages/posts-new/NewPostHeader';
@@ -7,14 +8,17 @@ import NewPostLoader from '@/app/components/pages/posts-new/NewPostLoader';
 
 export default async function NewPostPage() {
     try {
-        const categoriesSpecs = await fetchCategoriesSpecs(false);
+        const [categoriesSpecs, complexSpecs] = await Promise.all([
+            fetchCategoriesSpecs(false),
+            fetchComplexesSpecs(false),
+        ]);
 
         return (
             <div className={'page c-container'}>
                 <NewPostHeader />
 
                 <Suspense fallback={<NewPostLoader />}>
-                    <NewPostForm categoriesSpecs={categoriesSpecs} />
+                    <NewPostForm specs={{ complex: complexSpecs, category: categoriesSpecs }} />
                 </Suspense>
             </div>
         );
