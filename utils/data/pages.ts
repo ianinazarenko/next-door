@@ -16,4 +16,9 @@ export const PAGES = {
         title: 'Complexes',
         link: `/${EPages.Complexes}`,
     },
+    NEW_POST: {
+        slug: EPages.NewPost,
+        title: 'Create New Post',
+        link: `/${EPages.Posts}/new`,
+    },
 };

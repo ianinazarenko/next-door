@@ -23,7 +23,7 @@ export const HOME_CARDS: IHomeCard[] = [
         icon: 'SquarePen',
         title: 'Create an announcement',
         description: 'Share your latest events, requests or updates with the community members.',
-        link: PAGES.POSTS.link,
+        link: PAGES.NEW_POST.link,
         linkLabel: 'Create Now',
     },
 ];
