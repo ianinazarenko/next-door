@@ -13,11 +13,20 @@ interface ISelectProps {
     name?: string;
     ariaLabel?: string;
     disabled?: boolean;
-    value?: string | number;
     onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-function CSelect({ className, label, description, specs, name, ariaLabel, disabled, value, onChange }: ISelectProps) {
+function CSelect({
+    className,
+    label,
+    description,
+    specs,
+    name,
+    ariaLabel,
+    disabled,
+    onChange,
+    ...props
+}: ISelectProps) {
     return (
         <Field className={clsx('w-full', className)}>
             {label && <CLabel>{label}</CLabel>}
@@ -25,7 +34,6 @@ function CSelect({ className, label, description, specs, name, ariaLabel, disabl
 
             <div className='relative'>
                 <Select
-                    value={value}
                     name={name}
                     aria-label={ariaLabel}
                     className={
@@ -33,6 +41,7 @@ function CSelect({ className, label, description, specs, name, ariaLabel, disabl
                     }
                     disabled={disabled}
                     onChange={onChange}
+                    {...props}
                 >
                     {specs.map((spec) => (
                         <option

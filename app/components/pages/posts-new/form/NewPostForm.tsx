@@ -31,7 +31,11 @@ export default function NewPostForm({ specs }: IProps) {
     } = useForm<TSchema>({
         resolver: zodResolver(createPostSchema),
         mode: 'onTouched',
-        defaultValues: DEFAULT_VALUES,
+        defaultValues: {
+            ...DEFAULT_VALUES,
+            category: specs.category[0]?.value.toString() || '', // Assuming you want the first category as default
+            complex: specs.complex[0]?.value.toString() || '',
+        },
     });
 
     function onSubmit(data: TSchema) {
