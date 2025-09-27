@@ -1,5 +1,5 @@
 // Types
-import { IPostListItem, IPostsState } from '@/types/posts';
+import { IPostsState } from '@/types/posts';
 // Utils
 import { fetchComplexesSpecs } from '@/lib/queries/complexes';
 import { fetchCategoriesSpecs } from '@/lib/queries/categories';
@@ -13,11 +13,12 @@ import PostsListSkeleton from '@/app/components/pages/posts/skeletons/PostsListS
 
 export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsState> }) {
     const params = await searchParams;
-    const complexSpecs = await fetchComplexesSpecs();
-    const categoriesSpecs = await fetchCategoriesSpecs();
-
     try {
-        const posts: IPostListItem[] = await fetchPosts({ limit: 10, offset: 0, params });
+        const [complexSpecs, categoriesSpecs, posts] = await Promise.all([
+            fetchComplexesSpecs(),
+            fetchCategoriesSpecs(),
+            fetchPosts({ limit: 10, offset: 0, params }),
+        ]);
 
         return (
             <div className={'page c-container'}>
