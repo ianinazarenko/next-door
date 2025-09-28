@@ -2,6 +2,7 @@ import { IPostListItem } from '@/types/posts';
 import s from './PostsList.module.css';
 import clsx from 'clsx';
 import PostsListCard from '@/app/components/pages/posts/list/PostsListCard';
+import PostsListAddBtn from '@/app/components/pages/posts/list/PostsListAddBtn';
 
 interface IProps {
     posts: IPostListItem[];
@@ -22,6 +23,8 @@ export default function PostsList({ posts }: IProps) {
             ))}
 
             {/*  TODO: add pagination and loading */}
+
+            <PostsListAddBtn />
         </section>
     );
 }

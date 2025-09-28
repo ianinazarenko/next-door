@@ -6,6 +6,7 @@ import { ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
 
 interface ISelectProps {
+    value: string | number;
     className?: string;
     label?: string;
     description?: string;
@@ -17,6 +18,7 @@ interface ISelectProps {
 }
 
 function CSelect({
+    value,
     className,
     label,
     description,
@@ -34,6 +36,7 @@ function CSelect({
 
             <div className='relative'>
                 <Select
+                    value={value}
                     name={name}
                     aria-label={ariaLabel}
                     className={

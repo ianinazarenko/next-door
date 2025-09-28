@@ -1,0 +1,33 @@
+.btn {
+    position: fixed;
+    right: 0.8rem;
+    bottom: calc(var(--panel-height) + 1.6rem);
+    z-index: 5;
+
+    @media (width >= 768px) {
+        right: 2.4rem;
+        bottom: calc(var(--panel-height) / 2);
+        transform: translateY(50%);
+    }
+
+    @media (width >= 1440px) {
+        right: 4.8rem;
+        bottom: 4.8rem;
+    }
+}
+
+.iconBtn {
+    @media (width >= 768px) {
+        display: none;
+    }
+}
+
+.textBtn {
+    display: none;
+
+    @media (width >= 768px) {
+        &.textBtn {
+            display: inline-block;
+        }
+    }
+}
