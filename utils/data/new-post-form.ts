@@ -1,4 +1,4 @@
-import { INewPostField, TSchema } from '@/types/form';
+import { INewPostField, TSchema } from '@/types/forms';
 
 import CInput from '@/app/components/ui/CInput';
 import CTextarea from '@/app/components/ui/CTextarea';
@@ -11,7 +11,7 @@ export const DEFAULT_VALUES: Record<keyof TSchema, string> = {
     complex: '',
     category: '',
     phone: '',
-    whatsApp: '',
+    whatsapp: '',
 };
 
 export const FIELDS: INewPostField[] = [
@@ -44,7 +44,7 @@ export const FIELDS: INewPostField[] = [
         className: 'col',
     },
     {
-        name: 'whatsApp',
+        name: 'whatsapp',
         label: 'WhatsApp',
         is: CInput,
         placeholder: '+441234567890',

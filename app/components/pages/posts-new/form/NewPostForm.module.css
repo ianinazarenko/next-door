@@ -1,4 +1,5 @@
 .form {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
@@ -17,4 +18,16 @@
 
 .col {
     flex: 0 1 calc(50% - 1.6rem / 2);
+}
+
+.loader {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-primary);
+    opacity: 0.6;
+    cursor: not-allowed;
+    inset: 0;
 }
