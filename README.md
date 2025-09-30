@@ -31,14 +31,19 @@ This is a **demo MVP** version of the project — already functional, but planne
 
 ## Key Architectural Decisions
 
-- **Rendering Strategy**  
-  The posts feed (`/posts`) and post details (`/posts/[id]`) are rendered server-side (**SSR**) to always show the most recent content.  
-  Informational pages, such as residential complex profiles, use **SSG/ISR**, because they change rarely and benefit from caching.
+- **Rendering Strategy**
+- - **Server Components with direct database access** are used for data fetching.  
+    This is the most modern and idiomatic pattern in Next.js 15, giving better performance, SSR out of the box, and simpler code compared to API Routes.
+- **Server Actions** are used for data mutations (POST/PUT/DELETE).
+- **ISR** is used for static pages that rarely change (e.g., residential complex descriptions).
 
 - **State Management**  
   **Redux Toolkit** is used for global state management (selected complex, user placeholders). 
   **React Context** is used for theme management (light/dark/system) as it is simple, rarely changing global state.
   These two kinds of state (UI / bussiness logic) are separated from each other to make the code more modular and readable.
+  **Redux Toolkit** — installed but intentionally not used in the MVP.  
+  In Next.js 15, **Server Components** and **Server Actions** already cover most responsibilities Redux would normally handle.  
+  Redux is kept as a foundation for future features (e.g., user profiles) and can be expanded at any point.
 
 - **Data Fetching**  
   All **GET requests** are handled via **direct database access inside Server Components**.  
