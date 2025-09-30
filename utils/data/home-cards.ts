@@ -5,7 +5,7 @@ export const HOME_CARDS: IHomeCard[] = [
     {
         id: 'board',
         icon: 'LayoutDashboard',
-        title: 'Bulletin board',
+        title: 'Announcement board',
         description: 'Find local announcements, events and community updates.',
         link: PAGES.POSTS.link,
         linkLabel: 'View Board',
