@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// This might be used after MVP release
 export interface IComplexState {
     selectedComplex: string | null;
 }

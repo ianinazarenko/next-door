@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './slices/userSlice';
 import complexReducer from './slices/complexSlice';
 
 export const store = configureStore({
     reducer: {
+        user: userReducer,
         complex: complexReducer,
     },
 });
