@@ -32,10 +32,10 @@ This is a **demo MVP** version of the project — already functional, but planne
 ## Key Architectural Decisions
 
 - **Rendering Strategy**
-- - **Server Components with direct database access** are used for data fetching.  
+**Server Components with direct database access** are used for data fetching.  
     This is the most modern and idiomatic pattern in Next.js 15, giving better performance, SSR out of the box, and simpler code compared to API Routes.
-- **Server Actions** are used for data mutations (POST/PUT/DELETE).
-- **ISR** is used for static pages that rarely change (e.g., residential complex descriptions).
+**Server Actions** are used for data mutations (POST/PUT/DELETE).
+**ISR** is used for static pages that rarely change (e.g., residential complex descriptions).
 
 - **State Management**  
   **Redux Toolkit** is used for global state management (selected complex, user placeholders). 
