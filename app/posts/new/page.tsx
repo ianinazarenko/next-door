@@ -1,10 +1,17 @@
+// Constants
+import { PAGES_METADATA } from '@/utils/data/seo';
+// Types
+import { Metadata } from 'next';
+// Utils
 import { fetchCategoriesSpecs } from '@/lib/queries/categories';
 import { fetchComplexesSpecs } from '@/lib/queries/complexes';
-
+// Components
 import { Suspense } from 'react';
 import NewPostHeader from '@/app/components/pages/posts-new/NewPostHeader';
 import NewPostForm from '@/app/components/pages/posts-new/form/NewPostForm';
 import NewPostLoader from '@/app/components/pages/posts-new/NewPostLoader';
+
+export const metadata: Metadata = PAGES_METADATA.NEW_POST;
 
 export default async function NewPostPage() {
     try {

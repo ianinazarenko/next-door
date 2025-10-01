@@ -1,5 +1,6 @@
 import { IPostFull, IPostListItem, IPostsState } from '@/types/posts';
 import { buildPostsWhere } from '@/utils/helpers/data-utils';
+import { cache } from 'react';
 import { prisma } from '@/lib/db';
 import { postsQuerySchema } from '@/utils/validation/schemas';
 
@@ -94,3 +95,5 @@ export async function fetchPost(id: number | string): Promise<IPostFull | null> 
         throw new Error('Failed to fetch post. Please try again later.');
     }
 }
+
+export const fetchPostCached = cache(fetchPost);

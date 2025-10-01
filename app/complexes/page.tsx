@@ -1,5 +1,8 @@
+// Constants
+import { PAGES_METADATA } from '@/utils/data/seo';
 // Types
 import { IComplexBase } from '@/types/complexes';
+import { Metadata } from 'next';
 // Styles
 import s from './page.module.css';
 // Utils
@@ -9,6 +12,8 @@ import { Suspense } from 'react';
 import ComplexesList from '@/app/components/pages/complexes/ComplexesList';
 import ComplexesListSkeleton from '@/app/components/pages/complexes/skeletons/ComplexesListSkeleton';
 import ComplexesSearch from '@/app/components/pages/complexes/ComplexesSearch';
+
+export const metadata: Metadata = PAGES_METADATA.COMPLEXES;
 
 const TITLE = 'Residential Complexes';
 const DESC = 'Find your community to get started';

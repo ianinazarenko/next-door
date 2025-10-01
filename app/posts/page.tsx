@@ -1,5 +1,8 @@
+// Constants
+import { PAGES_METADATA } from '@/utils/data/seo';
 // Types
 import { IPostsState } from '@/types/posts';
+import { Metadata } from 'next';
 // Utils
 import { fetchComplexesSpecs } from '@/lib/queries/complexes';
 import { fetchCategoriesSpecs } from '@/lib/queries/categories';
@@ -10,6 +13,8 @@ import PostsHeader from '@/app/components/pages/posts/PostsHeader';
 import PostsFilters from '@/app/components/pages/posts/filters/PostsFilters';
 import PostsList from '@/app/components/pages/posts/list/PostsList';
 import PostsListSkeleton from '@/app/components/pages/posts/skeletons/PostsListSkeleton';
+
+export const metadata: Metadata = PAGES_METADATA.POSTS;
 
 export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsState> }) {
     const params = await searchParams;

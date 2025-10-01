@@ -1,6 +1,11 @@
+// Constants
+import { DYNAMIC_PAGES_METADATA } from '@/utils/data/seo';
+// Types
+import { Metadata } from 'next';
+// Utils
 import { notFound } from 'next/navigation';
-import { fetchComplex } from '@/lib/queries/complexes';
-
+import { fetchComplexCached } from '@/lib/queries/complexes';
+// Components
 import { Suspense } from 'react';
 import ComplexHero from '@/app/components/pages/complex/hero/ComplexHero';
 import ComplexHeroSkeleton from '@/app/components/pages/complex/skeleton/ComplexHeroSkeleton';
@@ -9,11 +14,21 @@ import ComplexInfoSkeleton from '@/app/components/pages/complex/info/ComplexInfo
 
 export const revalidate = 86400; // 60 * 60 * 24 – once in 24 hours
 
-export default async function ComplexPage({ params }: { params: Promise<{ slug: string }> }) {
+interface IProps {
+    params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+    const { slug } = await params;
+    const complex = await fetchComplexCached(slug);
+    return DYNAMIC_PAGES_METADATA.COMPLEX_DETAIL(complex);
+}
+
+export default async function ComplexPage({ params }: IProps) {
     const { slug } = await params;
 
     try {
-        const complex = await fetchComplex(slug);
+        const complex = await fetchComplexCached(slug);
 
         if (!complex) {
             return notFound();

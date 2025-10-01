@@ -1,3 +1,4 @@
+import { baseUrl } from '@/utils/constants/base-url';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -16,6 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL(baseUrl),
     title: 'NextDoor',
     description: 'Help is Next Door!',
 };

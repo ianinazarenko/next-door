@@ -1,8 +1,9 @@
 import { IComplexBase, IComplexFull } from '@/types/complexes';
 import { ISpec } from '@/types/common';
-import { prisma } from '@/lib/db';
+import { cache } from 'react';
 import { unstable_cache } from 'next/cache';
 import { prepareSpec } from '@/utils/helpers/data-utils';
+import { prisma } from '@/lib/db';
 import { complexesQuerySchema } from '@/utils/validation/schemas';
 
 export async function fetchComplexes({
@@ -97,3 +98,5 @@ export const fetchComplexesSpecs = unstable_cache(
     ['complexes-specs'],
     { revalidate: 604800 } // 1 week
 );
+
+export const fetchComplexCached = cache(fetchComplex);
