@@ -1,10 +1,11 @@
+// Types
 import { IPostListItem } from '@/types/posts';
-
+// Utils
 import { dateFormatter } from '@/utils/helpers/date-utils';
-
+// Styles
 import s from './PostsListCard.module.css';
 import clsx from 'clsx';
-
+// Components
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import UserPic from '@/app/components/common/user/UserPic';
@@ -51,7 +52,9 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
                     href={`/posts/${id}`}
                     className={s.link}
                     target={'_blank'}
-                />
+                >
+                    <span className='visually-hidden'>{`View details of ${title}`}</span>
+                </Link>
             )}
         </div>
     );

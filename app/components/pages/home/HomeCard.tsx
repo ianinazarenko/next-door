@@ -44,7 +44,9 @@ export default function HomeCard({ title, description, link, linkLabel, icon }: 
             <Link
                 className={s.link}
                 href={link}
-            />
+            >
+                <span className='visually-hidden'>{`View details of ${title}`}</span>
+            </Link>
         </div>
     );
 }

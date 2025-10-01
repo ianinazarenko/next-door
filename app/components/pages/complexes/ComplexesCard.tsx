@@ -36,8 +36,9 @@ export default function ComplexesCard({ slug, name, address, img = '' }: IComple
                 <Link
                     href={`${PAGES.COMPLEXES.link}/${slug}`}
                     className={s.link}
-                    aria-label={`View details of ${name}`}
-                />
+                >
+                    <span className='visually-hidden'>{`View details of ${name}`}</span>
+                </Link>
             )}
         </div>
     );
