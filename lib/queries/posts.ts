@@ -12,7 +12,7 @@ export async function fetchPosts({
     limit: number;
     offset: number;
     params: IPostsState;
-}): Promise<IPostListItem[]> {
+}): Promise<{ results: IPostListItem[]; hasMore: boolean }> {
     try {
         postsQuerySchema.parse({ limit, offset, params });
 
@@ -52,12 +52,17 @@ export async function fetchPosts({
                 },
             },
 
-            orderBy: { createdAt: 'desc' }, // Изменил на desc для новых постов сверху
-            take: limit,
+            orderBy: { createdAt: 'desc' },
+            take: limit + 1,
             skip: offset,
         });
 
-        return res ? res.map(({ _count, ...post }) => ({ ...post, commentsCount: _count?.comments || 0 })) : [];
+        const hasMore = res.length > offset + limit;
+        const posts = hasMore ? res.slice(0, limit) : res;
+        const results = posts
+            ? posts.map(({ _count, ...post }) => ({ ...post, commentsCount: _count?.comments || 0 }))
+            : [];
+        return { results, hasMore };
     } catch (error) {
         console.error('[queries/fetchPosts]: Error fetching posts:', error);
         throw new Error('Failed to fetch posts. Please try again later.');

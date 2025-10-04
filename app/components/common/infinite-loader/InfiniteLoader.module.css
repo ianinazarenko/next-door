@@ -1,0 +1,15 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    @media (width >= 768px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap-card-desk);
+    }
+
+    @media (width >= 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
