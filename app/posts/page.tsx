@@ -15,8 +15,8 @@ import PostsHeader from '@/app/components/pages/posts/PostsHeader';
 import PostsFilters from '@/app/components/pages/posts/filters/PostsFilters';
 import PostsList from '@/app/components/pages/posts/list/PostsList';
 import PostsListSkeleton from '@/app/components/pages/posts/skeletons/PostsListSkeleton';
-import InfiniteLoader from '@/app/components/common/infinite-loader/InfiniteLoader';
 import PostsListAddBtn from '@/app/components/pages/posts/list/PostsListAddBtn';
+import PostsListLoader from '@/app/components/pages/posts/list/PostsListLoader';
 
 export const metadata: Metadata = PAGES_METADATA.POSTS;
 
@@ -41,7 +41,7 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
                         <PostsList posts={postsData.results} />
                     </Suspense>
 
-                    <InfiniteLoader
+                    <PostsListLoader
                         initialOffset={OFFSET}
                         initialHasMore={postsData.hasMore}
                         params={params}
