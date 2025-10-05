@@ -52,7 +52,6 @@ export function useInfiniteScroll<T, P>({
             setHasMore(hasMore);
         } catch (error) {
             console.error('[useInfiniteScroll / loadMore]: Error loading more items:', error);
-            throw error;
         } finally {
             setIsLoading(false);
         }

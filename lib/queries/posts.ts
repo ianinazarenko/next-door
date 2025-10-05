@@ -57,7 +57,7 @@ export async function fetchPosts({
             skip: offset,
         });
 
-        const hasMore = res.length > offset + limit;
+        const hasMore = res.length > limit;
         const posts = hasMore ? res.slice(0, limit) : res;
         const results = posts
             ? posts.map(({ _count, ...post }) => ({ ...post, commentsCount: _count?.comments || 0 }))

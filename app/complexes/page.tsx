@@ -43,7 +43,7 @@ export default async function ComplexesPage({ searchParams }: { searchParams: Pr
                     </Suspense>
 
                     <ComplexesListLoader
-                        initialOffset={OFFSET}
+                        initialOffset={OFFSET + ITEMS_PER_PAGE}
                         initialHasMore={pageData.hasMore}
                         params={params}
                     />

@@ -40,7 +40,7 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
                     </Suspense>
 
                     <PostsListLoader
-                        initialOffset={OFFSET}
+                        initialOffset={OFFSET + ITEMS_PER_PAGE}
                         initialHasMore={postsData.hasMore}
                         params={params}
                     />

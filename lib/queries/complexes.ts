@@ -39,11 +39,11 @@ export async function fetchComplexes({
             },
 
             orderBy: { name: 'asc' },
-            take: limit,
+            take: limit + 1,
             skip: offset,
         });
 
-        const hasMore = res.length > offset + limit;
+        const hasMore = res.length > limit;
         const complexes = hasMore ? res.slice(0, limit) : res;
         const results = complexes || [];
         return { results, hasMore };

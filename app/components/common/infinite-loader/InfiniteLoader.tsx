@@ -38,7 +38,7 @@ export default function InfiniteLoader<T extends { id: string | number }, P>({
                 ))}
             </div>
 
-            {hasMore && !isLoading && (
+            {hasMore && (
                 <div
                     ref={loaderRef}
                     style={{ padding: '20px', textAlign: 'center' }}
