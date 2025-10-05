@@ -1,33 +1,30 @@
 // Constants
 import { PAGES_METADATA } from '@/utils/data/seo';
+import { ITEMS_PER_PAGE, OFFSET } from '@/utils/constants/posts';
 // Types
-import { IComplexBase } from '@/types/complexes';
+import { IComplexesState } from '@/types/complexes';
 import { Metadata } from 'next';
 // Styles
 import s from './page.module.css';
 // Utils
-import { fetchComplexes } from '@/lib/queries/complexes';
+import { fetchComplexesAction } from '@/lib/actions/append-complexes';
 // Components
 import { Suspense } from 'react';
 import ComplexesList from '@/app/components/pages/complexes/ComplexesList';
 import ComplexesListSkeleton from '@/app/components/pages/complexes/skeletons/ComplexesListSkeleton';
 import ComplexesSearch from '@/app/components/pages/complexes/ComplexesSearch';
+import ComplexesListLoader from '@/app/components/pages/complexes/ComplexesListLoader';
 
 export const metadata: Metadata = PAGES_METADATA.COMPLEXES;
 
 const TITLE = 'Residential Complexes';
 const DESC = 'Find your community to get started';
 
-export interface IComplexesSearch {
-    search?: string;
-    page?: string;
-}
-
-export default async function ComplexesPage({ searchParams }: { searchParams: Promise<IComplexesSearch> }) {
+export default async function ComplexesPage({ searchParams }: { searchParams: Promise<IComplexesState> }) {
     const params = await searchParams;
 
     try {
-        const complexes: IComplexBase[] = await fetchComplexes({ limit: 10, offset: 0, search: params.search ?? '' });
+        const pageData = await fetchComplexesAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params });
 
         return (
             <div className={`page c-container`}>
@@ -40,9 +37,17 @@ export default async function ComplexesPage({ searchParams }: { searchParams: Pr
                     <ComplexesSearch />
                 </div>
 
-                <Suspense fallback={<ComplexesListSkeleton />}>
-                    <ComplexesList complexes={complexes} />
-                </Suspense>
+                <section>
+                    <Suspense fallback={<ComplexesListSkeleton />}>
+                        <ComplexesList complexes={pageData.results} />
+                    </Suspense>
+
+                    <ComplexesListLoader
+                        initialOffset={OFFSET}
+                        initialHasMore={pageData.hasMore}
+                        params={params}
+                    />
+                </section>
             </div>
         );
     } catch (error) {

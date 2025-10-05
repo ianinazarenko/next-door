@@ -13,15 +13,14 @@ interface IProps {
 
 export default function PostsListLoader({ initialOffset, initialHasMore, params }: IProps) {
     const renderPostCard = (post: IPostListItem) => <PostsListCard post={post} />;
+    
     return (
-        <>
-            <InfiniteLoader
-                initialOffset={initialOffset}
-                initialHasMore={initialHasMore}
-                params={params}
-                action={fetchPostsAction}
-                renderItem={renderPostCard}
-            />
-        </>
+        <InfiniteLoader<IPostListItem, IPostsState>
+            initialOffset={initialOffset}
+            initialHasMore={initialHasMore}
+            params={params}
+            action={fetchPostsAction}
+            renderItem={renderPostCard}
+        />
     );
 }

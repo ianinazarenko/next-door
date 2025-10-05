@@ -1,4 +1,4 @@
-import { IComplexBase, IComplexFull } from '@/types/complexes';
+import { IComplexBase, IComplexesState, IComplexFull } from '@/types/complexes';
 import { ISpec } from '@/types/common';
 import { cache } from 'react';
 import { unstable_cache } from 'next/cache';
@@ -6,15 +6,18 @@ import { prepareSpec } from '@/utils/helpers/data-utils';
 import { prisma } from '@/lib/db';
 import { complexesQuerySchema } from '@/utils/validation/schemas';
 
+interface IFetchComplexesParams {
+    limit: number;
+    offset: number;
+    params: IComplexesState;
+}
+
 export async function fetchComplexes({
     limit,
     offset,
-    search,
-}: {
-    limit: number;
-    offset: number;
-    search?: string;
-}): Promise<IComplexBase[]> {
+    params,
+}: IFetchComplexesParams): Promise<{ results: IComplexBase[]; hasMore: boolean }> {
+    const search = params.search ?? '';
     try {
         complexesQuerySchema.parse({ limit, offset, search });
 
@@ -40,7 +43,10 @@ export async function fetchComplexes({
             skip: offset,
         });
 
-        return res ?? [];
+        const hasMore = res.length > offset + limit;
+        const complexes = hasMore ? res.slice(0, limit) : res;
+        const results = complexes || [];
+        return { results, hasMore };
     } catch (error) {
         console.error('[queries/fetchComplexes]: Error fetching complexes:', error);
         throw new Error('Failed to fetch complexes. Please try again later.');

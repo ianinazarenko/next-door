@@ -31,3 +31,7 @@ export interface IComplexFull extends IComplexBase {
     phone: string | null;
     email: string | null;
 }
+
+export interface IComplexesState {
+    search?: string;
+}

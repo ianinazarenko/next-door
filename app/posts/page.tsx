@@ -1,9 +1,8 @@
 // Constants
 import { PAGES_METADATA } from '@/utils/data/seo';
-// Constants
-import { POSTS_PER_PAGE } from '@/utils/constants/posts';
+import { ITEMS_PER_PAGE, OFFSET } from '@/utils/constants/posts';
 // Types
-import { IPostListItem, IPostsState } from '@/types/posts';
+import { IPostsState } from '@/types/posts';
 import { Metadata } from 'next';
 // Utils
 import { fetchComplexesSpecs } from '@/lib/queries/complexes';
@@ -20,14 +19,13 @@ import PostsListLoader from '@/app/components/pages/posts/list/PostsListLoader';
 
 export const metadata: Metadata = PAGES_METADATA.POSTS;
 
-const OFFSET = 0;
 export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsState> }) {
     const params = await searchParams;
     try {
         const [complexSpecs, categoriesSpecs, postsData] = await Promise.all([
             fetchComplexesSpecs(),
             fetchCategoriesSpecs(),
-            fetchPostsAction({ limit: POSTS_PER_PAGE, offset: OFFSET, params }),
+            fetchPostsAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params }),
         ]);
 
         return (

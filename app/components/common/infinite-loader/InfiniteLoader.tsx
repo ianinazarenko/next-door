@@ -1,39 +1,40 @@
 'use client';
 
-// Types
-import { IPostListItem, IPostsState } from '@/types/posts';
 // Styles
 import s from './InfiniteLoader.module.css';
 // Utils
-import { fetchPostsAction } from '@/lib/actions/append-posts';
-// Components
 import { PulseLoader } from 'react-spinners';
 import { useInfiniteScroll } from '@/utils/hooks/infinite-scroll/useInfiniteScroll';
 
-interface IProps {
+interface IProps<T, P> {
     initialOffset: number;
     initialHasMore: boolean;
-    params: IPostsState;
-    action: typeof fetchPostsAction;
-    renderItem: (props: IPostListItem) => React.ReactNode;
+    params: P;
+    action: (params: { limit: number; offset: number; params: P }) => Promise<{ results: T[]; hasMore: boolean }>;
+    renderItem: (item: T) => React.ReactNode;
 }
 
 const LOAD_MORE_TXT = 'Load more...';
 const NO_POSTS_TXT = 'There is no more cards';
 
-export default function InfiniteLoader({ initialOffset, initialHasMore, params, renderItem, action }: IProps) {
-    const { posts, hasMore, isLoading, loaderRef } = useInfiniteScroll({
+export default function InfiniteLoader<T extends { id: string | number }, P>({
+    initialOffset,
+    initialHasMore,
+    params,
+    renderItem,
+    action,
+}: IProps<T, P>) {
+    const { items, hasMore, isLoading, loaderRef } = useInfiniteScroll<T, P>({
         initialOffset,
         initialHasMore,
         params,
         action,
     });
-
     return (
         <>
             <div className={s.list}>
-                {posts.map((post) => (
-                    <div key={post.id}>{renderItem(post)}</div>
+                {items.map((item) => (
+                    <div key={item.id}>{renderItem(item)}</div>
                 ))}
             </div>
 

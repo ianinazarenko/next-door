@@ -1,13 +1,15 @@
-import { IPostListItem, IPostsState } from '@/types/posts';
 import { useEffect, useRef, useState } from 'react';
-import { fetchPostsAction } from '@/lib/actions/append-posts';
-import { POSTS_PER_PAGE } from '@/utils/constants/posts';
+import { ITEMS_PER_PAGE } from '@/utils/constants/posts';
 
-interface IProps {
+interface IUseInfiniteScrollProps<T, P> {
     initialOffset: number;
     initialHasMore: boolean;
-    params: IPostsState;
-    action: typeof fetchPostsAction;
+    params: P;
+    action: (params: { limit: number; offset: number; params: P }) => Promise<{
+        results: T[];
+        hasMore: boolean;
+    }>;
+    limit?: number;
 }
 
 const OPTIONS = {
@@ -15,8 +17,13 @@ const OPTIONS = {
     threshold: 1.0,
 };
 
-export function useInfiniteScroll({ initialOffset, initialHasMore, params, action }: IProps) {
-    const [posts, setPosts] = useState<IPostListItem[]>([]);
+export function useInfiniteScroll<T, P>({
+    initialOffset,
+    initialHasMore,
+    params,
+    action,
+}: IUseInfiniteScrollProps<T, P>) {
+    const [items, setItems] = useState<T[]>([]);
     const [offset, setOffset] = useState(initialOffset);
     const [hasMore, setHasMore] = useState(initialHasMore);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,16 +42,16 @@ export function useInfiniteScroll({ initialOffset, initialHasMore, params, actio
 
         try {
             const { results, hasMore } = await action({
-                limit: POSTS_PER_PAGE,
+                limit: ITEMS_PER_PAGE,
                 offset,
                 params,
             });
 
-            setPosts((prev) => [...prev, ...results]);
-            setOffset((prev) => prev + POSTS_PER_PAGE);
+            setItems((prev) => [...prev, ...results]);
+            setOffset((prev) => prev + ITEMS_PER_PAGE);
             setHasMore(hasMore);
         } catch (error) {
-            console.error('[InfiniteLoader / loadMore]: Error loading more posts:', error);
+            console.error('[useInfiniteScroll / loadMore]: Error loading more items:', error);
             throw error;
         } finally {
             setIsLoading(false);
@@ -69,8 +76,7 @@ export function useInfiniteScroll({ initialOffset, initialHasMore, params, actio
     }, [offset, hasMore, isLoading]);
 
     return {
-        posts,
-        offset,
+        items,
         hasMore,
         isLoading,
         loaderRef,

@@ -3,4 +3,5 @@ export enum EPostsParams {
     Category = 'category',
 }
 
-export const POSTS_PER_PAGE = 6;
+export const ITEMS_PER_PAGE = 6;
+export const OFFSET = 0;
