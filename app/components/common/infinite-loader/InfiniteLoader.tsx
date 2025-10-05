@@ -43,7 +43,14 @@ export default function InfiniteLoader<T extends { id: string | number }, P>({
                     ref={loaderRef}
                     style={{ padding: '20px', textAlign: 'center' }}
                 >
-                    {isLoading ? <PulseLoader /> : <span>{LOAD_MORE_TXT}</span>}
+                    {isLoading ? (
+                        <PulseLoader
+                            color={'var(--text-primary)'}
+                            size={12}
+                        />
+                    ) : (
+                        <span>{LOAD_MORE_TXT}</span>
+                    )}
                 </div>
             )}
             {!hasMore && <div style={{ padding: '20px', textAlign: 'center' }}>{NO_POSTS_TXT}</div>}

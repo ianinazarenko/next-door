@@ -109,7 +109,10 @@ export default function NewPostForm({ specs }: IProps) {
 
                     {status === EFormStatus.Loading && (
                         <div className={s.loader}>
-                            <PulseLoader />
+                            <PulseLoader
+                                color={'var(--text-primary)'}
+                                size={12}
+                            />
                         </div>
                     )}
                 </form>
