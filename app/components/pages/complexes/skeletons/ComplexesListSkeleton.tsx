@@ -1,10 +1,11 @@
+import { ITEMS_PER_PAGE } from '@/utils/constants/posts';
 import s from './ComplexesListSkeleton.module.css';
 import clsx from 'clsx';
 
 export default function ComplexesListSkeleton() {
     return (
-        <div>
-            {Array.from({ length: 4 }).map((_, i) => (
+        <div className={s.list}>
+            {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
                 <div
                     key={i}
                     className={s.card}

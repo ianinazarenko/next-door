@@ -1,21 +1,13 @@
-.container {
-    margin-top: 3.2rem;
-
-    @media (width >= 1280px) {
-        margin-top: 4.8rem;
-    }
-}
-
 .list {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-card-mob);
+    gap: 1.6rem;
     margin-top: 1.6rem;
 
     @media (width >= 768px) {
         display: grid;
+        gap: var(--gap-card-desk);
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--gap-card-mob);
         grid-auto-rows: 36rem;
     }
 

@@ -1,0 +1,7 @@
+.container {
+    margin-top: 3.2rem;
+
+    @media (width >= 1280px) {
+        margin-top: 4.8rem;
+    }
+}

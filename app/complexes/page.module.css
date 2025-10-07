@@ -12,3 +12,18 @@
         max-width: 60rem;
     }
 }
+
+.container {
+    display: flex;
+    margin-top: 3.2rem;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    @media (width >= 768px) {
+        gap: var(--gap-card-desk);
+    }
+
+    @media (width >= 1280px) {
+        margin-top: 4.8rem;
+    }
+}

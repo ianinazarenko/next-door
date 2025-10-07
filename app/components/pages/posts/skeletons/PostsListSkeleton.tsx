@@ -4,10 +4,10 @@ import PostsListCardSkeleton from '@/app/components/pages/posts/skeletons/PostsL
 
 export default function PostsListSkeleton() {
     return (
-        <section className={clsx('section', s.list)}>
+        <div className={clsx(s.list)}>
             {Array.from({ length: 6 }).map((item, index) => (
                 <PostsListCardSkeleton key={index} />
             ))}
-        </section>
+        </div>
     );
 }
