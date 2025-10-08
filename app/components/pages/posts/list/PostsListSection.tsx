@@ -15,6 +15,7 @@ export default async function PostsListSection({ params }: { params: IPostsState
                     initialOffset={OFFSET + ITEMS_PER_PAGE}
                     initialHasMore={postsData.hasMore}
                     params={params}
+                    key={JSON.stringify(params)}
                 />
             </>
         );

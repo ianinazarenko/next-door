@@ -82,8 +82,9 @@ export default function PostsFilters({ specs }: IProps) {
             )}
 
             <CButton
-                disabled={isPending || (!filters.complex && !filters.category)}
+                disabled={(!filters.complex && !filters.category) || isPending}
                 className={s.button}
+                isLoading={isPending}
                 onClick={handleReset}
             >
                 {RESET_BUTTON_TEXT}
