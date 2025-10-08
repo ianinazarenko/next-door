@@ -5,6 +5,8 @@ import { EComplexesParams } from '@/utils/constants/complexes';
 import { ChangeEvent, useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+import s from './ComplexesSearch.module.css';
+import { PulseLoader } from 'react-spinners';
 import CInput from '@/app/components/ui/CInput';
 
 export default function ComplexesSearch() {
@@ -34,14 +36,20 @@ export default function ComplexesSearch() {
     }
 
     return (
-        <div className='relative'>
+        <div className={s.container}>
             <CInput
                 value={value}
                 placeholder='Search complexes...'
                 onChange={handleChange}
             />
 
-            {isPending && <span className='absolute top-1/2 right-4 -translate-y-1/2'>⏳</span>}
+            {isPending && (
+                <PulseLoader
+                    className={s.loader}
+                    color={'var(--text-primary)'}
+                    size={8}
+                />
+            )}
         </div>
     );
 }

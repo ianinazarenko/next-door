@@ -26,7 +26,6 @@ export default async function ComplexesPage({ searchParams }: { searchParams: Pr
                 <h1 className={'h1'}>{TITLE_H1}</h1>
                 <p className={'card-description'}>{DESC}</p>
             </div>
-
             <div className={s.search}>
                 <ComplexesSearch />
             </div>

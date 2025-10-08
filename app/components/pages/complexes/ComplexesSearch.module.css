@@ -1,0 +1,10 @@
+.container {
+    position: relative;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+}

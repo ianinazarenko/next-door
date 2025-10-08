@@ -16,6 +16,7 @@ export default async function ComplexesListSection({ params }: { params: IComple
                     initialOffset={OFFSET + ITEMS_PER_PAGE}
                     initialHasMore={hasMore}
                     params={params}
+                    key={JSON.stringify(params)}
                 />
             </>
         );
