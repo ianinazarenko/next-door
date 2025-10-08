@@ -6,11 +6,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { fetchComplexCached } from '@/lib/queries/complexes';
 // Components
-import { Suspense } from 'react';
 import ComplexHero from '@/app/components/pages/complex/hero/ComplexHero';
-import ComplexHeroSkeleton from '@/app/components/pages/complex/skeleton/ComplexHeroSkeleton';
 import ComplexInfo from '@/app/components/pages/complex/info/ComplexInfo';
-import ComplexInfoSkeleton from '@/app/components/pages/complex/info/ComplexInfoSkeleton';
 
 export const revalidate = 86400; // 60 * 60 * 24 – once in 24 hours
 
@@ -36,14 +33,10 @@ export default async function ComplexPage({ params }: IProps) {
 
         return (
             <div className={'page'}>
-                <Suspense fallback={<ComplexHeroSkeleton />}>
-                    <ComplexHero complex={complex} />
-                </Suspense>
+                <ComplexHero complex={complex} />
 
                 <div className={'c-container'}>
-                    <Suspense fallback={<ComplexInfoSkeleton />}>
-                        <ComplexInfo complex={complex} />
-                    </Suspense>
+                    <ComplexInfo complex={complex} />
                 </div>
             </div>
         );

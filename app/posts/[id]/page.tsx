@@ -7,7 +7,6 @@ import { Metadata } from 'next';
 import { fetchPostCached } from '@/lib/queries/posts';
 import { notFound } from 'next/navigation';
 // Components
-import { Suspense } from 'react';
 import PostMain from '@/app/components/pages/post/PostMain';
 import BackButton from '@/app/components/common/back-button/BackButton';
 
@@ -37,9 +36,7 @@ export default async function PostPage({ params }: IProps) {
             <div className={'page c-container'}>
                 <BackButton backUrl={BACK_URL} />
 
-                <Suspense fallback={<div>Loading...</div>}>
-                    <PostMain post={post} />
-                </Suspense>
+                <PostMain post={post} />
             </div>
         );
     } catch (error) {
