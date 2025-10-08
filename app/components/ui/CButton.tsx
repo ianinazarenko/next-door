@@ -1,5 +1,6 @@
 import { Button } from '@headlessui/react';
 import clsx from 'clsx';
+import { PulseLoader } from 'react-spinners';
 
 interface IButtonProps {
     type?: 'button' | 'submit' | 'reset';
@@ -8,9 +9,10 @@ interface IButtonProps {
     equal?: boolean;
     onClick?: () => void;
     children: React.ReactNode;
+    isLoading?: boolean;
 }
 
-function CButton({ type = 'button', disabled, className, equal, onClick, children }: IButtonProps) {
+function CButton({ type = 'button', disabled, className, equal, isLoading, onClick, children }: IButtonProps) {
     const classes = clsx(
         'h-(--btn-height) rounded-(--radius-btn) bg-(--accent) ) px-(--p-btn) text-[1.4rem] font-semibold text-(--bg-primary) transition-colors',
         !disabled && 'hover:bg-(--accent-hover) active:bg-(--accent-hover)',
@@ -28,7 +30,13 @@ function CButton({ type = 'button', disabled, className, equal, onClick, childre
             disabled={disabled}
             onClick={onClick}
         >
-            {children}
+            {!isLoading && children}
+            {isLoading && (
+                <PulseLoader
+                    color={'var(--bg-primary)'}
+                    size={8}
+                />
+            )}
         </Button>
     );
 }
