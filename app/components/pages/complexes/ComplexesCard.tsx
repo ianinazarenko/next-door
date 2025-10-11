@@ -1,3 +1,4 @@
+import { COMPLEX_IMG } from '@/utils/data/complex-images';
 // Types
 import { IComplexBase } from '@/types/complexes';
 // Styles
@@ -11,14 +12,15 @@ import Link from 'next/link';
 import ComplexesImgDefault from '@/app/components/common/placeholders/ComplexesImgDefault';
 
 export default function ComplexesCard({ slug, name, address, img = '' }: IComplexBase & { img?: string }) {
+    const image = COMPLEX_IMG[slug].mob;
     return (
         <div className={s.card}>
             <div className={s.img}>
-                {img ? (
+                {img || image ? (
                     <Image
-                        src={img}
+                        src={img || image}
                         alt={`Complex ${name}`}
-                        className={'img-cover'}
+                        className={clsx('img-cover')}
                         sizes={'(max-width: 768px) 10rem, (max-width: 1024px) 50vw, 33vw'}
                         fill
                     />

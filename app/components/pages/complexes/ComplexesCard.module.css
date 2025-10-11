@@ -14,15 +14,14 @@
     }
 
     @media (width >= 1024px) {
+        transition: background-color var(--trs);
         cursor: pointer;
 
         &:hover {
+            background-color: var(--bg-secondary);
+
             .title {
                 color: var(--accent-hover);
-            }
-
-            .img > * {
-                transform: scale(1.05);
             }
         }
     }
@@ -43,7 +42,8 @@
     border-radius: var(--radius-card);
 
     @media (width >= 768px) {
-        flex: 1 1 auto;
+        position: relative;
+        flex: 1 1 100%;
         width: 100%;
     }
 

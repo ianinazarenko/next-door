@@ -29,7 +29,10 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
             <div className={s.info}>
                 {authorName && (
                     <div className={s.author}>
-                        <UserPic className={s.picture} />
+                        <UserPic
+                            className={s.picture}
+                            index={id}
+                        />
                         <p className={'card-meta'}>{authorName}</p>
                     </div>
                 )}
