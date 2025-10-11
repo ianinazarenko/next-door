@@ -36,13 +36,14 @@
 }
 
 .img {
+    position: relative;
+    overflow: hidden;
     flex: 0 0 auto;
     width: 10rem;
     height: 10rem;
     border-radius: var(--radius-card);
 
     @media (width >= 768px) {
-        position: relative;
         flex: 1 1 100%;
         width: 100%;
     }
