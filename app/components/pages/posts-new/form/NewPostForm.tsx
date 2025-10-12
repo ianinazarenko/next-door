@@ -6,7 +6,7 @@ import { EFormStatus } from '@/utils/constants/forms';
 import { TSchema } from '@/types/forms';
 import { ISpec } from '@/types/common';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createPostSchema } from '@/utils/validation/schemas';
@@ -31,6 +31,7 @@ const isSpecType = (key: string): key is TSpecTypes => {
 
 export default function NewPostForm({ specs }: IProps) {
     const [status, setStatus] = useState<EFormStatus>(EFormStatus.Idle);
+    const anchorRef = useRef<HTMLElement>(null);
 
     const defaultValues = {
         ...DEFAULT_VALUES,
@@ -49,6 +50,12 @@ export default function NewPostForm({ specs }: IProps) {
         defaultValues,
     });
 
+    function scrollToAnchor() {
+        if (anchorRef.current) {
+            anchorRef.current.scrollIntoView();
+        }
+    }
+
     function resetForm() {
         reset(defaultValues);
         setStatus(EFormStatus.Idle);
@@ -56,6 +63,8 @@ export default function NewPostForm({ specs }: IProps) {
 
     async function onSubmit(data: TSchema) {
         setStatus(EFormStatus.Loading);
+        scrollToAnchor();
+
         try {
             await createPostAction(data);
             setStatus(EFormStatus.Success);
@@ -66,7 +75,10 @@ export default function NewPostForm({ specs }: IProps) {
     }
 
     return (
-        <section className={'section'}>
+        <section
+            ref={anchorRef}
+            className={'section'}
+        >
             {/* FORM STATUSES */}
             {(status === EFormStatus.Success || status === EFormStatus.Error) && (
                 <NewPostFormStatus
