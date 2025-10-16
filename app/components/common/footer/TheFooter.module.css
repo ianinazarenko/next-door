@@ -6,3 +6,18 @@
         padding-bottom: var(--margin-gap-base);
     }
 }
+
+.link {
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: color var(--trs);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--accent-hover);
+    }
+
+    &:active {
+        color: var(--accent);
+    }
+}
