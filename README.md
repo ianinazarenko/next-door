@@ -23,7 +23,7 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 - **React Context** – UI state like theme (light / dark / system)
 - **CSS Modules** – isolated component styles
 - **React Hook Form + Zod** – form handling and schema-based validation
-
+ 
 ### **Backend**
 - **Prisma ORM** – type-safe database access
 - **Vercel Postgres** – cloud hosted SQL database
@@ -76,3 +76,51 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 
 The current MVP version is available on Vercel:  
 👉 **https://next-door-six.vercel.app**  
+
+## Installation & Local Setup
+
+This project uses **Vercel Postgres** as its primary database.  
+The `.env` file is **not included** for security reasons, so the app will not connect to the database out of the box.
+
+### If you’d like to run it locally, follow these steps:
+
+1. Clone the repository
+```bash
+git clone https://github.com/ianina-dev/next-door.git
+cd next-door
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Create your own database
+Set up a PostgreSQL database (locally or via a cloud provider like Vercel Postgres or Supabase).
+
+
+4. Add environment variables
+Create a `.env` file in the project root and include at least:
+```
+DATABASE_URL="your_postgres_connection_string"
+```
+
+To use Prisma commands such as migrations or seeding, you can also add:
+```
+SHADOW_DATABASE_URL="your_shadow_db_connection_string"
+```
+
+5. Run database migrations and seed
+```bash
+npx prisma migrate deploy
+npx prisma db seed
+```
+
+6. Start the development server
+```bash
+npm run dev
+```
+
+Your app will be available at http://localhost:3000
+> **Note:** Without a valid database connection, the app cannot fetch or display data (e.g. posts, complexes).
+> This repository is meant primarily as a demo portfolio project, so the deployed version on Vercel provides the best experience.
