@@ -4,7 +4,7 @@ import { IContactItem } from '../types';
 import s from '@/app/components/pages/complex/info/info-item/ComplexInfoItem.module.css';
 // Utils
 import clsx from 'clsx';
-import { formatPhoneNumber } from '@/utils/helpers/phone';
+import { formatPhoneNumber } from '@/utils/helpers/phone-utils';
 
 export default function ComplexInfoItem({ item }: { item: IContactItem }) {
     return (
