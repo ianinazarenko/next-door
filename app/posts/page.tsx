@@ -1,5 +1,5 @@
 // Constants
-import { PAGES_METADATA } from '@/utils/data/seo';
+import { PAGES_METADATA } from '@/data/seo';
 // Types
 import { IPostsState } from '@/types/posts';
 import { Metadata } from 'next';
@@ -8,12 +8,12 @@ import clsx from 'clsx';
 import s from './page.module.css';
 // Components
 import { Suspense } from 'react';
-import PostsHeader from '@/app/components/pages/posts/PostsHeader';
-import PostsListSkeleton from '@/app/components/pages/posts/skeletons/PostsListSkeleton';
-import PostsListAddBtn from '@/app/components/pages/posts/list/PostsListAddBtn';
-import PostsListSection from '@/app/components/pages/posts/list/PostsListSection';
-import PostsFiltersSection from '@/app/components/pages/posts/filters/PostsFiltersSection';
-import PostsFiltersSkeleton from '@/app/components/pages/posts/filters/PostsFiltersSkeleton';
+import PostsHeader from '@/app/posts/(components)/header/PostsHeader';
+import PostsListSkeleton from '@/app/posts/(components)/list/skeletons/PostsListSkeleton';
+import PostsListAddBtn from '@/app/posts/(components)/add-button/PostsListAddBtn';
+import PostsListSection from '@/app/posts/(components)/section/PostsListSection';
+import PostsFiltersSection from '@/app/posts/(components)/filters/PostsFiltersSection';
+import PostsFiltersSkeleton from '@/app/posts/(components)/filters/PostsFiltersSkeleton';
 
 export const metadata: Metadata = PAGES_METADATA.POSTS;
 

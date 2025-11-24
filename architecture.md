@@ -162,28 +162,46 @@ Strict separation keeps bundles small and client JS minimal.
 - **Browser caching** — Next/Image handles automatic caching headers for static images
 
 ## 9. Folder Structure
+The project follows a Feature-Based Hybrid file organization approach.
+
+**This means:**
+- Code is grouped by business domain (posts, complexes)
+- Feature-specific components live close to their routes
+- Shared UI components are stored in `/ui`
+- Infrastructure and data access live in `/lib`
+
+**This structure improves:**
+- Locality
+- Maintainability
+- Scalability
+- Developer experience
+
 ```md
 /
 ├── app/
-│   ├── components/       # UI components
+│   ├── (home)/           # / 
+│   ├── (providers)/      # All providers App/Redux/Theme
 │   ├── complexes/        # /complex/[slug]
 │   ├── posts/            # /posts, /posts/[id]
-│   ├── styles/           # shared UI styles
 │   ├── layout.tsx
 │   ├── page.tsx
 │   └── globals.css
 │
+├── styles/               # shared UI styles
+│
+├── ui/
+│   ├── atoms/            # base UI components
+│   ├── common/           # more complex UI components
+│   └── layout/           # layout UI components
+│
 ├── lib/
-│   ├── actions/          # Server Actions
-│   ├── queries/          # DB queries for Server Components
-│   ├── providers/        # Redux providers
-│   ├── store/            # Redux store
-│   ├── theme/            # Theme providers
-│   └── db.ts             # Prisma client
+│   ├── data-access/      # Access to DB
+│   │   ├── queries/      # Queries to DB
+│   │   └── db.ts         # Prisma client
+│   └── actions/          # Server Actions
 │
 ├── utils/
 │   ├── constants/        # Constants
-│   ├── data/             # Data
 │   ├── hooks/            # Custom hooks
 │   ├── validation/       # Zod validation schemas
 │   └── helpers/          # Pure functions (tested)
@@ -192,6 +210,10 @@ Strict separation keeps bundles small and client JS minimal.
 │   ├── migrations/       # Migration files    
 │   ├── seed.ts           # Seed script
 │   └── schema.prisma     # Prisma schema
+│
+├── store/                # Redux store
+│
+├── data/                 # Constant data-objects
 │
 ├── types/                # Types
 │

@@ -2,7 +2,7 @@
 
 import { TSchema } from '@/types/forms';
 import { z } from 'zod';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/lib/data-access/db';
 import { createPostSchema } from '@/utils/validation/schemas';
 
 export async function createPostAction(data: TSchema) {

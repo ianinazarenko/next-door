@@ -1,6 +1,6 @@
 'use server';
 
-import { fetchComplexes } from '@/lib/queries/complexes';
+import { fetchComplexes } from '@/lib/data-access/queries/complexes';
 import { IComplexBase, IComplexesState } from '@/types/complexes';
 
 export async function fetchComplexesAction({

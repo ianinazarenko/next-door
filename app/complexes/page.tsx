@@ -1,5 +1,5 @@
 // Constants
-import { PAGES_METADATA } from '@/utils/data/seo';
+import { PAGES_METADATA } from '@/data/seo';
 // Types
 import { IComplexesState } from '@/types/complexes';
 import { Metadata } from 'next';
@@ -7,9 +7,9 @@ import { Metadata } from 'next';
 import s from './page.module.css';
 // Components
 import { Suspense } from 'react';
-import ComplexesListSkeleton from '@/app/components/pages/complexes/skeletons/ComplexesListSkeleton';
-import ComplexesSearch from '@/app/components/pages/complexes/ComplexesSearch';
-import ComplexesListSection from '@/app/components/pages/complexes/ComplexesListSection';
+import ComplexesListSkeleton from '@/app/complexes/(components)/list/skeletons/ComplexesListSkeleton';
+import ComplexesSearch from '@/app/complexes/(components)/search/ComplexesSearch';
+import ComplexesListSection from '@/app/complexes/(components)/section/ComplexesListSection';
 
 export const metadata: Metadata = PAGES_METADATA.COMPLEXES;
 
