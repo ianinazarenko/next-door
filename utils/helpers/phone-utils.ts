@@ -1,26 +1,33 @@
 /**
- * Formats a phone number from a string of digits to a more readable format
- * @param phoneNumber - The phone number as a string of digits (e.g., "15553456789")
- * @returns Formatted phone number (e.g., "+1 (555) 345-67-89") or empty string if input is invalid
- * for numbers that are not 10 or 11 digits long @returns input as is
+ * Formats a US/Canada phone number
+ * @param phoneNumber - The phone number as a string (10-11 digits, no formatting)
+ * @returns Formatted phone number in international format or original string if invalid
+ *
+ * @example
+ * formatPhoneNumber('15551234567') // returns '+1 (555) 123-4567'
+ * formatPhoneNumber('5551234567')  // returns '+1 (555) 123-4567'
+ * formatPhoneNumber('911')         // returns '911'
+ * formatPhoneNumber('123')         // returns '123' (invalid length)
  */
 export function formatPhoneNumber(phoneNumber: string | null | undefined): string {
     if (!phoneNumber) return '';
 
-    // Remove all non-digit characters and spaces
-    const cleaned = String(phoneNumber).replace(/[\s\D]/g, '');
+    const cleaned = String(phoneNumber).replace(/\D/g, '');
 
-    if (!cleaned) return '';
+    const length = cleaned.length;
 
-    // Check if the number starts with 1 (country code for US/Canada)
-    if (cleaned.length === 11 && cleaned.startsWith('1')) {
-        return `+${cleaned[0]} (${cleaned.substring(1, 4)}) ${cleaned.substring(4, 7)}-${cleaned.substring(7, 9)}-${cleaned.substring(9)}`;
+    // Handle emergency numbers
+    if (length === 3) {
+        return cleaned;
     }
 
-    // For numbers without country code
-    if (cleaned.length === 10) {
-        return `+1 (${cleaned.substring(0, 3)}) ${cleaned.substring(3, 6)}-${cleaned.substring(6, 8)}-${cleaned.substring(8)}`;
+    // Validate length (10 digits + optional country code 1)
+    const isValidLength = cleaned.length === 10 || (cleaned.length === 11 && cleaned.startsWith('1'));
+    if (!isValidLength) {
+        return cleaned; // Return original cleaned input
     }
 
-    return phoneNumber;
+    // Extract components
+    const number = cleaned.length === 11 ? cleaned.slice(1) : cleaned;
+    return `+1 (${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(6)}`;
 }
