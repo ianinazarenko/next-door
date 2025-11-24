@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CButton from '@/app/components/ui/CButton';
+import CButton from '@/ui/atoms/CButton';
 
 export default function NotFoundPage() {
     const CODE = '404';

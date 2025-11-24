@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import CButton from '@/app/components/ui/CButton';
+import CButton from '@/ui/atoms/CButton';
 
 export default function ErrorPage({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     const CODE = '500';
