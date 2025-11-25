@@ -1,14 +1,14 @@
 // Constants
-import { PAGES } from '@/utils/data/pages';
-import { DYNAMIC_PAGES_METADATA } from '@/utils/data/seo';
+import { PAGES } from '@/data/pages';
+import { DYNAMIC_PAGES_METADATA } from '@/data/seo';
 // Types
 import { Metadata } from 'next';
 // Utils
-import { fetchPostCached } from '@/lib/queries/posts';
+import { fetchPostCached } from '@/lib/data-access/queries/posts';
 import { notFound } from 'next/navigation';
 // Components
-import PostMain from '@/app/components/pages/post/PostMain';
-import BackButton from '@/app/components/common/back-button/BackButton';
+import PostMain from '@/app/posts/[id]/(components)/main/PostMain';
+import BackButton from '@/ui/common/back-button/BackButton';
 
 export const revalidate = 300;
 

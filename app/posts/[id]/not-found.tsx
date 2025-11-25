@@ -1,6 +1,6 @@
-import { PAGES } from '@/utils/data/pages';
+import { PAGES } from '@/data/pages';
 import Link from 'next/link';
-import CButton from '@/app/components/ui/CButton';
+import CButton from '@/ui/atoms/CButton';
 
 const BTN = 'Browse All Announcements';
 const TITLE = 'Announcement Not Found';

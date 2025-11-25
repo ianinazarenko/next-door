@@ -1,6 +1,6 @@
-import { PAGES } from '@/utils/data/pages';
-import PostMainSkeleton from '@/app/components/pages/post/skeleton/PostMainSkeleton';
-import BackButton from '@/app/components/common/back-button/BackButton';
+import { PAGES } from '@/data/pages';
+import PostMainSkeleton from '@/app/posts/[id]/(components)/main/skeleton/PostMainSkeleton';
+import BackButton from '@/ui/common/back-button/BackButton';
 
 const BACK_URL = PAGES.POSTS.link;
 

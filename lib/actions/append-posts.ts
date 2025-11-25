@@ -1,6 +1,6 @@
 'use server';
 
-import { fetchPosts } from '@/lib/queries/posts';
+import { fetchPosts } from '@/lib/data-access/queries/posts';
 import { IPostListItem, IPostsState } from '@/types/posts';
 
 export async function fetchPostsAction({

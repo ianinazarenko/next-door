@@ -3,12 +3,12 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
-import './styles/index.css';
+import '@/styles/index.css';
 
-import AppProviders from '@/lib/providers/AppProviders';
-import TheHeader from '@/app/components/common/header/TheHeader';
-import TheMenuMob from '@/app/components/common/menu/TheMenuMob';
-import TheFooter from '@/app/components/common/footer/TheFooter';
+import AppProviders from '@/app/(providers)/AppProviders';
+import TheHeader from '@/ui/layout/header/TheHeader';
+import TheMenuMob from '@/ui/layout/menu/TheMenuMob';
+import TheFooter from '@/ui/layout/footer/TheFooter';
 
 const inter = Inter({
     variable: '--font-inter',
