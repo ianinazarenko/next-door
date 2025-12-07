@@ -27,6 +27,7 @@ export default function PostContacts({ contacts }: { contacts: IContactsProps })
                         href={item.href}
                         target={item.key === 'phone' ? '_self' : '_blank'}
                         rel={item.key === 'phone' ? undefined : 'noopener noreferrer'}
+                        aria-label={`Click ${item.key} to contact the author`}
                         className={'card-description'}
                     >
                         <div className={s.item}>{ICONS[item.key]}</div>
