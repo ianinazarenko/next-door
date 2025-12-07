@@ -20,7 +20,7 @@ export default function BackButton({ backUrl }: { backUrl?: string }) {
         <div
             role={'button'}
             tabIndex={0}
-            className={'inline-block py-2'}
+            className={'ml-[-1.6rem] inline-block px-4 py-4'}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             onClick={handleBack}

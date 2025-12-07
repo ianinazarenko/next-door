@@ -4,6 +4,7 @@ import clsx from 'clsx';
 interface ICSwitchProps {
     color?: 'accent' | 'success' | 'bg-secondary';
     bg: 'accent-50' | 'bg-secondary';
+    ariaLabel?: string;
     children?: React.ReactNode;
     checked: boolean;
     onChange: (checked: boolean) => void;
@@ -13,6 +14,7 @@ export default function CSwitch({
     children,
     color = 'bg-secondary',
     bg = 'bg-secondary',
+    ariaLabel = 'Switch',
     checked,
     onChange,
 }: ICSwitchProps) {
@@ -26,6 +28,7 @@ export default function CSwitch({
             checked={Boolean(checked)}
             onChange={onChange}
             className={clsx(baseClasses, checkedClasses)}
+            aria-label={ariaLabel}
         >
             <span
                 aria-hidden='true'
