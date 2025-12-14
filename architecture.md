@@ -5,28 +5,34 @@ This document provides a high-level overview of the architecture, key decisions,
 ## 1. Technology Stack
 
 ### Frontend & Fullstack Framework
+
 - Next.js 15 (App Router)
 - React 19 (Server + Client Components)
 - TypeScript
 
 ### Styling
+
 - Headless UI
 - Tailwind CSS
 - CSS Modules (component-scoped styling)
 
 ### Forms & Validation
+
 - React Hook Form
 - Zod (schema-based validation)
 
 ### State Management
+
 - React Context — UI state (theme)
 - Redux Toolkit (installed as foundation for future features, not used in MVP)
 
 ### Database
+
 - Vercel Postgres
 - Prisma ORM
 
 ### Deployment
+
 - Vercel
 - GitHub Actions (CI: lint → test → build)
 
@@ -35,6 +41,7 @@ This document provides a high-level overview of the architecture, key decisions,
 ### 2.1 Server Components First
 
 **The project follows a Server-First React architecture, meaning:**
+
 - All data fetching is executed on the server (except paginated complexes and posts with infinite scroll)
 - Server Components load data directly from Prisma → Postgres
 - No REST API or API routes are needed for internal queries
@@ -47,12 +54,14 @@ This approach is aligned with the recommended modern pattern for Next.js 15.
 ### 2.2 Server Actions for Mutations
 
 **All mutations (creating posts, etc.) use Server Actions:**
+
 - No client-side fetches
 - No CSRF exposure
 - No manual API endpoints
 - Full type-safety between client ↔ server
 
 Example responsibilities:
+
 - Create new post
 - Validate incoming input with Zod
 - Write safely to DB via Prisma
@@ -61,18 +70,41 @@ Example responsibilities:
 
 **The project uses a hybrid rendering model:**
 
-| Page / Feature                                            | Strategy                | Why                                                                                                                                    |
-|-----------------------------------------------------------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| **Posts feed and Complexes list** (/posts and /complexes) | SSR                     | Frequently updated content with filters and search                                                                                     |
-| **Infinite Scroll**                                       | Client + Server Actions | Interactive loading without reloading the whole page                                                                                   |
-| **Complex Pages** (/complex/[slug])                       | ISR (1 day)             | Static info that rarely changes → perfect for regeneration                                                                             |
-| **Filter Data** (categories, complexes list)              | `unstable_cache`        | Rarely updated data → cached on server level                                                                                           |
-| **Metadata Generation**                                   | SSR / `cache`            | Needs dynamic complex/post title/description. Uses cache() from React to avoid duplicate DB hits when metadata and page content need the same entity |
+| Page / Feature                                            | Strategy                | Why                                                                                                                                                  |
+| --------------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Posts feed and Complexes list** (/posts and /complexes) | SSR                     | Frequently updated content with filters and search                                                                                                   |
+| **Infinite Scroll**                                       | Client + Server Actions | Interactive loading without reloading the whole page                                                                                                 |
+| **Complex Pages** (/complex/[slug])                       | ISR (1 day)             | Static info that rarely changes → perfect for regeneration                                                                                           |
+| **Filter Data** (categories, complexes list)              | `unstable_cache`        | Rarely updated data → cached on server level                                                                                                         |
+| **Metadata Generation**                                   | SSR / `cache`           | Needs dynamic complex/post title/description. Uses cache() from React to avoid duplicate DB hits when metadata and page content need the same entity |
 
 This gives both:
+
 - Fast initial load
 - Controlled revalidation
 - Low DB load
+
+### 2.4 Authentication Strategy (Session-Based)
+
+NextDoor uses **session-based authentication** implemented via **NextAuth.js (Auth.js) with Prisma Adapter**.
+
+**Key properties:**
+
+- Sessions are stored in **Vercel Postgres**, alongside users and content.
+- Authentication relies on **httpOnly secure cookies** rather than JWT tokens.
+- Prisma provides type-safe session handling and unified data access.
+
+**Why session-based instead of JWT:**
+
+- **Immediate session revocation:** Moderation actions such as banning a user take effect instantly by deleting session records from the database.
+- **Fresh user context:** Business logic (e.g., complex membership, permissions, future roles) always requires database queries. JWT does not remove this need.
+- **Best fit for Server Components:** Since Next.js App Router performs data fetching on the server, and all serverless functions share Postgres, the "stateless advantage" of JWT is unnecessary.
+- **Smaller cookies & better bandwidth:** JWTs include payload and are significantly larger than a short session ID.
+
+This strategy aligns with the project’s Server-First architecture and relies on the database as a single, authoritative source of truth.
+
+**CSRF Protection**
+NextDoor uses a standard double-submit cookie strategy: NextAuth sets an httpOnly anti-CSRF cookie, and the client includes the matching token in the `X-CSRF-Token` header for mutations. The server compares both values, blocking cross‑origin form submissions. This keeps the mechanism secure while fitting naturally into the session-based model.
 
 ## 3. Database Architecture
 
@@ -88,6 +120,7 @@ User (future)
 
 For MVP, author info is stored directly in Post.
 Later versions will introduce:
+
 - User model
 - Relations
 - Authentication flows
@@ -97,6 +130,7 @@ Later versions will introduce:
 ### Server Components
 
 **Used for:**
+
 - Fetching posts
 - Rendering the feed
 - Rendering complex pages
@@ -104,6 +138,7 @@ Later versions will introduce:
 - Rendering post details
 
 **Advantages:**
+
 - Zero client bundles
 - Auto-SSR
 - No waterfalls
@@ -112,6 +147,7 @@ Later versions will introduce:
 ### Client Components
 
 **Used for:**
+
 - Theme toggle
 - Infinite scroll
 - Form components
@@ -124,21 +160,24 @@ Strict separation keeps bundles small and client JS minimal.
 **React Hook Form + Zod**
 
 **Chosen because:**
+
 - Declarative validation
 - Type inference from schema
 - Minimal re-renders
 - Easy integration with Server Actions
 
 **Flow:**
+
 1. User fills form
 2. RHF collects data
 3. Zod validates on client
 4. Server Action re-validates on server
 5. Prisma writes data
 
-*Double validation = secure pipeline.*
+_Double validation = secure pipeline._
 
 ## 6. Error Handling
+
 - Server Actions use try/catch + typed error responses
 - Prisma errors are normalized
 - Validation errors from Zod are mapped to RHF fields
@@ -146,6 +185,7 @@ Strict separation keeps bundles small and client JS minimal.
 - 404 pages are handled via Next.js conventions
 
 ## 7. Performance Considerations
+
 - Server-first architecture reduces JS bundle sizes
 - ISR regenerates complex pages only once per day
 - unstable_cache reduces repetitive DB calls
@@ -162,15 +202,18 @@ Strict separation keeps bundles small and client JS minimal.
 - **Browser caching** — Next/Image handles automatic caching headers for static images
 
 ## 9. Folder Structure
+
 The project follows a Feature-Based Hybrid file organization approach.
 
 **This means:**
+
 - Code is grouped by business domain (posts, complexes)
 - Feature-specific components live close to their routes
 - Shared UI components are stored in `/ui`
 - Infrastructure and data access live in `/lib`
 
 **This structure improves:**
+
 - Locality
 - Maintainability
 - Scalability
@@ -179,47 +222,47 @@ The project follows a Feature-Based Hybrid file organization approach.
 ```md
 /
 ├── app/
-│   ├── (home)/           # / 
-│   ├── (providers)/      # All providers App/Redux/Theme
-│   ├── complexes/        # /complex/[slug]
-│   ├── posts/            # /posts, /posts/[id]
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── globals.css
+│ ├── (home)/ # /
+│ ├── (providers)/ # All providers App/Redux/Theme
+│ ├── complexes/ # /complex/[slug]
+│ ├── posts/ # /posts, /posts/[id]
+│ ├── layout.tsx
+│ ├── page.tsx
+│ └── globals.css
 │
-├── styles/               # shared UI styles
+├── styles/ # shared UI styles
 │
 ├── ui/
-│   ├── atoms/            # base UI components
-│   ├── common/           # more complex UI components
-│   └── layout/           # layout UI components
+│ ├── atoms/ # base UI components
+│ ├── common/ # more complex UI components
+│ └── layout/ # layout UI components
 │
 ├── lib/
-│   ├── data-access/      # Access to DB
-│   │   ├── queries/      # Queries to DB
-│   │   └── db.ts         # Prisma client
-│   └── actions/          # Server Actions
+│ ├── data-access/ # Access to DB
+│ │ ├── queries/ # Queries to DB
+│ │ └── db.ts # Prisma client
+│ └── actions/ # Server Actions
 │
 ├── utils/
-│   ├── constants/        # Constants
-│   ├── hooks/            # Custom hooks
-│   ├── validation/       # Zod validation schemas
-│   └── helpers/          # Pure functions (tested)
+│ ├── constants/ # Constants
+│ ├── hooks/ # Custom hooks
+│ ├── validation/ # Zod validation schemas
+│ └── helpers/ # Pure functions (tested)
 │
 ├── prisma/
-│   ├── migrations/       # Migration files    
-│   ├── seed.ts           # Seed script
-│   └── schema.prisma     # Prisma schema
+│ ├── migrations/ # Migration files  
+│ ├── seed.ts # Seed script
+│ └── schema.prisma # Prisma schema
 │
-├── store/                # Redux store
+├── store/ # Redux store
 │
-├── data/                 # Constant data-objects
+├── data/ # Constant data-objects
 │
-├── types/                # Types
+├── types/ # Types
 │
-├── public/               # Static assets
+├── public/ # Static assets
 └── ...
-```  
+```
 
 ## 10. Why No API Routes
 
@@ -236,6 +279,7 @@ This reflects the recommended pattern for modern Next.js applications.
 ## 11. Testing Architecture
 
 ### Unit tests
+
 - Jest + React Testing Library
 - Pure utilities (phone/data helpers) are tested
 - Includes happy path, boundary, failure, corner cases
@@ -243,6 +287,7 @@ This reflects the recommended pattern for modern Next.js applications.
 ## CI
 
 ### GitHub Actions:
+
 - install → lint → test → build
 - Vercel deploy happens only if CI passes
 - Prisma client is auto-generated during CI
@@ -250,6 +295,7 @@ This reflects the recommended pattern for modern Next.js applications.
 ## 12. Future Architectural Plans
 
 ### Planned features:
+
 - Authentication (NextAuth or custom)
 - User profiles
 - Favorites & deleting posts
@@ -259,5 +305,6 @@ This reflects the recommended pattern for modern Next.js applications.
 - And other
 
 ### Technical improvements:
+
 - More test coverage
 - Error boundary components
