@@ -14,6 +14,7 @@ export default function ThemeSwitch({ theme, toggleTheme }: { theme: ETheme; tog
         <CSwitch
             bg={theme === ETheme.System ? 'bg-secondary' : 'accent-50'}
             checked={theme === ETheme.Dark || (theme === ETheme.System && systemTheme === ETheme.Dark)}
+            ariaLabel={`Switch theme to ${theme === ETheme.Dark ? ETheme.Light : ETheme.Dark}`}
             onChange={(checked) => toggleTheme(checked ? ETheme.Dark : ETheme.Light)}
         >
             <span className='none flex h-full items-center justify-center text-(--text-secondary)'>

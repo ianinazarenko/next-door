@@ -66,6 +66,7 @@ export default function PostsFilters({ specs }: IProps) {
                     name={EPostsParams.Complex}
                     disabled={isPending}
                     className={s.select}
+                    ariaLabel={'Choose a complex to filter by'}
                     onChange={handleChange}
                 />
             )}
@@ -77,6 +78,7 @@ export default function PostsFilters({ specs }: IProps) {
                     name={EPostsParams.Category}
                     disabled={isPending}
                     className={s.select}
+                    ariaLabel={'Choose a category to filter by'}
                     onChange={handleChange}
                 />
             )}
