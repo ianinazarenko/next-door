@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const e164PhoneNumber = (message = 'Invalid E.164 number') =>
+export const e164PhoneNumber = (message = 'Invalid E.164 number') =>
     z
         .string()
         .optional()
