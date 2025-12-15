@@ -4,11 +4,11 @@ import { IPostsState, IPostsWhereParams } from '@/types/posts';
 export function buildPostsWhere(params: IPostsState) {
     const where: Partial<IPostsWhereParams> & { OR: Array<{ deadline: object | null }> } = { OR: [] };
 
-    if (params.complex) {
+    if (params?.complex) {
         where.complexSlug = params.complex;
     }
 
-    if (params.category) {
+    if (params?.category) {
         where.categorySlug = params.category;
     }
 
