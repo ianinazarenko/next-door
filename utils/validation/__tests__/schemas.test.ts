@@ -1,4 +1,4 @@
-import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema, createPostSchema } from '../schemas';
+import { e164PhoneNumber, complexesQuerySchema } from '../schemas';
 
 describe('e164PhoneNumber', () => {
     describe('happy path', () => {
@@ -67,13 +67,98 @@ describe('e164PhoneNumber', () => {
 });
 
 describe('postsQuerySchema', () => {
-
+    //
 });
 
 describe('complexesQuerySchema', () => {
+    describe('happy path', () => {
+        it('validates when all query params are present', () => {
+            const result = complexesQuerySchema.safeParse({
+                limit: 10,
+                offset: 10,
+                search: 'hello',
+            });
 
-});
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 10,
+                offset: 10,
+                search: 'hello',
+            });
+        });
 
-describe('createPostSchema', () => {
+        it('validates when optional search is omitted', () => {
+            const result = complexesQuerySchema.safeParse({
+                limit: 10,
+                offset: 10,
+            });
 
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 10,
+                offset: 10,
+            });
+        });
+    });
+
+    describe('edge cases', () => {
+        it('allows minimal limit with other params valid', () => {
+            const result = complexesQuerySchema.safeParse({
+                limit: 1,
+                offset: 10,
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({ limit: 1, offset: 10 });
+        });
+
+        it('allows maximal limit with other params valid', () => {
+            const result = complexesQuerySchema.safeParse({
+                limit: 100,
+                offset: 10,
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({ limit: 100, offset: 10 });
+        });
+
+        it('allows minimal offset while limit is valid', () => {
+            const result = complexesQuerySchema.safeParse({
+                limit: 10,
+                offset: 0,
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({ limit: 10, offset: 0 });
+        });
+    });
+
+    describe('sad path', () => {
+        it('rejects limit below minimum bound', () => {
+            expect(() =>
+                complexesQuerySchema.parse({
+                    limit: 0,
+                    offset: 10,
+                })
+            ).toThrow();
+        });
+
+        it('rejects limit above maximum bound', () => {
+            expect(() =>
+                complexesQuerySchema.parse({
+                    limit: 101,
+                    offset: 10,
+                })
+            ).toThrow();
+        });
+
+        it('rejects negative offset', () => {
+            expect(() =>
+                complexesQuerySchema.parse({
+                    limit: 10,
+                    offset: -1,
+                })
+            ).toThrow();
+        });
+    });
 });
