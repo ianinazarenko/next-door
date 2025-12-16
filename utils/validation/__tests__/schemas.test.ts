@@ -1,4 +1,4 @@
-import { e164PhoneNumber, complexesQuerySchema } from '../schemas';
+import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema } from '../schemas';
 
 describe('e164PhoneNumber', () => {
     describe('happy path', () => {
@@ -67,7 +67,145 @@ describe('e164PhoneNumber', () => {
 });
 
 describe('postsQuerySchema', () => {
-    //
+    describe('happy path', () => {
+        it('accepts all params including category and complex', () => {
+            const result = postsQuerySchema.safeParse({
+                limit: 10,
+                offset: 10,
+                params: {
+                    category: 'category',
+                    complex: 'complex',
+                },
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 10,
+                offset: 10,
+                params: {
+                    category: 'category',
+                    complex: 'complex',
+                },
+            });
+        });
+
+        it('accepts a valid query without category', () => {
+            const result = postsQuerySchema.safeParse({
+                limit: 10,
+                offset: 10,
+                params: {
+                    complex: 'complex',
+                },
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 10,
+                offset: 10,
+                params: {
+                    complex: 'complex',
+                },
+            });
+        });
+
+        it('accepts a valid query without complex', () => {
+            const result = postsQuerySchema.safeParse({
+                limit: 10,
+                offset: 10,
+                params: {
+                    category: 'category',
+                },
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 10,
+                offset: 10,
+                params: {
+                    category: 'category',
+                },
+            });
+        });
+    });
+
+    describe('edge cases', () => {
+        it('allows minimal limit with other params valid', () => {
+            const result = postsQuerySchema.safeParse({
+                limit: 1,
+                offset: 10,
+                params: {},
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 1,
+                offset: 10,
+                params: {},
+            });
+        });
+
+        it('allows maximal limit with other params valid', () => {
+            const result = postsQuerySchema.safeParse({
+                limit: 100,
+                offset: 10,
+                params: {},
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 100,
+                offset: 10,
+                params: {},
+            });
+        });
+
+        it('allows minimal offset while limit is valid', () => {
+            const result = postsQuerySchema.safeParse({
+                limit: 10,
+                offset: 0,
+                params: {},
+            });
+
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual({
+                limit: 10,
+                offset: 0,
+                params: {},
+            });
+        });
+    });
+
+    describe('sad path', () => {
+        it('rejects limit below minimum bound', () => {
+            expect(() =>
+                postsQuerySchema.parse({
+                    limit: 0,
+                    offset: 10,
+                    params: {},
+                })
+            ).toThrow();
+        });
+
+        it('rejects limit above maximum bound', () => {
+            expect(() =>
+                postsQuerySchema.parse({
+                    limit: 101,
+                    offset: 10,
+                    params: {},
+                })
+            ).toThrow();
+        });
+
+        it('rejects negative offset', () => {
+            expect(() =>
+                postsQuerySchema.parse({
+                    limit: 10,
+                    offset: -1,
+                    params: {},
+                })
+            ).toThrow();
+        });
+    });
 });
 
 describe('complexesQuerySchema', () => {
