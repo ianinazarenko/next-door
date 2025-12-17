@@ -278,11 +278,14 @@ This reflects the recommended pattern for modern Next.js applications.
 
 ## 11. Testing Architecture
 
-### Unit tests
+### Tests
 
 - Jest + React Testing Library
-- Pure utilities (phone/data helpers) are tested
-- Includes happy path, boundary, failure, corner cases
+- Pure utilities (phone/data helpers, validation, data mappers) are tested
+- Includes happy path, boundary and negative scenarios
+- Integration tests live under `tests/integration/` and cover realistic flows across routes and providers
+- E2E tests are planned under `tests/e2e/` and will use a dedicated runner (e.g. Playwright), separate from Jest
+- A more detailed rationale and coverage philosophy for tests is described in `TESTING.md`.
 
 ## CI
 
@@ -307,4 +310,3 @@ This reflects the recommended pattern for modern Next.js applications.
 ### Technical improvements:
 
 - More test coverage
-- Error boundary components
