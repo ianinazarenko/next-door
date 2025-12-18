@@ -67,174 +67,113 @@ describe('e164PhoneNumber', () => {
 });
 
 describe('postsQuerySchema', () => {
+    const DEFAULT_VALS = {
+        limit: 10,
+        offset: 10,
+        params: {},
+    };
+
     describe('happy path', () => {
         it('accepts all params including category and complex', () => {
-            const result = postsQuerySchema.safeParse({
-                limit: 10,
-                offset: 10,
+            const payload = {
+                ...DEFAULT_VALS,
                 params: {
                     category: 'category',
                     complex: 'complex',
                 },
-            });
+            };
+            const result = postsQuerySchema.safeParse(payload);
 
             expect(result.success).toBe(true);
-            expect(result.data).toEqual({
-                limit: 10,
-                offset: 10,
-                params: {
-                    category: 'category',
-                    complex: 'complex',
-                },
-            });
+            expect(result.data).toEqual(payload);
         });
 
-        it('accepts a valid query without category', () => {
-            const result = postsQuerySchema.safeParse({
-                limit: 10,
-                offset: 10,
-                params: {
-                    complex: 'complex',
-                },
-            });
+        it('accepts a valid query without optional params', () => {
+            const payload = {
+                ...DEFAULT_VALS,
+            };
+
+            const result = postsQuerySchema.safeParse(payload);
 
             expect(result.success).toBe(true);
-            expect(result.data).toEqual({
-                limit: 10,
-                offset: 10,
-                params: {
-                    complex: 'complex',
-                },
-            });
-        });
-
-        it('accepts a valid query without complex', () => {
-            const result = postsQuerySchema.safeParse({
-                limit: 10,
-                offset: 10,
-                params: {
-                    category: 'category',
-                },
-            });
-
-            expect(result.success).toBe(true);
-            expect(result.data).toEqual({
-                limit: 10,
-                offset: 10,
-                params: {
-                    category: 'category',
-                },
-            });
+            expect(result.data).toEqual(payload);
         });
     });
 
     describe('edge cases', () => {
         it('allows minimal limit with other params valid', () => {
-            const result = postsQuerySchema.safeParse({
-                limit: 1,
-                offset: 10,
-                params: {},
-            });
+            const payload = { ...DEFAULT_VALS, limit: 1 };
+
+            const result = postsQuerySchema.safeParse(payload);
 
             expect(result.success).toBe(true);
-            expect(result.data).toEqual({
-                limit: 1,
-                offset: 10,
-                params: {},
-            });
+            expect(result.data).toEqual(payload);
         });
 
         it('allows maximal limit with other params valid', () => {
-            const result = postsQuerySchema.safeParse({
-                limit: 100,
-                offset: 10,
-                params: {},
-            });
+            const payload = { ...DEFAULT_VALS, limit: 100 };
+
+            const result = postsQuerySchema.safeParse(payload);
 
             expect(result.success).toBe(true);
-            expect(result.data).toEqual({
-                limit: 100,
-                offset: 10,
-                params: {},
-            });
+            expect(result.data).toEqual(payload);
         });
 
         it('allows minimal offset while limit is valid', () => {
-            const result = postsQuerySchema.safeParse({
-                limit: 10,
-                offset: 0,
-                params: {},
-            });
+            const payload = { ...DEFAULT_VALS, offset: 0 };
+            const result = postsQuerySchema.safeParse(payload);
 
             expect(result.success).toBe(true);
-            expect(result.data).toEqual({
-                limit: 10,
-                offset: 0,
-                params: {},
-            });
+            expect(result.data).toEqual(payload);
         });
     });
 
     describe('sad path', () => {
         it('rejects limit below minimum bound', () => {
-            expect(() =>
-                postsQuerySchema.parse({
-                    limit: 0,
-                    offset: 10,
-                    params: {},
-                })
-            ).toThrow();
+            const payload = { ...DEFAULT_VALS, limit: 0 };
+            expect(() => postsQuerySchema.parse(payload)).toThrow();
         });
 
         it('rejects limit above maximum bound', () => {
-            expect(() =>
-                postsQuerySchema.parse({
-                    limit: 101,
-                    offset: 10,
-                    params: {},
-                })
-            ).toThrow();
+            const payload = { ...DEFAULT_VALS, limit: 101 };
+            expect(() => postsQuerySchema.parse(payload)).toThrow();
         });
 
         it('rejects negative offset', () => {
-            expect(() =>
-                postsQuerySchema.parse({
-                    limit: 10,
-                    offset: -1,
-                    params: {},
-                })
-            ).toThrow();
+            const payload = { ...DEFAULT_VALS, offset: -1 };
+            expect(() => postsQuerySchema.parse(payload)).toThrow();
         });
     });
 });
 
 describe('complexesQuerySchema', () => {
+    const DEFAULT_VALS = {
+        limit: 10,
+        offset: 10,
+    };
+
     describe('happy path', () => {
         it('validates when all query params are present', () => {
             const result = complexesQuerySchema.safeParse({
-                limit: 10,
-                offset: 10,
+                ...DEFAULT_VALS,
                 search: 'hello',
             });
 
             expect(result.success).toBe(true);
             expect(result.data).toEqual({
-                limit: 10,
-                offset: 10,
+                ...DEFAULT_VALS,
                 search: 'hello',
             });
         });
 
         it('validates when optional search is omitted', () => {
             const result = complexesQuerySchema.safeParse({
-                limit: 10,
-                offset: 10,
+                ...DEFAULT_VALS,
             });
 
             expect(result.success).toBe(true);
             expect(result.data).toEqual({
-                limit: 10,
-                offset: 10,
+                ...DEFAULT_VALS,
             });
         });
     });
