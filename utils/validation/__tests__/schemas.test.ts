@@ -1,11 +1,11 @@
-import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema } from '../schemas';
+import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema, createPostSchema } from '../schemas';
 
 describe('e164PhoneNumber', () => {
     describe('happy path', () => {
         const phoneSchema = e164PhoneNumber();
 
         it('validates a correct full number', () => {
-            const result = phoneSchema.safeParse('+79991234567');
+            const result = phoneSchema.safeParse('+12025550123');
             expect(result.success).toBe(true);
         });
 
@@ -53,13 +53,13 @@ describe('e164PhoneNumber', () => {
         });
 
         it('rejects number inputs as invalid types', () => {
-            const result = phoneSchema.safeParse(79991234567);
+            const result = phoneSchema.safeParse(12025550123);
             expect(result.success).toBe(false);
             expect(result.error?.issues[0].message).toContain('expected string');
         });
 
         it('rejects numbers without a leading plus and surfaces schema message', () => {
-            const result = phoneSchema.safeParse('79991234567');
+            const result = phoneSchema.safeParse('12025550123');
             expect(result.success).toBe(false);
             expect(result.error?.issues[0].message).toBe('Invalid E.164 number');
         });
@@ -297,6 +297,144 @@ describe('complexesQuerySchema', () => {
                     offset: -1,
                 })
             ).toThrow();
+        });
+    });
+});
+
+describe('createPostSchema', () => {
+    const DEFAULT_CREATE_POST = {
+        title: 'Valid post title',
+        shortText: 'Short summary is long enough',
+        fullText: 'Full description with more than three characters.',
+        complex: 'complex-slug',
+        category: 'category-slug',
+        phone: '+12025550123',
+        whatsapp: '+12025550123',
+    };
+
+    describe('happy path', () => {
+        it('validates a default payload with all fields', () => {
+            const result = createPostSchema.safeParse(DEFAULT_CREATE_POST);
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual(DEFAULT_CREATE_POST);
+        });
+
+        it('validates a payload without optional phone and whatsapp fields', () => {
+            const { phone, whatsapp, ...payload } = DEFAULT_CREATE_POST;
+            const result = createPostSchema.safeParse(payload);
+            expect(result.success).toBe(true);
+            expect(result.data).toEqual(payload);
+        });
+    });
+
+    // ----------------- required validation --------
+    describe('required validation', () => {
+        const requiredFieldsConfig = [
+            ['title', 'Title is required'],
+            ['shortText', 'Short text is required'],
+            ['fullText', 'Text is required'],
+            ['complex', 'Complex is required'],
+            ['category', 'Category is required'],
+        ];
+
+        it.each(requiredFieldsConfig)('should reject empty string for required field %s', (field, message) => {
+            const result = createPostSchema.safeParse({
+                ...DEFAULT_CREATE_POST,
+                [field]: '',
+            });
+
+            expect(result.success).toBe(false);
+            if (!result.success) {
+                expect(result.error.issues[0].message).toBe(message);
+            }
+        });
+    });
+
+    // ----------------- minLength validation --------
+    describe('minLength validation', () => {
+        const minLengthFieldsConfig = [
+            ['title', 3, 'Title should be more than 2 chars'],
+            ['shortText', 3, 'Short text should be more than 2 chars'],
+            ['fullText', 3, 'Text should be more than 2 chars'],
+        ];
+
+        it.each(minLengthFieldsConfig)(
+            'should reject %s if it is shorter than minimum length',
+            (field, min, message) => {
+                const result = createPostSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: 'A'.repeat((min as number) - 1),
+                });
+
+                expect(result.success).toBe(false);
+                if (!result.success) {
+                    expect(result.error.issues[0].message).toBe(message);
+                }
+            }
+        );
+    });
+
+    // ----------------- maxLength validation --------
+    describe('maxLength validation', () => {
+        const maxLengthFieldsConfig = [
+            ['title', 40, 'Title is too long'],
+            ['shortText', 80, 'Short text is too long'],
+            ['fullText', 500, 'Text is too long'],
+        ];
+
+        it.each(maxLengthFieldsConfig)(
+            'should reject %s if it is longer than maximum length',
+            (field, max, message) => {
+                const result = createPostSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: 'A'.repeat((max as number) + 1),
+                });
+
+                expect(result.success).toBe(false);
+                if (!result.success) {
+                    expect(result.error.issues[0].message).toBe(message);
+                }
+            }
+        );
+    });
+
+    // ----------------- null & undefined validation --------
+    describe('null & undefined validation', () => {
+        it.each(['title', 'shortText', 'fullText', 'complex', 'category'])(
+            'should reject when required field %s is undefined or null',
+            (field) => {
+                const resultUndefined = createPostSchema.safeParse({ ...DEFAULT_CREATE_POST, [field]: undefined });
+                expect(resultUndefined.success).toBe(false);
+
+                const resultNull = createPostSchema.safeParse({ ...DEFAULT_CREATE_POST, [field]: null });
+                expect(resultNull.success).toBe(false);
+            }
+        );
+    });
+
+    // ----------------- phone & whatsapp validation --------
+    describe('E.164 validation', () => {
+        it('should reject an invalid phone number format', () => {
+            const result = createPostSchema.safeParse({
+                ...DEFAULT_CREATE_POST,
+                phone: 'invalid-phone-number',
+            });
+            expect(result.success).toBe(false);
+            if (!result.success) {
+                expect(result.error.issues[0].message).toBe('Invalid E.164 number');
+            }
+        });
+
+        it('should reject an invalid whatsapp number format', () => {
+            const result = createPostSchema.safeParse({
+                ...DEFAULT_CREATE_POST,
+                whatsapp: 'invalid-phone-number',
+            });
+
+            expect(result.success).toBe(false);
+            if (!result.success) {
+                expect(result.error.issues[0].message).toBe('Invalid E.164 number');
+            }
         });
     });
 });

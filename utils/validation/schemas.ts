@@ -25,11 +25,26 @@ export const complexesQuerySchema = z.object({
 });
 
 export const createPostSchema = z.object({
-    title: z.string().trim().min(3, 'Title is required').max(40, 'Title is too long'),
-    shortText: z.string().trim().min(3, 'Short text is required').max(80, 'Short text is too long'),
-    fullText: z.string().trim().min(3, 'Text is required').max(500, 'Text is too long'),
-    complex: z.string(),
-    category: z.string(),
+    title: z
+        .string()
+        .trim()
+        .nonempty('Title is required')
+        .min(3, 'Title should be more than 2 chars')
+        .max(40, 'Title is too long'),
+    shortText: z
+        .string()
+        .trim()
+        .nonempty('Short text is required')
+        .min(3, 'Short text should be more than 2 chars')
+        .max(80, 'Short text is too long'),
+    fullText: z
+        .string()
+        .trim()
+        .nonempty('Text is required')
+        .min(3, 'Text should be more than 2 chars')
+        .max(500, 'Text is too long'),
+    complex: z.string().nonempty('Complex is required'),
+    category: z.string().nonempty('Category is required'),
     phone: e164PhoneNumber(),
     whatsapp: e164PhoneNumber(),
     // img: z.string().optional(),
