@@ -1,4 +1,5 @@
 import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema, createPostSchema } from '../schemas';
+import { DEFAULT_CREATE_POST } from '@/tests/__fixtures__/post.fixture';
 
 describe('e164PhoneNumber', () => {
     describe('happy path', () => {
@@ -241,16 +242,6 @@ describe('complexesQuerySchema', () => {
 });
 
 describe('createPostSchema', () => {
-    const DEFAULT_CREATE_POST = {
-        title: 'Valid post title',
-        shortText: 'Short summary is long enough',
-        fullText: 'Full description with more than three characters.',
-        complex: 'complex-slug',
-        category: 'category-slug',
-        phone: '+12025550123',
-        whatsapp: '+12025550123',
-    };
-
     describe('happy path', () => {
         it('validates a default payload with all fields', () => {
             const result = createPostSchema.safeParse(DEFAULT_CREATE_POST);
