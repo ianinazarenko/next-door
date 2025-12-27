@@ -58,8 +58,10 @@ next-env.d.ts
 AGENTS.md
 GEMINI.md
 CLAUDE.md
+AI_RULES.md
 questions.md
 
 /generated
 /generated/prisma
 prisma/migrations/migration_lock.toml
+
