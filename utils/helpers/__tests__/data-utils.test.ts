@@ -14,7 +14,7 @@ const OPTIONS = {
     labelName: 'label' as const,
 };
 
-describe('Format Phone Number', () => {
+describe('prepareSpec', () => {
     describe('happy path', () => {
         it('should return correct array', () => {
             expect(prepareSpec(RES, OPTIONS)).toEqual([ALL_OPTION, ...RES]);

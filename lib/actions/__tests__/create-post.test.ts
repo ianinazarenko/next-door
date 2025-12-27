@@ -110,7 +110,6 @@ describe('createPostAction', () => {
 
         afterAll(() => {
             Object.defineProperty(process.env, 'NODE_ENV', { value: originalNodeEnv });
-            consoleErrorSpy.mockRestore();
         });
 
         describe('validation error', () => {
