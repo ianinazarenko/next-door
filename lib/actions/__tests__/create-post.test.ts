@@ -113,22 +113,50 @@ describe('createPostAction', () => {
             consoleErrorSpy.mockRestore();
         });
 
-        it('sad path: should throw an error for dev mode if validation fails', async () => {
-            Object.defineProperty(process.env, 'NODE_ENV', { value: 'development' });
+        describe('validation error', () => {
+            it('should throw an error for dev mode if validation fails', async () => {
+                Object.defineProperty(process.env, 'NODE_ENV', { value: 'development' });
 
-            const invalidData = { ...DEFAULT_CREATE_POST, title: '' };
-            await expect(createPostAction(invalidData)).rejects.toThrow(z.ZodError);
-            expect(prismaMock.post.create).not.toHaveBeenCalled();
-            expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+                const invalidData = { ...DEFAULT_CREATE_POST, title: '' };
+                await expect(createPostAction(invalidData)).rejects.toThrow(z.ZodError);
+                expect(prismaMock.post.create).not.toHaveBeenCalled();
+                expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+            });
+
+            it('should throw an error for prod mode if validation fails', async () => {
+                Object.defineProperty(process.env, 'NODE_ENV', { value: 'production' });
+
+                const invalidData = { ...DEFAULT_CREATE_POST, title: '' };
+                await expect(createPostAction(invalidData)).rejects.toThrow('Invalid data');
+                expect(prismaMock.post.create).not.toHaveBeenCalled();
+                expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+            });
         });
 
-        it('sad path: should throw an error for prod mode if validation fails', async () => {
-            Object.defineProperty(process.env, 'NODE_ENV', { value: 'production' });
+        describe('DB error', () => {
+            const dbError = new Error('Database connection failed');
 
-            const invalidData = { ...DEFAULT_CREATE_POST, title: '' };
-            await expect(createPostAction(invalidData)).rejects.toThrow('Invalid data');
-            expect(prismaMock.post.create).not.toHaveBeenCalled();
-            expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+            beforeAll(() => {
+                prismaMock.post.create.mockRejectedValue(dbError);
+            });
+
+            it('should throw an error if prisma throws an error', async () => {
+                Object.defineProperty(process.env, 'NODE_ENV', { value: 'development' });
+
+                await expect(createPostAction(DEFAULT_CREATE_POST)).rejects.toThrow(dbError);
+                expect(prismaMock.post.create).toHaveBeenCalledTimes(1);
+                expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(String), dbError);
+            });
+
+            it('should throw an error for prod if prisma throws an error', async () => {
+                Object.defineProperty(process.env, 'NODE_ENV', { value: 'production' });
+
+                await expect(createPostAction(DEFAULT_CREATE_POST)).rejects.toThrow(
+                    'Failed to create post. Please try again later.'
+                );
+                expect(prismaMock.post.create).toHaveBeenCalledTimes(1);
+                expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(String), dbError);
+            });
         });
     });
 });
