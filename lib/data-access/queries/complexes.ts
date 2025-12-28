@@ -54,12 +54,11 @@ export async function fetchComplexes({
 }
 
 export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
-    if (!slug?.trim()) {
-        console.error('[queries/fetchComplex]: Error fetching complex: not slug provided');
-        throw new Error(`Need to provide slug to fetch complex`);
-    }
-
     try {
+        if (!slug?.trim()) {
+            throw new Error('Slug is required to fetch complex');
+        }
+
         return await prisma.complex.findUnique({
             where: { slug },
             include: {
@@ -72,8 +71,13 @@ export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
             },
         });
     } catch (error) {
-        console.error('[queries/fetchComplex]: Error fetching complex:', { slug, error });
-        throw new Error(`Failed to fetch complex with slug: ${slug}`);
+        const errorContext = {
+            slug: slug || 'empty',
+            error,
+        };
+
+        console.error('[queries/fetchComplex]: Error fetching complex:', errorContext);
+        throw error;
     }
 }
 
@@ -99,10 +103,12 @@ export async function fetchComplexesSpecsCallback(hasAllOption: boolean): Promis
     }
 }
 
+/* istanbul ignore next */
 export const fetchComplexesSpecs = unstable_cache(
     (hasAllOption: boolean = true) => fetchComplexesSpecsCallback(hasAllOption),
     ['complexes-specs'],
     { revalidate: 604800 } // 1 week
 );
 
+/* istanbul ignore next */
 export const fetchComplexCached = cache(fetchComplex);

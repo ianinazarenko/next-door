@@ -8,8 +8,8 @@ jest.mock('@/lib/data-access/db.ts');
 const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
 
 const DB_RESULT = [
-    { slug: 'buy', name: 'Buy', id: 'adfaefaefdf' },
-    { slug: 'sell', name: 'Sell', id: 'asdfadsfadf' },
+    { slug: 'buy', name: 'Buy' },
+    { slug: 'sell', name: 'Sell' },
 ];
 
 const SPECS = [
@@ -34,6 +34,7 @@ describe('fetchCategoriesSpecsCallback', () => {
     describe('happy path', () => {
         it('should return correct array with all option', async () => {
             const hasAllOption = true;
+            // @ts-expect-error only for test purposes
             prismaMock.category.findMany.mockResolvedValue(DB_RESULT);
 
             const result = await fetchCategoriesSpecsCallback(hasAllOption);
@@ -46,6 +47,7 @@ describe('fetchCategoriesSpecsCallback', () => {
 
         it('should return correct array without all option', async () => {
             const hasAllOption = false;
+            // @ts-expect-error only for test purposes
             prismaMock.category.findMany.mockResolvedValue(DB_RESULT);
 
             const result = await fetchCategoriesSpecsCallback(hasAllOption);
