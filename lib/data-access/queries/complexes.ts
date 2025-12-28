@@ -19,14 +19,14 @@ export async function fetchComplexes({
 }: IFetchComplexesParams): Promise<{ results: IComplexBase[]; hasMore: boolean }> {
     const search = params.search ?? '';
     try {
-        complexesQuerySchema.parse({ limit, offset, search });
+        const validated = complexesQuerySchema.parse({ limit, offset, search });
 
         const res = await prisma.complex.findMany({
-            where: search
+            where: validated.search
                 ? {
                       OR: [
-                          { name: { contains: search, mode: 'insensitive' } },
-                          { address: { contains: search, mode: 'insensitive' } },
+                          { name: { contains: validated.search, mode: 'insensitive' } },
+                          { address: { contains: validated.search, mode: 'insensitive' } },
                       ],
                   }
                 : undefined,
@@ -39,12 +39,12 @@ export async function fetchComplexes({
             },
 
             orderBy: { name: 'asc' },
-            take: limit + 1,
-            skip: offset,
+            take: validated.limit + 1,
+            skip: validated.offset,
         });
 
-        const hasMore = res.length > limit;
-        const complexes = hasMore ? res.slice(0, limit) : res;
+        const hasMore = res.length > validated.limit;
+        const complexes = hasMore ? res.slice(0, validated.limit) : res;
         const results = complexes || [];
         return { results, hasMore };
     } catch (error) {
