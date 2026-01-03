@@ -84,18 +84,23 @@
     --h4-desk: 2.2rem;
 
     /* Card Title Font Size */
-    --card-title-mob: 1.8rem;
+    --card-title-mob: 2rem;
     --card-title-tab: 2rem;
     --card-title-desk: 2.2rem;
 
     /* Card Descriptions Font Size */
-    --card-description-mob: 1.4rem;
+    --card-description-mob: 1.8rem;
     --card-description-tab: 1.6rem;
     --card-description-desk: 1.8rem;
-    --input-text: 1.6rem;
+    --input-text: 1.8rem;
+
+    /* Post Text Font Size */
+    --post-text-mob: 1.8rem;
+    --post-text-tab: 2rem;
+    --post-text-desk: 2.2rem;
 
     /* Card Meta Font Size */
-    --card-meta-mob: 1.2rem;
+    --card-meta-mob: 1.4rem;
     --card-meta-tab: 1.2rem;
     --card-meta-desk: 1.4rem;
 

@@ -17,7 +17,7 @@ export default function PostMain({ post }: { post: IPostFull }) {
             />
 
             <section>
-                {fullText && <p className={'my-4'}>{fullText}</p>}
+                {fullText && <p className={'post-text my-4'}>{fullText}</p>}
 
                 <PostImage />
             </section>

@@ -55,7 +55,17 @@
 }
 
 .desc {
-    max-width: 100%;
+    max-width: 85%;
+    margin-top: var(--p-xs);
+    font-size: 1.6rem;
+
+    @media (width >= 768px) {
+        max-width: 100%;
+    }
+
+    @media (width >= 1280px) {
+        font-size: var(--card-description-desk);
+    }
 }
 
 .descMeta {

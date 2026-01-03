@@ -21,7 +21,7 @@ export default function TheFooter() {
     return (
         <footer className={s.footer}>
             <div className='c-container'>
-                <p className='card-description'>
+                <p className='card-meta'>
                     © {year} {TEXT.disclaimer}
                     <a
                         href={PROFILE_LINK}
