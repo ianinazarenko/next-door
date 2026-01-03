@@ -35,12 +35,12 @@
 
 .title {
     width: 60%;
-    height: var(--h1-mob);
+    height: var(--card-title-mob);
 }
 
 .text {
     width: 100%;
-    height: 2.4rem;
+    height: calc(var(--card-description-mob) * var(--line-height-description));
 }
 
 .picture {
@@ -55,12 +55,12 @@
 
 .authorName {
     width: 6rem;
-    height: 1.2rem;
+    height: var(--card-meta-mob);
 }
 
 .createdAt {
     width: 8rem;
-    height: 1.2rem;
+    height: var(--card-meta-mob);
 }
 
 .line {
@@ -88,5 +88,5 @@
 
 .deadline {
     width: 10rem;
-    height: 1.2rem;
+    height: var(--card-meta-mob);
 }

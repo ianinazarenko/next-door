@@ -55,10 +55,10 @@ next-env.d.ts
 .idea/
 
 # AI
+AI_RULES.md
 AGENTS.md
 GEMINI.md
 CLAUDE.md
-AI_RULES.md
 questions.md
 
 /generated

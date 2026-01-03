@@ -55,6 +55,13 @@ body {
     color: var(--text-secondary);
 }
 
+.post-text {
+    font-size: var(--post-text-mob);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+    color: var(--text-primary);
+}
+
 /* Tablet and up */
 @media (width >= 768px) {
     .h1 {
@@ -84,6 +91,10 @@ body {
 
     .card-meta {
         font-size: var(--card-meta-tab);
+    }
+
+    .post-text {
+        font-size: var(--post-text-tab);
     }
 }
 
@@ -116,5 +127,9 @@ body {
 
     .card-meta {
         font-size: var(--card-meta-desk);
+    }
+
+    .post-text {
+        font-size: var(--post-text-desk);
     }
 }
