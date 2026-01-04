@@ -13,9 +13,7 @@ model Post {
   title        String
   shortText    String
   fullText     String
-  authorName   String
-  phone        String?
-  whatsapp     String?
+  author       User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   image        String?
   deadline     DateTime?
   createdAt    DateTime  @default(now())
@@ -26,9 +24,11 @@ model Post {
   comments     Comment[]
   category     Category  @relation(fields: [categorySlug], references: [slug], onDelete: Cascade)
   complex      Complex   @relation(fields: [complexSlug], references: [slug], onDelete: Cascade)
+  authorId     String
 
   @@index([categorySlug])
   @@index([complexSlug])
+  @@index([authorId])
 }
 
 model Category {
@@ -52,6 +52,7 @@ model Complex {
   managementCompany   ManagementCompany? @relation(fields: [managementCompanyId], references: [id])
   posts               Post[]
   usefulPhones        UsefulPhone[]
+  users               User[]
 
   @@index([name])
   @@index([address])
@@ -59,14 +60,16 @@ model Complex {
 
 model Comment {
   id        String   @id @default(cuid())
-  author    String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   postId    Int
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
 
   @@index([postId])
+  @@index([authorId])
 }
 
 model ManagementCompany {
@@ -127,12 +130,14 @@ model User {
   role          String    @default("user")
   accounts      Account[]
   sessions      Session[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Will add Posts & Comments relations later
-  // posts Post[]
+  phone         String?
+  whatsapp      String?
+  complex       Complex   @relation(fields: [complexId], references: [id])
+  posts         Post[]
+  comments      Comment[]
+  complexId     String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 // May be will add Magic Links later
