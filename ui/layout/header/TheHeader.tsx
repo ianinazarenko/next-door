@@ -10,15 +10,16 @@ async function TheHeader() {
     return (
         <header className={s.header}>
             <div className={'c-container flex items-center justify-between gap-8'}>
-                <HeaderMenu />
-
                 {session?.user && (
                     <UserPic
                         image={session.user.image}
                         name={session.user.name}
                         index={session.user.id}
+                        className={s.userPic}
                     />
                 )}
+
+                <HeaderMenu />
 
                 <ThemeToggle />
             </div>
