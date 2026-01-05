@@ -8,6 +8,7 @@ import Link from 'next/link';
 import CButton from '@/ui/atoms/CButton';
 import SignInButtons from '@/ui/common/auth/SignInButtons';
 import SignOutButton from '@/ui/common/auth/SignOutButton';
+import SignInErrorHandler from '@/app/sign-in/(components)/SignInErrorHandler';
 
 const TITLE = 'Sign In';
 const TEXT = 'Access your account to continue';
@@ -39,6 +40,8 @@ export default async function SignInPage({ searchParams }: IAuthParams) {
                         <SignInButtons callbackUrl={callbackUrl} />
                     )}
                 </div>
+
+                <SignInErrorHandler />
             </div>
         </div>
     );

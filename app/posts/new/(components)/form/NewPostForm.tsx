@@ -1,19 +1,19 @@
 'use client';
 
+import s from './NewPostForm.module.css';
+
 import { DEFAULT_VALUES, FIELDS } from '@/data/new-post-form';
 import { EFormStatus } from '@/utils/constants/forms';
 
 import { TSchema } from '@/types/forms';
 import { ISpec } from '@/types/common';
 
+import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createPostSchema } from '@/utils/validation/schemas';
-
 import { createPostAction } from '@/lib/actions/create-post';
-
-import s from './NewPostForm.module.css';
 
 import CButton from '@/ui/atoms/CButton';
 import FormField from '@/ui/common/form/FormField';
@@ -23,13 +23,18 @@ import { PulseLoader } from 'react-spinners';
 type TSpecTypes = Extract<keyof TSchema, 'category' | 'complex'>;
 interface IProps {
     specs: Record<TSpecTypes, ISpec[]>;
+    isSignedIn: boolean;
 }
 
 const isSpecType = (key: string): key is TSpecTypes => {
     return key === 'category' || key === 'complex';
 };
 
-export default function NewPostForm({ specs }: IProps) {
+const SIGN_IN_NOTICE = 'You must be signed in to publish a post.';
+
+// TODO: refactor
+// eslint-disable-next-line complexity
+export default function NewPostForm({ specs, isSignedIn }: IProps) {
     const [status, setStatus] = useState<EFormStatus>(EFormStatus.Idle);
     const anchorRef = useRef<HTMLElement>(null);
 
@@ -110,13 +115,15 @@ export default function NewPostForm({ specs }: IProps) {
                             )
                     )}
 
-                    <div className={s.row}>
+                    <div className={s.bottom}>
                         <CButton
                             type='submit'
-                            disabled={status === EFormStatus.Loading}
+                            disabled={status === EFormStatus.Loading || !isSignedIn}
                         >
                             Publish
                         </CButton>
+
+                        {!isSignedIn && <p className={clsx('card-meta', s.notice)}>{SIGN_IN_NOTICE}</p>}
                     </div>
 
                     {status === EFormStatus.Loading && (

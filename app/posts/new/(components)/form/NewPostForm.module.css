@@ -31,3 +31,17 @@
     cursor: not-allowed;
     inset: 0;
 }
+
+.notice {
+    color: var(--error);
+}
+
+.bottom {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: var(--gap-card-mob);
+
+    @media (width >= 768px) {
+    }
+}
