@@ -7,14 +7,14 @@ import CButton from '@/ui/atoms/CButton';
 
 const providers = [{ id: EAuthProviders.GitHub, name: 'GitHub' }];
 
-export function SignInButtons() {
+export function SignInButtons({ callbackUrl }: { callbackUrl: string }) {
     return (
         <div className={s.wrapper}>
             {providers.map((provider) => (
                 <form
                     action={async () => {
                         'use server';
-                        await signInAction(provider.id, PAGES.HOME.link);
+                        await signInAction(provider.id, callbackUrl);
                     }}
                     key={provider.id}
                 >

@@ -11,9 +11,10 @@ const AUTH_TITLE = "You're already signed in";
 const AUTH_TEXT = 'Go back to the main page to continue';
 const AUTH_BTN = 'Go to Home';
 
-export default async function SignInPage() {
+export default async function SignInPage({ searchParams }: { searchParams?: { callbackUrl: string } }) {
     const session = await auth();
     const isSignedIn = Boolean(session?.user);
+    const callbackUrl = searchParams?.callbackUrl ?? PAGES.HOME.link;
 
     return (
         <div className={'page c-container flex flex-col items-center justify-center'}>
@@ -31,7 +32,7 @@ export default async function SignInPage() {
                             <SignOutButton />
                         </div>
                     ) : (
-                        <SignInButtons />
+                        <SignInButtons callbackUrl={callbackUrl} />
                     )}
                 </div>
             </div>
