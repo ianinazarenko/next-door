@@ -1,3 +1,5 @@
+import { baseUrl } from '@/utils/constants/base-url';
+
 export function getSafeCallbackUrl(callbackUrl: string | undefined, fallback: string): string {
     if (!callbackUrl) {
         return fallback;
@@ -7,5 +9,11 @@ export function getSafeCallbackUrl(callbackUrl: string | undefined, fallback: st
         return callbackUrl;
     }
 
-    return fallback;
+    try {
+        const targetUrl = new URL(callbackUrl);
+        const appUrl = new URL(baseUrl);
+        return targetUrl.origin === appUrl.origin ? targetUrl.pathname + targetUrl.search : fallback;
+    } catch {
+        return fallback;
+    }
 }
