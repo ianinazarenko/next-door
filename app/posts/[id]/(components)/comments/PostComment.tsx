@@ -11,7 +11,7 @@ export default function PostComment({ comment }: { comment: IComment }) {
             <UserPic />
 
             <div>
-                <p className={clsx('card-description', s.author)}>{comment.author}</p>
+                <p className={clsx('card-description', s.author)}>{comment.author?.name || 'Anonymous'}</p>
                 {Boolean(date) && <p className={'card-meta mb-2'}>{date}</p>}
                 <p>{comment.text}</p>
             </div>

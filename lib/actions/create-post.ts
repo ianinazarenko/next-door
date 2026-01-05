@@ -4,24 +4,35 @@ import { TSchema } from '@/types/forms';
 import { z } from 'zod';
 import { prisma } from '@/lib/data-access/db';
 import { createPostSchema } from '@/utils/validation/schemas';
+import { auth } from '@/lib/auth';
 
 export async function createPostAction(data: TSchema) {
     const isDev = process.env.NODE_ENV === 'development';
     try {
-        const validatedData = createPostSchema.parse(data);
+        const session = await auth();
+
+        if (!session?.user?.id) {
+            throw new Error('Not authenticated. Please sign in to create a post.');
+        }
+
+        const { category, complex, ...validatedData } = createPostSchema.parse(data);
 
         const newPost = await prisma.post.create({
             data: {
                 ...validatedData,
-                authorName: 'Random User', // for MVP only
+                author: {
+                    connect: {
+                        id: session.user.id,
+                    },
+                },
                 category: {
                     connect: {
-                        slug: validatedData.category,
+                        slug: category,
                     },
                 },
                 complex: {
                     connect: {
-                        slug: validatedData.complex,
+                        slug: complex,
                     },
                 },
             },

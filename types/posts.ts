@@ -1,13 +1,15 @@
 import { ICategory } from '@/types/categories';
 import { IComplexBase } from '@/types/complexes';
 import { IComment } from '@/types/comments';
+import { IUserBase } from '@/types/users';
 
 // Base interface for posts
 export interface IPostBase {
     id: number;
     title: string;
     shortText: string;
-    authorName: string;
+    author: IUserBase;
+    authorId: string;
     image: string | null;
     deadline: Date | null;
     createdAt: Date;
@@ -24,8 +26,6 @@ export interface IPostListItem extends IPostBase {
 // Post detail page post-data
 export interface IPostFull extends IPostBase {
     fullText: string;
-    phone: string | null;
-    whatsapp: string | null;
     comments: IComment[];
     updatedAt: Date;
     complex: IComplexBase; // check what data is needed here

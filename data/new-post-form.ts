@@ -10,8 +10,6 @@ export const DEFAULT_VALUES: Record<keyof TSchema, string> = {
     fullText: '',
     complex: '',
     category: '',
-    phone: '',
-    whatsapp: '',
 };
 
 export const FIELDS: INewPostField[] = [
@@ -34,22 +32,6 @@ export const FIELDS: INewPostField[] = [
         is: CTextarea,
         placeholder: 'A detailed description of your announcement',
         rows: 4,
-    },
-    {
-        name: 'phone',
-        label: 'Phone',
-        is: CInput,
-        placeholder: '+1234567890',
-        description: 'Phone number in international format',
-        className: 'col',
-    },
-    {
-        name: 'whatsapp',
-        label: 'WhatsApp',
-        is: CInput,
-        placeholder: '+441234567890',
-        description: 'Phone number in international format',
-        className: 'col',
     },
     {
         name: 'category',

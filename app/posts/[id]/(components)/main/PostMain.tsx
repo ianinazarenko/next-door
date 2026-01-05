@@ -6,13 +6,13 @@ import PostContacts from '@/app/posts/[id]/(components)/contacts/PostContacts';
 import PostComments from '@/app/posts/[id]/(components)/comments/PostComments';
 
 export default function PostMain({ post }: { post: IPostFull }) {
-    const { title, createdAt, fullText, phone, whatsapp, authorName, comments } = post;
+    const { title, createdAt, fullText, author, comments } = post;
 
     return (
         <div className={s.container}>
             <PostHeader
                 title={title}
-                author={authorName}
+                author={author?.name}
                 createdAt={createdAt}
             />
 
@@ -22,7 +22,7 @@ export default function PostMain({ post }: { post: IPostFull }) {
                 <PostImage />
             </section>
 
-            <PostContacts contacts={{ phone, whatsapp }} />
+            <PostContacts contacts={{ phone: author?.phone, whatsapp: author?.whatsapp }} />
 
             {comments.length > 0 && <PostComments comments={comments} />}
         </div>
