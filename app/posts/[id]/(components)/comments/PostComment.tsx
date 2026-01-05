@@ -8,7 +8,11 @@ export default function PostComment({ comment }: { comment: IComment }) {
     const date = dateFormatter.format(comment.createdAt);
     return (
         <div className={s.card}>
-            <UserPic />
+            <UserPic
+                image={comment.author?.image}
+                name={comment.author?.name}
+                index={comment.authorId}
+            />
 
             <div>
                 <p className={clsx('card-description', s.author)}>{comment.author?.name || 'Anonymous'}</p>

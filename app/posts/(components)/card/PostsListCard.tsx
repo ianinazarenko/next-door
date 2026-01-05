@@ -11,7 +11,7 @@ import Link from 'next/link';
 import UserPic from '@/ui/common/user/UserPic';
 
 export default function PostsListCard({ post }: { post: IPostListItem }) {
-    const { id, title, shortText, author, deadline, commentsCount, createdAt, category } = post;
+    const { id, title, shortText, author, deadline, commentsCount, createdAt, category, authorId } = post;
 
     const deadlineDate: string | null = deadline ? dateFormatter.format(deadline) : null;
     const createdAtDate: string | null = createdAt ? dateFormatter.format(createdAt) : null;
@@ -31,7 +31,9 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
                     <div className={s.author}>
                         <UserPic
                             className={s.picture}
-                            index={id}
+                            image={author?.image}
+                            name={author.name}
+                            index={authorId}
                         />
                         <p className={'card-meta'}>{author.name}</p>
                     </div>
