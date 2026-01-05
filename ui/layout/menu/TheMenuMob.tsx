@@ -12,15 +12,16 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 // Styles
 import s from './TheMenuMob.module.css';
+import { isMenuItemVisible } from '@/utils/helpers/menu';
 
-export default function TheMenuMob() {
+export default function TheMenuMob({ isSignedIn }: { isSignedIn: boolean }) {
     const path = usePathname();
     return (
         <div className={s.panel}>
             <div className={s.wrapper}>
                 {MENU_LIST.map((item: IPanelItem, index: number) => {
                     const Icon = item.icon;
-                    return (
+                    return isMenuItemVisible(item.visibility, isSignedIn) ? (
                         <Link
                             key={index}
                             href={item.link}
@@ -31,7 +32,7 @@ export default function TheMenuMob() {
                                 {item.label}
                             </span>
                         </Link>
-                    );
+                    ) : null;
                 })}
             </div>
         </div>
