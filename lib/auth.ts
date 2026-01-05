@@ -1,3 +1,4 @@
+import { PAGES } from '@/data/pages';
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/lib/data-access/db';
@@ -13,6 +14,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     ],
     session: {
         strategy: 'database',
+    },
+    pages: {
+        signIn: PAGES.SIGN_IN.link,
     },
     callbacks: {
         session({ session, user }) {

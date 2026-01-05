@@ -1,0 +1,26 @@
+import s from './SignInButtons.module.css';
+
+import { PAGES } from '@/data/pages';
+import { EAuthProviders } from '@/utils/constants/auth';
+import { signInAction } from '@/lib/actions/auth';
+import CButton from '@/ui/atoms/CButton';
+
+const providers = [{ id: EAuthProviders.GitHub, name: 'GitHub' }];
+
+export function SignInButtons() {
+    return (
+        <div className={s.wrapper}>
+            {providers.map((provider) => (
+                <form
+                    action={async () => {
+                        'use server';
+                        await signInAction(provider.id, PAGES.HOME.link);
+                    }}
+                    key={provider.id}
+                >
+                    <CButton type='submit'>Sign In with {provider.name}</CButton>
+                </form>
+            ))}
+        </div>
+    );
+}

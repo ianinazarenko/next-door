@@ -21,4 +21,9 @@ export const PAGES = {
         title: 'Create New Post',
         link: `/${EPages.Posts}/new`,
     },
+    SIGN_IN: {
+        slug: EPages.SignIn,
+        title: 'SignIn',
+        link: `/${EPages.SignIn}`,
+    },
 };

@@ -3,4 +3,5 @@ export enum EPages {
     Complexes = 'complexes',
     Posts = 'posts',
     NewPost = 'new-post',
+    SignIn = 'sign-in',
 }
