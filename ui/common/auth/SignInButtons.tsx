@@ -1,13 +1,12 @@
 import s from './SignInButtons.module.css';
 
-import { PAGES } from '@/data/pages';
 import { EAuthProviders } from '@/utils/constants/auth';
 import { signInAction } from '@/lib/actions/auth';
 import CButton from '@/ui/atoms/CButton';
 
 const providers = [{ id: EAuthProviders.GitHub, name: 'GitHub' }];
 
-export function SignInButtons({ callbackUrl }: { callbackUrl: string }) {
+export default function SignInButtons({ callbackUrl }: { callbackUrl: string }) {
     return (
         <div className={s.wrapper}>
             {providers.map((provider) => (
