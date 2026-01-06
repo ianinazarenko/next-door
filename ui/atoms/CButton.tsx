@@ -2,14 +2,14 @@ import { Button } from '@headlessui/react';
 import clsx from 'clsx';
 import { PulseLoader } from 'react-spinners';
 
-type ButtonTheme = 'primary' | 'secondary' | 'tertiary';
+import { EButtonTheme } from '@/constants/ui';
 
 interface IButtonProps {
     type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     className?: string;
     equal?: boolean;
-    theme?: ButtonTheme;
+    theme?: EButtonTheme;
     onClick?: () => void;
     children: React.ReactNode;
     isLoading?: boolean;
@@ -21,28 +21,28 @@ function CButton({
     disabled,
     className,
     equal,
-    theme = 'primary',
+    theme = EButtonTheme.Primary,
     isLoading,
     ariaLabel,
     onClick,
     children,
 }: IButtonProps) {
-    const themeBaseClasses: Record<ButtonTheme, string> = {
-        primary: 'bg-(--accent) text-(--bg-primary) border border-(--accent)',
-        secondary: 'bg-transparent text-(--accent) border border-(--accent)',
-        tertiary: 'bg-transparent text-(--text-primary) border border-transparent',
+    const themeBaseClasses: Record<EButtonTheme, string> = {
+        [EButtonTheme.Primary]: 'bg-(--accent) text-(--bg-primary) border border-(--accent)',
+        [EButtonTheme.Secondary]: 'bg-transparent text-(--accent) border border-(--accent)',
+        [EButtonTheme.Tertiary]: 'bg-transparent text-(--text-primary) border border-transparent',
     };
 
-    const themeInteractiveClasses: Record<ButtonTheme, string> = {
-        primary: 'hover:bg-(--accent-hover) active:bg-(--accent-hover)',
-        secondary: 'hover:bg-(--accent-50) active:bg-(--accent-50)',
-        tertiary: 'hover:bg-(--bg-secondary) active:bg-(--bg-secondary)',
+    const themeInteractiveClasses: Record<EButtonTheme, string> = {
+        [EButtonTheme.Primary]: 'hover:bg-(--accent-hover) active:bg-(--accent-hover)',
+        [EButtonTheme.Secondary]: 'hover:bg-(--accent-50) active:bg-(--accent-50)',
+        [EButtonTheme.Tertiary]: 'hover:bg-(--bg-secondary) active:bg-(--bg-secondary)',
     };
 
-    const loaderColor: Record<ButtonTheme, string> = {
-        primary: 'var(--bg-primary)',
-        secondary: 'var(--accent)',
-        tertiary: 'var(--text-primary)',
+    const loaderColor: Record<EButtonTheme, string> = {
+        [EButtonTheme.Primary]: 'var(--bg-primary)',
+        [EButtonTheme.Secondary]: 'var(--accent)',
+        [EButtonTheme.Tertiary]: 'var(--text-primary)',
     };
 
     const baseClasses =
