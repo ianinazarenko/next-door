@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { prisma } from '@/lib/data-access/db';
 import { createPostSchema } from '@/utils/validation/schemas';
 import { auth } from '@/lib/auth';
+import { getFirstZodErrorMessage } from '@/utils/helpers/zod-utils';
 
 export async function createPostAction(data: TSchema) {
     const isDev = process.env.NODE_ENV === 'development';
@@ -42,12 +43,13 @@ export async function createPostAction(data: TSchema) {
     } catch (error) {
         console.error('[create-post/createPostAction]:', error);
 
-        if (isDev) {
-            throw error instanceof Error ? error : new Error(String(error));
-        } else {
-            throw error instanceof z.ZodError
-                ? new Error('Invalid data')
-                : new Error('Failed to create post. Please try again later.');
+        if (isDev) throw error;
+
+        if (error instanceof z.ZodError) {
+            const userMessage = getFirstZodErrorMessage(error);
+            throw new Error(userMessage || 'Invalid data');
         }
+
+        throw new Error('Failed to create post. Please try again later.');
     }
 }
