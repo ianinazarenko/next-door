@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 // Styles
 import s from './TheMenuMob.module.css';
-import { isMenuItemVisible } from '@/utils/helpers/menu';
+import { isMenuItemVisible } from '@/utils/helpers/menu-utils';
 
 export default function TheMenuMob({ isSignedIn }: { isSignedIn: boolean }) {
     const path = usePathname();

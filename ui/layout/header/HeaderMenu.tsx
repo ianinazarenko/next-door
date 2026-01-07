@@ -4,7 +4,7 @@ import s from './HeaderMenu.module.css';
 
 import { MENU_LIST } from '@/data/menu';
 import Link from 'next/link';
-import { isMenuItemVisible } from '@/utils/helpers/menu';
+import { isMenuItemVisible } from '@/utils/helpers/menu-utils';
 
 export default function HeaderMenu({ isSignedIn }: { isSignedIn: boolean }) {
     return (
