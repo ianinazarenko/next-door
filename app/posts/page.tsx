@@ -1,11 +1,13 @@
 // Constants
 import { PAGES_METADATA } from '@/data/seo';
 // Types
-import { IPostsState } from '@/types/posts';
+import { IPostsSearchParams, IPostsState } from '@/types/posts';
 import { Metadata } from 'next';
 // Styles
 import clsx from 'clsx';
 import s from './page.module.css';
+// Utils
+import { getSearchParamValue } from '@/utils/helpers/url-utils';
 // Components
 import { Suspense } from 'react';
 import PostsHeader from '@/app/posts/(components)/header/PostsHeader';
@@ -17,8 +19,14 @@ import PostsFiltersSkeleton from '@/app/posts/(components)/filters/PostsFiltersS
 
 export const metadata: Metadata = PAGES_METADATA.POSTS;
 
-export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsState> }) {
-    const params = await searchParams;
+export default async function PostsPage({ searchParams }: { searchParams: Promise<IPostsSearchParams> }) {
+    const { complex, category } = await searchParams;
+
+    const params: IPostsState = {
+        complex: getSearchParamValue(complex) ?? '',
+        category: getSearchParamValue(category) ?? '',
+    };
+
     try {
         return (
             <div className={'page c-container'}>

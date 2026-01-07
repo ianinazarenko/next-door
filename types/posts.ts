@@ -38,6 +38,12 @@ export interface IPostsState {
     category: string;
 }
 
+export interface IPostsSearchParams {
+    complex?: string | string[];
+    category?: string | string[];
+    [k: string]: string | string[] | undefined;
+}
+
 // Where params for query
 export interface IPostsWhereParams {
     categorySlug?: string;

@@ -1,10 +1,12 @@
 // Constants
 import { PAGES_METADATA } from '@/data/seo';
 // Types
-import { IComplexesState } from '@/types/complexes';
+import { IComplexesSearchParams, IComplexesState } from '@/types/complexes';
 import { Metadata } from 'next';
 // Styles
 import s from './page.module.css';
+// Utils
+import { getSearchParamValue } from '@/utils/helpers/url-utils';
 // Components
 import { Suspense } from 'react';
 import ComplexesListSkeleton from '@/app/complexes/(components)/list/skeletons/ComplexesListSkeleton';
@@ -17,8 +19,10 @@ const TITLE_H1 = 'Residential Complexes';
 const DESC = 'Find your community to get started';
 const TITLE_H2 = 'Available Complexes';
 
-export default async function ComplexesPage({ searchParams }: { searchParams: Promise<IComplexesState> }) {
-    const params = await searchParams;
+export default async function ComplexesPage({ searchParams }: { searchParams: Promise<IComplexesSearchParams> }) {
+    const { search } = await searchParams;
+
+    const params: IComplexesState = { search: getSearchParamValue(search) };
 
     return (
         <div className={`page c-container`}>
