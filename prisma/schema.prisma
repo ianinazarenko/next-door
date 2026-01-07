@@ -132,7 +132,7 @@ model User {
   sessions      Session[]
   phone         String?
   whatsapp      String?
-  complex       Complex?  @relation(fields: [complexId], references: [id])
+  complex       Complex?  @relation(fields: [complexId], references: [id], onDelete: SetNull)
   posts         Post[]
   comments      Comment[]
   complexId     String?
