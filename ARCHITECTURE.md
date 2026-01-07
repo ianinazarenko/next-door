@@ -103,6 +103,8 @@ NextDoor uses **session-based authentication** implemented via **NextAuth.js (Au
 
 This strategy aligns with the project’s Server-First architecture and relies on the database as a single, authoritative source of truth.
 
+**API Endpoint:** While the project avoids traditional API routes for data queries, it utilizes a single API Route Handler at `/api/auth/[...nextauth]` as required by Auth.js. This handler manages all OAuth redirects, callbacks, and other internal authentication mechanisms.
+
 **CSRF Protection**
 NextDoor uses a standard double-submit cookie strategy: NextAuth sets an httpOnly anti-CSRF cookie, and the client includes the matching token in the `X-CSRF-Token` header for mutations. The server compares both values, blocking cross‑origin form submissions. This keeps the mechanism secure while fitting naturally into the session-based model.
 
@@ -110,20 +112,19 @@ NextDoor uses a standard double-submit cookie strategy: NextAuth sets an httpOnl
 
 ## 3.1 Prisma Models
 
-Post
-Category
-Complex
-Comment
-ManagementCompany
-UsefulPhone
-User (future)
+The project utilizes Prisma ORM with the following main models:
+- `Post`
+- `Category`
+- `Complex`
+- `Comment`
+- `ManagementCompany`
+- `UsefulPhone`
+- `User`
+- `Session`
+- `Account`
+- `VerificationToken`
 
-For MVP, author info is stored directly in Post.
-Later versions will introduce:
-
-- User model
-- Relations
-- Authentication flows
+Author information is now fully integrated into the `User` model with proper relations to `Post` and `Comment` models, enhancing data normalization and enabling user authentication features.
 
 ## 4. Client/Server Separation
 
@@ -176,6 +177,8 @@ Strict separation keeps bundles small and client JS minimal.
 
 _Double validation = secure pipeline._
 
+**Guest Access for Post Creation:** To improve the user experience, the `/posts/new` page is publicly accessible, allowing non-authenticated users to view the post creation form. However, the form submission is disabled on the client-side, and the corresponding Server Action (`createPostAction`) is protected by a mandatory session check, ensuring that only authenticated users can create posts.
+
 ## 6. Error Handling
 
 - Server Actions use try/catch + typed error responses
@@ -226,6 +229,7 @@ The project follows a Feature-Based Hybrid file organization approach.
 │ ├── (providers)/ # All providers App/Redux/Theme
 │ ├── complexes/ # /complex/[slug]
 │ ├── posts/ # /posts, /posts/[id]
+│ ├── signin/ # Custom sign-in page
 │ ├── layout.tsx
 │ ├── page.tsx
 │ └── globals.css
@@ -299,12 +303,12 @@ This reflects the recommended pattern for modern Next.js applications.
 
 ### Planned features:
 
-- Authentication (NextAuth or custom)
-- User profiles
+- User profiles (extending beyond basic authentication info)
 - Favorites & deleting posts
-- Comment system
+- Comment system (interactive and linked to users)
 - Image upload
-- Moving author data to User model
+- User Profile page
+- New Post form improvements (including deadline input)
 - And other
 
 ### Technical improvements:
