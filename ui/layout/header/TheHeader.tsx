@@ -9,20 +9,21 @@ async function TheHeader({ session }: { session: Session | null }) {
     return (
         <header className={s.header}>
             <div className={'c-container flex items-center justify-between gap-4'}>
-                {session?.user && (
-                    <UserPic
-                        image={session.user.image}
-                        name={session.user.name}
-                        index={session.user.id}
-                        className={s.userPic}
-                    />
-                )}
-
                 <HeaderMenu isSignedIn={Boolean(session)} />
 
-                {session?.user && <SignOutButton />}
-
                 <ThemeToggle />
+
+                {session?.user && (
+                    <>
+                        <SignOutButton />
+                        <UserPic
+                            image={session.user.image}
+                            name={session.user.name}
+                            index={session.user.id}
+                            className={s.userPic}
+                        />
+                    </>
+                )}
             </div>
         </header>
     );

@@ -12,16 +12,17 @@ export default function SignInErrorHandler() {
     const pathname = usePathname();
 
     useEffect(() => {
-        if (error) {
-            const message = ERROR_MESSAGES[error] || ERROR_MESSAGES.Default;
-            toast.error(message);
+        if (!error) return;
 
-            const updatedParams = new URLSearchParams(searchParams.toString());
-            updatedParams.delete('error');
-            const queryString = updatedParams.toString();
-            const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
-            router.replace(newUrl);
-        }
+        const message = ERROR_MESSAGES[error] || ERROR_MESSAGES.Default;
+        toast.error(message);
+
+        const updatedParams = new URLSearchParams(searchParams.toString());
+        updatedParams.delete('error');
+        const queryString = updatedParams.toString();
+        const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+
+        router.replace(newUrl);
     }, [error, router, pathname, searchParams]);
 
     return null;
