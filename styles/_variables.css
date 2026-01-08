@@ -8,7 +8,7 @@
 
     /* Colors - Light Theme */
     --light-bg-primary: #f9f9f9;
-    --light-bg-secondary: #f0f0f4;
+    --light-bg-secondary: #ececf5;
     --light-bg-light: #ffffff;
     --light-text-primary: #212121;
     --light-text-secondary: #757575;
@@ -22,7 +22,7 @@
 
     /* Colors - Dark Theme */
     --dark-bg-primary: #1a1a1a;
-    --dark-bg-secondary: #2b2b2b;
+    --dark-bg-secondary: #333333;
     --dark-bg-light: #3b3b3b;
     --dark-text-primary: #e0e0e0;
     --dark-text-secondary: #a0a0a0;
