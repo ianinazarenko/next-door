@@ -184,12 +184,12 @@ main {
 }
 
 .fade-in {
-    animation: fade var(--trs) forwards;
+    animation: fade 1500ms forwards;
     pointer-events: all;
 }
 
 .fade-out {
-    animation: fade var(--trs) backwards;
+    animation: fade 500ms backwards;
     pointer-events: none;
 }
 
