@@ -21,7 +21,6 @@
     background-color: var(--bg-primary);
     outline: 1px solid var(--semi-border);
     outline-offset: -1px;
-    gap: 2rem;
     box-shadow: var(--box-shadow);
 
     @media (width >= 768px) {
@@ -41,6 +40,7 @@
     width: 12rem;
     max-width: 12rem;
     height: 100%;
+    margin: 0 1rem;
     white-space: nowrap;
     color: var(--text-secondary);
     transition:
