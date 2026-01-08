@@ -1,18 +1,15 @@
-import TheHeader from '@/ui/layout/header/TheHeader';
-import TheMenuMob from '@/ui/layout/menu/TheMenuMob';
-import TheFooter from '@/ui/layout/footer/TheFooter';
-import NextAuthProvider from '@/app/(providers)/NextAuthProvider';
+import { SessionProvider } from 'next-auth/react';
+import ClientHeader from '@/ui/layout/header/ClientHeader';
+import ClientMenuMob from '@/ui/layout/menu/ClientMenuMob';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
     return (
-        <NextAuthProvider>
-            <TheHeader />
+        <SessionProvider>
+            <ClientHeader />
 
             <main>{children}</main>
 
-            <TheMenuMob />
-
-            <TheFooter />
-        </NextAuthProvider>
+            <ClientMenuMob />
+        </SessionProvider>
     );
 }

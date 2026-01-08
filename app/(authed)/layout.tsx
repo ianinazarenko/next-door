@@ -1,21 +1,22 @@
-import { getSession } from '@/lib/auth';
+import { getServerSession } from '@/lib/auth';
+import { SessionProvider } from 'next-auth/react';
 import TheHeader from '@/ui/layout/header/TheHeader';
 import TheMenuMob from '@/ui/layout/menu/TheMenuMob';
-import TheFooter from '@/ui/layout/footer/TheFooter';
-import NextAuthProvider from '@/app/(providers)/NextAuthProvider';
 
 export default async function AuthedLayout({ children }: { children: React.ReactNode }) {
-    const session = await getSession();
+    const session = await getServerSession();
 
     return (
-        <NextAuthProvider session={session}>
-            <TheHeader session={session} />
+        <SessionProvider session={session}>
+            <TheHeader
+                session={session}
+                isSignedIn={Boolean(session?.user)}
+                isLoading={false}
+            />
 
             <main>{children}</main>
 
-            <TheMenuMob session={session} />
-
-            <TheFooter />
-        </NextAuthProvider>
+            <TheMenuMob isSignedIn={Boolean(session?.user)} />
+        </SessionProvider>
     );
 }

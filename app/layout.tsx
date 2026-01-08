@@ -6,6 +6,7 @@ import './globals.css';
 import '@/styles/index.css';
 
 import AppProviders from '@/app/(providers)/AppProviders';
+import TheFooter from '@/ui/layout/footer/TheFooter';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -27,7 +28,11 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={`${inter.className} antialiased`}>
-                <AppProviders>{children}</AppProviders>
+                <AppProviders>
+                    {children}
+
+                    <TheFooter />
+                </AppProviders>
             </body>
         </html>
     );

@@ -1,16 +1,44 @@
 'use client';
 
-import type { Session } from 'next-auth';
-import { useSession } from 'next-auth/react';
+// Styles
+import s from './TheMenuMob.module.css';
+// Types
+import { IPanelItem } from '@/types/menu';
+// Data
+import { MENU_LIST } from '@/data/menu';
+// Utils
+import clsx from 'clsx';
+import { isMenuItemVisible } from '@/utils/helpers/menu-utils';
+// Hooks
+import { usePathname } from 'next/navigation';
 // Components
-import MenuPanel from '@/ui/layout/menu/MenuPanel';
+import Link from 'next/link';
 
-export default function TheMenuMob({ session: serverSession }: { session?: Session | null }) {
-    // If a session is passed from the server, use it. Otherwise, use the client-side hook.
-    const { status: clientStatus } = useSession();
+export default function TheMenuMob({ isSignedIn }: { isSignedIn: boolean }) {
+    const path = usePathname();
 
-    const status = serverSession ? 'authenticated' : clientStatus;
-    const isSignedIn = status === 'authenticated';
-
-    return <MenuPanel isSignedIn={isSignedIn} />;
+    return (
+        <div className={s.panel}>
+            <div className={s.wrapper}>
+                {MENU_LIST.map((item: IPanelItem, index: number) => {
+                    const Icon = item.icon;
+                    const isVisible = isMenuItemVisible(item.visibility, isSignedIn);
+                    return (
+                        <Link
+                            key={index}
+                            href={item.link}
+                            className={clsx(s.item, { [s.active]: item.link === path, [s.itemHidden]: !isVisible })}
+                            aria-hidden={!isVisible}
+                            tabIndex={!isVisible ? -1 : undefined}
+                        >
+                            <Icon className={s.icon} />
+                            <span className={clsx('card-meta', s.text, { [s.active]: item.link === path })}>
+                                {item.label}
+                            </span>
+                        </Link>
+                    );
+                })}
+            </div>
+        </div>
+    );
 }
