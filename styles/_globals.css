@@ -182,3 +182,23 @@ main {
     padding: 0;
     border: 0;
 }
+
+.fade-in {
+    animation: fade var(--trs) forwards;
+    pointer-events: all;
+}
+
+.fade-out {
+    animation: fade var(--trs) backwards;
+    pointer-events: none;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

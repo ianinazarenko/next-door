@@ -9,6 +9,7 @@ interface IButtonProps {
     disabled?: boolean;
     className?: string;
     equal?: boolean;
+    round?: boolean;
     theme?: EButtonTheme;
     onClick?: () => void;
     children: React.ReactNode;
@@ -21,6 +22,7 @@ function CButton({
     disabled,
     className,
     equal,
+    round,
     theme = EButtonTheme.Primary,
     isLoading,
     ariaLabel,
@@ -48,6 +50,7 @@ function CButton({
     const baseClasses =
         'h-(--btn-height) rounded-(--radius-btn) px-(--p-btn) text-[1.4rem] font-semibold transition transition-colors duration-300 ease-linear';
     const equalClasses = 'px-0 w-(--btn-height) justify-center items-center flex';
+    const roundClasses = 'rounded-[6rem]';
     const disabledClasses = 'cursor-not-allowed opacity-50';
 
     const classes = clsx(
@@ -55,6 +58,7 @@ function CButton({
         themeBaseClasses[theme],
         !disabled && themeInteractiveClasses[theme],
         equal && equalClasses,
+        round && roundClasses,
         disabled && disabledClasses,
         className
     );
