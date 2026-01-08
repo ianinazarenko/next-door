@@ -5,8 +5,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import '@/styles/index.css';
 
-import { auth } from '@/lib/auth';
-
 import AppProviders from '@/app/(providers)/AppProviders';
 import TheHeader from '@/ui/layout/header/TheHeader';
 import TheMenuMob from '@/ui/layout/menu/TheMenuMob';
@@ -24,23 +22,20 @@ export const metadata: Metadata = {
     description: 'Help is Next Door!',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const session = await auth();
-    const isSignedIn = Boolean(session?.user);
-
     return (
         <html lang='en'>
             <body className={`${inter.className} antialiased`}>
                 <AppProviders>
-                    <TheHeader session={session} />
+                    <TheHeader />
 
                     <main>{children}</main>
 
-                    <TheMenuMob isSignedIn={isSignedIn} />
+                    <TheMenuMob />
 
                     <TheFooter />
                 </AppProviders>

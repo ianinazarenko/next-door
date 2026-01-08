@@ -9,6 +9,7 @@ import { TSchema } from '@/types/forms';
 import { ISpec } from '@/types/common';
 
 import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,7 +24,6 @@ import { PulseLoader } from 'react-spinners';
 type TSpecTypes = Extract<keyof TSchema, 'category' | 'complex'>;
 interface IProps {
     specs: Record<TSpecTypes, ISpec[]>;
-    isSignedIn: boolean;
 }
 
 const isSpecType = (key: string): key is TSpecTypes => {
@@ -34,7 +34,10 @@ const SIGN_IN_NOTICE = 'You must be signed in to publish a post.';
 
 // TODO: refactor
 // eslint-disable-next-line complexity
-export default function NewPostForm({ specs, isSignedIn }: IProps) {
+export default function NewPostForm({ specs }: IProps) {
+    const { status: sessionStatus } = useSession();
+    const isSignedIn = sessionStatus === 'authenticated';
+
     const [status, setStatus] = useState<EFormStatus>(EFormStatus.Idle);
     const anchorRef = useRef<HTMLElement>(null);
 
