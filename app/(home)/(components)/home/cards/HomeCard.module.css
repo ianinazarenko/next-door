@@ -13,6 +13,10 @@
         &:hover {
             background-color: var(--bg-secondary);
         }
+
+        &:hover .iconWrap {
+            background-color: var(--bg-primary);
+        }
     }
 }
 
@@ -23,6 +27,7 @@
     border-radius: 50%;
     background-color: var(--bg-secondary);
     place-items: center;
+    transition: background-color var(--trs);
 }
 
 .icon {
