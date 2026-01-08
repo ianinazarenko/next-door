@@ -1,4 +1,5 @@
 import 'server-only';
+import { cache } from 'react';
 
 import { PAGES } from '@/data/pages';
 import NextAuth from 'next-auth';
@@ -39,4 +40,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             };
         },
     },
+});
+
+
+/**
+ * Memoized session getter for Server Components
+ * Uses React.cache() to memoize within a single render cycle (per-request)
+ * This prevents redundant auth() calls across multiple components in the same request
+ */
+export const getSession = cache(async () => {
+    return auth();
 });

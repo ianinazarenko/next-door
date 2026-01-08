@@ -6,9 +6,6 @@ import './globals.css';
 import '@/styles/index.css';
 
 import AppProviders from '@/app/(providers)/AppProviders';
-import TheHeader from '@/ui/layout/header/TheHeader';
-import TheMenuMob from '@/ui/layout/menu/TheMenuMob';
-import TheFooter from '@/ui/layout/footer/TheFooter';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -30,15 +27,7 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={`${inter.className} antialiased`}>
-                <AppProviders>
-                    <TheHeader />
-
-                    <main>{children}</main>
-
-                    <TheMenuMob />
-
-                    <TheFooter />
-                </AppProviders>
+                <AppProviders>{children}</AppProviders>
             </body>
         </html>
     );
