@@ -18,7 +18,7 @@ export default function HeaderMenu({ isSignedIn }: { isSignedIn: boolean }) {
                     <Link
                         href={item.link}
                         key={index}
-                        className={clsx(s.item, { 'fade-out': !isVisible })}
+                        className={clsx(s.item, { [s.itemHidden]: !isVisible })}
                         aria-hidden={!isVisible}
                         tabIndex={!isVisible ? -1 : undefined}
                     >
