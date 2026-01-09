@@ -1,5 +1,5 @@
 import { IPostFull, IPostListItem, IPostsState } from '@/types/posts';
-import { buildPostsWhere } from '@/utils/helpers/data-utils';
+import { buildPostsWhere } from '@/utils/helpers/queries-posts-utils';
 import { cache } from 'react';
 import { prisma } from '@/lib/data-access/db';
 import { postsQuerySchema } from '@/utils/validation/schemas';
