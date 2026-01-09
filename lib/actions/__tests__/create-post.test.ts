@@ -2,12 +2,22 @@ import { DEFAULT_CREATE_POST, DEFAULT_DB_POST, MOCK_DATE } from '@/tests/__fixtu
 import { DeepMockProxy } from 'jest-mock-extended';
 import { PrismaClient } from '@/generated/prisma';
 import { prisma } from '@/lib/data-access/db';
-import { createPostAction } from '@/lib/actions/create-post';
 import { z } from 'zod';
+import { ERole } from '@/utils/constants/users';
+import { Session } from 'next-auth';
 
 jest.mock('@/lib/data-access/db.ts');
+jest.mock('@/lib/auth', () => ({
+    auth: jest.fn(),
+}));
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { createPostAction } = require('@/lib/actions/create-post');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { auth } = require('@/lib/auth');
 
 const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
+const mockAuth = auth as unknown as jest.MockedFunction<() => Promise<Session | null>>;
 
 describe('createPostAction', () => {
     beforeAll(() => {
@@ -19,7 +29,19 @@ describe('createPostAction', () => {
         jest.useRealTimers();
     });
 
-    beforeEach(() => jest.clearAllMocks());
+    beforeEach(() => {
+        jest.clearAllMocks();
+        // Mock authenticated user session
+        mockAuth.mockResolvedValue({
+            user: {
+                id: 'test-user-id',
+                role: ERole.User,
+                name: 'Test User',
+                email: 'test@example.com',
+            },
+            expires: '2025-12-15T10:00:00.000Z', // 1 day after MOCK_DATE
+        });
+    });
 
     it('happy path: should create a post', async () => {
         const { category: categorySlug, complex: complexSlug, ...validData } = DEFAULT_CREATE_POST;
@@ -27,7 +49,7 @@ describe('createPostAction', () => {
         const expectedPost = {
             ...validData,
             ...DEFAULT_DB_POST,
-
+            authorId: 'test-user-id',
             categorySlug,
             complexSlug,
         };
@@ -39,8 +61,12 @@ describe('createPostAction', () => {
         expect(prismaMock.post.create).toHaveBeenCalledTimes(1);
         expect(prismaMock.post.create).toHaveBeenCalledWith({
             data: {
-                ...DEFAULT_CREATE_POST,
-                authorName: 'Random User', // for MVP only
+                ...validData,
+                author: {
+                    connect: {
+                        id: 'test-user-id',
+                    },
+                },
                 category: {
                     connect: {
                         slug: DEFAULT_CREATE_POST.category,
@@ -49,45 +75,6 @@ describe('createPostAction', () => {
                 complex: {
                     connect: {
                         slug: DEFAULT_CREATE_POST.complex,
-                    },
-                },
-            },
-        });
-        expect(result).toEqual({ success: true, post: expectedPost });
-    });
-
-    it('edge case: should create a post without phone and whatsapp', async () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { phone, whatsapp, ...validData } = DEFAULT_CREATE_POST;
-
-        const expectedPost = {
-            ...validData,
-            ...DEFAULT_DB_POST,
-
-            complexSlug: validData.complex,
-            categorySlug: validData.category,
-
-            phone: null,
-            whatsapp: null,
-        };
-
-        prismaMock.post.create.mockResolvedValue(expectedPost);
-
-        const result = await createPostAction(validData);
-
-        expect(prismaMock.post.create).toHaveBeenCalledTimes(1);
-        expect(prismaMock.post.create).toHaveBeenCalledWith({
-            data: {
-                ...validData,
-                authorName: 'Random User', // for MVP only
-                category: {
-                    connect: {
-                        slug: validData.category,
-                    },
-                },
-                complex: {
-                    connect: {
-                        slug: validData.complex,
                     },
                 },
             },
@@ -112,6 +99,28 @@ describe('createPostAction', () => {
             Object.defineProperty(process.env, 'NODE_ENV', { value: originalNodeEnv });
         });
 
+        describe('authentication error', () => {
+            it('should throw specific error in dev mode when user is not authenticated', async () => {
+                Object.defineProperty(process.env, 'NODE_ENV', { value: 'development' });
+                mockAuth.mockResolvedValue(null);
+
+                await expect(createPostAction(DEFAULT_CREATE_POST)).rejects.toThrow(
+                    'Not authenticated. Please sign in to create a post.'
+                );
+                expect(prismaMock.post.create).not.toHaveBeenCalled();
+            });
+
+            it('should throw generic error in prod mode when user is not authenticated', async () => {
+                Object.defineProperty(process.env, 'NODE_ENV', { value: 'production' });
+                mockAuth.mockResolvedValue(null);
+
+                await expect(createPostAction(DEFAULT_CREATE_POST)).rejects.toThrow(
+                    'Failed to create post. Please try again later.'
+                );
+                expect(prismaMock.post.create).not.toHaveBeenCalled();
+            });
+        });
+
         describe('validation error', () => {
             it('should throw an error for dev mode if validation fails', async () => {
                 Object.defineProperty(process.env, 'NODE_ENV', { value: 'development' });
@@ -126,7 +135,7 @@ describe('createPostAction', () => {
                 Object.defineProperty(process.env, 'NODE_ENV', { value: 'production' });
 
                 const invalidData = { ...DEFAULT_CREATE_POST, title: '' };
-                await expect(createPostAction(invalidData)).rejects.toThrow('Invalid data');
+                await expect(createPostAction(invalidData)).rejects.toThrow('title: Title is required');
                 expect(prismaMock.post.create).not.toHaveBeenCalled();
                 expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
             });

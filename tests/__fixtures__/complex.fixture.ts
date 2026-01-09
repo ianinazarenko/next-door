@@ -1,6 +1,24 @@
 import { IComplexFull } from '@/types/complexes';
+import { IUserBase } from '@/types/users';
 
 export const MOCK_DATE = new Date('2024-01-15T00:00:00.000Z');
+
+export const MOCK_AUTHOR: IUserBase = {
+    id: 'user-1',
+    name: 'John Doe',
+    image: null,
+    phone: null,
+    whatsapp: null,
+};
+
+// Prisma select object for author - matches IUserBase fields
+export const AUTHOR_SELECT = {
+    id: true,
+    name: true,
+    image: true,
+    phone: true,
+    whatsapp: true,
+};
 
 export const MOCK_COMPLEX_FULL: IComplexFull = {
     // IComplexBase fields
@@ -22,7 +40,8 @@ export const MOCK_COMPLEX_FULL: IComplexFull = {
             id: 1,
             title: 'Selling furniture',
             shortText: 'Selling used furniture in good condition',
-            authorName: 'John Doe',
+            author: MOCK_AUTHOR,
+            authorId: MOCK_AUTHOR.id,
             image: null,
             deadline: null,
             createdAt: MOCK_DATE,

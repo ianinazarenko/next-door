@@ -1,4 +1,4 @@
-import { MOCK_COMPLEX_FULL } from '@/tests/__fixtures__/complex.fixture';
+import { AUTHOR_SELECT, MOCK_COMPLEX_FULL } from '@/tests/__fixtures__/complex.fixture';
 import { DeepMockProxy } from 'jest-mock-extended';
 import { prisma } from '@/lib/data-access/db';
 import { PrismaClient } from '@/generated/prisma';
@@ -30,6 +30,11 @@ describe('fetchComplex', () => {
                     posts: {
                         orderBy: { createdAt: 'desc' },
                         take: 10,
+                        include: {
+                            author: {
+                                select: AUTHOR_SELECT,
+                            },
+                        },
                     },
                     managementCompany: true,
                     usefulPhones: true,
@@ -54,6 +59,11 @@ describe('fetchComplex', () => {
                     posts: {
                         orderBy: { createdAt: 'desc' },
                         take: 10,
+                        include: {
+                            author: {
+                                select: AUTHOR_SELECT,
+                            },
+                        },
                     },
                     managementCompany: true,
                     usefulPhones: true,
@@ -100,6 +110,11 @@ describe('fetchComplex', () => {
                     posts: {
                         orderBy: { createdAt: 'desc' },
                         take: 10,
+                        include: {
+                            author: {
+                                select: AUTHOR_SELECT,
+                            },
+                        },
                     },
                     managementCompany: true,
                     usefulPhones: true,

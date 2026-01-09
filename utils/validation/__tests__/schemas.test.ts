@@ -248,13 +248,6 @@ describe('createPostSchema', () => {
             expect(result.success).toBe(true);
             expect(result.data).toEqual(DEFAULT_CREATE_POST);
         });
-
-        it('validates a payload without optional phone and whatsapp fields', () => {
-            const { phone, whatsapp, ...payload } = DEFAULT_CREATE_POST;
-            const result = createPostSchema.safeParse(payload);
-            expect(result.success).toBe(true);
-            expect(result.data).toEqual(payload);
-        });
     });
 
     // ----------------- required validation --------
@@ -342,29 +335,4 @@ describe('createPostSchema', () => {
         );
     });
 
-    // ----------------- phone & whatsapp validation --------
-    describe('E.164 validation', () => {
-        it('should reject an invalid phone number format', () => {
-            const result = createPostSchema.safeParse({
-                ...DEFAULT_CREATE_POST,
-                phone: 'invalid-phone-number',
-            });
-            expect(result.success).toBe(false);
-            if (!result.success) {
-                expect(result.error.issues[0].message).toBe('Invalid E.164 number');
-            }
-        });
-
-        it('should reject an invalid whatsapp number format', () => {
-            const result = createPostSchema.safeParse({
-                ...DEFAULT_CREATE_POST,
-                whatsapp: 'invalid-phone-number',
-            });
-
-            expect(result.success).toBe(false);
-            if (!result.success) {
-                expect(result.error.issues[0].message).toBe('Invalid E.164 number');
-            }
-        });
-    });
 });

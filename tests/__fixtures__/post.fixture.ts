@@ -6,8 +6,6 @@ export const DEFAULT_CREATE_POST = {
     fullText: 'Full description with more than three characters.',
     complex: 'complex-slug',
     category: 'category-slug',
-    phone: '+12025550123',
-    whatsapp: '+12025550123',
 };
 
 export const DEFAULT_DB_POST = {
