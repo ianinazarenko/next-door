@@ -10,9 +10,16 @@
 .item {
     width: 100%;
     height: 100%;
-    transition: color var(--trs);
+    transition:
+        color var(--trs),
+        opacity var(--trs);
 
     &:hover {
         color: var(--accent-hover);
     }
+}
+
+.itemHidden {
+    opacity: 0;
+    pointer-events: none;
 }

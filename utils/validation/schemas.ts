@@ -45,7 +45,5 @@ export const createPostSchema = z.object({
         .max(500, 'Text is too long'),
     complex: z.string().nonempty('Complex is required'),
     category: z.string().nonempty('Category is required'),
-    phone: e164PhoneNumber(),
-    whatsapp: e164PhoneNumber(),
     // img: z.string().optional(),
 });

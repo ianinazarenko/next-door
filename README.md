@@ -10,7 +10,8 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 - Posts feed with categories (buy / sell / give away / help / events)
 - Filter posts by complex or category
 - Post details with comments (read-only in MVP)
-- Create a post without registration (author name + phone / WhatsApp)
+- Secure authentication via GitHub (OAuth)
+- User-specific post creation (posts are linked to authors)
 
 ## Technology Stack
 
@@ -23,6 +24,7 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 - **React Context** – UI state like theme (light / dark / system)
 - **CSS Modules** – isolated component styles
 - **React Hook Form + Zod** – form handling and schema-based validation
+- **Auth.js** – session-based auth
  
 ### **Backend**
 - **Prisma ORM** – type-safe database access
@@ -52,8 +54,8 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
   - Follows Next.js best practices
   - POST/PUT handled by Server Actions (e.g., post creation form).
 
-### Database Design (MVP)  
-  •	Author info (name, phone, whatsApp) stored directly in `Post` model. Later will be moved into a `User` model with relations.
+### Database Design  
+  •	Author information (name, phone, WhatsApp) is now stored in a dedicated `User` model with proper relations to `Post` and `Comment` models. This allows for user authentication and better data normalization.
 
 ### Styling Approach
 - Tailwind CSS + Headless UI for flexibility and accessibility.
@@ -65,8 +67,8 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 
 ## Roadmap / Future Plans
 
-- Add authentication and user profiles (replace author info with User relation)
-- Enable interactive comments and responses
+- User profiles (beyond basic auth info)
+- Enable interactive comments and responses (now linked to users)
 - Add post deletion & favorites
 - Support image uploads for posts
 - Advanced filtering and search (category + keyword + complex)
@@ -103,6 +105,10 @@ Set up a PostgreSQL database (locally or via a cloud provider like Vercel Postgr
 Create a `.env` file in the project root and include at least:
 ```
 DATABASE_URL="your_postgres_connection_string"
+
+AUTH_SECRET="your_generated_secret_key"
+AUTH_GITHUB_ID="your_github_oauth_client_id"
+AUTH_GITHUB_SECRET="your_github_oauth_client_secret"
 ```
 
 To use Prisma commands such as migrations or seeding, you can also add:

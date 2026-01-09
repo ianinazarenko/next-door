@@ -4,24 +4,36 @@ import { TSchema } from '@/types/forms';
 import { z } from 'zod';
 import { prisma } from '@/lib/data-access/db';
 import { createPostSchema } from '@/utils/validation/schemas';
+import { auth } from '@/lib/auth';
+import { getFirstZodErrorMessage } from '@/utils/helpers/zod-utils';
 
 export async function createPostAction(data: TSchema) {
     const isDev = process.env.NODE_ENV === 'development';
     try {
-        const validatedData = createPostSchema.parse(data);
+        const session = await auth();
+
+        if (!session?.user?.id) {
+            throw new Error('Not authenticated. Please sign in to create a post.');
+        }
+
+        const { category, complex, ...validatedData } = createPostSchema.parse(data);
 
         const newPost = await prisma.post.create({
             data: {
                 ...validatedData,
-                authorName: 'Random User', // for MVP only
+                author: {
+                    connect: {
+                        id: session.user.id,
+                    },
+                },
                 category: {
                     connect: {
-                        slug: validatedData.category,
+                        slug: category,
                     },
                 },
                 complex: {
                     connect: {
-                        slug: validatedData.complex,
+                        slug: complex,
                     },
                 },
             },
@@ -31,12 +43,13 @@ export async function createPostAction(data: TSchema) {
     } catch (error) {
         console.error('[create-post/createPostAction]:', error);
 
-        if (isDev) {
-            throw error instanceof Error ? error : new Error(String(error));
-        } else {
-            throw error instanceof z.ZodError
-                ? new Error('Invalid data')
-                : new Error('Failed to create post. Please try again later.');
+        if (isDev) throw error;
+
+        if (error instanceof z.ZodError) {
+            const userMessage = getFirstZodErrorMessage(error);
+            throw new Error(userMessage || 'Invalid data');
         }
+
+        throw new Error('Failed to create post. Please try again later.');
     }
 }

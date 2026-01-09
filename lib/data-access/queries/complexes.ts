@@ -65,6 +65,17 @@ export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
                 posts: {
                     orderBy: { createdAt: 'desc' },
                     take: 10,
+                    include: {
+                        author: {
+                            select: {
+                                id: true,
+                                name: true,
+                                image: true,
+                                phone: true,
+                                whatsapp: true,
+                            },
+                        },
+                    },
                 },
                 managementCompany: true,
                 usefulPhones: true,

@@ -24,8 +24,14 @@ a {
     padding: 0 var(--content-p);
 }
 
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
 .page {
-    min-height: calc(100dvh - var(--header-height) - var(--panel-height));
+    flex: 1;
     padding-top: var(--header-height);
 }
 
@@ -162,10 +168,6 @@ a {
         max-width: var(--container-max-width);
     }
 
-    .page {
-        min-height: calc(100dvh - var(--header-height));
-    }
-
     .ppt {
         padding-top: var(--margin-gap-section-desk);
     }
@@ -179,4 +181,24 @@ a {
     margin: -1px;
     padding: 0;
     border: 0;
+}
+
+.fade-in {
+    animation: fade 1500ms forwards;
+    pointer-events: all;
+}
+
+.fade-out {
+    animation: fade 500ms backwards;
+    pointer-events: none;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

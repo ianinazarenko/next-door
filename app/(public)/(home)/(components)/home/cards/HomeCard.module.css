@@ -1,0 +1,46 @@
+.card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding: var(--p-card-mob);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    flex-direction: column;
+    gap: var(--gap-card-mob);
+    transition: background-color var(--trs);
+
+    @media (width >= 1280px) {
+        &:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        &:hover .iconWrap {
+            background-color: var(--bg-primary);
+        }
+    }
+}
+
+.iconWrap {
+    display: grid;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    place-items: center;
+    transition: background-color var(--trs);
+}
+
+.icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.button {
+    color: var(--accent);
+}
+
+.link {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+}

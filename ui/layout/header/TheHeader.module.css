@@ -12,3 +12,26 @@
         padding: 1.6rem 0;
     }
 }
+
+img.userPic {
+    width: 3.2rem;
+    height: 3.2rem;
+}
+
+div.userPic {
+    width: 3.2rem;
+    height: 3.2rem;
+}
+
+.userSection {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-left: auto;
+}
+
+/* Calculation: 3.6rem (button) + 1.6rem (gap) + 3.2rem (avatar) = 8.4rem, rounded to 8.8rem */
+.userPlaceholder {
+    width: 8.8rem;
+    height: 3.2rem;
+}

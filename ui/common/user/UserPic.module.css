@@ -9,3 +9,18 @@
         height: 8rem;
     }
 }
+
+.initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    container-type: inline-size;
+}
+
+.initialText {
+    font-size: clamp(1.8rem, 40cqw, 3.2rem);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--bg-primary);
+    user-select: none;
+}

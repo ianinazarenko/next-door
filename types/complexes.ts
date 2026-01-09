@@ -35,3 +35,8 @@ export interface IComplexFull extends IComplexBase {
 export interface IComplexesState {
     search?: string;
 }
+
+export interface IComplexesSearchParams {
+    search?: string | string[];
+    [k: string]: string | string[] | undefined;
+}

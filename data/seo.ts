@@ -33,6 +33,13 @@ export const PAGES_METADATA: Record<keyof typeof PAGES, Metadata> = {
             canonical: PAGES.COMPLEXES.link,
         },
     },
+    SIGN_IN: {
+        title: 'Sign In | NextDoor',
+        description: 'Sign in to your NextDoor account to connect with neighbors and access community features.',
+        alternates: {
+            canonical: PAGES.SIGN_IN.link,
+        },
+    },
 };
 
 export const DYNAMIC_PAGES_METADATA = {

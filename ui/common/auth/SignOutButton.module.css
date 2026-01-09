@@ -1,0 +1,16 @@
+.signOutButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--btn-height-mob);
+    height: var(--btn-height-mob);
+    padding: 0;
+}
+
+.signOutButton .text {
+    display: none;
+}
+
+.signOutButton .icon {
+    display: block;
+}
