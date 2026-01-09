@@ -1,3 +1,4 @@
+import { PAGES } from '@/data/pages';
 // Types
 import { IPostListItem } from '@/types/posts';
 // Utils
@@ -54,7 +55,7 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
 
             {id && (
                 <Link
-                    href={`/app/(public)/posts/${id}`}
+                    href={`${PAGES.POSTS.link}/${id}`}
                     className={s.link}
                     target={'_blank'}
                 >
