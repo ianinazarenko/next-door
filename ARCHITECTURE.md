@@ -75,6 +75,8 @@ Example responsibilities:
 | **Posts feed and Complexes list** (/posts and /complexes) | SSR                     | Frequently updated content with filters and search                                                                                                   |
 | **Infinite Scroll**                                       | Client + Server Actions | Interactive loading without reloading the whole page                                                                                                 |
 | **Complex Pages** (/complex/[slug])                       | ISR (1 day)             | Static info that rarely changes → perfect for regeneration                                                                                           |
+| **Sign-In Page** (/sign-in)                               | SSR                     | Server-side session check + client-side auth for interactive elements                                                                                |
+| **Profile Page** (/profile)                               | SSR                     | Protected route with middleware + server session validation                                                                                          |
 | **Filter Data** (categories, complexes list)              | `unstable_cache`        | Rarely updated data → cached on server level                                                                                                         |
 | **Metadata Generation**                                   | SSR / `cache`           | Needs dynamic complex/post title/description. Uses cache() from React to avoid duplicate DB hits when metadata and page content need the same entity |
 
@@ -107,6 +109,46 @@ This strategy aligns with the project’s Server-First architecture and relies o
 
 **CSRF Protection**
 NextDoor uses a standard double-submit cookie strategy: NextAuth sets an httpOnly anti-CSRF cookie, and the client includes the matching token in the `X-CSRF-Token` header for mutations. The server compares both values, blocking cross‑origin form submissions. This keeps the mechanism secure while fitting naturally into the session-based model.
+
+**Middleware Protection**
+Next.js middleware (`middleware.ts`) protects private routes using matcher pattern and redirects unauthenticated users to `/api/auth/signin` with `callbackUrl` for post-login redirect.
+
+**Callback URL Safety**
+All auth redirects use `getSafeCallbackUrl()` utility to prevent open redirect vulnerabilities:
+- Validates that redirect URLs belong to the same origin
+- Blocks protocol-relative URLs (`//evil.com`)
+- Falls back to safe default if validation fails
+
+**RBAC Foundation**
+The `User` model includes a `role` field (default: `"user"`) and session includes role data. This infrastructure is prepared for future features.
+
+### 2.5 Hybrid Session Management
+
+NextDoor uses a **hybrid approach** to session access, balancing performance, SSG/ISR preservation, and security.
+
+**Public Routes** (`app/(public)/`)
+- Use **Client Thin Wrapper** for TheHeader & TheMenuMob with `useSession()` hook from `next-auth/react`
+- `SessionProvider` wraps the layout, enabling reactive auth state
+- Enables real-time UI updates (e.g., header showing/hiding sign-in button)
+- **Critical advantage:** Preserves SSG/ISR for pages like `/complex/[slug]`
+  - Calling `auth()` or `getServerSession()` in Server Components forces dynamic rendering (`auth()` uses `headers()` dynamic API)
+  - Client-side session checks keep pages statically pre-renderable
+
+**Protected Routes** (`app/(authed)/`)
+- Use **Server Components** with `getServerSession()` for SSR-based auth
+- Session fetched once on the server during initial render
+- `SessionProvider` wraps layout and receives server session via props
+
+**Session Optimization:**
+- `getServerSession` is wrapped in `React.cache()` to prevent duplicate `auth()` calls within a single request
+- Critical when multiple Server Components need session data in the same render cycle
+- `useSession` hook doesn't trigger duplicate requests as it subscribes to SessionProvider's cached data
+
+**Why this hybrid:**
+1. **SSG/ISR preservation** — public pages with ISR (like `/complex/[slug]`) remain statically generated
+2. **Performance** — public pages minimize JS bundle by avoiding unnecessary server session calls
+3. **Security** — protected routes use server-side session validation
+4. **UX** — interactive elements (header, menu) react to auth state changes
 
 ## 3. Database Architecture
 
@@ -225,46 +267,55 @@ The project follows a Feature-Based Hybrid file organization approach.
 ```md
 /
 ├── app/
-│ ├── (home)/ # /
-│ ├── (providers)/ # All providers App/Redux/Theme
-│ ├── complexes/ # /complex/[slug]
-│ ├── posts/ # /posts, /posts/[id]
-│ ├── signin/ # Custom sign-in page
-│ ├── layout.tsx
-│ ├── page.tsx
+│ ├── (authed)/                # Protected routes (Server Components auth)
+│ │   ├── layout.tsx           # getServerSession() + SessionProvider
+│ │   └── profile/             # /profile (middleware-protected)
+│ │
+│ ├── (public)/                # Public routes (Client Components auth)
+│ │   ├── layout.tsx           # useSession() + SessionProvider
+│ │   ├── (home)/              # /
+│ │   ├── complexes/           # /complexes, /complex/[slug]
+│ │   ├── posts/               # /posts, /posts/[id], /posts/new
+│ │   └── sign-in/             # /sign-in (custom sign-in page)
+│ │
+│ ├── (providers)/             # App-wide providers (Redux, Theme)
+│ │
+│ ├── api/auth/[...nextauth]/  # NextAuth API handler (OAuth callbacks)
+│ │
+│ ├── layout.tsx               # Root layout (AppProviders + Footer)
+│ ├── page.tsx                 # Redirects to /(home)
 │ └── globals.css
 │
-├── styles/ # shared UI styles
+├── styles/                    # Shared UI styles
 │
 ├── ui/
-│ ├── atoms/ # base UI components
-│ ├── common/ # more complex UI components
-│ └── layout/ # layout UI components
+│ ├── atoms/                   # Base UI components
+│ ├── common/                  # Complex UI components
+│ └── layout/                  # Layout UI components
 │
 ├── lib/
-│ ├── data-access/ # Access to DB
-│ │ ├── queries/ # Queries to DB
-│ │ └── db.ts # Prisma client
-│ └── actions/ # Server Actions
+│ ├── data-access/             # Database access layer
+│ │   ├── queries/             # Read queries
+│ │   └── db.ts                # Prisma client
+│ ├── actions/                 # Server Actions (mutations)
+│ └── auth.ts                  # NextAuth config + getServerSession
 │
 ├── utils/
-│ ├── constants/ # Constants
-│ ├── hooks/ # Custom hooks
-│ ├── validation/ # Zod validation schemas
-│ └── helpers/ # Pure functions (tested)
+│ ├── constants/               # Constants
+│ ├── hooks/                   # Custom React hooks
+│ ├── validation/              # Zod validation schemas
+│ └── helpers/                 # Pure utility functions (tested)
 │
 ├── prisma/
-│ ├── migrations/ # Migration files  
-│ ├── seed.ts # Seed script
-│ └── schema.prisma # Prisma schema
+│ ├── migrations/              # Migration files
+│ ├── seed.ts                  # Seed script
+│ └── schema.prisma            # Prisma schema
 │
-├── store/ # Redux store
-│
-├── data/ # Constant data-objects
-│
-├── types/ # Types
-│
-├── public/ # Static assets
+├── store/                     # Redux store
+├── data/                      # Constant data objects
+├── types/                     # TypeScript types
+├── public/                    # Static assets
+├── middleware.ts              # Route protection middleware
 └── ...
 ```
 
