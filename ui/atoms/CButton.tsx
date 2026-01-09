@@ -9,6 +9,7 @@ interface IButtonProps {
     disabled?: boolean;
     className?: string;
     equal?: boolean;
+    round?: boolean;
     theme?: EButtonTheme;
     onClick?: () => void;
     children: React.ReactNode;
@@ -21,6 +22,7 @@ function CButton({
     disabled,
     className,
     equal,
+    round,
     theme = EButtonTheme.Primary,
     isLoading,
     ariaLabel,
@@ -29,25 +31,26 @@ function CButton({
 }: IButtonProps) {
     const themeBaseClasses: Record<EButtonTheme, string> = {
         [EButtonTheme.Primary]: 'bg-(--accent) text-(--bg-primary) border border-(--accent)',
-        [EButtonTheme.Secondary]: 'bg-transparent text-(--accent) border border-(--accent)',
-        [EButtonTheme.Tertiary]: 'bg-transparent text-(--text-primary) border border-transparent',
+        [EButtonTheme.Secondary]: 'bg-transparent text-(--text-primary) border border-(--text-secondary)',
+        [EButtonTheme.Tertiary]: 'bg-(--bg-secondary) text-(--text-primary) border border-transparent',
     };
 
     const themeInteractiveClasses: Record<EButtonTheme, string> = {
         [EButtonTheme.Primary]: 'hover:bg-(--accent-hover) active:bg-(--accent-hover)',
-        [EButtonTheme.Secondary]: 'hover:bg-(--accent-50) active:bg-(--accent-50)',
-        [EButtonTheme.Tertiary]: 'hover:bg-(--bg-secondary) active:bg-(--bg-secondary)',
+        [EButtonTheme.Secondary]: 'bg-transparent hover:text-(--accent) border hover:border-(--accent)',
+        [EButtonTheme.Tertiary]: 'hover:text-(--accent) active:text-(--accent)',
     };
 
     const loaderColor: Record<EButtonTheme, string> = {
         [EButtonTheme.Primary]: 'var(--bg-primary)',
-        [EButtonTheme.Secondary]: 'var(--accent)',
+        [EButtonTheme.Secondary]: 'var(--text-primary)',
         [EButtonTheme.Tertiary]: 'var(--text-primary)',
     };
 
     const baseClasses =
-        'h-(--btn-height) rounded-(--radius-btn) px-(--p-btn) text-[1.4rem] font-semibold transition-colors';
+        'h-(--btn-height) rounded-(--radius-btn) px-(--p-btn) text-[1.4rem] font-semibold transition transition-colors duration-300 ease-linear';
     const equalClasses = 'px-0 w-(--btn-height) justify-center items-center flex';
+    const roundClasses = 'rounded-[6rem]';
     const disabledClasses = 'cursor-not-allowed opacity-50';
 
     const classes = clsx(
@@ -55,6 +58,7 @@ function CButton({
         themeBaseClasses[theme],
         !disabled && themeInteractiveClasses[theme],
         equal && equalClasses,
+        round && roundClasses,
         disabled && disabledClasses,
         className
     );

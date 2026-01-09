@@ -1,5 +1,5 @@
 import { IPostFull, IPostListItem, IPostsState } from '@/types/posts';
-import { buildPostsWhere } from '@/utils/helpers/data-utils';
+import { buildPostsWhere } from '@/utils/helpers/queries-posts-utils';
 import { cache } from 'react';
 import { prisma } from '@/lib/data-access/db';
 import { postsQuerySchema } from '@/utils/validation/schemas';
@@ -25,7 +25,16 @@ export async function fetchPosts({
                 id: true,
                 title: true,
                 shortText: true,
-                authorName: true,
+                authorId: true,
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true,
+                        phone: true,
+                        whatsapp: true,
+                    },
+                },
                 image: true,
                 deadline: true,
                 createdAt: true,
@@ -78,6 +87,15 @@ export async function fetchPost(id: number | string): Promise<IPostFull | null> 
         const res = await prisma.post.findUnique({
             where: { id: Number(id) },
             include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true,
+                        phone: true,
+                        whatsapp: true,
+                    },
+                },
                 complex: {
                     select: {
                         id: true,
@@ -90,6 +108,17 @@ export async function fetchPost(id: number | string): Promise<IPostFull | null> 
                 comments: {
                     orderBy: { createdAt: 'desc' },
                     take: 10,
+                    include: {
+                        author: {
+                            select: {
+                                id: true,
+                                name: true,
+                                image: true,
+                                phone: true,
+                                whatsapp: true,
+                            },
+                        },
+                    },
                 },
             },
         });

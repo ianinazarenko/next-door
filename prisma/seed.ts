@@ -1,4 +1,4 @@
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient } from '@/generated/prisma';
 
 const prisma = new PrismaClient();
 
@@ -17,6 +17,11 @@ async function main() {
         buglessHeightsId: buglessHeights.id,
     });
 
+    const { alex, maya, chris, jane, mike, sara, committee } = await createUsers({
+        pixelParkId: pixelPark.id,
+        buglessHeightsId: buglessHeights.id,
+    });
+
     const { post1, post3, post4 } = await createPosts({
         pixelParkSlug: pixelPark.slug,
         buglessHeightsSlug: buglessHeights.slug,
@@ -26,15 +31,105 @@ async function main() {
         offerHelpSlug: offerHelp.slug,
         requestHelpSlug: requestHelp.slug,
         eventSlug: event.slug,
+        alexId: alex.id,
+        mayaId: maya.id,
+        chrisId: chris.id,
+        committeeId: committee.id,
     });
 
     await createComments({
         deskId: post1.id,
         sofaId: post3.id,
         bbqId: post4.id,
+        janeId: jane.id,
+        mikeId: mike.id,
+        saraId: sara.id,
     });
 
     console.log('Database seeded successfully!');
+}
+
+async function createUsers({ pixelParkId, buglessHeightsId }: { pixelParkId: string; buglessHeightsId: string }) {
+    const alex = await prisma.user.upsert({
+        where: { email: 'alex-coder@example.com' },
+        update: {},
+        create: {
+            name: 'Alex Coder',
+            email: 'alex-coder@example.com',
+            phone: '+123456789',
+            whatsapp: '+123456789',
+            complexId: pixelParkId,
+        },
+    });
+
+    const maya = await prisma.user.upsert({
+        where: { email: 'maya-bloom@example.com' },
+        update: {},
+        create: {
+            name: 'Maya Bloom',
+            email: 'maya-bloom@example.com',
+            phone: '+987654321',
+            whatsapp: '+987654321',
+            complexId: buglessHeightsId,
+        },
+    });
+
+    const chris = await prisma.user.upsert({
+        where: { email: 'chris-lift@example.com' },
+        update: {},
+        create: {
+            name: 'Chris Lift',
+            email: 'chris-lift@example.com',
+            phone: '+123123123',
+            whatsapp: '+123123123',
+            complexId: pixelParkId,
+        },
+    });
+
+    const committee = await prisma.user.upsert({
+        where: { email: 'committee@example.com' },
+        update: {},
+        create: {
+            name: 'Event Committee',
+            email: 'committee@example.com',
+            phone: '+321321321',
+            whatsapp: '+321321321',
+            complexId: buglessHeightsId,
+        },
+    });
+
+    // Users for comments
+    const jane = await prisma.user.upsert({
+        where: { email: 'jane-neighbor@example.com' },
+        update: {},
+        create: {
+            name: 'Jane Neighbor',
+            email: 'jane-neighbor@example.com',
+            complexId: pixelParkId,
+        },
+    });
+
+    const mike = await prisma.user.upsert({
+        where: { email: 'mike-helper@example.com' },
+        update: {},
+        create: {
+            name: 'Mike Helper',
+            email: 'mike-helper@example.com',
+            complexId: pixelParkId,
+        },
+    });
+
+    const sara = await prisma.user.upsert({
+        where: { email: 'sara-green@example.com' },
+        update: {},
+        create: {
+            name: 'Sara Green',
+            email: 'sara-green@example.com',
+            complexId: buglessHeightsId,
+        },
+    });
+
+    return { alex, maya, chris, jane, mike, sara, committee };
 }
 
 async function createComplexes({
@@ -184,6 +279,10 @@ async function createPosts({
     offerHelpSlug,
     requestHelpSlug,
     eventSlug,
+    alexId,
+    mayaId,
+    chrisId,
+    committeeId,
 }: {
     pixelParkSlug: string;
     buglessHeightsSlug: string;
@@ -193,6 +292,10 @@ async function createPosts({
     offerHelpSlug: string;
     requestHelpSlug: string;
     eventSlug: string;
+    alexId: string;
+    mayaId: string;
+    chrisId: string;
+    committeeId: string;
 }) {
     const post1 = await prisma.post.create({
         data: {
@@ -200,9 +303,7 @@ async function createPosts({
             shortText: 'Ergonomic standing desk, great condition',
             fullText:
                 "I'm selling my adjustable standing desk. It's in great condition and perfect for home office setups. Price negotiable, pick up in Pixel Park.",
-            authorName: 'Alex Coder',
-            phone: '+123456789',
-            whatsapp: '+123456789',
+            authorId: alexId,
             image: 'https://via.placeholder.com/600x400',
             deadline: null,
             complexSlug: pixelParkSlug,
@@ -218,9 +319,7 @@ async function createPosts({
             shortText: 'Giving away two healthy monstera plants',
             fullText:
                 'I have two large monstera plants that need a new home. Perfect for adding some greenery to your apartment. Free to a good home.',
-            authorName: 'Maya Bloom',
-            phone: '+987654321',
-            whatsapp: '+987654321',
+            authorId: mayaId,
             image: 'https://via.placeholder.com/600x400',
             deadline: null,
             complexSlug: buglessHeightsSlug,
@@ -236,9 +335,7 @@ async function createPosts({
             shortText: 'Looking for someone to help move a sofa',
             fullText:
                 'I need a hand moving a sofa from my apartment to the basement storage. Should take about 30 minutes. Beer and snacks included.',
-            authorName: 'Chris Lift',
-            phone: '+123123123',
-            whatsapp: '+123123123',
+            authorId: chrisId,
             image: 'https://via.placeholder.com/600x400',
             deadline: '2026-08-20T00:00:00.000Z',
             complexSlug: pixelParkSlug,
@@ -254,9 +351,7 @@ async function createPosts({
             shortText: 'Join us for burgers, music and fun',
             fullText:
                 "We're organizing a BBQ in the Bugless Heights courtyard this Saturday at 4 PM. Bring something to grill and a good mood!",
-            authorName: 'Event Committee',
-            phone: '+321321321',
-            whatsapp: '+321321321',
+            authorId: committeeId,
             image: 'https://via.placeholder.com/600x400',
             deadline: '2026-08-15T00:00:00.000Z',
             complexSlug: buglessHeightsSlug,
@@ -269,11 +364,25 @@ async function createPosts({
     return { post1, post2, post3, post4 };
 }
 
-async function createComments({ deskId, sofaId, bbqId }: { deskId: number; sofaId: number; bbqId: number }) {
+async function createComments({
+    deskId,
+    sofaId,
+    bbqId,
+    janeId,
+    mikeId,
+    saraId,
+}: {
+    deskId: number;
+    sofaId: number;
+    bbqId: number;
+    janeId: string;
+    mikeId: string;
+    saraId: string;
+}) {
     const now = new Date();
     await prisma.comment.create({
         data: {
-            author: 'Jane Neighbor',
+            authorId: janeId,
             text: 'Is the desk still available?',
             postId: deskId,
             createdAt: now,
@@ -283,7 +392,7 @@ async function createComments({ deskId, sofaId, bbqId }: { deskId: number; sofaI
 
     await prisma.comment.create({
         data: {
-            author: 'Mike Helper',
+            authorId: mikeId,
             text: 'I can help you with the sofa, just tell me when.',
             postId: sofaId,
             createdAt: now,
@@ -293,7 +402,7 @@ async function createComments({ deskId, sofaId, bbqId }: { deskId: number; sofaI
 
     await prisma.comment.create({
         data: {
-            author: 'Sara Green',
+            authorId: saraId,
             text: "I'll bring lemonade for the BBQ!",
             postId: bbqId,
             createdAt: now,

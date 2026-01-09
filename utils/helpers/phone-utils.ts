@@ -1,26 +1,51 @@
 /**
- * Formats a phone number from a string of digits to a more readable format
- * @param phoneNumber - The phone number as a string of digits (e.g., "15553456789")
- * @returns Formatted phone number (e.g., "+1 (555) 345-67-89") or empty string if input is invalid
- * for numbers that are not 10 or 11 digits long @returns input as is
+ * Parses a phone number string and provides clean, formatted, and validated versions.
+ *
+ * @param {string | null | undefined} value - The raw phone number input.
+ * @returns An object containing:
+ *  - `readable`: A user-friendly formatted string (e.g., "+1 (555) 123-4567") or the original input if not valid.
+ *  - `callable`: A string suitable for `tel:` links (e.g., "+15551234567"). It's an empty string if not dialable.
+ *  - `isDialable`: A boolean indicating if the number is valid and can be called.
  */
-export function formatPhoneNumber(phoneNumber: string | null | undefined): string {
-    if (!phoneNumber) return '';
-
-    // Remove all non-digit characters and spaces
-    const cleaned = String(phoneNumber).replace(/[\s\D]/g, '');
-
-    if (!cleaned) return '';
-
-    // Check if the number starts with 1 (country code for US/Canada)
-    if (cleaned.length === 11 && cleaned.startsWith('1')) {
-        return `+${cleaned[0]} (${cleaned.substring(1, 4)}) ${cleaned.substring(4, 7)}-${cleaned.substring(7, 9)}-${cleaned.substring(9)}`;
+export function parsePhoneNumber(value: string | null | undefined): {
+    readable: string;
+    callable: string;
+    isDialable: boolean;
+} {
+    if (!value) {
+        return { readable: '', callable: '', isDialable: false };
     }
 
-    // For numbers without country code
-    if (cleaned.length === 10) {
-        return `+1 (${cleaned.substring(0, 3)}) ${cleaned.substring(3, 6)}-${cleaned.substring(6, 8)}-${cleaned.substring(8)}`;
+    const cleaned = value.trim().replace(/\D/g, '');
+
+    const isFullNumber = cleaned.length === 10 || (cleaned.length === 11 && cleaned.startsWith('1'));
+    const isEmergencyNumber = cleaned.length === 3;
+    const isDialable = isFullNumber || isEmergencyNumber;
+
+    if (!isDialable) {
+        return {
+            readable: value, // Return original on failure
+            callable: '', // Not callable
+            isDialable: false,
+        };
     }
 
-    return phoneNumber;
+    // It is a dialable number
+    if (isFullNumber) {
+        const number = cleaned.length === 11 ? cleaned.slice(1) : cleaned;
+        const callableNumber = `+1${number}`;
+
+        return {
+            readable: `+1 (${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(6)}`, // "+1 (555) 123-4567"
+            callable: callableNumber,
+            isDialable: true,
+        };
+    } else {
+        // isEmergencyNumber
+        return {
+            readable: cleaned,
+            callable: cleaned,
+            isDialable: true,
+        };
+    }
 }

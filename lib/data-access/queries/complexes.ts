@@ -19,14 +19,14 @@ export async function fetchComplexes({
 }: IFetchComplexesParams): Promise<{ results: IComplexBase[]; hasMore: boolean }> {
     const search = params.search ?? '';
     try {
-        complexesQuerySchema.parse({ limit, offset, search });
+        const validated = complexesQuerySchema.parse({ limit, offset, search });
 
         const res = await prisma.complex.findMany({
-            where: search
+            where: validated.search
                 ? {
                       OR: [
-                          { name: { contains: search, mode: 'insensitive' } },
-                          { address: { contains: search, mode: 'insensitive' } },
+                          { name: { contains: validated.search, mode: 'insensitive' } },
+                          { address: { contains: validated.search, mode: 'insensitive' } },
                       ],
                   }
                 : undefined,
@@ -39,12 +39,12 @@ export async function fetchComplexes({
             },
 
             orderBy: { name: 'asc' },
-            take: limit + 1,
-            skip: offset,
+            take: validated.limit + 1,
+            skip: validated.offset,
         });
 
-        const hasMore = res.length > limit;
-        const complexes = hasMore ? res.slice(0, limit) : res;
+        const hasMore = res.length > validated.limit;
+        const complexes = hasMore ? res.slice(0, validated.limit) : res;
         const results = complexes || [];
         return { results, hasMore };
     } catch (error) {
@@ -54,26 +54,41 @@ export async function fetchComplexes({
 }
 
 export async function fetchComplex(slug: string): Promise<IComplexFull | null> {
-    if (!slug?.trim()) {
-        console.error('[queries/fetchComplex]: Error fetching complex: not slug provided');
-        throw new Error(`Need to provide slug to fetch complex`);
-    }
-
     try {
+        if (!slug?.trim()) {
+            throw new Error('Slug is required to fetch complex');
+        }
+
         return await prisma.complex.findUnique({
             where: { slug },
             include: {
                 posts: {
                     orderBy: { createdAt: 'desc' },
                     take: 10,
+                    include: {
+                        author: {
+                            select: {
+                                id: true,
+                                name: true,
+                                image: true,
+                                phone: true,
+                                whatsapp: true,
+                            },
+                        },
+                    },
                 },
                 managementCompany: true,
                 usefulPhones: true,
             },
         });
     } catch (error) {
-        console.error('[queries/fetchComplex]: Error fetching complex:', { slug, error });
-        throw new Error(`Failed to fetch complex with slug: ${slug}`);
+        const errorContext = {
+            slug: slug || 'empty',
+            error,
+        };
+
+        console.error('[queries/fetchComplex]: Error fetching complex:', errorContext);
+        throw error;
     }
 }
 
@@ -99,10 +114,12 @@ export async function fetchComplexesSpecsCallback(hasAllOption: boolean): Promis
     }
 }
 
+/* istanbul ignore next */
 export const fetchComplexesSpecs = unstable_cache(
     (hasAllOption: boolean = true) => fetchComplexesSpecsCallback(hasAllOption),
     ['complexes-specs'],
     { revalidate: 604800 } // 1 week
 );
 
+/* istanbul ignore next */
 export const fetchComplexCached = cache(fetchComplex);

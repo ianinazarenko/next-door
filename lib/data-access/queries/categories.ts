@@ -24,6 +24,7 @@ export async function fetchCategoriesSpecsCallback(hasAllOption: boolean): Promi
     }
 }
 
+/* istanbul ignore next */
 export const fetchCategoriesSpecs = unstable_cache(
     (hasAllOption: boolean = true) => fetchCategoriesSpecsCallback(hasAllOption),
     ['categories-specs'],

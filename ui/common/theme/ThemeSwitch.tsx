@@ -1,5 +1,6 @@
 // Types
 import { ETheme } from '@/app/(providers)/theme/constants';
+import { ESize } from '@/constants/ui';
 // Utils
 import clsx from 'clsx';
 // Hooks
@@ -13,6 +14,7 @@ export default function ThemeSwitch({ theme, toggleTheme }: { theme: ETheme; tog
     return (
         <CSwitch
             bg={theme === ETheme.System ? 'bg-secondary' : 'accent-50'}
+            size={ESize.Lg}
             checked={theme === ETheme.Dark || (theme === ETheme.System && systemTheme === ETheme.Dark)}
             ariaLabel={`Switch theme to ${theme === ETheme.Dark ? ETheme.Light : ETheme.Dark}`}
             onChange={(checked) => toggleTheme(checked ? ETheme.Dark : ETheme.Light)}
