@@ -2,3 +2,9 @@
 !GEMINI.md
 !AGENTS.md
 !CLAUDE.md
+
+node_modules
+
+/generated
+/generated/prisma
+prisma/migrations/migration_lock.toml
