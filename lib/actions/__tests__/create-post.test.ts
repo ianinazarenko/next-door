@@ -1,20 +1,20 @@
+import { ERole } from '@/utils/constants/users';
 import { DEFAULT_CREATE_POST, DEFAULT_DB_POST, MOCK_DATE } from '@/tests/__fixtures__/post.fixture';
 import { DeepMockProxy } from 'jest-mock-extended';
 import { PrismaClient } from '@/generated/prisma';
 import { prisma } from '@/lib/data-access/db';
 import { z } from 'zod';
-import { ERole } from '@/utils/constants/users';
 import { Session } from 'next-auth';
 
 jest.mock('@/lib/data-access/db.ts');
-jest.mock('@/lib/auth', () => ({
+jest.mock('@/lib/auth/auth', () => ({
     auth: jest.fn(),
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { createPostAction } = require('@/lib/actions/create-post');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { auth } = require('@/lib/auth');
+const { auth } = require('@/lib/auth/auth');
 
 const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
 const mockAuth = auth as unknown as jest.MockedFunction<() => Promise<Session | null>>;
