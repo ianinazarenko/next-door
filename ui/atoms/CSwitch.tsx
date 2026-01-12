@@ -1,6 +1,6 @@
+import { ESize } from '@/utils/constants/ui';
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
-import { ESize } from '@/constants/ui';
 
 type TSwitchSize = Extract<ESize, ESize.Md | ESize.Lg>;
 interface ICSwitchProps {

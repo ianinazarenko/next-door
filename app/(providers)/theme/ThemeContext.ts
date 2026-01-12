@@ -1,6 +1,6 @@
 'use client';
 
-import { ETheme } from '@/app/(providers)/theme/constants';
+import { ETheme } from '@/utils/constants/theme';
 import { createContext } from 'react';
 
 interface IThemeContext {

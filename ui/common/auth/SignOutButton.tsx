@@ -1,4 +1,4 @@
-import { EButtonTheme } from '@/constants/ui';
+import { EButtonTheme } from '@/utils/constants/ui';
 import s from './SignOutButton.module.css';
 import clsx from 'clsx';
 import { signOutAction } from '@/lib/actions/auth';

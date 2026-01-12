@@ -1,8 +1,8 @@
 import s from './SignInButtons.module.css';
 
 import { EAuthProviders } from '@/utils/constants/auth';
+import { EButtonTheme } from '@/utils/constants/ui';
 import { ReactNode } from 'react';
-import { EButtonTheme } from '@/constants/ui';
 import { signInAction } from '@/lib/actions/auth';
 import CButton from '@/ui/atoms/CButton';
 import { FaGithub, FaGoogle } from 'react-icons/fa';

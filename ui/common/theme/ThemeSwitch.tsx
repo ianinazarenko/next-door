@@ -1,6 +1,6 @@
 // Types
-import { ETheme } from '@/app/(providers)/theme/constants';
-import { ESize } from '@/constants/ui';
+import { ETheme } from '@/utils/constants/theme';
+import { ESize } from '@/utils/constants/ui';
 // Utils
 import clsx from 'clsx';
 // Hooks

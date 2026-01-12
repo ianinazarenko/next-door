@@ -1,5 +1,5 @@
 'use client';
-import { ETheme } from '@/app/(providers)/theme/constants';
+import { ETheme } from '@/utils/constants/theme';
 import { useContext } from 'react';
 import { ThemeContext } from '@/app/(providers)/theme/ThemeContext';
 
