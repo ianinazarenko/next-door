@@ -2,7 +2,7 @@ import { PAGES } from '@/data/pages';
 
 import { IAuthSearchParams } from '@/types/auth';
 
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth/auth';
 import { getSearchParamValue } from '@/utils/helpers/url-utils';
 
 import Link from 'next/link';

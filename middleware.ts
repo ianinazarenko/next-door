@@ -1,4 +1,4 @@
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth/auth';
 import { NextResponse } from 'next/server';
 
 // To execute Prisma Adapter in Node.js environment (not Edge)

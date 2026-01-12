@@ -3,7 +3,7 @@
 import { EAuthProviders } from '@/utils/constants/auth';
 import { PAGES } from '@/data/pages';
 import { getSafeCallbackUrl } from '@/utils/helpers/url-utils';
-import { signIn, signOut } from '@/lib/auth';
+import { signIn, signOut } from '@/lib/auth/auth';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 
 export async function signInAction(provider?: EAuthProviders, callbackUrl: string = '') {

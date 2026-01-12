@@ -4,7 +4,7 @@ import { TSchema } from '@/types/forms';
 import { z } from 'zod';
 import { prisma } from '@/lib/data-access/db';
 import { createPostSchema } from '@/utils/validation/schemas';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth/auth';
 import { getFirstZodErrorMessage } from '@/utils/helpers/zod-utils';
 
 export async function createPostAction(data: TSchema) {

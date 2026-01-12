@@ -1,10 +1,23 @@
 import s from './SignInButtons.module.css';
 
 import { EAuthProviders } from '@/utils/constants/auth';
+import { ReactNode } from 'react';
+import { EButtonTheme } from '@/constants/ui';
 import { signInAction } from '@/lib/actions/auth';
 import CButton from '@/ui/atoms/CButton';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 
-const providers = [{ id: EAuthProviders.GitHub, name: 'GitHub' }];
+interface IProvider {
+    id: EAuthProviders;
+    name: string;
+    icon: ReactNode;
+}
+
+const ICON_SIZE = 18;
+const providers: IProvider[] = [
+    { id: EAuthProviders.GitHub, name: 'GitHub', icon: <FaGithub size={ICON_SIZE} /> },
+    { id: EAuthProviders.Google, name: 'Google', icon: <FaGoogle size={ICON_SIZE} /> },
+];
 
 export default function SignInButtons({ callbackUrl }: { callbackUrl: string }) {
     return (
@@ -17,7 +30,14 @@ export default function SignInButtons({ callbackUrl }: { callbackUrl: string }) 
                     }}
                     key={provider.id}
                 >
-                    <CButton type='submit'>Sign In with {provider.name}</CButton>
+                    <CButton
+                        className={s.button}
+                        theme={EButtonTheme.Secondary}
+                        type='submit'
+                    >
+                        {provider.icon}
+                        Sign In with {provider.name}
+                    </CButton>
                 </form>
             ))}
         </div>
