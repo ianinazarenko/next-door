@@ -64,4 +64,3 @@ CLAUDE.md
 /generated/prisma
 prisma/migrations/migration_lock.toml
 
-posts.test.ts
