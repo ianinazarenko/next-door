@@ -1,6 +1,6 @@
 'use client';
 
-import { ETheme } from '@/app/(providers)/theme/constants';
+import { ETheme } from '@/utils/constants/theme';
 import { useEffect, useState } from 'react';
 import { DEFAULT_THEME, MEDIA_QUERY, ThemeContext } from '@/app/(providers)/theme/ThemeContext';
 

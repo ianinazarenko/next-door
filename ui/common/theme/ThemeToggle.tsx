@@ -2,7 +2,7 @@
 
 // Types
 import { ReactElement } from 'react';
-import { ETheme } from '@/app/(providers)/theme/constants';
+import { ETheme } from '@/utils/constants/theme';
 // Utils
 import clsx from 'clsx';
 // Hooks

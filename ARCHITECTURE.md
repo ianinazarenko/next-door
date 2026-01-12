@@ -122,6 +122,13 @@ All auth redirects use `getSafeCallbackUrl()` utility to prevent open redirect v
 **RBAC Foundation**
 The `User` model includes a `role` field (default: `"user"`) and session includes role data. This infrastructure is prepared for future features.
 
+**Account Linking Trade-offs & Security**
+- **Selective Auto-linking**: Enabled for Google (`allowDangerousEmailAccountLinking: true`) as a trusted Tier-1 Identity Provider, but explicitly disabled for GitHub.
+- **Defense in Depth**: Although we implement strict email verification for GitHub, we disable auto-linking for it to minimize the attack surface in case of implementation errors or API changes.
+- **Verification Gate**: The `signIn` callback enforces a "Default Deny" policy and strictly validates `email_verified` (via API check for GitHub) before allowing access.
+- **Pragmatic UX**: Priority is given to seamless Google login while accepting the calculated risk of account linking for a better user experience in the MVP.
+
+
 ### 2.5 Hybrid Session Management
 
 NextDoor uses a **hybrid approach** to session access, balancing performance, SSG/ISR preservation, and security.

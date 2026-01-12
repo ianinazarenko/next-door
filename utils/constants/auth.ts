@@ -4,6 +4,7 @@ export enum EAuthProviders {
 }
 
 export const ERROR_MESSAGES: { [key: string]: string } = {
+    AccessDenied: 'Access denied. Please ensure your email is verified with your provider.',
     OAuthAccountNotLinked: 'This email is already registered with another provider.',
     OAuthSignin: 'Error when signing in with OAuth provider.',
     OAuthCallback: 'Error receiving response from OAuth provider.',

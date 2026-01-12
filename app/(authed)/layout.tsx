@@ -1,4 +1,4 @@
-import { getServerSession } from '@/lib/auth';
+import { getServerSession } from '@/lib/auth/auth';
 import { SessionProvider } from 'next-auth/react';
 import TheHeader from '@/ui/layout/header/TheHeader';
 import TheMenuMob from '@/ui/layout/menu/TheMenuMob';

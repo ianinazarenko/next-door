@@ -28,4 +28,8 @@
             display: block;
         }
     }
+
+    @media (width >= 1280px) {
+        margin: var(--margin-gap-section-desk) 0;
+    }
 }
