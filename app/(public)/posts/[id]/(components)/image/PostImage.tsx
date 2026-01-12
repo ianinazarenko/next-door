@@ -27,8 +27,9 @@ export default function PostImage({ image }: IProps) {
                     className={clsx(s.image, s.desk)}
                     fill
                 />
+
+                <p className={'card-meta pt-1'}>This image is random</p>
             </div>
-            <p className={'card-meta pt-1'}>This image is random</p>
         </div>
     );
 }

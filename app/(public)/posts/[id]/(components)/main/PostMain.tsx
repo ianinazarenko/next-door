@@ -7,6 +7,7 @@ import PostComments from '@/app/(public)/posts/[id]/(components)/comments/PostCo
 
 export default function PostMain({ post }: { post: IPostFull }) {
     const { title, createdAt, fullText, author, comments } = post;
+    const hasContacts = Boolean(author) && Boolean(author.phone || author.whatsapp);
 
     return (
         <div className={s.container}>
@@ -19,10 +20,11 @@ export default function PostMain({ post }: { post: IPostFull }) {
             <section>
                 {fullText && <p className={'post-text my-4'}>{fullText}</p>}
 
+                {/* TODO: Add image handling instead of defaults */}
                 <PostImage />
             </section>
 
-            <PostContacts contacts={{ phone: author?.phone, whatsapp: author?.whatsapp }} />
+            {hasContacts && <PostContacts contacts={{ phone: author?.phone, whatsapp: author?.whatsapp }} />}
 
             {comments.length > 0 && <PostComments comments={comments} />}
         </div>
