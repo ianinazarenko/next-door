@@ -89,6 +89,7 @@ This gives both:
 ### 2.4 Authentication Strategy (Session-Based)
 
 NextDoor uses **session-based authentication** implemented via **NextAuth.js (Auth.js) with Prisma Adapter**.
+Authentication supports **OAuth 2.0** via **Google** and **GitHub**, implemented using Auth.js.
 
 **Key properties:**
 
@@ -108,7 +109,9 @@ This strategy aligns with the project’s Server-First architecture and relies o
 **API Endpoint:** While the project avoids traditional API routes for data queries, it utilizes a single API Route Handler at `/api/auth/[...nextauth]` as required by Auth.js. This handler manages all OAuth redirects, callbacks, and other internal authentication mechanisms.
 
 **CSRF Protection**
-NextDoor uses a standard double-submit cookie strategy: NextAuth sets an httpOnly anti-CSRF cookie, and the client includes the matching token in the `X-CSRF-Token` header for mutations. The server compares both values, blocking cross‑origin form submissions. This keeps the mechanism secure while fitting naturally into the session-based model.
+Next.js Server Actions provide built-in CSRF protection by comparing the `Origin` and `Host` headers provided by the browser. This ensures that actions can only be invoked from the application's own domain, making manual CSRF token handling (like `X-CSRF-Token`) redundant for application logic.
+
+Auth.js internally manages CSRF tokens (using the Double Submit Cookie pattern) for its specific authentication routes (`/api/auth/*`) to secure the sign-in and sign-out flows.
 
 **Middleware Protection**
 Next.js middleware (`middleware.ts`) protects private routes using matcher pattern and redirects unauthenticated users to `/api/auth/signin` with `callbackUrl` for post-login redirect.
@@ -124,7 +127,7 @@ The `User` model includes a `role` field (default: `"user"`) and session include
 
 **Account Linking Trade-offs & Security**
 - **Selective Auto-linking**: Enabled for Google (`allowDangerousEmailAccountLinking: true`) as a trusted Tier-1 Identity Provider, but explicitly disabled for GitHub.
-- **Defense in Depth**: Although we implement strict email verification for GitHub, we disable auto-linking for it to minimize the attack surface in case of implementation errors or API changes.
+- **Defense in Depth**: Strict email verification is enforced for GitHub, while auto-linking is intentionally disabled to minimize the attack surface in case of implementation errors or API changes.
 - **Verification Gate**: The `signIn` callback enforces a "Default Deny" policy and strictly validates `email_verified` (via API check for GitHub) before allowing access.
 - **Pragmatic UX**: Priority is given to seamless Google login while accepting the calculated risk of account linking for a better user experience in the MVP.
 
@@ -132,6 +135,7 @@ The `User` model includes a `role` field (default: `"user"`) and session include
 ### 2.5 Hybrid Session Management
 
 NextDoor uses a **hybrid approach** to session access, balancing performance, SSG/ISR preservation, and security.
+Public routes avoid server-side session access to preserve SSG/ISR, while auth-aware UI is handled on the client.
 
 **Public Routes** (`app/(public)/`)
 - Use **Client Thin Wrapper** for TheHeader & TheMenuMob with `useSession()` hook from `next-auth/react`
@@ -159,7 +163,7 @@ NextDoor uses a **hybrid approach** to session access, balancing performance, SS
 
 ## 3. Database Architecture
 
-## 3.1 Prisma Models
+### 3.1 Prisma Models
 
 The project utilizes Prisma ORM with the following main models:
 - `Post`
