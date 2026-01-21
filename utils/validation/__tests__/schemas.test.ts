@@ -1,5 +1,6 @@
 import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema, createPostSchema } from '../schemas';
 import { DEFAULT_CREATE_POST } from '@/tests/__fixtures__/post.fixture';
+import { HTML_TAGS_ERROR } from '@/utils/constants/errors';
 
 describe('e164PhoneNumber', () => {
     describe('happy path', () => {
@@ -250,6 +251,76 @@ describe('createPostSchema', () => {
         });
     });
 
+    // ----------------- HTML tags validation --------
+    describe('HTML tags validation', () => {
+        const htmlTagFieldsConfig = [
+            ['title', HTML_TAGS_ERROR],
+            ['shortText', HTML_TAGS_ERROR],
+            ['fullText', HTML_TAGS_ERROR],
+        ];
+
+        describe('should reject fields with HTML tags', () => {
+            it.each(htmlTagFieldsConfig)('should reject %s with HTML tags', (field, message) => {
+                const result = createPostSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: '<b>Bold text</b>',
+                });
+
+                expect(result.success).toBe(false);
+                if (!result.success) {
+                    expect(result.error.issues[0].message).toBe(message);
+                }
+            });
+
+            it.each(htmlTagFieldsConfig)('should reject %s with script tags (XSS attempt)', (field, message) => {
+                const result = createPostSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: '<script>alert("xss")</script>Test content',
+                });
+
+                expect(result.success).toBe(false);
+                if (!result.success) {
+                    expect(result.error.issues[0].message).toBe(message);
+                }
+            });
+
+            it.each(htmlTagFieldsConfig)('should reject %s with HTML tags with attributes', (field, message) => {
+                const result = createPostSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: 'Text with <b style="color:red"> tag',
+                });
+
+                expect(result.success).toBe(false);
+                if (!result.success) {
+                    expect(result.error.issues[0].message).toBe(message);
+                }
+            });
+        });
+
+        describe('should accept fields without HTML tags', () => {
+            it.each(['title', 'shortText', 'fullText'])('should accept %s with clean text', (field) => {
+                const result = createPostSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: 'Clean text without any tags',
+                });
+
+                expect(result.success).toBe(true);
+            });
+
+            it.each(['title', 'shortText', 'fullText'])(
+                'should accept %s with math symbols and comparisons',
+                (field) => {
+                    const result = createPostSchema.safeParse({
+                        ...DEFAULT_CREATE_POST,
+                        [field]: 'Price < 1000 and area > 50',
+                    });
+
+                    expect(result.success).toBe(true);
+                }
+            );
+        });
+    });
+
     // ----------------- required validation --------
     describe('required validation', () => {
         const requiredFieldsConfig = [
@@ -334,5 +405,4 @@ describe('createPostSchema', () => {
             }
         );
     });
-
 });
