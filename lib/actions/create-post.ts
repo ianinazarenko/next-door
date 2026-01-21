@@ -3,7 +3,7 @@
 import { TSchema } from '@/types/forms';
 import { z } from 'zod';
 import { prisma } from '@/lib/data-access/db';
-import { createPostSchema } from '@/utils/validation/schemas';
+import { createPostServerSchema } from '@/lib/validation/server-schemas';
 import { auth } from '@/lib/auth/auth';
 import { getFirstZodErrorMessage } from '@/utils/helpers/zod-utils';
 
@@ -16,7 +16,7 @@ export async function createPostAction(data: TSchema) {
             throw new Error('Not authenticated. Please sign in to create a post.');
         }
 
-        const { category, complex, ...validatedData } = createPostSchema.parse(data);
+        const { category, complex, ...validatedData } = createPostServerSchema.parse(data);
 
         const newPost = await prisma.post.create({
             data: {
