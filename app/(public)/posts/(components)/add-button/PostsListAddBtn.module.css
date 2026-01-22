@@ -2,7 +2,7 @@
     position: fixed;
     right: 0.8rem;
     bottom: calc(var(--panel-height) + 1.6rem);
-    z-index: 5;
+    z-index: calc(var(--menu-mob-z-index) + 1);
 
     @media (width >= 768px) {
         right: 2.4rem;
