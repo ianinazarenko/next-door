@@ -8,6 +8,7 @@ const config = {
     testPathIgnorePatterns: ['/node_modules/', '/tests/e2e/'],
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/$1',
+        '^server-only$': '<rootDir>/tests/mocks/server-only.ts',
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     },
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
