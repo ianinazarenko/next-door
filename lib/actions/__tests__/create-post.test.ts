@@ -36,6 +36,7 @@ describe('createPostAction', () => {
     beforeEach(() => {
         jest.clearAllMocks();
         // Keep test output clean: expected errors are asserted explicitly in tests.
+        // eslint-disable-next-line
         consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     });
 
