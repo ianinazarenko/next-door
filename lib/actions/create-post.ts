@@ -16,7 +16,41 @@ export async function createPostAction(data: TSchema) {
             throw new Error('Not authenticated. Please sign in to create a post.');
         }
 
+        // Rate Limiting (Light Spam Protection)
+        // Limit: 3 posts per minute
+        const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+        const RATE_LIMIT_MAX = 3;
+
+        const recentPostsCount = await prisma.post.count({
+            where: {
+                authorId: session.user.id,
+                createdAt: {
+                    gte: new Date(Date.now() - RATE_LIMIT_WINDOW),
+                },
+            },
+        });
+
+        if (recentPostsCount >= RATE_LIMIT_MAX) {
+            throw new Error('You are posting too frequently. Please wait a minute.');
+        }
+
         const { category, complex, ...validatedData } = createPostServerSchema.parse(data);
+
+        // Deduplication (Light Idempotency check)
+        // If user double-clicked, find the post created in the last 30s with the same title
+        const existingPost = await prisma.post.findFirst({
+            where: {
+                authorId: session.user.id,
+                title: validatedData.title,
+                createdAt: {
+                    gte: new Date(Date.now() - 30 * 1000), // 30 seconds
+                },
+            },
+        });
+
+        if (existingPost) {
+            return { success: true, post: existingPost };
+        }
 
         const newPost = await prisma.post.create({
             data: {
