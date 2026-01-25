@@ -118,6 +118,7 @@ Next.js middleware (`middleware.ts`) protects private routes using matcher patte
 
 **Callback URL Safety**
 All auth redirects use `getSafeCallbackUrl()` utility to prevent open redirect vulnerabilities:
+
 - Validates that redirect URLs belong to the same origin
 - Blocks protocol-relative URLs (`//evil.com`)
 - Falls back to safe default if validation fails
@@ -126,11 +127,16 @@ All auth redirects use `getSafeCallbackUrl()` utility to prevent open redirect v
 The `User` model includes a `role` field (default: `"user"`) and session includes role data. This infrastructure is prepared for future features.
 
 **Account Linking Trade-offs & Security**
+
 - **Selective Auto-linking**: Enabled for Google (`allowDangerousEmailAccountLinking: true`) as a trusted Tier-1 Identity Provider, but explicitly disabled for GitHub.
 - **Defense in Depth**: Strict email verification is enforced for GitHub, while auto-linking is intentionally disabled to minimize the attack surface in case of implementation errors or API changes.
 - **Verification Gate**: The `signIn` callback enforces a "Default Deny" policy and strictly validates `email_verified` (via API check for GitHub) before allowing access.
 - **Pragmatic UX**: Priority is given to seamless Google login while accepting the calculated risk of account linking for a better user experience in the MVP.
 
+**Session Hardening**
+
+- **Auth.js Configuration:** Explicitly configures `maxAge` (30 days) and `updateAge` (24h) to balance security and performance.
+- **Cookies:** Enforces `Secure`, `HttpOnly`, and `SameSite=Lax` policies for all authentication cookies.
 
 ### 2.5 Hybrid Session Management
 
@@ -138,24 +144,28 @@ NextDoor uses a **hybrid approach** to session access, balancing performance, SS
 Public routes avoid server-side session access to preserve SSG/ISR, while auth-aware UI is handled on the client.
 
 **Public Routes** (`app/(public)/`)
+
 - Use **Client Thin Wrapper** for TheHeader & TheMenuMob with `useSession()` hook from `next-auth/react`
 - `SessionProvider` wraps the layout, enabling reactive auth state
 - Enables real-time UI updates (e.g., header showing/hiding sign-in button)
 - **Critical advantage:** Preserves SSG/ISR for pages like `/complex/[slug]`
-  - Calling `auth()` or `getServerSession()` in Server Components forces dynamic rendering (`auth()` uses `headers()` dynamic API)
-  - Client-side session checks keep pages statically pre-renderable
+    - Calling `auth()` or `getServerSession()` in Server Components forces dynamic rendering (`auth()` uses `headers()` dynamic API)
+    - Client-side session checks keep pages statically pre-renderable
 
 **Protected Routes** (`app/(authed)/`)
+
 - Use **Server Components** with `getServerSession()` for SSR-based auth
 - Session fetched once on the server during initial render
 - `SessionProvider` wraps layout and receives server session via props
 
 **Session Optimization:**
+
 - `getServerSession` is wrapped in `React.cache()` to prevent duplicate `auth()` calls within a single request
 - Critical when multiple Server Components need session data in the same render cycle
 - `useSession` hook doesn't trigger duplicate requests as it subscribes to SessionProvider's cached data
 
 **Why this hybrid:**
+
 1. **SSG/ISR preservation** — public pages with ISR (like `/complex/[slug]`) remain statically generated
 2. **Performance** — public pages minimize JS bundle by avoiding unnecessary server session calls
 3. **Security** — protected routes use server-side session validation
@@ -166,6 +176,7 @@ Public routes avoid server-side session access to preserve SSG/ISR, while auth-a
 ### 3.1 Prisma Models
 
 The project utilizes Prisma ORM with the following main models:
+
 - `Post`
 - `Category`
 - `Complex`
@@ -214,6 +225,7 @@ Strict separation keeps bundles small and client JS minimal.
 **React Hook Form + Zod**
 
 **Chosen because:**
+
 - Declarative validation
 - Schema-based type inference
 - Minimal re-renders
@@ -261,6 +273,22 @@ Submission is disabled on the client, and the corresponding Server Action (`crea
 
 Post creation is therefore impossible without authentication, even if client-side restrictions are bypassed.
 
+### Post Creation Safeguards and Consistency Model
+
+The post creation flow intentionally avoids full request idempotency mechanisms (e.g. `Idempotency-Key` or Redis-backed
+deduplication) as a deliberate trade-off aligned with the project’s scope.
+
+A **fail-fast** strategy is applied to concurrent submissions: if a create-post request for the same user is already in
+progress, additional requests are rejected immediately rather than queued. This prioritizes server resilience and predictable
+load; the UI already prevents accidental double submits.
+
+Post creation is executed inside a transaction with a short-lived database-level lock, ensuring that validation and insertion
+are performed atomically. Within the transaction, the system enforces per-author rate limiting, deduplication by author and
+post title, and protection against race conditions.
+
+**Raw SQL safety:** the lock is implemented as a single **parameterized** query via Prisma tagged templates (no string
+concatenation), preserving SQL injection safety while allowing precise control over locking behavior.
+
 ## 6. Error Handling
 
 - Server Actions use try/catch + typed error responses
@@ -307,56 +335,56 @@ The project follows a Feature-Based Hybrid file organization approach.
 ```md
 /
 ├── app/
-│ ├── (authed)/                # Protected routes (Server Components auth)
-│ │   ├── layout.tsx           # getServerSession() + SessionProvider
-│ │   └── profile/             # /profile (middleware-protected)
+│ ├── (authed)/ # Protected routes (Server Components auth)
+│ │ ├── layout.tsx # getServerSession() + SessionProvider
+│ │ └── profile/ # /profile (middleware-protected)
 │ │
-│ ├── (public)/                # Public routes (Client Components auth)
-│ │   ├── layout.tsx           # useSession() + SessionProvider
-│ │   ├── (home)/              # /
-│ │   ├── complexes/           # /complexes, /complex/[slug]
-│ │   ├── posts/               # /posts, /posts/[id], /posts/new
-│ │   └── sign-in/             # /sign-in (custom sign-in page)
+│ ├── (public)/ # Public routes (Client Components auth)
+│ │ ├── layout.tsx # useSession() + SessionProvider
+│ │ ├── (home)/ # /
+│ │ ├── complexes/ # /complexes, /complex/[slug]
+│ │ ├── posts/ # /posts, /posts/[id], /posts/new
+│ │ └── sign-in/ # /sign-in (custom sign-in page)
 │ │
-│ ├── (providers)/             # App-wide providers (Redux, Theme)
+│ ├── (providers)/ # App-wide providers (Redux, Theme)
 │ │
-│ ├── api/auth/[...nextauth]/  # NextAuth API handler (OAuth callbacks)
+│ ├── api/auth/[...nextauth]/ # NextAuth API handler (OAuth callbacks)
 │ │
-│ ├── layout.tsx               # Root layout (AppProviders + Footer)
-│ ├── page.tsx                 # Redirects to /(home)
+│ ├── layout.tsx # Root layout (AppProviders + Footer)
+│ ├── page.tsx # Redirects to /(home)
 │ └── globals.css
 │
-├── styles/                    # Shared UI styles
+├── styles/ # Shared UI styles
 │
 ├── ui/
-│ ├── atoms/                   # Base UI components
-│ ├── common/                  # Complex UI components
-│ └── layout/                  # Layout UI components
+│ ├── atoms/ # Base UI components
+│ ├── common/ # Complex UI components
+│ └── layout/ # Layout UI components
 │
 ├── lib/
-│ ├── data-access/             # Database access layer
-│ │   ├── queries/             # Read queries
-│ │   └── db.ts                # Prisma client
-│ ├── actions/                 # Server Actions (mutations)
-│ ├── auth/                    # NextAuth config + session utilities
-│ └── validation/              # Server-side schemas + sanitization
+│ ├── data-access/ # Database access layer
+│ │ ├── queries/ # Read queries
+│ │ └── db.ts # Prisma client
+│ ├── actions/ # Server Actions (mutations)
+│ ├── auth/ # NextAuth config + session utilities
+│ └── validation/ # Server-side schemas + sanitization
 │
 ├── utils/
-│ ├── constants/               # Constants
-│ ├── hooks/                   # Custom React hooks
-│ ├── validation/              # Zod validation schemas
-│ └── helpers/                 # Pure utility functions (tested)
+│ ├── constants/ # Constants
+│ ├── hooks/ # Custom React hooks
+│ ├── validation/ # Zod validation schemas
+│ └── helpers/ # Pure utility functions (tested)
 │
 ├── prisma/
-│ ├── migrations/              # Migration files
-│ ├── seed.ts                  # Seed script
-│ └── schema.prisma            # Prisma schema
+│ ├── migrations/ # Migration files
+│ ├── seed.ts # Seed script
+│ └── schema.prisma # Prisma schema
 │
-├── store/                     # Redux store
-├── data/                      # Constant data objects
-├── types/                     # TypeScript types
-├── public/                    # Static assets
-├── middleware.ts              # Route protection middleware
+├── store/ # Redux store
+├── data/ # Constant data objects
+├── types/ # TypeScript types
+├── public/ # Static assets
+├── middleware.ts # Route protection middleware
 └── ...
 ```
 
@@ -395,7 +423,19 @@ This reflects the recommended pattern for modern Next.js applications.
 - Vercel deploy happens only if CI passes
 - Prisma client is auto-generated during CI
 
-## 12. Future Architectural Plans
+## 13. Security Strategy
+
+The project implements a comprehensive, multi-layered security architecture designed to protect user data and system integrity.
+
+### 13.1 Content Security Policy (Static CSP)
+
+The project prioritizes static optimization (SSG/ISR) by implementing a **Static CSP** via `next.config.ts`.
+
+- **Strategy:** Allow-list approach blocking all external scripts/frames by default.
+- **Trade-off:** Allows `unsafe-inline` for scripts/styles to support React hydration and Next.js internal logic without breaking static pages (avoiding per-request nonces).
+- **Headers:** Includes `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and strict referrer policies.
+
+## 14. Future Architectural Plans
 
 ### Planned features:
 
@@ -408,4 +448,5 @@ This reflects the recommended pattern for modern Next.js applications.
 - And other
 
 ### Technical improvements:
+
 - More test coverage
