@@ -8,7 +8,7 @@ import { fetchPostCached } from '@/lib/data-access/queries/posts';
 import { notFound } from 'next/navigation';
 // Components
 import PostMain from '@/app/(public)/posts/[id]/(components)/main/PostMain';
-import BackButton from '@/ui/common/back-button/BackButton';
+import BackButton from '@/ui/common/buttons/BackButton';
 
 export const revalidate = 300;
 
