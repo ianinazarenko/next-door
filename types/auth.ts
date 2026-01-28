@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface IAuthSearchParams {
     callbackUrl?: string | string[];
     error?: string | string[];
@@ -9,4 +11,9 @@ export interface GitHubEmail {
     primary: boolean;
     verified: boolean;
     visibility: string | null;
+}
+
+export interface IProvider {
+    icon: ReactNode;
+    name: string;
 }
