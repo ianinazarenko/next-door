@@ -23,7 +23,7 @@ export const postsQuerySchema = z.object({
 export const complexesQuerySchema = z.object({
     limit: z.number().min(1).max(100),
     offset: z.number().min(0),
-    search: z.string().optional(),
+    search: z.string().max(100).optional(),
 });
 
 export const createPostSchema = z.object({

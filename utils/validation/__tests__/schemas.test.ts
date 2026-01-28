@@ -239,6 +239,15 @@ describe('complexesQuerySchema', () => {
                 })
             ).toThrow();
         });
+
+        it('rejects search that exceeds maximum length', () => {
+            expect(() =>
+                complexesQuerySchema.parse({
+                    ...DEFAULT_VALS,
+                    search: 'A'.repeat(101),
+                })
+            ).toThrow();
+        });
     });
 });
 
