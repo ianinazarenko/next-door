@@ -8,9 +8,6 @@ jest.mock('next/cache', () => ({
     revalidateTag: jest.fn(),
 }));
 
-// Mock server-only to prevent errors in Jest (client-side test environment)
-jest.mock('server-only', () => ({}));
-
 // Mock next-auth ESM module
 jest.mock('next-auth', () => ({
     __esModule: true,

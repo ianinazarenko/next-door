@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import ThemeToggle from '@/ui/common/theme/ThemeToggle';
 import HeaderMenu from '@/ui/layout/header/HeaderMenu';
 import UserPic from '@/ui/common/user/UserPic';
-import SignOutButton from '@/ui/common/auth/SignOutButton';
+import SignOutButton from '@/app/(public)/sign-in/(components)/buttons/SignOutButton';
 
 function TheHeader({
     session,

@@ -55,10 +55,11 @@ next-env.d.ts
 .idea/
 
 # AI
+.gemini/
+.claude/
+.codex/
 AI_RULES.md
-AGENTS.md
-GEMINI.md
-CLAUDE.md
+CONTEXT.md
 
 /generated
 /generated/prisma

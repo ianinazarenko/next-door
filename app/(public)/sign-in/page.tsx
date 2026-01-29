@@ -7,8 +7,8 @@ import { getSearchParamValue } from '@/utils/helpers/url-utils';
 
 import Link from 'next/link';
 import CButton from '@/ui/atoms/CButton';
-import SignInButtons from '@/ui/common/auth/SignInButtons';
-import SignOutButton from '@/ui/common/auth/SignOutButton';
+import SignInButtons from '@/app/(public)/sign-in/(components)/buttons/SignInButtons';
+import SignOutButton from '@/app/(public)/sign-in/(components)/buttons/SignOutButton';
 import SignInErrorHandler from '@/app/(public)/sign-in/(components)/SignInErrorHandler';
 
 const TITLE = 'Sign In';

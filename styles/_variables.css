@@ -6,6 +6,8 @@
         For 2 themes: light, dark
     */
 
+    --menu-mob-z-index: 100;
+
     /* Colors - Light Theme */
     --light-bg-primary: #f9f9f9;
     --light-bg-secondary: #ececf5;
