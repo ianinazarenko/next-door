@@ -6,21 +6,37 @@ import { ETheme } from '@/utils/constants/theme';
 // Utils
 import clsx from 'clsx';
 // Hooks
-import { useTheme } from '@/utils/hooks/theme/useTheme';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 // Components
 import { SunMoon } from 'lucide-react';
 import ThemeSwitch from '@/ui/common/theme/ThemeSwitch';
 
 function ThemeToggle(): ReactElement {
-    const { theme, toggleTheme } = useTheme();
+    const { theme, setTheme } = useTheme();
+    const [isMounted, setIsMounted] = useState(false);
 
     const basicClasses =
         'flex size-9 flex-initial items-center justify-center rounded-full transition-colors hover:text-(--accent-hover) md:size-9';
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return (
+            <span
+                className='h-9 w-32'
+                aria-hidden
+            />
+        );
+    }
+
     return (
-        <div className='flex items-center justify-end gap-4'>
+        <div className='fade-in flex items-center justify-end gap-4'>
             <ThemeSwitch
                 theme={theme}
-                toggleTheme={toggleTheme}
+                toggleTheme={setTheme}
             />
 
             <div className='flex w-fit gap-2'>
@@ -31,7 +47,7 @@ function ThemeToggle(): ReactElement {
                         theme !== ETheme.System && 'bg-(--bg-secondary) text-(--text-secondary)'
                     )}
                     aria-label='Switch to system theme'
-                    onClick={() => toggleTheme(ETheme.System)}
+                    onClick={() => setTheme(ETheme.System)}
                 >
                     <SunMoon className='size-4' />
                 </button>
