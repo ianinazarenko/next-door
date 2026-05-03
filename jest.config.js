@@ -1,5 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const nextJest = require('next/jest');
+
+const createJestConfig = nextJest({
+    // Pointing to Next.js app to load next.config.js and .env
+    dir: './',
+});
+
 const config = {
-    preset: 'ts-jest',
     testEnvironment: 'jsdom',
     testMatch: [
         '<rootDir>/**/__tests__/**/*.{test,spec}.{ts,tsx}',
@@ -12,12 +19,6 @@ const config = {
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     },
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-    transform: {
-        '^.+\\.(ts|tsx)$': [
-            'ts-jest',
-            { diagnostics: true }, // check types
-        ],
-    },
 };
 
-module.exports = config;
+module.exports = createJestConfig(config);
