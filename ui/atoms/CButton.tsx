@@ -66,7 +66,7 @@ function CButton({
         <Button
             className={classes}
             type={type}
-            disabled={disabled}
+            disabled={disabled || isLoading}
             aria-label={ariaLabel}
             onClick={onClick}
         >

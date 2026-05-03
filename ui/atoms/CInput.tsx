@@ -8,10 +8,11 @@ interface IInputProps {
     label?: string;
     description?: string;
     placeholder?: string;
+    disabled?: boolean;
     onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-function CInput({ onChange, value, label, description, placeholder, ...props }: IInputProps) {
+function CInput({ onChange, value, label, description, placeholder, disabled, ...props }: IInputProps) {
     return (
         <Field className='w-full'>
             {label && <CLabel>{label}</CLabel>}
@@ -19,6 +20,7 @@ function CInput({ onChange, value, label, description, placeholder, ...props }: 
             <Input
                 value={value}
                 placeholder={placeholder}
+                disabled={disabled}
                 className={`mt-1 block w-full rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)`}
                 onChange={onChange}
                 {...props}
