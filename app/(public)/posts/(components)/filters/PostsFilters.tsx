@@ -22,6 +22,7 @@ const RESET_BUTTON_TEXT = 'Reset';
 export default function PostsFilters({ specs }: IProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
+
     const [filters, setFilters] = useState<IPostsState>({
         complex: searchParams.get(EPostsParams.Complex) || '',
         category: searchParams.get(EPostsParams.Category) || '',
