@@ -28,3 +28,25 @@ jest.mock('next-auth/providers/github', () => ({
     __esModule: true,
     default: jest.fn(),
 }));
+
+jest.mock('next-auth/react', () => ({
+    useSession: jest.fn(() => ({
+        data: null,
+        // status: 'unauthenticated',
+    })),
+    signIn: jest.fn(),
+    signOut: jest.fn(),
+}));
+
+export const mockPush = jest.fn();
+jest.mock('next/navigation', () => ({
+    useRouter: () => ({
+        push: mockPush,
+        replace: jest.fn(),
+        prefetch: jest.fn(),
+    }),
+    useSearchParams: () => ({
+        get: jest.fn(),
+    }),
+    usePathname: () => '',
+}));
