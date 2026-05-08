@@ -26,6 +26,10 @@ describe('NewPostForm - Integration', () => {
         window.HTMLElement.prototype.scrollIntoView = jest.fn();
     });
 
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('should disable publish button and show notice when user is not authenticated', () => {
         // Притворяемся, что пользователь НЕ авторизован
         (useSession as jest.Mock).mockReturnValue({
@@ -105,9 +109,8 @@ describe('NewPostForm - Integration', () => {
         const button = screen.getByRole('button', { name: /publish/i });
         await user.click(button);
 
-        expect(screen.getByText(/Title is required/i)).toBeInTheDocument();
-        await waitFor(() => {
-            expect(createPostAction).not.toHaveBeenCalled();
-        });
+        const error = await screen.findByText(/Title is required/i);
+        expect(error).toBeInTheDocument();
+        expect(createPostAction).not.toHaveBeenCalled();
     });
 });
