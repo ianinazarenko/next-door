@@ -33,6 +33,10 @@
     }
 }
 
+.text {
+    transition: color var(--trs);
+}
+
 .item {
     overflow: hidden;
     display: flex;
@@ -55,7 +59,10 @@
     gap: 0.4rem;
 
     &:hover {
-        color: var(--accent-hover);
+        &,
+        .text {
+            color: var(--accent-hover);
+        }
     }
 }
 
@@ -65,10 +72,6 @@
     padding: 0;
     opacity: 0;
     pointer-events: none;
-}
-
-.text {
-    transition: color var(--trs);
 }
 
 .active {

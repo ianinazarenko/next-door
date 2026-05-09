@@ -5,6 +5,7 @@ import PostsFilters from '@/app/(public)/posts/(components)/filters/PostsFilters
 export default async function PostsFiltersSection() {
     try {
         const [complexSpecs, categoriesSpecs] = await Promise.all([fetchComplexesSpecs(), fetchCategoriesSpecs()]);
+
         return (
             <>
                 <PostsFilters specs={{ complex: complexSpecs, category: categoriesSpecs }} />

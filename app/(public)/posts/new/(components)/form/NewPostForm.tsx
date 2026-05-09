@@ -31,6 +31,7 @@ const isSpecType = (key: string): key is TSpecTypes => {
 };
 
 const SIGN_IN_NOTICE = 'You must be signed in to publish a post.';
+const BTN_TEXT = 'Publish';
 
 // TODO: refactor
 // eslint-disable-next-line complexity
@@ -87,7 +88,7 @@ export default function NewPostForm({ specs }: IProps) {
             ref={anchorRef}
             className={'section'}
         >
-            {/* FORM STATUSES */}
+            {/* ==== FORM STATUSES ==== */}
             {(status === EFormStatus.Success || status === EFormStatus.Error) && (
                 <NewPostFormStatus
                     status={status}
@@ -95,7 +96,7 @@ export default function NewPostForm({ specs }: IProps) {
                 />
             )}
 
-            {/* FORM */}
+            {/* ==== FORM ==== */}
             {[EFormStatus.Idle, EFormStatus.Loading].includes(status) && (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
@@ -123,7 +124,7 @@ export default function NewPostForm({ specs }: IProps) {
                             type='submit'
                             disabled={status === EFormStatus.Loading || !isSignedIn}
                         >
-                            Publish
+                            {BTN_TEXT}
                         </CButton>
 
                         {!isSignedIn && <p className={clsx('card-meta', s.notice)}>{SIGN_IN_NOTICE}</p>}
