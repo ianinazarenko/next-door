@@ -6,16 +6,16 @@ import userEvent from '@testing-library/user-event';
 import { useSession } from 'next-auth/react';
 import { mockPush } from '@/jest.setup';
 import { createPostAction } from '@/lib/actions/create-post';
-// 1. Сначала мокаем зависимости
+
+// 1. Mocking dependencies
 jest.mock('next-auth/react');
 jest.mock('@/lib/actions/create-post', () => ({
     createPostAction: jest.fn(),
 }));
 
-// 2. Потом импортируем компонент
+// 2. Then importing the component we want to test
 import NewPostForm from '@/app/(public)/posts/new/(components)/form/NewPostForm';
 
-// 2. Подготавливаем фейковые данные для пропсов (specs)
 const MOCK_SPECS = {
     category: [{ label: 'Category 1', value: 'cat-1' }],
     complex: [{ label: 'Complex 1', value: 'comp-1' }],
@@ -26,23 +26,28 @@ describe('NewPostForm - Integration', () => {
         window.HTMLElement.prototype.scrollIntoView = jest.fn();
     });
 
+    let consoleErrorSpy: jest.SpyInstance;
     beforeEach(() => {
         jest.clearAllMocks();
+
+        // eslint-disable-next-line no-empty-function
+        consoleErrorSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        consoleErrorSpy.mockRestore();
     });
 
     it('should disable publish button and show notice when user is not authenticated', () => {
-        // Притворяемся, что пользователь НЕ авторизован
         (useSession as jest.Mock).mockReturnValue({
             status: 'unauthenticated',
         });
 
         render(<NewPostForm specs={MOCK_SPECS} />);
 
-        // Проверяем, что кнопка заблокирована
         const publishButton = screen.getByRole('button', { name: /publish/i });
         expect(publishButton).toBeDisabled();
 
-        // Проверяем наличие текста-предупреждения
         expect(screen.getByText(/must be signed in to publish/i)).toBeInTheDocument();
     });
 
@@ -112,5 +117,39 @@ describe('NewPostForm - Integration', () => {
         const error = await screen.findByText(/Title is required/i);
         expect(error).toBeInTheDocument();
         expect(createPostAction).not.toHaveBeenCalled();
+    });
+
+    it('should show error message when server action fails', async () => {
+        const user = userEvent.setup();
+
+        (useSession as jest.Mock).mockReturnValue({
+            status: 'authenticated',
+        });
+
+        render(<NewPostForm specs={MOCK_SPECS} />);
+
+        await user.type(screen.getByLabelText(/Title/i), 'My New Awesome Post');
+        await user.type(screen.getByLabelText(/Short text/i), 'This is a short description');
+        await user.type(
+            screen.getByLabelText(/Detailed text/i),
+            'This is a much longer full text for the post content'
+        );
+
+        (createPostAction as jest.Mock).mockRejectedValueOnce(new Error('Server is down'));
+
+        const publishButton = screen.getByRole('button', { name: /publish/i });
+        await user.click(publishButton);
+
+        const error = await screen.findByText(STATUS_DICT[EFormStatus.Error].desc);
+        expect(error).toBeInTheDocument();
+
+        const errorButton = screen.getByRole('button', { name: 'Try again' });
+        expect(errorButton).toBeInTheDocument();
+
+        await user.click(errorButton);
+
+        const title = screen.getByLabelText(/Title/i);
+        expect(title).toBeInTheDocument();
+        expect(title).toHaveValue('');
     });
 });
