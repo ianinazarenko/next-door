@@ -11,16 +11,16 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Use more workers locally and fewer on CI */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter - list in the console */
-  reporter: 'html',
+  /* Reporter - GitHub annotations on CI, HTML report locally */
+  reporter: process.env.CI ? 'github' : 'html',
   /* Shared settings for all projects */
   use: {
     /* Base URL for all navigations (page.goto('/')) */
     baseURL: 'http://localhost:8000',
-    /* Collect trace (video, screenshots, logs) on first retry */
-    trace: 'on-first-retry',
-    /* Record video on failure */
-    video: 'on-first-retry',
+    /* Collect trace locally on first retry */
+    trace: process.env.CI ? 'off' : 'on-first-retry',
+    /* Record video locally on first retry */
+    video: process.env.CI ? 'off' : 'on-first-retry',
   },
 
   /* Project (browser) configuration */
@@ -33,7 +33,7 @@ export default defineConfig({
 
   /* Start the local server before tests */
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run start -- -p 8000',
     url: 'http://localhost:8000',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',

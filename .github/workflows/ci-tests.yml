@@ -1,59 +1,63 @@
 name: CI Tests
 
 on:
-  push:
-    branches:
-      - '**'
-    tags:
-      - 'v*'
-  pull_request:
-    branches:
-      - main
+    push:
+        branches:
+            - '**'
+        tags:
+            - 'v*'
+    pull_request:
+        branches:
+            - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+    cancel-in-progress: true
 
 jobs:
-  ci_checks:
-    runs-on: ubuntu-latest
+    ci_checks:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x]
+        strategy:
+            matrix:
+                node-version: [22.x]
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
-      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-      AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
-      AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
-      AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
-      AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
+        env:
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+            AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+            AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
+            AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
+            AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
+            AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Lint
-        run: npm run lint
+            - name: Lint
+              run: npm run lint
 
-      - name: Run tests
-        run: npm run test:ci
+            - name: Run tests
+              run: npm run test:ci
 
-      - name: Generate Prisma client
-        run: npx prisma generate
+            - name: Generate Prisma client
+              run: npx prisma generate
 
-      - name: Build
-        run: npm run build
+            - name: Build
+              run: npm run build
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps chromium
 
-      - name: Run Playwright tests
-        run: npm run test:e2e
+            - name: Run Playwright tests
+              run: npm run test:e2e
