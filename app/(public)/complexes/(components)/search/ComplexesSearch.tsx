@@ -12,8 +12,9 @@ import CInput from '@/ui/atoms/CInput';
 export default function ComplexesSearch() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [isPending, startTransition] = useTransition();
     const urlSearch = searchParams.get(EComplexesParams.Search) ?? '';
+
+    const [isPending, startTransition] = useTransition();
     const [value, setValue] = useState(() => urlSearch);
 
     const debouncedSearch = useDebouncedCallback((search: string) => {

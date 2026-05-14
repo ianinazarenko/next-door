@@ -3,4 +3,5 @@ export interface IContactItem {
     value: string | null | undefined;
     isPhone?: boolean;
     isEmail?: boolean;
+    isAddress?: boolean;
 }

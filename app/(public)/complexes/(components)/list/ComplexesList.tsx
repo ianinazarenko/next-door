@@ -8,13 +8,12 @@ export default function ComplexesList({ complexes }: { complexes: IComplexBase[]
     }
 
     return (
-        <div className={s.list}>
+        <ul className={s.list}>
             {complexes.map((item) => (
-                <ComplexesCard
-                    key={item.id}
-                    {...item}
-                />
+                <li key={item.id}>
+                    <ComplexesCard {...item} />
+                </li>
             ))}
-        </div>
+        </ul>
     );
 }
