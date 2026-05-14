@@ -12,13 +12,15 @@ export default function PostsList({ posts }: IProps) {
     }
 
     return (
-        <div className={s.list}>
+        <ul
+            className={s.list}
+            data-testid='posts-list'
+        >
             {posts.map((post) => (
-                <PostsListCard
-                    key={post.id}
-                    post={post}
-                />
+                <li key={post.id}>
+                    <PostsListCard post={post} />
+                </li>
             ))}
-        </div>
+        </ul>
     );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { PAGES } from '@/data/pages';
+import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/data/posts-filters';
 import { EPostsParams } from '@/utils/constants/posts';
 import { ISpec } from '@/types/common';
 import { IPostsState } from '@/types/posts';
@@ -16,8 +17,6 @@ interface IProps {
         category: ISpec[];
     };
 }
-
-const RESET_BUTTON_TEXT = 'Reset';
 
 export default function PostsFilters({ specs }: IProps) {
     const router = useRouter();
@@ -67,7 +66,7 @@ export default function PostsFilters({ specs }: IProps) {
                     name={EPostsParams.Complex}
                     disabled={isPending}
                     className={s.select}
-                    ariaLabel={'Choose a complex to filter by'}
+                    ariaLabel={COMPLEX_ARIA_LABEL}
                     onChange={handleChange}
                 />
             )}
@@ -79,7 +78,7 @@ export default function PostsFilters({ specs }: IProps) {
                     name={EPostsParams.Category}
                     disabled={isPending}
                     className={s.select}
-                    ariaLabel={'Choose a category to filter by'}
+                    ariaLabel={CATEGORY_ARIA_LABEL}
                     onChange={handleChange}
                 />
             )}
