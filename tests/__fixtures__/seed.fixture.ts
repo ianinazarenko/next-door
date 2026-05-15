@@ -24,6 +24,10 @@ export const POST_CATEGORIES = {
         name: 'Give Away',
         value: 'give-away',
     },
+    sell: {
+        name: 'Sell',
+        value: 'sell',
+    },
 } as const;
 
 export const COMPLEX_SEARCH = {
