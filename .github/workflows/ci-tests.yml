@@ -19,8 +19,9 @@ jobs:
         runs-on: ubuntu-latest
 
         strategy:
+            fail-fast: false
             matrix:
-                node-version: [22.x]
+                node-version: [22.x, 24.x]
 
         env:
             DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -34,10 +35,10 @@ jobs:
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
@@ -58,7 +59,6 @@ jobs:
               run: npm run build
 
             - name: Install Playwright Browsers
-              run: npx playwright install --with-deps chromium
-
+              run: npx playwright install --with-deps
             - name: Run Playwright tests
               run: npm run test:e2e
