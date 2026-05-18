@@ -21,7 +21,7 @@ export default defineConfig({
     /* Base URL for all navigations (page.goto('/')) */
     baseURL: 'http://localhost:8000',
     /* Collect trace locally on first retry */
-    trace: isCI ? 'off' : 'retain-on-failure',
+    trace: 'retain-on-failure',
     /* Record video locally on first retry */
     video: isCI ? 'off' : 'on-first-retry',
   },

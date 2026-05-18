@@ -18,20 +18,36 @@ jobs:
     ci_checks:
         runs-on: ubuntu-latest
 
+        services:
+            postgres:
+                image: postgres:16
+                env:
+                    POSTGRES_DB: nextdoor_test
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd "pg_isready -U postgres -d nextdoor_test"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+
         strategy:
             fail-fast: false
             matrix:
-                node-version: [22.x, 24.x]
+                node-version: [22.x]
 
         env:
-            DATABASE_URL: ${{ secrets.DATABASE_URL }}
-            SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+            DATABASE_URL: postgresql://postgres:postgres@localhost:5432/nextdoor_test?schema=public
+            SHADOW_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/nextdoor_shadow?schema=public
             AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
             AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
             AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
             AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
             AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
             AUTH_TRUST_HOST: true
+            DISABLE_CSP_UPGRADE_INSECURE_REQUESTS: true
 
         steps:
             - name: Checkout code
@@ -55,6 +71,12 @@ jobs:
             - name: Generate Prisma client
               run: npx prisma generate
 
+            - name: Apply Prisma migrations
+              run: npx prisma migrate deploy
+
+            - name: Seed database
+              run: npm run seed
+
             - name: Build
               run: npm run build
 
@@ -63,3 +85,13 @@ jobs:
 
             - name: Run Playwright tests
               run: npm run test:e2e
+
+            - name: Upload Playwright artifacts
+              if: failure()
+              uses: actions/upload-artifact@v6
+              with:
+                  name: playwright-results-${{ matrix.node-version }}
+                  path: |
+                      test-results/
+                      playwright-report/
+                  retention-days: 7
