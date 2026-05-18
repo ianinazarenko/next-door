@@ -47,14 +47,14 @@ export default function PostsFilters({ specs }: IProps) {
         });
 
         startTransition(() => {
-            router.replace(`${PAGES.POSTS.link}?${params.toString()}`);
+            const query = params.toString();
+            router.replace(query ? `${PAGES.POSTS.link}?${query}` : PAGES.POSTS.link);
         });
     }
 
     function handleReset() {
-        const resetVals = { complex: '', category: '' };
-        setFilters(resetVals);
-        updateQuery(resetVals);
+        setFilters(() => ({ complex: '', category: '' }));
+        router.replace(PAGES.POSTS.link);
     }
 
     return (
