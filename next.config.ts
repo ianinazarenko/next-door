@@ -13,7 +13,7 @@ const cspHeader = `
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    ${disableUpgradeInsecureRequests} ? '' : upgrade-insecure-requests;
+    ${disableUpgradeInsecureRequests ? '' : 'upgrade-insecure-requests'};
 `
     .replace(/\s{2,}/g, ' ')
     .trim();
