@@ -12,6 +12,8 @@ export default defineConfig({
   fullyParallel: true,
   /* Limit retries on CI */
   retries: isCI ? 2 : 0,
+  /* Fail CI if a test only passes after retry */
+  failOnFlakyTests: isCI,
   /* Use more workers locally and fewer on CI */
   workers: isCI ? 1 : undefined,
   /* Reporter - GitHub annotations on CI, HTML report locally */
