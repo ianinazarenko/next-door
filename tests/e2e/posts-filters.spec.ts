@@ -2,64 +2,10 @@ import { PAGES } from '@/data/pages';
 import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/data/posts-filters';
 import { COMPLEXES, POST_CATEGORIES, QUERY_PARAMS } from '@/tests/__fixtures__/seed.fixture';
 
-import { test, expect, type Locator, type Page, type TestInfo } from '@playwright/test';
-
-function shouldLogRequest(url: string): boolean {
-    return url.includes('/posts') || url.includes('_rsc');
-}
-
-function attachPageDiagnostics(page: Page, testInfo: TestInfo): void {
-    const prefix = `[e2e:${testInfo.title}]`;
-
-    page.on('console', (message) => {
-        if (message.type() === 'error' || message.type() === 'warning') {
-            console.log(`${prefix} browser:${message.type()} ${message.text()}`);
-        }
-    });
-
-    page.on('pageerror', (error) => {
-        console.log(`${prefix} pageerror ${error.message}`);
-    });
-
-    page.on('request', (request) => {
-        if (shouldLogRequest(request.url())) {
-            console.log(`${prefix} request ${request.method()} ${request.url()}`);
-        }
-    });
-
-    page.on('requestfailed', (request) => {
-        if (shouldLogRequest(request.url())) {
-            console.log(`${prefix} requestfailed ${request.method()} ${request.url()} ${request.failure()?.errorText}`);
-        }
-    });
-
-    page.on('response', (response) => {
-        if (shouldLogRequest(response.url())) {
-            console.log(`${prefix} response ${response.status()} ${response.url()}`);
-        }
-    });
-}
-
-async function resetFiltersAndWaitForPostsPage(page: Page, resetButton: Locator): Promise<void> {
-    console.log('------')
-    console.log(`[e2e:reset] before click url=${page.url()}`);
-    console.log('------')
-    
-    try {
-        await Promise.all([
-            page.waitForURL(PAGES.POSTS.link),
-            resetButton.click(),
-        ]);
-    } finally {
-        console.log('------')
-        console.log(`[e2e:reset] after wait url=${page.url()}`);
-        console.log('------')
-    }
-}
+import { test, expect } from '@playwright/test';
 
 test.describe('Posts Filters', () => {
-    test.beforeEach(async ({ page }, testInfo) => {
-        attachPageDiagnostics(page, testInfo);
+    test.beforeEach(async ({ page }) => {
         await page.goto(PAGES.POSTS.link);
     });
 
@@ -88,7 +34,11 @@ test.describe('Posts Filters', () => {
 
         const resetBtn = page.getByRole('button', { name: RESET_BUTTON_TEXT });
         await expect(resetBtn).toBeEnabled();
-        await resetFiltersAndWaitForPostsPage(page, resetBtn);
+        
+        await Promise.all([
+            page.waitForURL(PAGES.POSTS.link),
+            resetBtn.click(),
+        ]);
 
         await expect(postsList.getByText(COMPLEXES.buglessHeights.name).first()).toBeVisible();
         await expect(postsList.getByText(COMPLEXES.pixelPark.name).first()).toBeVisible();
@@ -117,7 +67,11 @@ test.describe('Posts Filters', () => {
 
         const resetButton = page.getByRole('button', { name: RESET_BUTTON_TEXT });
         await expect(resetButton).toBeEnabled();
-        await resetFiltersAndWaitForPostsPage(page, resetButton);
+
+        await Promise.all([
+            page.waitForURL(PAGES.POSTS.link),
+            resetButton.click(),
+        ]);
 
         const postsList = page.getByRole('list');
         await expect(postsList.getByText(COMPLEXES.buglessHeights.name).first()).toBeVisible();

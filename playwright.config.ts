@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const isCI = Boolean(process.env.CI);
+const isLinux = process.platform === 'linux';
 const webServerCommand = isCI ? 'npm run start -- -p 8000' : 'npm run dev';
 
 /**
@@ -35,8 +36,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'mobile-safari',
-      use: { ...devices['iPhone 15'] },
+      name: 'mobile-iphone-15',
+      use: {
+        ...devices['iPhone 15'],
+        ...(isLinux ? { browserName: 'chromium' as const } : {}),
+      },
     },
   ],
 
