@@ -1,15 +1,17 @@
 'use client';
-
-import { PAGES } from '@/data/pages';
+// Constants
 import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/data/posts-filters';
+// Types
 import { EPostsParams } from '@/utils/constants/posts';
 import { ISpec } from '@/types/common';
-import { IPostsState } from '@/types/posts';
-import { ChangeEvent, useState, useTransition } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import s from './PostsFilters.module.css';
+// Hooks
+import { ChangeEvent, useTransition } from 'react';
+import { useQueryState } from 'nuqs'
+// Componenst
 import CSelect from '@/ui/atoms/CSelect';
 import CButton from '@/ui/atoms/CButton';
+// Styles
+import s from './PostsFilters.module.css';
 
 interface IProps {
     specs: {
@@ -19,49 +21,42 @@ interface IProps {
 }
 
 export default function PostsFilters({ specs }: IProps) {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+    const [isPending, startTransition] = useTransition();
 
-    const [filters, setFilters] = useState<IPostsState>({
-        complex: searchParams.get(EPostsParams.Complex) || '',
-        category: searchParams.get(EPostsParams.Category) || '',
+    const [complex, setComplex] = useQueryState(EPostsParams.Complex, {
+        shallow: false,
+        defaultValue: '',
+        startTransition,
     });
 
-    const [isPending, startTransition] = useTransition();
+    const [category, setCategory] = useQueryState(EPostsParams.Category, {
+        shallow: false,
+        defaultValue: '',
+        startTransition,
+    });
+
+    const isBtnDisabled = (!complex && !category) || isPending;
 
     function handleChange(e: ChangeEvent<HTMLSelectElement>) {
         const { value, name } = e.target;
-        setFilters((prev) => ({ ...prev, [name]: value }));
-        updateQuery({ [name]: value || '' });
-    }
-
-    function updateQuery(updates: Record<string, string>) {
-        const params = new URLSearchParams(searchParams);
-
-        Object.entries(updates).forEach(([key, value]) => {
-            if (value) {
-                params.set(key, value);
-            } else {
-                params.delete(key);
-            }
-        });
-
-        startTransition(() => {
-            const query = params.toString();
-            router.replace(query ? `${PAGES.POSTS.link}?${query}` : PAGES.POSTS.link);
-        });
+        
+        if (name === EPostsParams.Complex) {
+            setComplex(value);
+        } else {
+            setCategory(value)
+        }
     }
 
     function handleReset() {
-        setFilters(() => ({ complex: '', category: '' }));
-        router.replace(PAGES.POSTS.link);
+        setComplex(null);
+        setCategory(null);
     }
 
     return (
         <section className={s.filters}>
             {Boolean(specs.complex?.length) && (
                 <CSelect
-                    value={filters.complex}
+                    value={complex}
                     specs={specs.complex}
                     name={EPostsParams.Complex}
                     disabled={isPending}
@@ -73,7 +68,7 @@ export default function PostsFilters({ specs }: IProps) {
 
             {Boolean(specs.category?.length) && (
                 <CSelect
-                    value={filters.category}
+                    value={category}
                     specs={specs.category}
                     name={EPostsParams.Category}
                     disabled={isPending}
@@ -84,13 +79,13 @@ export default function PostsFilters({ specs }: IProps) {
             )}
 
             <CButton
-                disabled={(!filters.complex && !filters.category) || isPending}
+                disabled={isBtnDisabled}
                 className={s.button}
                 isLoading={isPending}
                 onClick={handleReset}
             >
                 {RESET_BUTTON_TEXT}
-            </CButton>
+            </CButton> 
         </section>
     );
 }
