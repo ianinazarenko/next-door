@@ -1,45 +1,31 @@
 'use client';
 
-import { PAGES } from '@/data/pages';
 import { EComplexesParams } from '@/utils/constants/complexes';
-import { ChangeEvent, useState, useTransition } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useDebouncedCallback } from 'use-debounce';
-import s from './ComplexesSearch.module.css';
-import { PulseLoader } from 'react-spinners';
+import { ChangeEvent, useTransition } from 'react';
+import { useQueryState, debounce } from 'nuqs';
 import CInput from '@/ui/atoms/CInput';
+import { PulseLoader } from 'react-spinners';
+import s from './ComplexesSearch.module.css';
 
 export default function ComplexesSearch() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const urlSearch = searchParams.get(EComplexesParams.Search) ?? '';
-
     const [isPending, startTransition] = useTransition();
-    const [value, setValue] = useState(() => urlSearch);
-
-    const debouncedSearch = useDebouncedCallback((search: string) => {
-        const params = new URLSearchParams(searchParams);
-        if (Boolean(search.trim())) {
-            params.set(EComplexesParams.Search, search);
-        } else {
-            params.delete(EComplexesParams.Search);
-        }
-
-        startTransition(() => {
-            router.replace(`${PAGES.COMPLEXES.link}?${params.toString()}`);
-        });
-    }, 700);
+    const [search, setSearch] = useQueryState(EComplexesParams.Search, {
+        shallow: false,
+        defaultValue: '',
+        clearOnDefault: true,
+        limitUrlUpdates: debounce(700),
+        startTransition
+    })
 
     function handleChange(e: ChangeEvent<HTMLInputElement>): void {
-        const value = e.target.value || '';
-        debouncedSearch(value);
-        setValue(() => value);
+        const value = e.target.value || null;
+        setSearch(value);
     }
 
     return (
         <div className={s.container}>
             <CInput
-                value={value}
+                value={search || ''}
                 placeholder='Search complexes...'
                 onChange={handleChange}
             />
