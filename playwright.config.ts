@@ -2,7 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 const isCI = Boolean(process.env.CI);
 const isLinux = process.platform === 'linux';
-const webServerCommand = isCI ? 'npm run start -- -p 8000' : 'npm run dev';
+const port = process.env.PORT ?? '8000';
+const baseURL = `http://localhost:${port}`;
+const webServerCommand = isCI ? `npm run start -- -p ${port}` : `npx next dev --turbopack -p ${port}`;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -22,7 +24,7 @@ export default defineConfig({
   /* Shared settings for all projects */
   use: {
     /* Base URL for all navigations (page.goto('/')) */
-    baseURL: 'http://localhost:8000',
+    baseURL,
     /* Collect trace locally on first retry */
     trace: 'retain-on-failure',
     /* Record video locally on first retry */
@@ -47,7 +49,7 @@ export default defineConfig({
   /* Start the local server before tests */
   webServer: {
     command: webServerCommand,
-    url: 'http://localhost:8000',
+    url: baseURL,
     reuseExistingServer: !isCI,
     stdout: 'ignore',
     stderr: 'pipe',
