@@ -13,7 +13,7 @@ export const PAGES = {
     },
     COMPLEXES: {
         slug: EPages.Complexes,
-        title: 'Complexes',
+        title: 'Complex',
         link: `/${EPages.Complexes}`,
     },
     NEW_POST: {
