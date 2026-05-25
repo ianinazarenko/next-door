@@ -6,9 +6,15 @@ export default function PostsListCardSkeleton() {
         <div className={s.card}>
             <div className={clsx(s.tag, 'skeleton')} />
 
-            <div className={clsx(s.title, 'skeleton')} />
+            <div className={s.title}>
+                <div className={clsx(s.titleLine, 'skeleton')} />
+                <div className={clsx(s.titleLineShort, 'skeleton')} />
+            </div>
 
-            <div className={clsx(s.text, 'skeleton')} />
+            <div className={s.text}>
+                <div className={clsx(s.textLine, 'skeleton')} />
+                <div className={clsx(s.textLineShort, 'skeleton')} />
+            </div>
 
             <div className={s.info}>
                 <div className={s.author}>

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 export default function ComplexesListSkeleton() {
     return (
         <div className={s.list}>
-            {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
+            {Array.from({ length: ITEMS_PER_PAGE / 3 }).map((_, i) => (
                 <div
                     key={i}
                     className={s.card}

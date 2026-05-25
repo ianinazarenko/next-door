@@ -185,19 +185,18 @@ main {
 }
 
 .fade-in {
-    animation: fade-in 1500ms forwards;
+    animation: fade-in 400ms forwards;
     pointer-events: all;
 }
 
 .fade-out {
-    animation: fade-in 500ms backwards;
+    animation: fade-in 400ms backwards;
     pointer-events: none;
 }
 
 .content-fade-in {
-    animation: fade-in 180ms ease-out both;
+    animation: fade-in 400ms ease-out both;
 }
-
 
 @keyframes fade-in {
     from {

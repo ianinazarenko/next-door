@@ -5,7 +5,9 @@ import ComplexesCard from '@/app/(public)/complexes/(components)/card/ComplexesC
 
 export default function ComplexesList({ complexes }: { complexes: IComplexBase[] }) {
     if (!complexes?.length) {
-        return <p className={'section content-fade-in'}>Sorry, no complexes found</p>;
+        return (
+            <p className={clsx('section content-fade-in', s.section)}>Sorry, no complexes found</p>
+        );
     }
 
     return (
