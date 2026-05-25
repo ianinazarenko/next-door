@@ -24,9 +24,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 0;
+    gap: 1.2rem;
 }
 
 .complex {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 1.2rem;
 }
 
@@ -44,19 +49,51 @@
 
 .title {
     max-width: 85%;
+    min-height: calc(var(--card-title-mob) * var(--line-height-heading) * 2);
+    overflow: hidden;
     transition: color var(--trs);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    @media (width >= 768px) {
+        min-height: calc(var(--card-title-tab) * var(--line-height-heading) * 2);
+    }
+
+    @media (width >= 1024px) {
+        min-height: calc(var(--card-title-desk) * var(--line-height-heading) * 2);
+    }
+}
+
+.text {
+    min-height: calc(var(--card-description-mob) * var(--line-height-description) * 2);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    @media (width >= 768px) {
+        min-height: calc(var(--card-description-tab) * var(--line-height-description) * 2);
+    }
+
+    @media (width >= 1024px) {
+        min-height: calc(var(--card-description-desk) * var(--line-height-description) * 2);
+    }
 }
 
 .info {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 0;
     margin-top: auto;
+    gap: 1.2rem;
 }
 
 .author {
     display: flex;
     align-items: center;
+    min-width: 0;
     gap: 0.8rem;
 
     .picture {
@@ -71,6 +108,22 @@
     }
 }
 
+.authorName,
+.date,
+.deadline {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.authorName {
+    min-width: 0;
+}
+
+.date {
+    flex-shrink: 0;
+}
+
 .line {
     height: 1px;
     color: var(--border);
@@ -80,11 +133,26 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 0;
+    gap: 1.2rem;
+}
+
+.deadline {
+    min-height: calc(var(--card-meta-mob) * var(--line-height-heading));
+
+    @media (width >= 768px) {
+        min-height: calc(var(--card-meta-tab) * var(--line-height-heading));
+    }
+
+    @media (width >= 1024px) {
+        min-height: calc(var(--card-meta-desk) * var(--line-height-heading));
+    }
 }
 
 .comment {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     margin-left: auto;
     gap: 0.4rem;
 }

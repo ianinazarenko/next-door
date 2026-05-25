@@ -17,7 +17,6 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
     const deadlineDate: string | null = deadline ? dateFormatter.format(deadline) : null;
     const createdAtDate: string | null = createdAt ? dateFormatter.format(createdAt) : null;
 
-    const text = shortText.length > 80 ? shortText.slice(0, 80) + '...' : shortText;
     return (
         <article className={s.card}>
             <header className={s.header}>
@@ -27,7 +26,7 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
 
             <h2 className={clsx(s.title, 'card-title')}>{title}</h2>
 
-            <p className={clsx(s.text, 'card-description')}>{text}</p>
+            <p className={clsx(s.text, 'card-description')}>{shortText}</p>
 
             {/* INFO SECTION */}
             <div className={s.info}>
@@ -39,17 +38,17 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
                             name={author.name}
                             index={authorId}
                         />
-                        <p className={'card-meta'}>{author.name}</p>
+                        <p className={clsx('card-meta', s.authorName)}>{author.name}</p>
                     </div>
                 )}
-                {createdAtDate && <p className={'card-meta'}>{createdAtDate}</p>}
+                {createdAtDate && <p className={clsx('card-meta', s.date)}>{createdAtDate}</p>}
             </div>
 
             {/* FOOTER */}
             <hr className={s.line} />
 
             <footer className={s.footer}>
-                {deadlineDate && <p className={'card-meta'}>Deadline: {deadlineDate}</p>}
+                <p className={clsx('card-meta', s.deadline)}>{deadlineDate ? `Deadline: ${deadlineDate}` : null}</p>
                 <div className={clsx('card-meta', s.comment)}>
                     <MessageCircle className={s.commentIcon} />
                     {commentsCount}
