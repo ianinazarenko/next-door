@@ -36,6 +36,7 @@ export default function ComplexInfoContacts({ contacts }: { contacts: IComplexCo
         {
             label: 'Address',
             value: address,
+            isAddress: true,
         },
         {
             label: 'Metro',

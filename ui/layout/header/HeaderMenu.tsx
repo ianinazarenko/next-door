@@ -11,7 +11,10 @@ import Link from 'next/link';
 
 export default function HeaderMenu({ isSignedIn }: { isSignedIn: boolean }) {
     return (
-        <div className={s.menu}>
+        <nav
+            className={s.menu}
+            aria-label='Main navigation'
+        >
             {MENU_LIST.map((item, index) => {
                 const isVisible = isMenuItemVisible(item.visibility, isSignedIn);
                 return (
@@ -26,6 +29,6 @@ export default function HeaderMenu({ isSignedIn }: { isSignedIn: boolean }) {
                     </Link>
                 );
             })}
-        </div>
+        </nav>
     );
 }

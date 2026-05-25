@@ -32,6 +32,7 @@ main {
 
 .page {
     flex: 1;
+    min-height: 100dvh;
     padding-top: var(--header-height);
 }
 
@@ -184,16 +185,21 @@ main {
 }
 
 .fade-in {
-    animation: fade 1500ms forwards;
+    animation: fade-in 1500ms forwards;
     pointer-events: all;
 }
 
 .fade-out {
-    animation: fade 500ms backwards;
+    animation: fade-in 500ms backwards;
     pointer-events: none;
 }
 
-@keyframes fade {
+.content-fade-in {
+    animation: fade-in 180ms ease-out both;
+}
+
+
+@keyframes fade-in {
     from {
         opacity: 0;
     }

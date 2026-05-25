@@ -27,6 +27,8 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
         category: getSearchParamValue(category) ?? '',
     };
 
+    const postsListKey = `${params.complex}-${params.category}`
+
     try {
         return (
             <div className={'page c-container'}>
@@ -37,7 +39,10 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
                 </Suspense>
 
                 <section className={clsx('section', s.list)}>
-                    <Suspense fallback={<PostsListSkeleton />}>
+                    <Suspense
+                        key={postsListKey}
+                        fallback={<PostsListSkeleton />}
+                    >
                         <PostsListSection params={params} />
                     </Suspense>
 

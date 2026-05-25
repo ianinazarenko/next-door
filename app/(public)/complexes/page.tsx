@@ -22,7 +22,8 @@ const TITLE_H2 = 'Available Complexes';
 export default async function ComplexesPage({ searchParams }: { searchParams: Promise<IComplexesSearchParams> }) {
     const { search } = await searchParams;
 
-    const params: IComplexesState = { search: getSearchParamValue(search) };
+    const params: IComplexesState = { search: getSearchParamValue(search) || '' };
+    const complexesKey = params.search;
 
     return (
         <div className={`page c-container`}>
@@ -37,7 +38,10 @@ export default async function ComplexesPage({ searchParams }: { searchParams: Pr
             <section className={s.container}>
                 <h2 className={'h4'}>{TITLE_H2}</h2>
 
-                <Suspense fallback={<ComplexesListSkeleton />}>
+                <Suspense
+                    key={complexesKey}
+                    fallback={<ComplexesListSkeleton />}
+                >
                     <ComplexesListSection params={params} />
                 </Suspense>
             </section>

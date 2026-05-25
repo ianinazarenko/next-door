@@ -12,17 +12,20 @@ import Link from 'next/link';
 import UserPic from '@/ui/common/user/UserPic';
 
 export default function PostsListCard({ post }: { post: IPostListItem }) {
-    const { id, title, shortText, author, deadline, commentsCount, createdAt, category, authorId } = post;
+    const { id, title, shortText, author, deadline, commentsCount, createdAt, category, authorId, complex } = post;
 
     const deadlineDate: string | null = deadline ? dateFormatter.format(deadline) : null;
     const createdAtDate: string | null = createdAt ? dateFormatter.format(createdAt) : null;
 
     const text = shortText.length > 80 ? shortText.slice(0, 80) + '...' : shortText;
     return (
-        <div className={s.card}>
-            <div className={s.tag}>{category.name}</div>
+        <article className={s.card}>
+            <header className={s.header}>
+                <span className={s.tag}>{category.name}</span>
+                <span className={s.complex}>{complex.name}</span>
+            </header>
 
-            <p className={clsx(s.title, 'card-title')}>{title}</p>
+            <h2 className={clsx(s.title, 'card-title')}>{title}</h2>
 
             <p className={clsx(s.text, 'card-description')}>{text}</p>
 
@@ -45,13 +48,13 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
             {/* FOOTER */}
             <hr className={s.line} />
 
-            <div className={s.footer}>
+            <footer className={s.footer}>
                 {deadlineDate && <p className={'card-meta'}>Deadline: {deadlineDate}</p>}
                 <div className={clsx('card-meta', s.comment)}>
                     <MessageCircle className={s.commentIcon} />
                     {commentsCount}
                 </div>
-            </div>
+            </footer>
 
             {id && (
                 <Link
@@ -62,6 +65,6 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
                     <span className='visually-hidden'>{`View details of ${title}`}</span>
                 </Link>
             )}
-        </div>
+        </article>
     );
 }
