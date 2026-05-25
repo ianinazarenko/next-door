@@ -5,22 +5,27 @@ import PostsList from '@/app/(public)/posts/(components)/list/PostsList';
 import PostsListLoader from '@/app/(public)/posts/(components)/list/PostsListLoader';
 
 export default async function PostsListSection({ params }: { params: IPostsState }) {
-    try {
-        const postsData = await fetchPostsAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params });
-        return (
-            <>
-                <PostsList posts={postsData.results} />
+    let postsData: Awaited<ReturnType<typeof fetchPostsAction>>;
 
-                <PostsListLoader
-                    initialOffset={OFFSET + ITEMS_PER_PAGE}
-                    initialHasMore={postsData.hasMore}
-                    params={params}
-                    key={JSON.stringify(params)}
-                />
-            </>
-        );
+    try {
+        postsData = await fetchPostsAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params });
     } catch (error) {
         console.error('[PostsListSection]: Error loading posts:', error);
         throw error;
     }
+
+    const { results, hasMore } = postsData;
+
+    return (
+        <>
+            <PostsList posts={results} />
+
+            <PostsListLoader
+                initialOffset={OFFSET + ITEMS_PER_PAGE}
+                initialHasMore={hasMore}
+                params={params}
+                key={JSON.stringify(params)}
+            />
+        </>
+    );
 }

@@ -27,31 +27,26 @@ export default async function PostsPage({ searchParams }: { searchParams: Promis
         category: getSearchParamValue(category) ?? '',
     };
 
-    const postsListKey = `${params.complex}-${params.category}`
+    const postsListKey = `${params.complex}-${params.category}`;
 
-    try {
-        return (
-            <div className={'page c-container'}>
-                <PostsHeader />
+    return (
+        <div className={'page c-container'}>
+            <PostsHeader />
 
-                <Suspense fallback={<PostsFiltersSkeleton />}>
-                    <PostsFiltersSection />
+            <Suspense fallback={<PostsFiltersSkeleton />}>
+                <PostsFiltersSection />
+            </Suspense>
+
+            <section className={clsx('section', s.list)}>
+                <Suspense
+                    key={postsListKey}
+                    fallback={<PostsListSkeleton />}
+                >
+                    <PostsListSection params={params} />
                 </Suspense>
 
-                <section className={clsx('section', s.list)}>
-                    <Suspense
-                        key={postsListKey}
-                        fallback={<PostsListSkeleton />}
-                    >
-                        <PostsListSection params={params} />
-                    </Suspense>
-
-                    <PostsListAddBtn />
-                </section>
-            </div>
-        );
-    } catch (error) {
-        console.error('[PostsPage]: Error loading posts:', error);
-        throw error;
-    }
+                <PostsListAddBtn />
+            </section>
+        </div>
+    );
 }

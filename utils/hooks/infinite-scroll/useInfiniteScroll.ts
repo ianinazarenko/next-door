@@ -72,6 +72,8 @@ export function useInfiniteScroll<T, P>({
                 observer.unobserve(target);
             }
         };
+        // params/action changes are handled by remounting list loaders with a new key.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [offset, hasMore, isLoading]);
 
     return {
