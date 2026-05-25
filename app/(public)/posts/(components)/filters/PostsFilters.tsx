@@ -4,10 +4,12 @@ import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/da
 // Types
 import { EPostsParams } from '@/utils/constants/posts';
 import { ISpec } from '@/types/common';
+// Utils
+import clsx from 'clsx';
 // Hooks
 import { ChangeEvent, useTransition } from 'react';
-import { useQueryState } from 'nuqs'
-// Componenst
+import { useQueryState } from 'nuqs';
+// Components
 import CSelect from '@/ui/atoms/CSelect';
 import CButton from '@/ui/atoms/CButton';
 // Styles
@@ -39,11 +41,11 @@ export default function PostsFilters({ specs }: IProps) {
 
     function handleChange(e: ChangeEvent<HTMLSelectElement>) {
         const { value, name } = e.target;
-        
+
         if (name === EPostsParams.Complex) {
             setComplex(value);
         } else {
-            setCategory(value)
+            setCategory(value);
         }
     }
 
@@ -53,7 +55,7 @@ export default function PostsFilters({ specs }: IProps) {
     }
 
     return (
-        <section className={s.filters}>
+        <section className={clsx(s.filters, 'content-fade-in')}>
             {Boolean(specs.complex?.length) && (
                 <CSelect
                     value={complex}
@@ -85,7 +87,7 @@ export default function PostsFilters({ specs }: IProps) {
                 onClick={handleReset}
             >
                 {RESET_BUTTON_TEXT}
-            </CButton> 
+            </CButton>
         </section>
     );
 }
