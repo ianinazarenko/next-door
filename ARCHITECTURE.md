@@ -6,7 +6,7 @@ This document provides a high-level overview of the architecture, key decisions,
 
 ### Frontend & Fullstack Framework
 
-- Next.js 15 (App Router)
+- Next.js 16 (App Router)
 - React 19 (Server + Client Components)
 - TypeScript
 
@@ -34,6 +34,7 @@ This document provides a high-level overview of the architecture, key decisions,
 ### Deployment
 
 - Vercel
+- Node.js 24 LTS runtime
 - GitHub Actions (CI: lint → test → build)
 
 ## 2. Key Architectural Principles
@@ -49,7 +50,7 @@ This document provides a high-level overview of the architecture, key decisions,
 - Only interactive pieces (forms, infinite scroll, theme toggle) are client components.
 - Better performance, caching, and security
 
-This approach is aligned with the recommended modern pattern for Next.js 15.
+This approach is aligned with the recommended modern pattern for Next.js App Router applications.
 
 ### 2.2 Server Actions for Mutations
 
@@ -422,6 +423,7 @@ This reflects the recommended pattern for modern Next.js applications.
 - install → lint → test → build
 - Vercel deploy happens only if CI passes
 - Prisma client is auto-generated during CI
+- CI runs on Node.js 24 LTS to match the project runtime contract
 
 ## 13. Security Strategy
 

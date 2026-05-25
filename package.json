@@ -1,12 +1,16 @@
 {
     "name": "next-door",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "private": true,
+    "engines": {
+        "node": "24.x"
+    },
     "scripts": {
         "dev": "next dev --turbopack -p 8000",
         "build": "next build",
         "start": "next start",
         "lint": "eslint .",
+        "tsc": "npx tsc --noEmit",
         "seed": "prisma db seed",
         "test": "jest --watch",
         "test:ci": "jest --ci",
@@ -58,7 +62,7 @@
         "@testing-library/user-event": "^14.6.1",
         "@types/he": "^1.2.3",
         "@types/jest": "^30.0.0",
-        "@types/node": "20.19.10",
+        "@types/node": "^24.12.4",
         "@types/react": "19.2.15",
         "@types/react-dom": "19.2.3",
         "@types/sanitize-html": "^2.16.0",

@@ -16,7 +16,7 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 ## Technology Stack
 
 ### **Frontend**
-- **Next.js (App Router)** – server-side rendering and routing
+- **Next.js 16 (App Router)** – server-side rendering and routing
 - **React 19** – main UI library
 - **Tailwind CSS** – utility-based styling
 - **Headless UI** – accessible, unstyled primitives
@@ -29,20 +29,21 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 ### **Backend**
 - **Prisma ORM** – type-safe database access
 - **Vercel Postgres** – cloud hosted SQL database
+- **Node.js 24 LTS** – runtime for local development, CI, and deployment
 - **Direct DB access in Server Components** – or all GET requests (no REST endpoints — fully SSR/ISR)
 - **Server Actions** – used for POST/PUT/DELETE data mutations (e.g. creating posts and other future features)
 
 ## Key Architectural Decisions
 
 ### Rendering Strategy
-- **Server Components** handle data fetching directly from the database — the idiomatic Next.js 15 approach.
+- **Server Components** handle data fetching directly from the database — the idiomatic Next.js App Router approach.
   This provides instant SSR, fewer network hops, and simpler logic.
 - **Server Actions** are used for data mutations.
 - **ISR** is used for static pages that rarely change (e.g., residential complexes).
 
 ### State Management  
 - **Redux Toolkit** is installed but intentionally unused in the MVP.
-  In Next.js 15, Server Components and Server Actions already handle most global state responsibilities.
+  In the modern Next.js App Router architecture, Server Components and Server Actions already handle most global state responsibilities.
   Redux remains as groundwork for future features (e.g., user profiles). 
 - **React Context** manages light/dark/system theme — simple and efficient.
   
@@ -80,6 +81,12 @@ The current MVP version is available on Vercel:
 👉 **https://next-door-six.vercel.app**  
 
 ## Installation & Local Setup
+
+This project expects **Node.js 24 LTS**. If you use `nvm`, run:
+
+```bash
+nvm use
+```
 
 This project uses **Vercel Postgres** as its primary database.  
 The `.env` file is **not included** for security reasons, so the app will not connect to the database out of the box.
@@ -127,6 +134,6 @@ npx prisma db seed
 npm run dev
 ```
 
-Your app will be available at http://localhost:3000
+Your app will be available at http://localhost:8000
 > **Note:** Without a valid database connection, the app cannot fetch or display data (e.g. posts, complexes).
 > This repository is meant primarily as a demo portfolio project, so the deployed version on Vercel provides the best experience.
