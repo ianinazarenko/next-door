@@ -23,7 +23,7 @@ export default async function ComplexesPage({ searchParams }: { searchParams: Pr
     const { search } = await searchParams;
 
     const params: IComplexesState = { search: getSearchParamValue(search) || '' };
-    const key = params.search;
+    const complexesKey = params.search;
 
     return (
         <div className={`page c-container`}>
@@ -39,7 +39,7 @@ export default async function ComplexesPage({ searchParams }: { searchParams: Pr
                 <h2 className={'h4'}>{TITLE_H2}</h2>
 
                 <Suspense
-                    key={key}
+                    key={complexesKey}
                     fallback={<ComplexesListSkeleton />}
                 >
                     <ComplexesListSection params={params} />

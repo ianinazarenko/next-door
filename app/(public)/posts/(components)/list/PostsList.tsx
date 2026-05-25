@@ -9,7 +9,7 @@ interface IProps {
 
 export default function PostsList({ posts }: IProps) {
     if (!posts?.length) {
-        return <p className={'section'}>Sorry, no announcements found</p>;
+        return <p className={'section content-fade-in'}>Sorry, no announcements found</p>;
     }
 
     return (
