@@ -99,6 +99,8 @@ export default function NewPostForm({ specs }: IProps) {
             {/* ==== FORM ==== */}
             {[EFormStatus.Idle, EFormStatus.Loading].includes(status) && (
                 <form
+                    // react-hook-form's handleSubmit returns a stable submit handler here.
+                    // eslint-disable-next-line react-hooks/refs
                     onSubmit={handleSubmit(onSubmit)}
                     className={s.form}
                 >

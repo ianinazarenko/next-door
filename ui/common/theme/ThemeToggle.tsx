@@ -20,6 +20,8 @@ function ThemeToggle(): ReactElement {
         'flex size-9 flex-initial items-center justify-center rounded-full transition-colors hover:text-(--accent-hover) md:size-9';
 
     useEffect(() => {
+        // next-themes needs a mounted guard to avoid hydration mismatches.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsMounted(true);
     }, []);
 

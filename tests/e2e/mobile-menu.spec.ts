@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { MENU_LIST } from '@/data/menu';
 import { PAGES } from '@/data/pages';
 
 test.describe('Mobile Navigation Menu', () => {
@@ -26,9 +25,9 @@ test.describe('Mobile Navigation Menu', () => {
         const mobileMenu = page.getByRole('navigation', { name: 'Mobile navigation' });
         const complexLink = mobileMenu.getByRole('link', { name: PAGES.COMPLEXES.title });
         await expect(complexLink).toBeVisible();
-        
+
         await complexLink.click();
-        
+
         await expect(page).toHaveURL(PAGES.COMPLEXES.link);
     });
 });

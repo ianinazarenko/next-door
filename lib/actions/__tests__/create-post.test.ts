@@ -72,7 +72,6 @@ describe('createPostAction', () => {
             });
 
             // Interactive transaction: run callback with tx = prismaMock
-            // @ts-expect-error only for test
             prismaMock.$transaction.mockImplementation((tx) => tx(prismaMock));
             // Advisory lock: default to acquired
             prismaMock.$queryRaw.mockResolvedValue([{ locked: true }]);
