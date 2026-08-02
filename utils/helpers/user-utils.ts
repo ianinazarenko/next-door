@@ -16,7 +16,7 @@ const AVATAR_COLORS = [
  * @returns First letter uppercased (e.g., "J", "M") or "?" as fallback
  */
 export function getInitial(name: string | null | undefined): string {
-    if (!name) return '?';
+    if (!name || typeof name !== 'string') return '?';
 
     const trimmed = name.trim();
     if (!trimmed) return '?';
