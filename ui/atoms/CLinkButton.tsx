@@ -11,9 +11,16 @@ interface ILinkButtonProps {
     children: React.ReactNode;
 }
 
-function CLinkButton({ type = 'button', disabled, isHovering, isLeft = false, children }: ILinkButtonProps) {
+function CLinkButton({
+    type = 'button',
+    disabled,
+    isHovering,
+    isLeft = false,
+    children,
+}: ILinkButtonProps) {
     const classes =
         'text-[1.4rem] font-semibold transition-colors text-(--accent) group-hover:text-(--accent-hover) lg:text-[1.4rem] group-active:text-(--accent-hover)';
+
     return (
         <div className={'group flex items-center gap-1'}>
             {isLeft && (
