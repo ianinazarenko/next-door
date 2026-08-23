@@ -1,6 +1,7 @@
 !AI_RULES.md
 !.gemini/
-!.codex/
+!.agents/
 !.claude/
+!.ai/
 
 prisma/migrations/migration_lock.toml
