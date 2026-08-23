@@ -18,7 +18,7 @@ export default function UserPic({ image, name, className, index }: IProps) {
                 src={image}
                 width={200}
                 height={200}
-                sizes='(max-width: 768px) 6rem, (max-width: 1024px) 8rem, 8rem'
+                sizes='(max-width: 743px) 6rem, (max-width: 1024px) 8rem, 8rem'
                 alt={name ? `${name}'s avatar` : 'User avatar'}
                 className={clsx(s.image, className)}
             />

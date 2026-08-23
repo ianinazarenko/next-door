@@ -6,7 +6,7 @@
     background-color: var(--bg-secondary);
     flex-direction: column;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         height: 50rem;
     }
 
@@ -28,7 +28,7 @@
     flex: 1;
     padding: var(--content-p);
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         padding: var(--content-p);
     }
 
@@ -48,7 +48,7 @@
     background-color: var(--opacity-60);
     backdrop-filter: blur(10px);
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         width: auto;
         padding: var(--p-lg);
     }
@@ -59,7 +59,7 @@
     margin-top: var(--p-xs);
     font-size: 1.6rem;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         max-width: 100%;
     }
 

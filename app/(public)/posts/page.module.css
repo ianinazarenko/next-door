@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 1.6rem;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         gap: var(--gap-card-desk);
     }
 }

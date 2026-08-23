@@ -5,7 +5,7 @@
     gap: var(--gap-card-mob);
     margin: var(--margin-gap-section) 0;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: repeat(2, 1fr);
         gap: var(--gap-card-desk);

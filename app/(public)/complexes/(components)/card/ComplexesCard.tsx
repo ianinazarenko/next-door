@@ -11,7 +11,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ComplexesImgDefault from '@/ui/common/placeholders/ComplexesImgDefault';
 
-export default function ComplexesCard({ slug, name, address, img = '' }: IComplexBase & { img?: string }) {
+export default function ComplexesCard({
+    slug,
+    name,
+    address,
+    img = '',
+}: IComplexBase & { img?: string }) {
     const image = COMPLEX_IMG[slug].mob;
     return (
         <Link
@@ -26,7 +31,7 @@ export default function ComplexesCard({ slug, name, address, img = '' }: IComple
                             src={img || image}
                             alt={`Complex ${name}`}
                             className={clsx('img-cover')}
-                            sizes={'(max-width: 768px) 10rem, (max-width: 1024px) 50vw, 33vw'}
+                            sizes={'(min-width: 744px) 50vw, (min-width: 1024px) 33vw, 100vw'}
                             fill
                         />
                     ) : (
@@ -43,7 +48,9 @@ export default function ComplexesCard({ slug, name, address, img = '' }: IComple
                             {name}
                         </h3>
                     )}
-                    {address && <address className={clsx('card-description', s.address)}>{address}</address>}
+                    {address && (
+                        <address className={clsx('card-description', s.address)}>{address}</address>
+                    )}
                 </header>
             </article>
         </Link>

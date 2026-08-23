@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 0.4rem;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         display: grid;
         grid-template-columns: 28rem 1fr;
     }
@@ -13,7 +13,7 @@
 .value {
     font-weight: bold;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         font-weight: normal;
     }
 }

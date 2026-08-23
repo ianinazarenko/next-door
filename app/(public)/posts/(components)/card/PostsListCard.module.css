@@ -56,7 +56,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         min-height: calc(var(--card-title-tab) * var(--line-height-heading) * 2);
     }
 
@@ -72,7 +72,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         min-height: calc(var(--card-description-tab) * var(--line-height-description) * 2);
     }
 
@@ -140,7 +140,7 @@
 .deadline {
     min-height: calc(var(--card-meta-mob) * var(--line-height-heading));
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         min-height: calc(var(--card-meta-tab) * var(--line-height-heading));
     }
 

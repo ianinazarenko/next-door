@@ -1,5 +1,8 @@
 export const POST_IMAGE = 'https://via.placeholder.com/600x400';
 
+const futureDeadline = new Date();
+futureDeadline.setDate(futureDeadline.getDate() + 30);
+
 export const SEED_COMPLEX_SLUGS = {
     pixelPark: 'pixel-park',
     buglessHeights: 'bugless-heights',
@@ -64,7 +67,7 @@ export const POSTS_SEED_DATA = [
         authorEmail: SEED_USER_EMAILS.committee,
         complexSlug: SEED_COMPLEX_SLUGS.buglessHeights,
         categorySlug: SEED_CATEGORY_SLUGS.event,
-        deadline: '2026-08-15T00:00:00.000Z',
+        deadline: futureDeadline.toISOString(),
         createdAt: '2025-09-15T07:30:18.783Z',
     },
     {

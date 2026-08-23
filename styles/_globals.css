@@ -140,7 +140,7 @@ main {
 }
 
 /* Tablet and up */
-@media (width >= 768px) {
+@media (width >= 744px) {
     .c-container {
         padding-right: 2.4rem;
         padding-left: 2.4rem;

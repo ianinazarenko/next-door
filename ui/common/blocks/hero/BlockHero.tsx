@@ -1,8 +1,6 @@
-import s from './BlockHero.module.css';
 import clsx from 'clsx';
-import Image from 'next/image';
-
-const ALT = 'Hero background image';
+import { getImageProps } from 'next/image';
+import s from './BlockHero.module.css';
 
 interface IProps {
     imgMob: string;
@@ -13,21 +11,45 @@ interface IProps {
     descBottom?: string | null;
 }
 
-export default function BlockHero({ imgMob, imgDesk, heading, deskMeta, descTop, descBottom }: IProps) {
+export default function BlockHero({
+    imgMob,
+    imgDesk,
+    heading,
+    deskMeta,
+    descTop,
+    descBottom,
+}: IProps) {
+    const commonProps = {
+        className: s.img,
+        fill: true,
+        quality: 80,
+        alt: '',
+    };
+
+    const { props: mobile } = getImageProps({
+        src: imgMob,
+        sizes: '100vw',
+        ...commonProps,
+    });
+
+    const {
+        props: { srcSet: desktop, sizes },
+    } = getImageProps({ src: imgDesk, sizes: '(min-width: 1440px) 1440px, 100vw', ...commonProps });
+
     return (
         <section className={clsx(s.section, 'bg-overlay-dark')}>
             <picture>
                 <source
-                    media='(max-width: 768px)'
-                    srcSet={imgMob}
+                    media='(min-width: 744px)'
+                    sizes={sizes}
+                    srcSet={desktop}
                 />
-                <Image
-                    src={imgDesk}
-                    alt={ALT}
+
+                <img
+                    {...mobile}
+                    loading={'eager'}
                     className={s.img}
-                    sizes='100vw'
-                    priority
-                    fill
+                    alt=''
                 />
             </picture>
 
