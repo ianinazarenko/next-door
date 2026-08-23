@@ -63,7 +63,7 @@ body {
 }
 
 /* Tablet and up */
-@media (width >= 768px) {
+@media (width >= 744px) {
     .h1 {
         font-size: var(--h1-tab);
         letter-spacing: var(--h1-letter-spacing-tab);

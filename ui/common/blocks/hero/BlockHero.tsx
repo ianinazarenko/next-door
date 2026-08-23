@@ -40,7 +40,7 @@ export default function BlockHero({
         <section className={clsx(s.section, 'bg-overlay-dark')}>
             <picture>
                 <source
-                    media='(min-width: 768px)'
+                    media='(min-width: 744px)'
                     sizes={sizes}
                     srcSet={desktop}
                 />

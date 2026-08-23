@@ -10,7 +10,7 @@
 /*
 Temp comment to switch from desktop-first to mobile-first
 $breakpoints: (
-    mobile: 767px,    // width < 768
+    mobile: 743px,    // width < 744
     tablet: 1023px,   // width < 1024
     laptop: 1279px,   // width < 1280
     desktop: 1439px,  // width < 1440
@@ -18,7 +18,7 @@ $breakpoints: (
 );
 
 $breakpoints: (
-  md: 768px, // width >= 768, tablet
+  md: 744px, // width >= 744, tablet
   lg: 1024px, // width >= 1024, laptop
   xl: 1280px, // width >= 1280, desktop
   ul: 1440px, // width >= 1440, ultra

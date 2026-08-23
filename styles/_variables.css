@@ -156,7 +156,7 @@
     --gap-card-desk: 2.4rem;
 
     /* Layout - Breakpoints */
-    --breakpoint-tab: 768px;
+    --breakpoint-tab: 744px;
     --breakpoint-laptop: 1280px;
     --breakpoint-desk: 1440px;
 
@@ -213,7 +213,7 @@
 }
 
 /* tab and up */
-@media (width >= 768px) {
+@media (width >= 744px) {
     :root {
         --content-p: var(--p-md);
         --margin-gap-section: var(--margin-gap-section-tab);

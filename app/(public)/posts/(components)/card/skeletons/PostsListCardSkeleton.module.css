@@ -45,7 +45,7 @@
     flex-direction: column;
     gap: 0.6rem;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         min-height: calc(var(--card-title-tab) * var(--line-height-heading) * 2);
         font-size: var(--card-title-tab);
     }
@@ -64,7 +64,7 @@
     flex-direction: column;
     gap: 0.6rem;
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         min-height: calc(var(--card-description-tab) * var(--line-height-description) * 2);
         font-size: var(--card-description-tab);
     }
@@ -112,7 +112,7 @@
     width: 6rem;
     height: var(--card-meta-mob);
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         height: var(--card-meta-tab);
     }
 
@@ -126,7 +126,7 @@
     width: 8rem;
     height: var(--card-meta-mob);
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         height: var(--card-meta-tab);
     }
 
@@ -163,16 +163,16 @@
 
 .deadline {
     width: 10rem;
-    min-height: calc(var(--card-meta-mob) * var(--line-height-heading));
     height: var(--card-meta-mob);
+    min-height: calc(var(--card-meta-mob) * var(--line-height-heading));
 
-    @media (width >= 768px) {
-        min-height: calc(var(--card-meta-tab) * var(--line-height-heading));
+    @media (width >= 744px) {
         height: var(--card-meta-tab);
+        min-height: calc(var(--card-meta-tab) * var(--line-height-heading));
     }
 
     @media (width >= 1024px) {
-        min-height: calc(var(--card-meta-desk) * var(--line-height-heading));
         height: var(--card-meta-desk);
+        min-height: calc(var(--card-meta-desk) * var(--line-height-heading));
     }
 }

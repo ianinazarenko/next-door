@@ -28,7 +28,7 @@
     outline-offset: -1px;
     box-shadow: var(--box-shadow);
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         max-width: calc(12rem * var(--btns-count) + 2rem * var(--gaps-count));
     }
 }
