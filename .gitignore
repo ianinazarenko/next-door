@@ -63,9 +63,10 @@ next-env.d.ts
 # AI
 .gemini/
 .claude/
-.codex/
+.agents/
 AI_RULES.md
 CONTEXT.md
+.ai/
 
 /generated
 /generated/prisma
