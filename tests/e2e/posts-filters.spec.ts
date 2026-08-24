@@ -10,8 +10,8 @@ test.describe('Posts Filters', () => {
     });
 
     test('should filter posts by complex and category', async ({ page }) => {
-        const complexSelect = page.getByLabel(COMPLEX_ARIA_LABEL);
-        const categorySelect = page.getByLabel(CATEGORY_ARIA_LABEL);
+        const complexSelect = page.locator(`select[aria-label="${COMPLEX_ARIA_LABEL}"]:visible`);
+        const categorySelect = page.locator(`select[aria-label="${CATEGORY_ARIA_LABEL}"]:visible`);
         const postsList = page.getByTestId('posts-list');
         const posts = postsList.getByRole('listitem');
 
@@ -43,8 +43,8 @@ test.describe('Posts Filters', () => {
             `${PAGES.POSTS.link}?${QUERY_PARAMS.complex}=${COMPLEXES.buglessHeights.value}&${QUERY_PARAMS.category}=${POST_CATEGORIES.event.value}`
         );
 
-        const complexSelect = page.getByLabel(COMPLEX_ARIA_LABEL);
-        const categorySelect = page.getByLabel(CATEGORY_ARIA_LABEL);
+        const complexSelect = page.locator(`select[aria-label="${COMPLEX_ARIA_LABEL}"]:visible`);
+        const categorySelect = page.locator(`select[aria-label="${CATEGORY_ARIA_LABEL}"]:visible`);
 
         const postsList = page.getByTestId('posts-list');
         const posts = postsList.getByRole('listitem');
@@ -83,7 +83,7 @@ test.describe('Posts Filters', () => {
     test('should initialize filters from URL on direct visit', async ({ page }) => {
         await page.goto(`${PAGES.POSTS.link}?${QUERY_PARAMS.complex}=${COMPLEXES.pixelPark.value}`);
 
-        const complexSelect = page.getByLabel(COMPLEX_ARIA_LABEL);
+        const complexSelect = page.locator(`select[aria-label="${COMPLEX_ARIA_LABEL}"]:visible`);
         await expect(complexSelect).toHaveValue(COMPLEXES.pixelPark.value);
 
         const postsList = page.getByTestId('posts-list');
@@ -95,7 +95,7 @@ test.describe('Posts Filters', () => {
     test('should show empty state when query is not valid', async ({ page }) => {
         await page.goto(`${PAGES.POSTS.link}?${QUERY_PARAMS.complex}=something-random`);
         
-        const complexSelect = page.getByLabel(COMPLEX_ARIA_LABEL);
+        const complexSelect = page.locator(`select[aria-label="${COMPLEX_ARIA_LABEL}"]:visible`);
         await expect(complexSelect).toHaveValue('');
         await expect(complexSelect).toContainText('All Complexes');
 
@@ -104,8 +104,8 @@ test.describe('Posts Filters', () => {
 
     // Test is valid for clear app with seed script setup
     test('should show empty state when no posts found', async ({ page }) => {
-        const categorySelect = page.getByLabel(CATEGORY_ARIA_LABEL);
-        const complexSelect = page.getByLabel(COMPLEX_ARIA_LABEL);
+        const categorySelect = page.locator(`select[aria-label="${CATEGORY_ARIA_LABEL}"]:visible`);
+        const complexSelect = page.locator(`select[aria-label="${COMPLEX_ARIA_LABEL}"]:visible`);
 
         await categorySelect.selectOption({ value: POST_CATEGORIES.sell.value });
         await complexSelect.selectOption({ value: COMPLEXES.buglessHeights.value });
