@@ -31,12 +31,14 @@ export default function ComplexInfoItem({ item }: { item: IContactItem }) {
                 {item.value}
             </a>
         );
+    } else if (item.isAddress) {
+        valueNode = <address className={s.address}>{item.value}</address>;
     }
 
     return (
         <li className={clsx('card-description', s.item)}>
             <span className={s.label}>{item.label}:</span>
-            <span className={s.value}>{valueNode}</span>
+            <div className={s.value}>{valueNode}</div>
         </li>
     );
 }

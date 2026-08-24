@@ -1,5 +1,5 @@
 .header {
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         max-width: 60rem;
         text-align: center;
     }

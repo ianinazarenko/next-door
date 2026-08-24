@@ -1,3 +1,5 @@
+// Types
+import { IPostFull } from '@/types/posts';
 // Constants
 import { PAGES } from '@/data/pages';
 import { DYNAMIC_PAGES_METADATA } from '@/data/seo';
@@ -16,31 +18,36 @@ interface IProps {
     params: Promise<{ id: string }>;
 }
 
+const BACK_URL = PAGES.POSTS.link;
+
+async function getPost(id: string): Promise<IPostFull | null> {
+    try {
+        return await fetchPostCached(id);
+    } catch (err) {
+        console.error('[posts/[id]]: Error loading post:', id, err);
+        throw err;
+    }
+}
+
 export async function generateMetadata({ params }: IProps): Promise<Metadata> {
     const { id } = await params;
-    const post = await fetchPostCached(id);
+    const post = await getPost(id);
     return DYNAMIC_PAGES_METADATA.POST_DETAIL(post);
 }
 
-const BACK_URL = PAGES.POSTS.link;
 export default async function PostPage({ params }: IProps) {
     const { id } = await params;
-    const post = await fetchPostCached(id);
+    const post = await getPost(id);
 
     if (!post) {
         return notFound();
     }
 
-    try {
-        return (
-            <div className={'page c-container'}>
-                <BackButton backUrl={BACK_URL} />
+    return (
+        <div className={'page c-container'}>
+            <BackButton backUrl={BACK_URL} />
 
-                <PostMain post={post} />
-            </div>
-        );
-    } catch (error) {
-        console.error('[PostPage]: Error loading post:', error);
-        throw error;
-    }
+            <PostMain post={post} />
+        </div>
+    );
 }

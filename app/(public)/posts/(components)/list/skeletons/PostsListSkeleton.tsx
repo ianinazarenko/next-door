@@ -4,7 +4,7 @@ import PostsListCardSkeleton from '@/app/(public)/posts/(components)/card/skelet
 
 export default function PostsListSkeleton() {
     return (
-        <div className={clsx(s.list)}>
+        <div className={clsx(s.list, 'content-fade-in')}>
             {Array.from({ length: 6 }).map((item, index) => (
                 <PostsListCardSkeleton key={index} />
             ))}

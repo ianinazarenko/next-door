@@ -21,6 +21,9 @@ export interface IPostBase {
 export interface IPostListItem extends IPostBase {
     category: ICategory;
     commentsCount: number;
+    complex: {
+        name: string;
+    }
 }
 
 // Post detail page post-data

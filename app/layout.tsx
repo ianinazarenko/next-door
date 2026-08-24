@@ -26,8 +26,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang='en'>
-            <body className={`${inter.variable} antialiased`}>
+        <html
+            lang='en'
+            data-scroll-behavior='smooth'
+            suppressHydrationWarning
+        >
+            <body className={inter.variable}>
                 <AppProviders>
                     {children}
 

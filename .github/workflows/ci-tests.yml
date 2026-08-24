@@ -1,53 +1,97 @@
 name: CI Tests
 
 on:
-  push:
-    branches:
-      - '**'
-    tags:
-      - 'v*'
-  pull_request:
-    branches:
-      - main
+    push:
+        branches:
+            - '**'
+        tags:
+            - 'v*'
+    pull_request:
+        branches:
+            - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+    cancel-in-progress: true
 
 jobs:
-  ci_checks:
-    runs-on: ubuntu-latest
+    ci_checks:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x]
+        services:
+            postgres:
+                image: postgres:16
+                env:
+                    POSTGRES_DB: nextdoor_test
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd "pg_isready -U postgres -d nextdoor_test"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
-      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-      AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
-      AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
-      AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
-      AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: [24.x]
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        env:
+            DATABASE_URL: postgresql://postgres:postgres@localhost:5432/nextdoor_test?schema=public
+            SHADOW_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/nextdoor_shadow?schema=public
+            AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+            AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
+            AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
+            AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
+            AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
+            AUTH_TRUST_HOST: true
+            DISABLE_CSP_UPGRADE_INSECURE_REQUESTS: true
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v6
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
 
-      - name: Lint
-        run: npm run lint
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run tests
-        run: npm run test:ci
+            - name: Lint
+              run: npm run lint
 
-      - name: Generate Prisma client
-        run: npx prisma generate
+            - name: Run tests
+              run: npm run test:ci
 
-      - name: Build
-        run: npm run build
+            - name: Generate Prisma client
+              run: npx prisma generate
+
+            - name: Apply Prisma migrations
+              run: npx prisma migrate deploy
+
+            - name: Seed database
+              run: npm run seed
+
+            - name: Build
+              run: npm run build
+
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps
+
+            - name: Run Playwright tests
+              run: npm run test:e2e
+
+            - name: Upload Playwright artifacts
+              if: failure()
+              uses: actions/upload-artifact@v6
+              with:
+                  name: playwright-results-${{ matrix.node-version }}
+                  path: |
+                      test-results/
+                      playwright-report/
+                  retention-days: 7

@@ -1,41 +1,31 @@
 import { PrismaClient } from '@/generated/prisma';
+import { POST_IMAGE, POSTS_SEED_DATA } from './seed-data';
 
 const prisma = new PrismaClient();
 
 async function main() {
     console.log('database seed...');
 
+    await clearSeedData();
+
     const { patchManagement, renderWorks } = await createManagementCompanies();
     const { pixelPark, buglessHeights } = await createComplexes({
         patchManagementId: patchManagement.id,
         renderWorksId: renderWorks.id,
     });
-    const { buy, sell, giveAway, offerHelp, requestHelp, event } = await createCategories();
+    await createCategories();
 
     await createUsefulPhones({
         pixelParkId: pixelPark.id,
         buglessHeightsId: buglessHeights.id,
     });
 
-    const { alex, maya, chris, jane, mike, sara, committee } = await createUsers({
+    const { jane, mike, sara } = await createUsers({
         pixelParkId: pixelPark.id,
         buglessHeightsId: buglessHeights.id,
     });
 
-    const { post1, post3, post4 } = await createPosts({
-        pixelParkSlug: pixelPark.slug,
-        buglessHeightsSlug: buglessHeights.slug,
-        buySlug: buy.slug,
-        sellSlug: sell.slug,
-        giveAwaySlug: giveAway.slug,
-        offerHelpSlug: offerHelp.slug,
-        requestHelpSlug: requestHelp.slug,
-        eventSlug: event.slug,
-        alexId: alex.id,
-        mayaId: maya.id,
-        chrisId: chris.id,
-        committeeId: committee.id,
-    });
+    const { post1, post3, post4 } = await createPosts();
 
     await createComments({
         deskId: post1.id,
@@ -47,6 +37,12 @@ async function main() {
     });
 
     console.log('Database seeded successfully!');
+}
+
+async function clearSeedData() {
+    await prisma.comment.deleteMany({});
+    await prisma.post.deleteMany({});
+    await prisma.usefulPhone.deleteMany({});
 }
 
 async function createUsers({ pixelParkId, buglessHeightsId }: { pixelParkId: string; buglessHeightsId: string }) {
@@ -270,96 +266,29 @@ async function createUsefulPhones({
     });
 }
 
-async function createPosts({
-    pixelParkSlug,
-    buglessHeightsSlug,
-    buySlug,
-    sellSlug,
-    giveAwaySlug,
-    offerHelpSlug,
-    requestHelpSlug,
-    eventSlug,
-    alexId,
-    mayaId,
-    chrisId,
-    committeeId,
-}: {
-    pixelParkSlug: string;
-    buglessHeightsSlug: string;
-    buySlug: string;
-    sellSlug: string;
-    giveAwaySlug: string;
-    offerHelpSlug: string;
-    requestHelpSlug: string;
-    eventSlug: string;
-    alexId: string;
-    mayaId: string;
-    chrisId: string;
-    committeeId: string;
-}) {
-    const post1 = await prisma.post.create({
-        data: {
-            title: 'Selling a standing desk',
-            shortText: 'Ergonomic standing desk, great condition',
-            fullText:
-                "I'm selling my adjustable standing desk. It's in great condition and perfect for home office setups. Price negotiable, pick up in Pixel Park.",
-            authorId: alexId,
-            image: 'https://via.placeholder.com/600x400',
-            deadline: null,
-            complexSlug: pixelParkSlug,
-            categorySlug: sellSlug,
-            createdAt: new Date('2025-09-04T07:30:18.629Z'),
-            updatedAt: new Date('2025-09-15T11:59:15.013Z'),
-        },
-    });
+async function createPosts() {
+    const posts = await Promise.all(
+        POSTS_SEED_DATA.map((post) => {
+            const createdAt = new Date(post.createdAt);
 
-    const post2 = await prisma.post.create({
-        data: {
-            title: 'Free houseplants',
-            shortText: 'Giving away two healthy monstera plants',
-            fullText:
-                'I have two large monstera plants that need a new home. Perfect for adding some greenery to your apartment. Free to a good home.',
-            authorId: mayaId,
-            image: 'https://via.placeholder.com/600x400',
-            deadline: null,
-            complexSlug: buglessHeightsSlug,
-            categorySlug: giveAwaySlug,
-            createdAt: new Date('2025-09-04T07:30:18.707Z'),
-            updatedAt: new Date('2025-09-15T11:59:15.118Z'),
-        },
-    });
+            return prisma.post.create({
+                data: {
+                    title: post.title,
+                    shortText: post.shortText,
+                    fullText: post.fullText,
+                    author: { connect: { email: post.authorEmail } },
+                    image: POST_IMAGE,
+                    deadline: 'deadline' in post ? post.deadline : null,
+                    complex: { connect: { slug: post.complexSlug } },
+                    category: { connect: { slug: post.categorySlug } },
+                    createdAt,
+                    updatedAt: createdAt,
+                },
+            });
+        })
+    );
 
-    const post3 = await prisma.post.create({
-        data: {
-            title: 'Need help moving furniture',
-            shortText: 'Looking for someone to help move a sofa',
-            fullText:
-                'I need a hand moving a sofa from my apartment to the basement storage. Should take about 30 minutes. Beer and snacks included.',
-            authorId: chrisId,
-            image: 'https://via.placeholder.com/600x400',
-            deadline: '2026-08-20T00:00:00.000Z',
-            complexSlug: pixelParkSlug,
-            categorySlug: requestHelpSlug,
-            createdAt: new Date('2025-09-04T07:30:18.745Z'),
-            updatedAt: new Date('2025-09-15T15:45:09.329Z'),
-        },
-    });
-
-    const post4 = await prisma.post.create({
-        data: {
-            title: 'Community BBQ this Saturday',
-            shortText: 'Join us for burgers, music and fun',
-            fullText:
-                "We're organizing a BBQ in the Bugless Heights courtyard this Saturday at 4 PM. Bring something to grill and a good mood!",
-            authorId: committeeId,
-            image: 'https://via.placeholder.com/600x400',
-            deadline: '2026-08-15T00:00:00.000Z',
-            complexSlug: buglessHeightsSlug,
-            categorySlug: eventSlug,
-            createdAt: new Date('2025-09-04T07:30:18.783Z'),
-            updatedAt: new Date('2025-09-15T15:45:09.329Z'),
-        },
-    });
+    const [post1, post2, post3, post4] = posts;
 
     return { post1, post2, post3, post4 };
 }

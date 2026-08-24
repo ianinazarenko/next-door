@@ -5,23 +5,27 @@ import ComplexesList from '@/app/(public)/complexes/(components)/list/ComplexesL
 import ComplexesListLoader from '@/app/(public)/complexes/(components)/list/ComplexesListLoader';
 
 export default async function ComplexesListSection({ params }: { params: IComplexesState }) {
+    let complexesData: Awaited<ReturnType<typeof fetchComplexesAction>>;
+
     try {
-        const { results, hasMore } = await fetchComplexesAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params });
-
-        return (
-            <>
-                <ComplexesList complexes={results} />
-
-                <ComplexesListLoader
-                    initialOffset={OFFSET + ITEMS_PER_PAGE}
-                    initialHasMore={hasMore}
-                    params={params}
-                    key={JSON.stringify(params)}
-                />
-            </>
-        );
+        complexesData = await fetchComplexesAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params });
     } catch (error) {
         console.error('[ComplexesListSection]: Error loading complexes:', error);
         throw error;
     }
+
+    const { results, hasMore } = complexesData;
+
+    return (
+        <>
+            <ComplexesList complexes={results} />
+
+            <ComplexesListLoader
+                initialOffset={OFFSET + ITEMS_PER_PAGE}
+                initialHasMore={hasMore}
+                params={params}
+                key={JSON.stringify(params)}
+            />
+        </>
+    );
 }

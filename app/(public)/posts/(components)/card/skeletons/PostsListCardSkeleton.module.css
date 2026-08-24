@@ -1,6 +1,7 @@
 .card {
     position: relative;
     display: flex;
+    height: 100%;
     padding: var(--p-card-mob);
     border-radius: var(--radius-card);
     border: 1px solid var(--border);
@@ -24,23 +25,77 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 0;
     margin-top: auto;
+    gap: 1.2rem;
 }
 
 .author {
     display: flex;
     align-items: center;
+    min-width: 0;
     gap: 0.8rem;
 }
 
 .title {
-    width: 60%;
-    height: var(--card-title-mob);
+    display: flex;
+    min-height: calc(var(--card-title-mob) * var(--line-height-heading) * 2);
+    font-size: var(--card-title-mob);
+    line-height: var(--line-height-heading);
+    flex-direction: column;
+    gap: 0.6rem;
+
+    @media (width >= 744px) {
+        min-height: calc(var(--card-title-tab) * var(--line-height-heading) * 2);
+        font-size: var(--card-title-tab);
+    }
+
+    @media (width >= 1024px) {
+        min-height: calc(var(--card-title-desk) * var(--line-height-heading) * 2);
+        font-size: var(--card-title-desk);
+    }
 }
 
 .text {
+    display: flex;
+    min-height: calc(var(--card-description-mob) * var(--line-height-description) * 2);
+    font-size: var(--card-description-mob);
+    line-height: var(--line-height-description);
+    flex-direction: column;
+    gap: 0.6rem;
+
+    @media (width >= 744px) {
+        min-height: calc(var(--card-description-tab) * var(--line-height-description) * 2);
+        font-size: var(--card-description-tab);
+    }
+
+    @media (width >= 1024px) {
+        min-height: calc(var(--card-description-desk) * var(--line-height-description) * 2);
+        font-size: var(--card-description-desk);
+    }
+}
+
+.titleLine,
+.titleLineShort,
+.textLine,
+.textLineShort {
+    height: 1em;
+}
+
+.titleLine {
+    width: 86%;
+}
+
+.titleLineShort {
+    width: 64%;
+}
+
+.textLine {
     width: 100%;
-    height: calc(var(--card-description-mob) * var(--line-height-description));
+}
+
+.textLineShort {
+    width: 78%;
 }
 
 .picture {
@@ -56,11 +111,28 @@
 .authorName {
     width: 6rem;
     height: var(--card-meta-mob);
+
+    @media (width >= 744px) {
+        height: var(--card-meta-tab);
+    }
+
+    @media (width >= 1024px) {
+        height: var(--card-meta-desk);
+    }
 }
 
 .createdAt {
+    flex-shrink: 0;
     width: 8rem;
     height: var(--card-meta-mob);
+
+    @media (width >= 744px) {
+        height: var(--card-meta-tab);
+    }
+
+    @media (width >= 1024px) {
+        height: var(--card-meta-desk);
+    }
 }
 
 .line {
@@ -72,11 +144,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 0;
+    gap: 1.2rem;
 }
 
 .comment {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     margin-left: auto;
     gap: 0.4rem;
 }
@@ -89,4 +164,15 @@
 .deadline {
     width: 10rem;
     height: var(--card-meta-mob);
+    min-height: calc(var(--card-meta-mob) * var(--line-height-heading));
+
+    @media (width >= 744px) {
+        height: var(--card-meta-tab);
+        min-height: calc(var(--card-meta-tab) * var(--line-height-heading));
+    }
+
+    @media (width >= 1024px) {
+        height: var(--card-meta-desk);
+        min-height: calc(var(--card-meta-desk) * var(--line-height-heading));
+    }
 }

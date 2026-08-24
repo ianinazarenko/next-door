@@ -6,7 +6,7 @@ This document provides a high-level overview of the architecture, key decisions,
 
 ### Frontend & Fullstack Framework
 
-- Next.js 15 (App Router)
+- Next.js 16 (App Router)
 - React 19 (Server + Client Components)
 - TypeScript
 
@@ -34,6 +34,7 @@ This document provides a high-level overview of the architecture, key decisions,
 ### Deployment
 
 - Vercel
+- Node.js 24 LTS runtime
 - GitHub Actions (CI: lint → test → build)
 
 ## 2. Key Architectural Principles
@@ -49,7 +50,7 @@ This document provides a high-level overview of the architecture, key decisions,
 - Only interactive pieces (forms, infinite scroll, theme toggle) are client components.
 - Better performance, caching, and security
 
-This approach is aligned with the recommended modern pattern for Next.js 15.
+This approach is aligned with the recommended modern pattern for Next.js App Router applications.
 
 ### 2.2 Server Actions for Mutations
 
@@ -76,7 +77,7 @@ Example responsibilities:
 | **Infinite Scroll**                                       | Client + Server Actions | Interactive loading without reloading the whole page                                                                                                 |
 | **Complex Pages** (/complex/[slug])                       | ISR (1 day)             | Static info that rarely changes → perfect for regeneration                                                                                           |
 | **Sign-In Page** (/sign-in)                               | SSR                     | Server-side session check + client-side auth for interactive elements                                                                                |
-| **Profile Page** (/profile)                               | SSR                     | Protected route with middleware + server session validation                                                                                          |
+| **Profile Page** (/profile)                               | SSR                     | Protected route with proxy + server session validation                                                                                               |
 | **Filter Data** (categories, complexes list)              | `unstable_cache`        | Rarely updated data → cached on server level                                                                                                         |
 | **Metadata Generation**                                   | SSR / `cache`           | Needs dynamic complex/post title/description. Uses cache() from React to avoid duplicate DB hits when metadata and page content need the same entity |
 
@@ -113,8 +114,8 @@ Next.js Server Actions provide built-in CSRF protection by comparing the `Origin
 
 Auth.js internally manages CSRF tokens (using the Double Submit Cookie pattern) for its specific authentication routes (`/api/auth/*`) to secure the sign-in and sign-out flows.
 
-**Middleware Protection**
-Next.js middleware (`middleware.ts`) protects private routes using matcher pattern and redirects unauthenticated users to `/api/auth/signin` with `callbackUrl` for post-login redirect.
+**Proxy Protection**
+Next.js proxy (`proxy.ts`) protects private routes using matcher pattern and redirects unauthenticated users to `/api/auth/signin` with `callbackUrl` for post-login redirect.
 
 **Callback URL Safety**
 All auth redirects use `getSafeCallbackUrl()` utility to prevent open redirect vulnerabilities:
@@ -337,7 +338,7 @@ The project follows a Feature-Based Hybrid file organization approach.
 ├── app/
 │ ├── (authed)/ # Protected routes (Server Components auth)
 │ │ ├── layout.tsx # getServerSession() + SessionProvider
-│ │ └── profile/ # /profile (middleware-protected)
+│ │ └── profile/ # /profile (proxy-protected)
 │ │
 │ ├── (public)/ # Public routes (Client Components auth)
 │ │ ├── layout.tsx # useSession() + SessionProvider
@@ -384,7 +385,7 @@ The project follows a Feature-Based Hybrid file organization approach.
 ├── data/ # Constant data objects
 ├── types/ # TypeScript types
 ├── public/ # Static assets
-├── middleware.ts # Route protection middleware
+├── proxy.ts # Route protection proxy
 └── ...
 ```
 
@@ -422,6 +423,7 @@ This reflects the recommended pattern for modern Next.js applications.
 - install → lint → test → build
 - Vercel deploy happens only if CI passes
 - Prisma client is auto-generated during CI
+- CI runs on Node.js 24 LTS to match the project runtime contract
 
 ## 13. Security Strategy
 

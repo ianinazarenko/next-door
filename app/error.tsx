@@ -3,14 +3,23 @@
 import { useEffect } from 'react';
 import CButton from '@/ui/atoms/CButton';
 
-export default function ErrorPage({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function ErrorPage({
+    error,
+    reset,
+}: {
+    error: Error & { digest?: string };
+    reset: () => void;
+}) {
     const CODE = '500';
     const TEXT = 'Wow... something dramatically went wrong';
     const BTN = 'Try again';
 
     useEffect(() => {
-        console.error(error);
+        if (process.env.NODE_ENV === 'development' && error) {
+            console.error(error);
+        }
     }, [error]);
+
     return (
         <div className={'page c-container flex flex-col items-center justify-center'}>
             <div className={'flex h-full flex-col items-center justify-center'}>

@@ -19,7 +19,10 @@ export default function TheMenuMob({ isSignedIn }: { isSignedIn: boolean }) {
 
     return (
         <div className={s.panel}>
-            <div className={s.wrapper}>
+            <nav
+                aria-label='Mobile navigation'
+                className={s.wrapper}
+            >
                 {MENU_LIST.map((item: IPanelItem, index: number) => {
                     const Icon = item.icon;
                     const isVisible = isMenuItemVisible(item.visibility, isSignedIn);
@@ -38,7 +41,7 @@ export default function TheMenuMob({ isSignedIn }: { isSignedIn: boolean }) {
                         </Link>
                     );
                 })}
-            </div>
+            </nav>
         </div>
     );
 }

@@ -1,14 +1,19 @@
 'use client';
-
-import { PAGES } from '@/data/pages';
+// Constants
+import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/data/posts-filters';
+// Types
 import { EPostsParams } from '@/utils/constants/posts';
 import { ISpec } from '@/types/common';
-import { IPostsState } from '@/types/posts';
-import { ChangeEvent, useState, useTransition } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import s from './PostsFilters.module.css';
+// Utils
+import clsx from 'clsx';
+// Hooks
+import { ChangeEvent, useTransition } from 'react';
+import { useQueryState } from 'nuqs';
+// Components
 import CSelect from '@/ui/atoms/CSelect';
 import CButton from '@/ui/atoms/CButton';
+// Styles
+import s from './PostsFilters.module.css';
 
 interface IProps {
     specs: {
@@ -17,74 +22,66 @@ interface IProps {
     };
 }
 
-const RESET_BUTTON_TEXT = 'Reset';
-
 export default function PostsFilters({ specs }: IProps) {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const [filters, setFilters] = useState<IPostsState>({
-        complex: searchParams.get(EPostsParams.Complex) || '',
-        category: searchParams.get(EPostsParams.Category) || '',
+    const [isPending, startTransition] = useTransition();
+
+    const [complex, setComplex] = useQueryState(EPostsParams.Complex, {
+        shallow: false,
+        defaultValue: '',
+        startTransition,
     });
 
-    const [isPending, startTransition] = useTransition();
+    const [category, setCategory] = useQueryState(EPostsParams.Category, {
+        shallow: false,
+        defaultValue: '',
+        startTransition,
+    });
+
+    const isBtnDisabled = (!complex && !category) || isPending;
 
     function handleChange(e: ChangeEvent<HTMLSelectElement>) {
         const { value, name } = e.target;
-        setFilters((prev) => ({ ...prev, [name]: value }));
-        updateQuery({ [name]: value || '' });
-    }
 
-    function updateQuery(updates: Record<string, string>) {
-        const params = new URLSearchParams(searchParams);
-
-        Object.entries(updates).forEach(([key, value]) => {
-            if (value) {
-                params.set(key, value);
-            } else {
-                params.delete(key);
-            }
-        });
-
-        startTransition(() => {
-            router.replace(`${PAGES.POSTS.link}?${params.toString()}`);
-        });
+        if (name === EPostsParams.Complex) {
+            setComplex(value);
+        } else {
+            setCategory(value);
+        }
     }
 
     function handleReset() {
-        const resetVals = { complex: '', category: '' };
-        setFilters(resetVals);
-        updateQuery(resetVals);
+        setComplex(null);
+        setCategory(null);
     }
 
     return (
-        <section className={s.filters}>
+        <section className={clsx(s.filters, 'content-fade-in')}>
             {Boolean(specs.complex?.length) && (
                 <CSelect
-                    value={filters.complex}
+                    value={complex}
                     specs={specs.complex}
                     name={EPostsParams.Complex}
                     disabled={isPending}
                     className={s.select}
-                    ariaLabel={'Choose a complex to filter by'}
+                    ariaLabel={COMPLEX_ARIA_LABEL}
                     onChange={handleChange}
                 />
             )}
 
             {Boolean(specs.category?.length) && (
                 <CSelect
-                    value={filters.category}
+                    value={category}
                     specs={specs.category}
                     name={EPostsParams.Category}
                     disabled={isPending}
                     className={s.select}
-                    ariaLabel={'Choose a category to filter by'}
+                    ariaLabel={CATEGORY_ARIA_LABEL}
                     onChange={handleChange}
                 />
             )}
 
             <CButton
-                disabled={(!filters.complex && !filters.category) || isPending}
+                disabled={isBtnDisabled}
                 className={s.button}
                 isLoading={isPending}
                 onClick={handleReset}

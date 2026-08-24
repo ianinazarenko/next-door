@@ -80,7 +80,7 @@ export async function fetchPosts({
 
 export async function fetchPost(id: number | string): Promise<IPostFull | null> {
     if (!id || isNaN(Number(id))) {
-        throw new Error('Invalid post ID');
+        throw new Error(`Invalid post ID, id: ${id}`);
     }
 
     try {

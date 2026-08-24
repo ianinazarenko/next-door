@@ -32,6 +32,7 @@ main {
 
 .page {
     flex: 1;
+    min-height: 100dvh;
     padding-top: var(--header-height);
 }
 
@@ -139,7 +140,7 @@ main {
 }
 
 /* Tablet and up */
-@media (width >= 768px) {
+@media (width >= 744px) {
     .c-container {
         padding-right: 2.4rem;
         padding-left: 2.4rem;
@@ -184,16 +185,20 @@ main {
 }
 
 .fade-in {
-    animation: fade 1500ms forwards;
+    animation: fade-in 400ms forwards;
     pointer-events: all;
 }
 
 .fade-out {
-    animation: fade 500ms backwards;
+    animation: fade-in 400ms backwards;
     pointer-events: none;
 }
 
-@keyframes fade {
+.content-fade-in {
+    animation: fade-in 400ms ease-out both;
+}
+
+@keyframes fade-in {
     from {
         opacity: 0;
     }

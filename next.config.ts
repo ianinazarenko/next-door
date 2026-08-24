@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+const disableUpgradeInsecureRequests = process.env.DISABLE_CSP_UPGRADE_INSECURE_REQUESTS === 'true';
+
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
@@ -10,13 +12,14 @@ const cspHeader = `
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    upgrade-insecure-requests;
+    ${disableUpgradeInsecureRequests ? '' : 'upgrade-insecure-requests'};
 `
     .replace(/\s{2,}/g, ' ')
     .trim();
 
 const nextConfig: NextConfig = {
     images: {
+        qualities: [80],
         remotePatterns: [
             {
                 protocol: 'https',

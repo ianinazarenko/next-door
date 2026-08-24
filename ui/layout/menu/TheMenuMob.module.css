@@ -28,9 +28,13 @@
     outline-offset: -1px;
     box-shadow: var(--box-shadow);
 
-    @media (width >= 768px) {
+    @media (width >= 744px) {
         max-width: calc(12rem * var(--btns-count) + 2rem * var(--gaps-count));
     }
+}
+
+.text {
+    transition: color var(--trs);
 }
 
 .item {
@@ -55,7 +59,10 @@
     gap: 0.4rem;
 
     &:hover {
-        color: var(--accent-hover);
+        &,
+        .text {
+            color: var(--accent-hover);
+        }
     }
 }
 
@@ -65,10 +72,6 @@
     padding: 0;
     opacity: 0;
     pointer-events: none;
-}
-
-.text {
-    transition: color var(--trs);
 }
 
 .active {
