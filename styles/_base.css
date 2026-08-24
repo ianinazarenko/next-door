@@ -11,6 +11,7 @@ body {
     display: flex;
     min-height: 100dvh;
     background: var(--bg-primary);
+    font-family: var(--font-body);
     font-size: 1.6rem;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
