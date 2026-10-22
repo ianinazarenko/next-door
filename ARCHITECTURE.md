@@ -34,7 +34,7 @@ This document provides a high-level overview of the architecture, key decisions,
 ### Deployment
 
 - Vercel
-- Node.js 24 LTS runtime
+- Node.js 24.22.1 or newer within 24.x LTS runtime
 - GitHub Actions (CI: lint → test → build)
 
 ## 2. Key Architectural Principles
@@ -423,7 +423,7 @@ This reflects the recommended pattern for modern Next.js applications.
 - install → lint → test → build
 - Vercel deploy happens only if CI passes
 - Prisma client is auto-generated during CI
-- CI runs on Node.js 24 LTS to match the project runtime contract
+- CI runs on Node.js 24.22.1 to match the project's minimum runtime version
 
 ## 13. Security Strategy
 
