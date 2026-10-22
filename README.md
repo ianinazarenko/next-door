@@ -29,7 +29,7 @@ This is a **demo MVP** version — fully functional but intentionally minimalist
 ### **Backend**
 - **Prisma ORM** – type-safe database access
 - **Vercel Postgres** – cloud hosted SQL database
-- **Node.js 24 LTS** – runtime for local development, CI, and deployment
+- **Node.js 24.22.1 or newer within 24.x LTS** – runtime for local development, CI, and deployment
 - **Direct DB access in Server Components** – or all GET requests (no REST endpoints — fully SSR/ISR)
 - **Server Actions** – used for POST/PUT/DELETE data mutations (e.g. creating posts and other future features)
 
@@ -82,7 +82,7 @@ The current MVP version is available on Vercel:
 
 ## Installation & Local Setup
 
-This project expects **Node.js 24 LTS**. If you use `nvm`, run:
+This project expects **Node.js 24.22.1 or newer within 24.x LTS**. If you use `nvm`, run:
 
 ```bash
 nvm use
