@@ -10,6 +10,7 @@ import { PAGES } from '@/data/pages';
 import Image from 'next/image';
 import Link from 'next/link';
 import ComplexesImgDefault from '@/ui/common/placeholders/ComplexesImgDefault';
+import { MapPin } from 'lucide-react';
 
 export default function ComplexesCard({
     slug,
@@ -49,7 +50,13 @@ export default function ComplexesCard({
                         </h3>
                     )}
                     {address && (
-                        <address className={clsx('card-description', s.address)}>{address}</address>
+                        <address className={clsx('card-description', s.address)}>
+                            <MapPin
+                                className={s.addressIcon}
+                                aria-hidden='true'
+                            />
+                            <span>{address}</span>
+                        </address>
                     )}
                 </header>
             </article>
