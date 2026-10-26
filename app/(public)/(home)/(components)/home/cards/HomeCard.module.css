@@ -1,46 +1,83 @@
 .card {
-    position: relative;
     display: flex;
     align-items: flex-start;
+    min-height: 22rem;
     padding: var(--p-card-mob);
-    border-radius: var(--radius-card);
+    border-radius: 2.4rem;
     border: 1px solid var(--border);
+    background-color: var(--bg-light);
+    text-decoration: none;
+    color: inherit;
+    transition:
+        border-color 180ms ease,
+        transform 180ms ease;
     flex-direction: column;
-    gap: var(--gap-card-mob);
-    transition: background-color var(--trs);
+    gap: 1.2rem;
 
-    @media (width >= 1280px) {
+    @media (width >= 744px) {
+        padding: var(--p-card-tab);
+    }
+
+    @media (hover: hover) {
         &:hover {
-            background-color: var(--card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
+    }
 
-        &:hover .iconWrap {
-            background-color: var(--bg-primary);
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        &:hover {
+            transform: none;
         }
     }
 }
 
 .iconWrap {
     display: grid;
-    width: 3.6rem;
-    height: 3.6rem;
+    flex: 0 0 auto;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     background-color: var(--bg-secondary);
+    color: var(--accent);
     place-items: center;
-    transition: background-color var(--trs);
 }
 
 .icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+.action {
+    display: inline-flex;
+    align-items: center;
+    margin-top: auto;
+    font-weight: var(--font-weight-semibold);
+    color: var(--accent);
+    gap: 0.8rem;
+}
+
+.actionIcon {
     width: 1.6rem;
     height: 1.6rem;
 }
 
-.button {
-    color: var(--accent);
-}
+.createCard {
+    border-color: var(--accent);
+    background-color: var(--accent-50);
 
-.link {
-    position: absolute;
-    z-index: 1;
-    inset: 0;
+    .iconWrap {
+        background-color: var(--bg-light);
+    }
+
+    @media (width >= 744px) and (width < 1280px) {
+        grid-column: 1 / -1;
+    }
 }
