@@ -27,12 +27,12 @@ export default function UserPic({ image, name, className, index }: IProps) {
 
     // Case 2: No image - show initial with color
     const initial = getInitial(name);
-    const bgColor = getUserColor(index);
+    const avatarColor = getUserColor(index);
 
     return (
         <div
             className={clsx(s.image, s.initial, className)}
-            style={{ backgroundColor: bgColor }}
+            style={{ backgroundColor: avatarColor }}
             aria-label={name ? `${name}'s avatar` : 'User avatar'}
         >
             <span className={s.initialText}>{initial}</span>

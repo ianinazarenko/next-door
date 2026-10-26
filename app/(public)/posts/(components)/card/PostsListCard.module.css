@@ -11,10 +11,14 @@
 
     @media (width >= 1280px) {
         &:hover {
-            background-color: var(--bg-secondary);
+            background-color: var(--posts-card-hover);
 
             .title {
-                color: var(--accent-hover);
+                color: var(--card-hover-title);
+            }
+
+            .tag {
+                background-color: var(--posts-card-hover-tag);
             }
         }
     }
@@ -43,16 +47,18 @@
     height: 2.4rem;
     padding: 0 1.2rem;
     border-radius: 2.4rem;
-    background-color: var(--bg-light);
+    background-color: var(--accent-50);
     font-size: 1.2rem;
+    color: var(--accent);
+    transition: background-color var(--trs);
 }
 
 .title {
+    overflow: hidden;
+    display: -webkit-box;
     max-width: 85%;
     min-height: calc(var(--card-title-mob) * var(--line-height-heading) * 2);
-    overflow: hidden;
     transition: color var(--trs);
-    display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 
@@ -66,9 +72,9 @@
 }
 
 .text {
-    min-height: calc(var(--card-description-mob) * var(--line-height-description) * 2);
     overflow: hidden;
     display: -webkit-box;
+    min-height: calc(var(--card-description-mob) * var(--line-height-description) * 2);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 

@@ -11,6 +11,14 @@
 }
 
 .initial {
+    --avatar-color-1: #dcece7;
+    --avatar-color-2: #efddd3;
+    --avatar-color-3: #e6e4db;
+    --avatar-color-4: #dfe8dc;
+    --avatar-color-5: #e5dfe9;
+    --avatar-color-6: #e9e2d7;
+    --avatar-text: #20241f;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,6 +29,38 @@
     font-size: clamp(1.8rem, 40cqw, 3.2rem);
     font-weight: 600;
     line-height: 1;
-    color: var(--bg-primary);
+    color: var(--avatar-text);
     user-select: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .initial {
+        --avatar-color-1: #29483e;
+        --avatar-color-2: #523b32;
+        --avatar-color-3: #41453d;
+        --avatar-color-4: #34493d;
+        --avatar-color-5: #463d49;
+        --avatar-color-6: #4c4238;
+        --avatar-text: #f0f2ec;
+    }
+}
+
+:global([data-theme='dark']) .initial {
+    --avatar-color-1: #29483e;
+    --avatar-color-2: #523b32;
+    --avatar-color-3: #41453d;
+    --avatar-color-4: #34493d;
+    --avatar-color-5: #463d49;
+    --avatar-color-6: #4c4238;
+    --avatar-text: #f0f2ec;
+}
+
+:global([data-theme='light']) .initial {
+    --avatar-color-1: #dcece7;
+    --avatar-color-2: #efddd3;
+    --avatar-color-3: #e6e4db;
+    --avatar-color-4: #dfe8dc;
+    --avatar-color-5: #e5dfe9;
+    --avatar-color-6: #e9e2d7;
+    --avatar-text: #20241f;
 }

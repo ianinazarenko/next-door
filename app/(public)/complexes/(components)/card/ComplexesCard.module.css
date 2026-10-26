@@ -17,10 +17,10 @@
         transition: background-color var(--trs);
 
         &:hover {
-            background-color: var(--bg-secondary);
+            background-color: var(--card-hover);
 
             .title {
-                color: var(--accent-hover);
+                color: var(--card-hover-title);
             }
         }
     }
