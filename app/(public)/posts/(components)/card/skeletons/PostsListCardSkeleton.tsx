@@ -3,8 +3,14 @@ import clsx from 'clsx';
 
 export default function PostsListCardSkeleton() {
     return (
-        <div className={s.card}>
-            <div className={clsx(s.tag, 'skeleton')} />
+        <div
+            className={s.card}
+            aria-hidden='true'
+        >
+            <div className={s.header}>
+                <div className={clsx(s.tag, 'skeleton')} />
+                <div className={clsx(s.complex, 'skeleton')} />
+            </div>
 
             <div className={s.title}>
                 <div className={clsx(s.titleLine, 'skeleton')} />
@@ -13,6 +19,7 @@ export default function PostsListCardSkeleton() {
 
             <div className={s.text}>
                 <div className={clsx(s.textLine, 'skeleton')} />
+                {/*<div className={clsx(s.textLine, 'skeleton')} />*/}
                 <div className={clsx(s.textLineShort, 'skeleton')} />
             </div>
 
@@ -23,17 +30,8 @@ export default function PostsListCardSkeleton() {
                     <div className={clsx(s.authorName, 'skeleton')} />
                 </div>
 
-                <div className={clsx(s.createdAt, 'skeleton')} />
-            </div>
-
-            <hr className={s.line} />
-
-            <div className={s.footer}>
-                <p className={clsx(s.deadline, 'skeleton')} />
-
-                <div className={clsx('card-meta', s.comment)}>
-                    <div className={clsx(s.commentIcon, 'skeleton')} />
-                </div>
+                <div className={clsx(s.date, 'skeleton')} />
+                <div className={clsx(s.comment, 'skeleton')} />
             </div>
         </div>
     );

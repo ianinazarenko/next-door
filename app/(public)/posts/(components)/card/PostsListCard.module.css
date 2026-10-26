@@ -3,23 +3,31 @@
     display: flex;
     height: 100%;
     padding: var(--p-card-mob);
-    border-radius: var(--radius-card);
+    border-radius: 2.4rem;
     border: 1px solid var(--border);
-    transition: background-color var(--trs);
+    background-color: var(--bg-light);
+    transition:
+        border-color 180ms ease,
+        transform 180ms ease;
     flex-direction: column;
     gap: var(--gap-card-mob);
 
-    @media (width >= 1280px) {
+    @media (width >= 744px) {
+        padding: var(--p-card-tab);
+    }
+
+    @media (hover: hover) {
         &:hover {
-            background-color: var(--posts-card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+    }
 
-            .title {
-                color: var(--card-hover-title);
-            }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
 
-            .tag {
-                background-color: var(--posts-card-hover-tag);
-            }
+        &:hover {
+            transform: none;
         }
     }
 }
@@ -32,68 +40,50 @@
     gap: 1.2rem;
 }
 
+.complexIcon,
+.commentIcon {
+    flex: 0 0 auto;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
 .complex {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: var(--text-secondary);
+    gap: 0.4rem;
+}
+
+.complexName {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1.2rem;
-}
-
-.tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    height: 2.4rem;
-    padding: 0 1.2rem;
-    border-radius: 2.4rem;
-    background-color: var(--accent-50);
-    font-size: 1.2rem;
-    color: var(--accent);
-    transition: background-color var(--trs);
 }
 
 .title {
     overflow: hidden;
     display: -webkit-box;
-    max-width: 85%;
-    min-height: calc(var(--card-title-mob) * var(--line-height-heading) * 2);
-    transition: color var(--trs);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-
-    @media (width >= 744px) {
-        min-height: calc(var(--card-title-tab) * var(--line-height-heading) * 2);
-    }
-
-    @media (width >= 1024px) {
-        min-height: calc(var(--card-title-desk) * var(--line-height-heading) * 2);
-    }
 }
 
 .text {
     overflow: hidden;
     display: -webkit-box;
-    min-height: calc(var(--card-description-mob) * var(--line-height-description) * 2);
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-
-    @media (width >= 744px) {
-        min-height: calc(var(--card-description-tab) * var(--line-height-description) * 2);
-    }
-
-    @media (width >= 1024px) {
-        min-height: calc(var(--card-description-desk) * var(--line-height-description) * 2);
-    }
+    -webkit-line-clamp: 3;
 }
 
 .info {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     min-width: 0;
     margin-top: auto;
-    gap: 1.2rem;
+    color: var(--text-secondary);
+    gap: 0.6rem;
 }
 
 .author {
@@ -102,10 +92,20 @@
     min-width: 0;
     gap: 0.8rem;
 
+    &::after {
+        content: '';
+        flex: 0 0 auto;
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 50%;
+        background-color: currentColor;
+    }
+
     .picture {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex: 0 0 auto;
         width: 3.6rem;
         height: 3.6rem;
         border-radius: 50%;
@@ -114,58 +114,45 @@
     }
 }
 
-.authorName,
-.date,
-.deadline {
+.authorName {
     overflow: hidden;
+    min-width: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.authorName {
-    min-width: 0;
-}
-
 .date {
-    flex-shrink: 0;
-}
-
-.line {
-    height: 1px;
-    color: var(--border);
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
 .footer {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 0;
-    gap: 1.2rem;
-}
-
-.deadline {
-    min-height: var(--line-height-meta-mob);
-
-    @media (width >= 1024px) {
-        min-height: var(--line-height-meta-desk);
-    }
+    justify-content: flex-end;
 }
 
 .comment {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     margin-left: auto;
     gap: 0.4rem;
 }
 
-.commentIcon {
-    width: 1.6rem;
-    height: 1.6rem;
+.deadline {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background-color: var(--bg-secondary);
 }
 
 .link {
     position: absolute;
     inset: 0;
     z-index: 1;
+
+    &:focus-visible {
+        border-radius: 2.4rem;
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+    }
 }

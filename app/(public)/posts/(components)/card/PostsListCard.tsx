@@ -2,26 +2,43 @@ import { PAGES } from '@/data/pages';
 // Types
 import { IPostListItem } from '@/types/posts';
 // Utils
-import { dateFormatter } from '@/utils/helpers/date-utils';
+import { dateFormatter, formatPostAge } from '@/utils/helpers/date-utils';
 // Styles
 import s from './PostsListCard.module.css';
 import clsx from 'clsx';
 // Components
-import { MessageCircle } from 'lucide-react';
+import { MapPin, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import UserPic from '@/ui/common/user/UserPic';
+import PostsCategoryTag from './PostsCategoryTag';
 
 export default function PostsListCard({ post }: { post: IPostListItem }) {
-    const { id, title, shortText, author, deadline, commentsCount, createdAt, category, authorId, complex } = post;
+    const {
+        id,
+        title,
+        shortText,
+        author,
+        deadline,
+        commentsCount,
+        createdAt,
+        category,
+        authorId,
+        complex,
+    } = post;
 
     const deadlineDate: string | null = deadline ? dateFormatter.format(deadline) : null;
-    const createdAtDate: string | null = createdAt ? dateFormatter.format(createdAt) : null;
-
     return (
         <article className={s.card}>
             <header className={s.header}>
-                <span className={s.tag}>{category.name}</span>
-                <span className={s.complex}>{complex.name}</span>
+                <PostsCategoryTag category={category} />
+
+                <span className={s.complex}>
+                    <MapPin
+                        className={s.complexIcon}
+                        aria-hidden='true'
+                    />
+                    <span className={s.complexName}>{complex.name}</span>
+                </span>
             </header>
 
             <h2 className={clsx(s.title, 'card-title')}>{title}</h2>
@@ -41,19 +58,32 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
                         <p className={clsx('card-meta', s.authorName)}>{author.name}</p>
                     </div>
                 )}
-                {createdAtDate && <p className={clsx('card-meta', s.date)}>{createdAtDate}</p>}
+
+                <time
+                    className={clsx('card-meta', s.date)}
+                    dateTime={createdAt.toISOString()}
+                >
+                    {formatPostAge(createdAt)}
+                </time>
+
+                <span className={clsx('card-meta', s.comment)}>
+                    <MessageCircle
+                        className={s.commentIcon}
+                        aria-hidden='true'
+                    />
+                    {commentsCount}
+                    <span className='visually-hidden'> comments</span>
+                </span>
             </div>
 
             {/* FOOTER */}
-            <hr className={s.line} />
-
-            <footer className={s.footer}>
-                <p className={clsx('card-meta', s.deadline)}>{deadlineDate ? `Deadline: ${deadlineDate}` : null}</p>
-                <div className={clsx('card-meta', s.comment)}>
-                    <MessageCircle className={s.commentIcon} />
-                    {commentsCount}
-                </div>
-            </footer>
+            {deadlineDate && (
+                <footer className={s.footer}>
+                    <span
+                        className={clsx('card-meta', s.deadline)}
+                    >{`Deadline: ${deadlineDate}`}</span>
+                </footer>
+            )}
 
             {id && (
                 <Link
@@ -61,7 +91,7 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
                     className={s.link}
                     target={'_blank'}
                 >
-                    <span className='visually-hidden'>{`View details of ${title}`}</span>
+                    <span className='visually-hidden'>{`View details of ${title} (opens in a new tab)`}</span>
                 </Link>
             )}
         </article>
