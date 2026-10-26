@@ -1,3 +1,9 @@
+@property --font-plus-jakarta-sans {
+    syntax: '*';
+    inherits: true;
+    initial-value: arial;
+}
+
 :root {
     /*
         For 5 variants: xs, sm, md, lg, xl
@@ -50,7 +56,7 @@
     --trs: 0.3s ease-in-out;
 
     /* Typography - Font Family */
-    --font-body: var(--font-inter), 'Arial', 'Helvetica', sans-serif;
+    --font-body: var(--font-plus-jakarta-sans), 'Arial', 'Helvetica', sans-serif;
 
     /* Typography - Line Height */
     --line-height-body: 1.75;
@@ -58,9 +64,9 @@
     --line-height-heading: 1.3;
 
     /* Typography - Font Weights */
-    --font-weight-regular: 400;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
+    --font-weight-regular: 450;
+    --font-weight-semibold: 650;
+    --font-weight-bold: 800;
 
     /* Typography */
     --h1-mob: 3.2rem;

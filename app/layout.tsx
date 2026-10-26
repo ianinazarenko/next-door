@@ -1,6 +1,6 @@
 import { baseUrl } from '@/utils/constants/base-url';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import './globals.css';
 import '@/styles/index.css';
@@ -8,10 +8,10 @@ import '@/styles/index.css';
 import AppProviders from '@/app/(providers)/AppProviders';
 import TheFooter from '@/ui/layout/footer/TheFooter';
 
-const inter = Inter({
-    variable: '--font-inter',
+const plusJakartaSans = Plus_Jakarta_Sans({
+    variable: '--font-plus-jakarta-sans',
     subsets: ['latin'],
-    weight: ['400', '600', '700'],
+    weight: 'variable',
 });
 
 export const metadata: Metadata = {
@@ -30,8 +30,9 @@ export default function RootLayout({
             lang='en'
             data-scroll-behavior='smooth'
             suppressHydrationWarning
+            className={plusJakartaSans.variable}
         >
-            <body className={inter.variable}>
+            <body>
                 <AppProviders>
                     {children}
 
