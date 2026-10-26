@@ -21,44 +21,45 @@
     gap: var(--margin-gap-section);
 
     @media (width >= 1280px) {
-        flex-direction: row;
-        align-items: stretch;
-
-        & > * {
-            flex: 1 1 auto;
-            height: 100%;
-        }
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    padding: var(--p-card-mob);
-    border-radius: var(--radius-card);
+    height: 100%;
+    padding: 2.4rem;
+    border-radius: 2.4rem;
+    border: 1px solid var(--border);
     background-color: var(--bg-light);
 
     @media (width >= 744px) {
-        padding: var(--p-card-tab);
+        padding: 3.2rem;
     }
 }
 
 .title {
-    width: 20rem;
+    width: 60%;
     height: 2.8rem;
-    background-color: var(--bg-secondary);
+}
+
+.companyName {
+    width: 55%;
+    height: 2.4rem;
+    margin-top: 1.6rem;
 }
 
 .list {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-card-mob);
-    margin-top: 1.2rem;
+    gap: 1.6rem;
+    margin-top: 1.6rem;
 }
 
 .item {
-    height: 2.4rem;
-    background-color: var(--bg-secondary);
+    height: 4.4rem;
 
     &:nth-child(2n) {
         width: 80%;

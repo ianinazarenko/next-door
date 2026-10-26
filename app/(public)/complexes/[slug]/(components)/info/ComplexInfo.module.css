@@ -4,12 +4,7 @@
     gap: var(--margin-gap-section);
 
     @media (width >= 1280px) {
-        flex-direction: row;
-        align-items: stretch;
-
-        & > * {
-            flex: 1 1 auto;
-            height: 100%;
-        }
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }

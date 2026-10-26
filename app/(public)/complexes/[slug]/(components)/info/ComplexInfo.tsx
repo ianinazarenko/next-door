@@ -9,14 +9,14 @@ import ComplexInfoContacts from '@/app/(public)/complexes/[slug]/(components)/in
 import ComplexInfoPhones from '@/app/(public)/complexes/[slug]/(components)/info/info-sections/ComplexInfoPhones';
 
 export default function ComplexInfo({ complex }: { complex: IComplexFull }) {
-    const { phone, email, address, description, metro, managementCompany, usefulPhones } = complex;
+    const { phone, email, description, managementCompany, usefulPhones } = complex;
 
     return (
         <div className={'section'}>
             {description && <p className={'card-description'}>{description}</p>}
 
             <div className={clsx(s.container, 'section')}>
-                <ComplexInfoContacts contacts={{ phone, email, metro, address, managementCompany }} />
+                <ComplexInfoContacts contacts={{ phone, email, managementCompany }} />
 
                 <ComplexInfoPhones usefulPhones={usefulPhones} />
             </div>

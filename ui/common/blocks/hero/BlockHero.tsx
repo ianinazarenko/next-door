@@ -6,7 +6,7 @@ interface IProps {
     imgMob: string;
     imgDesk: string;
     heading: string;
-    deskMeta?: string | null;
+    deskMeta?: React.ReactNode;
     descTop?: string | null;
     descBottom?: string | null;
     displayHeading?: boolean;

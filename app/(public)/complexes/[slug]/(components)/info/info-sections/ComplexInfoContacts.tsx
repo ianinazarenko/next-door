@@ -9,69 +9,79 @@ import clsx from 'clsx';
 import ComplexInfoItem from '@/app/(public)/complexes/[slug]/(components)/info/info-item/ComplexInfoItem';
 
 interface IComplexContacts {
-    metro: string | null;
-    address: string | null;
     phone: string | null;
     email: string | null;
     managementCompany: IManagementCompany | null;
 }
 
-const TITLE = 'Contacts Info';
-
+// eslint-disable-next-line complexity
 export default function ComplexInfoContacts({ contacts }: { contacts: IComplexContacts }) {
-    const { phone, email, metro, address, managementCompany } = contacts;
+    const { phone, email, managementCompany } = contacts;
     const { name, phone: companyPhone, email: companyEmail } = managementCompany ?? {};
 
-    const contactItems: IContactItem[] = [
+    const complexItems: IContactItem[] = [
         {
-            label: 'Complex Phone',
+            label: 'Phone',
             value: phone,
             isPhone: true,
         },
         {
-            label: 'Complex Email',
+            label: 'Email',
             value: email,
             isEmail: true,
         },
+    ].filter((item) => item.value);
+
+    const managementItems: IContactItem[] = [
         {
-            label: 'Address',
-            value: address,
-            isAddress: true,
-        },
-        {
-            label: 'Metro',
-            value: metro,
-        },
-        {
-            label: 'Management Company',
-            value: name,
-        },
-        {
-            label: 'Management Phone',
+            label: 'Phone',
             value: companyPhone,
             isPhone: true,
         },
         {
-            label: 'Management Email',
+            label: 'Email',
             value: companyEmail,
             isEmail: true,
         },
     ].filter((item) => item.value);
 
-    return (
-        <section>
-            <div className={s.wrapper}>
-                <h2 className={clsx('h3', s.title)}>{TITLE}</h2>
+    const hasManagement = Boolean(name || managementItems.length);
 
+    if (!hasManagement && !complexItems.length) return null;
+
+    return (
+        <section className={s.wrapper}>
+            <h2 className={clsx('h3', s.title)}>
+                {hasManagement ? 'Management company' : 'Complex contacts'}
+            </h2>
+
+            {name && <p className={clsx('card-title', s.companyName)}>{name}</p>}
+
+            {managementItems.length > 0 && (
                 <ul className={s.list}>
-                    {contactItems.map((item, index) => (
+                    {managementItems.map((item) => (
                         <ComplexInfoItem
-                            key={index}
+                            key={item.label}
                             item={item}
                         />
                     ))}
                 </ul>
-            </div>
+            )}
+
+            {complexItems.length > 0 && (
+                <div className={hasManagement ? s.group : undefined}>
+                    {hasManagement && <h3 className={s.subheading}>Complex contacts</h3>}
+
+                    <ul className={s.list}>
+                        {complexItems.map((item) => (
+                            <ComplexInfoItem
+                                key={item.label}
+                                item={item}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            )}
         </section>
     );
 }

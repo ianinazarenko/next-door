@@ -7,7 +7,10 @@ export default function ComplexHeroSkeleton() {
             <div className={s.container}>
                 <div className={s.wrapper}>
                     <div className={clsx(s.title, 'skeleton')} />
-                    <div className={clsx(s.desc, 'skeleton')} />
+                    <div className={s.meta}>
+                        <div className={clsx(s.desc, 'skeleton')} />
+                        <div className={clsx(s.metro, 'skeleton')} />
+                    </div>
                 </div>
             </div>
         </section>

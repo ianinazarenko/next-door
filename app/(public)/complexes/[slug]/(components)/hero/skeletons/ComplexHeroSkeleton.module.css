@@ -68,12 +68,19 @@
     }
 }
 
+.meta {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+    margin-bottom: 1.2rem;
+}
+
 .desc {
     width: 20rem;
     max-width: 100%;
     height: var(--card-description-mob);
-    margin-top: 0.4rem;
-    margin-bottom: 1.2rem;
     background-color: var(--bg-secondary);
 
     @media (width >= 744px) {
@@ -84,4 +91,10 @@
         width: 40rem;
         height: var(--card-description-desk);
     }
+}
+
+.metro {
+    width: 12rem;
+    height: var(--card-description-mob);
+    background-color: var(--bg-secondary);
 }

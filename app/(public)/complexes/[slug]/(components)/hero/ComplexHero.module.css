@@ -4,3 +4,23 @@
     min-height: 50vh;
     background-color: tomato;
 }
+
+.location {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.metro {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 0.4rem;
+}
+
+.metroIcon {
+    flex: 0 0 auto;
+    width: 1.6rem;
+    height: 1.6rem;
+}
