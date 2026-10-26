@@ -9,6 +9,7 @@ interface IProps {
     deskMeta?: string | null;
     descTop?: string | null;
     descBottom?: string | null;
+    displayHeading?: boolean;
 }
 
 export default function BlockHero({
@@ -18,6 +19,7 @@ export default function BlockHero({
     deskMeta,
     descTop,
     descBottom,
+    displayHeading = false,
 }: IProps) {
     const commonProps = {
         className: s.img,
@@ -55,7 +57,9 @@ export default function BlockHero({
 
             <div className={s.container}>
                 <div className={s.wrapper}>
-                    {heading && <h1 className={'h1'}>{heading}</h1>}
+                    {heading && (
+                        <h1 className={clsx('h1', displayHeading && 'display')}>{heading}</h1>
+                    )}
                     {deskMeta && <p className={clsx('card-meta', s.descMeta)}>{deskMeta}</p>}
                     {descTop && <p className={clsx('card-description', s.desc)}>{descTop}</p>}
                     {descBottom && <p className={clsx('card-description', s.desc)}>{descBottom}</p>}

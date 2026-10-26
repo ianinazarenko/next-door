@@ -55,7 +55,7 @@
 
 .title {
     width: 30rem;
-    height: calc(var(--line-height-heading) * var(--h1-mob) * 2);
+    height: calc(var(--line-height-h1) * var(--h1-mob) * 2);
     background-color: var(--bg-secondary);
 
     @media (width >= 744px) {

@@ -144,14 +144,10 @@
 }
 
 .deadline {
-    min-height: calc(var(--card-meta-mob) * var(--line-height-heading));
-
-    @media (width >= 744px) {
-        min-height: calc(var(--card-meta-tab) * var(--line-height-heading));
-    }
+    min-height: var(--line-height-meta-mob);
 
     @media (width >= 1024px) {
-        min-height: calc(var(--card-meta-desk) * var(--line-height-heading));
+        min-height: var(--line-height-meta-desk);
     }
 }
 

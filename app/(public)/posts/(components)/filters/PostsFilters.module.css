@@ -15,6 +15,10 @@
     }
 }
 
+.select select {
+    height: 4.4rem;
+}
+
 .button {
     margin-top: 1.6rem;
 

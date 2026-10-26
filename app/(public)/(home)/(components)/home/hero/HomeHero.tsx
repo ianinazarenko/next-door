@@ -14,6 +14,7 @@ export default function HomeHero() {
             heading={HEADING}
             descTop={DESC_TOP}
             descBottom={DESC_BOTTOM}
+            displayHeading
         />
     );
 }

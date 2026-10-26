@@ -69,8 +69,14 @@
     --font-body: var(--font-plus-jakarta-sans), 'Arial', 'Helvetica', sans-serif;
 
     /* Typography - Line Height */
-    --line-height-body: 1.75;
+    --line-height-body: 1.5;
     --line-height-description: 1.5;
+    --line-height-body-large-mob: 2.8rem;
+    --line-height-body-large-desk: 3rem;
+    --line-height-meta-mob: 1.8rem;
+    --line-height-meta-desk: 2rem;
+    --line-height-h1: 1.1;
+    --line-height-h2: 1.2;
     --line-height-heading: 1.3;
 
     /* Typography - Font Weights */
@@ -79,22 +85,27 @@
     --font-weight-bold: 800;
 
     /* Typography */
-    --h1-mob: 3.2rem;
-    --h1-tab: 3.8rem;
-    --h1-desk: 4.8rem;
+    --display-mob: 4.4rem;
+    --display-tab: 5.6rem;
+    --display-desk: 6.8rem;
+
+    /* Headings */
+    --h1-mob: 3.6rem;
+    --h1-tab: 4.4rem;
+    --h1-desk: 5.2rem;
     --h1-letter-spacing-mob: -0.01em;
     --h1-letter-spacing-tab: -0.02em;
     --h1-letter-spacing-desk: -0.02em;
 
     /* H2 Headings */
-    --h2-mob: 2.6rem;
-    --h2-tab: 3rem;
+    --h2-mob: 2.8rem;
+    --h2-tab: 3.2rem;
     --h2-desk: 3.6rem;
 
     /* H3 Headings */
-    --h3-mob: 2.2rem;
-    --h3-tab: 2.4rem;
-    --h3-desk: 2.8rem;
+    --h3-mob: 2rem;
+    --h3-tab: 2.2rem;
+    --h3-desk: 2.4rem;
 
     /* H4 Headings */
     --h4-mob: 1.8rem;
@@ -103,23 +114,25 @@
 
     /* Card Title Font Size */
     --card-title-mob: 2rem;
-    --card-title-tab: 2rem;
-    --card-title-desk: 2.2rem;
+    --card-title-tab: 2.2rem;
+    --card-title-desk: 2.4rem;
 
     /* Card Descriptions Font Size */
     --card-description-mob: 1.6rem;
     --card-description-tab: 1.6rem;
     --card-description-desk: 1.6rem;
+    --body-large-mob: 1.8rem;
+    --body-large-desk: 2rem;
     --input-text: 1.8rem;
 
     /* Post Text Font Size */
     --post-text-mob: 1.8rem;
     --post-text-tab: 2rem;
-    --post-text-desk: 2.2rem;
+    --post-text-desk: 2rem;
 
     /* Card Meta Font Size */
-    --card-meta-mob: 1.4rem;
-    --card-meta-tab: 1.2rem;
+    --card-meta-mob: 1.3rem;
+    --card-meta-tab: 1.3rem;
     --card-meta-desk: 1.4rem;
 
     /* Border Radius */

@@ -57,14 +57,16 @@
 .desc {
     max-width: 85%;
     margin-top: var(--p-xs);
-    font-size: 1.6rem;
+    font-size: var(--body-large-mob);
+    line-height: var(--line-height-body-large-mob);
 
     @media (width >= 744px) {
         max-width: 100%;
     }
 
-    @media (width >= 1280px) {
-        font-size: var(--card-description-desk);
+    @media (width >= 1024px) {
+        font-size: var(--body-large-desk);
+        line-height: var(--line-height-body-large-desk);
     }
 }
 

@@ -11,14 +11,19 @@ body {
 .h1 {
     font-size: var(--h1-mob);
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-heading);
+    line-height: var(--line-height-h1);
     letter-spacing: var(--h1-letter-spacing-mob);
+}
+
+.h1.display {
+    font-size: var(--display-mob);
+    line-height: 4.6rem;
 }
 
 .h2 {
     font-size: var(--h2-mob);
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-heading);
+    line-height: var(--line-height-h2);
 }
 
 .h3 {
@@ -51,14 +56,14 @@ body {
 .card-meta {
     font-size: var(--card-meta-mob);
     font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-heading);
+    line-height: var(--line-height-meta-mob);
     color: var(--text-secondary);
 }
 
 .post-text {
     font-size: var(--post-text-mob);
     font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-body);
+    line-height: var(--line-height-body-large-mob);
     color: var(--text-primary);
 }
 
@@ -67,6 +72,11 @@ body {
     .h1 {
         font-size: var(--h1-tab);
         letter-spacing: var(--h1-letter-spacing-tab);
+    }
+
+    .h1.display {
+        font-size: var(--display-tab);
+        line-height: 5.8rem;
     }
 
     .h2 {
@@ -95,6 +105,7 @@ body {
 
     .post-text {
         font-size: var(--post-text-tab);
+        line-height: var(--line-height-body-large-desk);
     }
 }
 
@@ -103,6 +114,11 @@ body {
     .h1 {
         font-size: var(--h1-desk);
         letter-spacing: var(--h1-letter-spacing-desk);
+    }
+
+    .h1.display {
+        font-size: var(--display-desk);
+        line-height: 7rem;
     }
 
     .h2 {
@@ -127,6 +143,7 @@ body {
 
     .card-meta {
         font-size: var(--card-meta-desk);
+        line-height: var(--line-height-meta-desk);
     }
 
     .post-text {
