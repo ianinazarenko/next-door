@@ -1,6 +1,6 @@
-import { ERole } from '@/utils/constants/users';
-import { IComplexBase } from '@/types/complexes';
-import { IPostBase } from '@/types/posts';
+import type { IComplexBase } from '@/types/complexes';
+import type { IPostBase } from '@/types/posts';
+import type { ERole } from '@/utils/constants/users';
 
 export interface IUserBase {
     id: string;

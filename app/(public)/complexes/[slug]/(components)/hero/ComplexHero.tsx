@@ -1,4 +1,5 @@
-import { IComplexFull } from '@/types/complexes';
+import type { IComplexFull } from '@/types/complexes';
+
 import { COMPLEX_IMG, DEFAULT_IMG } from '@/data/complex-images';
 import BlockHero from '@/ui/common/blocks/hero/BlockHero';
 

@@ -1,13 +1,14 @@
 import 'server-only';
+
+import Google from '@auth/core/providers/google';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import NextAuth from 'next-auth';
+import GitHub from 'next-auth/providers/github';
 import { cache } from 'react';
 
 import { PAGES } from '@/data/pages';
-import { prisma } from '@/lib/data-access/db';
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import GitHub from 'next-auth/providers/github';
-import Google from '@auth/core/providers/google';
 import { verifyGitHubEmail } from '@/lib/auth/auth-utils';
+import { prisma } from '@/lib/data-access/db';
 
 if (!process.env.AUTH_GITHUB_ID || !process.env.AUTH_GITHUB_SECRET) {
     throw new Error('Missing AUTH_GITHUB_ID or AUTH_GITHUB_SECRET');

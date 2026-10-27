@@ -1,10 +1,12 @@
 'use server';
 
-import { TSchema } from '@/types/forms';
+import type { TSchema } from '@/types/forms';
+
 import { z } from 'zod';
+
+import { auth } from '@/lib/auth/auth';
 import { prisma } from '@/lib/data-access/db';
 import { createPostServerSchema } from '@/lib/validation/server-schemas';
-import { auth } from '@/lib/auth/auth';
 import { getFirstZodErrorMessage } from '@/utils/helpers/zod-utils';
 
 class AuthError extends Error {

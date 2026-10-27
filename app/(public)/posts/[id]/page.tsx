@@ -1,15 +1,14 @@
-// Types
-import { IPostFull } from '@/types/posts';
+import type { IPostFull } from '@/types/posts';
+import type { Metadata } from 'next';
+
+import { notFound } from 'next/navigation';
+
+import PostMain from '@/app/(public)/posts/[id]/(components)/main/PostMain';
 // Constants
 import { PAGES } from '@/data/pages';
 import { DYNAMIC_PAGES_METADATA } from '@/data/seo';
-// Types
-import { Metadata } from 'next';
 // Utils
 import { fetchPostCached } from '@/lib/data-access/queries/posts';
-import { notFound } from 'next/navigation';
-// Components
-import PostMain from '@/app/(public)/posts/[id]/(components)/main/PostMain';
 import BackButton from '@/ui/common/buttons/BackButton';
 
 export const revalidate = 300;

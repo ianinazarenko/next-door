@@ -1,6 +1,7 @@
+import { expect,test } from '@playwright/test';
+
 import { PAGES } from '@/data/pages';
 import { COMPLEX_SEARCH, COMPLEXES, QUERY_PARAMS } from '@/tests/__fixtures__/seed.fixture';
-import { test, expect } from '@playwright/test';
 
 test.describe('Complexes Search', () => {
     test.beforeEach(async ({ page }) => {

@@ -1,7 +1,10 @@
-import React, { ChangeEventHandler } from 'react';
+import type { ChangeEventHandler } from 'react';
+
 import { Field, Input } from '@headlessui/react';
-import CLabel from '@/ui/atoms/CLabel';
+import React from 'react';
+
 import CDescription from '@/ui/atoms/CDescription';
+import CLabel from '@/ui/atoms/CLabel';
 
 interface IInputProps {
     value: string;

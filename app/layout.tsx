@@ -1,12 +1,13 @@
-import { baseUrl } from '@/utils/constants/base-url';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
 import './globals.css';
 import '@/styles/index.css';
 
+import { Inter } from 'next/font/google';
+
 import AppProviders from '@/app/(providers)/AppProviders';
 import TheFooter from '@/ui/layout/footer/TheFooter';
+import { baseUrl } from '@/utils/constants/base-url';
 
 const inter = Inter({
     variable: '--font-inter',

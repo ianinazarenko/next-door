@@ -1,6 +1,8 @@
-import { IComment } from '@/types/comments';
-import s from './PostComments.module.css';
+import type { IComment } from '@/types/comments';
+
 import PostComment from '@/app/(public)/posts/[id]/(components)/comments/PostComment';
+
+import s from './PostComments.module.css';
 
 const SECTION_TITLE = 'Comments';
 export default function PostComments({ comments }: { comments: IComment[] }) {

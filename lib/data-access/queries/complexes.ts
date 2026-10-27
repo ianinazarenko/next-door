@@ -1,9 +1,11 @@
-import { IComplexBase, IComplexesState, IComplexFull } from '@/types/complexes';
-import { ISpec } from '@/types/common';
-import { cache } from 'react';
+import type { ISpec } from '@/types/common';
+import type { IComplexBase, IComplexesState, IComplexFull } from '@/types/complexes';
+
 import { unstable_cache } from 'next/cache';
-import { prepareSpec } from '@/utils/helpers/data-utils';
+import { cache } from 'react';
+
 import { prisma } from '@/lib/data-access/db';
+import { prepareSpec } from '@/utils/helpers/data-utils';
 import { complexesQuerySchema } from '@/utils/validation/schemas';
 
 interface IFetchComplexesParams {

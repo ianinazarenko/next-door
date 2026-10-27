@@ -1,8 +1,11 @@
-import { CONTACTS } from '@/data/post-contacts';
-import { IContactsProps } from '@/types/contacts';
-import s from './PostContacts.module.css';
+import type { IContactsProps } from '@/types/contacts';
+
 import { Phone } from 'lucide-react';
 import { SiWhatsapp } from 'react-icons/si';
+
+import { CONTACTS } from '@/data/post-contacts';
+
+import s from './PostContacts.module.css';
 
 const ICONS: Record<keyof IContactsProps, React.ReactNode> = {
     phone: <Phone className={s.icon} />,

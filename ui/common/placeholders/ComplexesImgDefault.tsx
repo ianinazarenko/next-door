@@ -1,5 +1,6 @@
-import s from './ComplexesImgDefault.module.css';
 import { Building2 } from 'lucide-react';
+
+import s from './ComplexesImgDefault.module.css';
 
 export default function ComplexesImgDefault() {
     return (

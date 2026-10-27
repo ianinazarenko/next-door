@@ -1,5 +1,6 @@
-import s from './PostMainSkeleton.module.css';
 import clsx from 'clsx';
+
+import s from './PostMainSkeleton.module.css';
 
 export default function PostMainSkeleton() {
     return (

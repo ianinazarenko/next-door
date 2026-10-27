@@ -1,9 +1,10 @@
 'use client';
 
-import { ERROR_MESSAGES } from '@/utils/constants/auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+
+import { ERROR_MESSAGES } from '@/utils/constants/auth';
 
 export default function SignInErrorHandler() {
     const searchParams = useSearchParams();

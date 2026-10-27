@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+
 import CButton from '@/ui/atoms/CButton';
 
 export default function ErrorPage({

@@ -1,8 +1,8 @@
-import { PAGES } from '@/data/pages';
-import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/data/posts-filters';
-import { COMPLEXES, POST_CATEGORIES, QUERY_PARAMS } from '@/tests/__fixtures__/seed.fixture';
+import { expect,test } from '@playwright/test';
 
-import { test, expect } from '@playwright/test';
+import { PAGES } from '@/data/pages';
+import { CATEGORY_ARIA_LABEL,COMPLEX_ARIA_LABEL, RESET_BUTTON_TEXT } from '@/data/posts-filters';
+import { COMPLEXES, POST_CATEGORIES, QUERY_PARAMS } from '@/tests/__fixtures__/seed.fixture';
 
 test.describe('Posts Filters', () => {
     test.beforeEach(async ({ page }) => {

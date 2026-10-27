@@ -1,8 +1,9 @@
-import { AUTHOR_SELECT, MOCK_COMPLEX_FULL } from '@/tests/__fixtures__/complex.fixture';
-import { DeepMockProxy } from 'jest-mock-extended';
+import type { PrismaClient } from '@/generated/prisma';
+import type { DeepMockProxy } from 'jest-mock-extended';
+
 import { prisma } from '@/lib/data-access/db';
-import { PrismaClient } from '@/generated/prisma';
 import { fetchComplex, fetchComplexes, fetchComplexesSpecsCallback } from '@/lib/data-access/queries/complexes';
+import { AUTHOR_SELECT, MOCK_COMPLEX_FULL } from '@/tests/__fixtures__/complex.fixture';
 
 jest.mock('@/lib/data-access/db.ts');
 

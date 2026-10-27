@@ -1,7 +1,7 @@
-import { ICategory } from '@/types/categories';
-import { IComplexBase } from '@/types/complexes';
-import { IComment } from '@/types/comments';
-import { IUserBase } from '@/types/users';
+import type { ICategory } from '@/types/categories';
+import type { IComment } from '@/types/comments';
+import type { IComplexBase } from '@/types/complexes';
+import type { IUserBase } from '@/types/users';
 
 // Base interface for posts
 export interface IPostBase {

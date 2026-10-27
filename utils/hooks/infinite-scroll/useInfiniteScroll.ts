@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+
 import { ITEMS_PER_PAGE } from '@/utils/constants/posts';
 
 interface IUseInfiniteScrollProps<T, P> {

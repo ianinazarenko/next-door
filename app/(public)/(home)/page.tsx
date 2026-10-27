@@ -1,7 +1,8 @@
-import { Metadata } from 'next';
-import { PAGES_METADATA } from '@/data/seo';
-import HomeHero from '@/app/(public)/(home)/(components)/home/hero/HomeHero';
+import type { Metadata } from 'next';
+
 import HomeCards from '@/app/(public)/(home)/(components)/home/cards/HomeCards';
+import HomeHero from '@/app/(public)/(home)/(components)/home/hero/HomeHero';
+import { PAGES_METADATA } from '@/data/seo';
 
 export const metadata: Metadata = PAGES_METADATA.HOME;
 

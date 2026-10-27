@@ -1,4 +1,4 @@
-import { IPostFull } from '@/types/posts';
+import type { IPostFull } from '@/types/posts';
 
 export interface ICategory {
     id: string;

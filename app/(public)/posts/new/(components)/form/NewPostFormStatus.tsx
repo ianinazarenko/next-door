@@ -1,14 +1,14 @@
 'use client';
 
-import { EFormStatus, REDIRECT_DELAY, STATUS_DICT } from '@/utils/constants/forms';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-
 import clsx from 'clsx';
-import s from './NewPostFormStatus.module.css';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import CButton from '@/ui/atoms/CButton';
 import { PAGES } from '@/data/pages';
+import CButton from '@/ui/atoms/CButton';
+import { EFormStatus, REDIRECT_DELAY, STATUS_DICT } from '@/utils/constants/forms';
+
+import s from './NewPostFormStatus.module.css';
 
 interface IProps {
     status: Extract<EFormStatus, EFormStatus.Success | EFormStatus.Error>;

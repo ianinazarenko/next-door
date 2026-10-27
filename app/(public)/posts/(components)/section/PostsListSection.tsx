@@ -1,8 +1,10 @@
-import { ITEMS_PER_PAGE, OFFSET } from '@/utils/constants/posts';
-import { IPostsState } from '@/types/posts';
+import type { IPostsState } from '@/types/posts';
+
 import { fetchPostsAction } from '@/lib/actions/append-posts';
-import PostsList from '@/app/(public)/posts/(components)/list/PostsList';
-import PostsListLoader from '@/app/(public)/posts/(components)/list/PostsListLoader';
+import { ITEMS_PER_PAGE, OFFSET } from '@/utils/constants/posts';
+
+import PostsList from '../list/PostsList';
+import PostsListLoader from '../list/PostsListLoader';
 
 export default async function PostsListSection({ params }: { params: IPostsState }) {
     let postsData: Awaited<ReturnType<typeof fetchPostsAction>>;

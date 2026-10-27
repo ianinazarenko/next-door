@@ -1,6 +1,8 @@
-import { TSchema } from '@/types/forms';
-import { createPostServerSchema } from '../server-schemas';
+import type { TSchema } from '@/types/forms';
+
 import { DEFAULT_CREATE_POST } from '@/tests/__fixtures__/post.fixture';
+
+import { createPostServerSchema } from '../server-schemas';
 
 describe('createPostServerSchema', () => {
     describe('HTML sanitization', () => {

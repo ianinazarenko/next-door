@@ -1,8 +1,11 @@
-import { IComment } from '@/types/comments';
-import { dateFormatter } from '@/utils/helpers/date-utils';
-import s from './PostComment.module.css';
+import type { IComment } from '@/types/comments';
+
 import clsx from 'clsx';
+
 import UserPic from '@/ui/common/user/UserPic';
+import { dateFormatter } from '@/utils/helpers/date-utils';
+
+import s from './PostComment.module.css';
 
 export default function PostComment({ comment }: { comment: IComment }) {
     const date = dateFormatter.format(comment.createdAt);

@@ -1,5 +1,7 @@
+import { act,renderHook, waitFor } from '@testing-library/react';
+
 import { ITEMS_PER_PAGE } from '@/utils/constants/posts';
-import { renderHook, waitFor, act } from '@testing-library/react';
+
 import { useInfiniteScroll } from '../useInfiniteScroll';
 
 let observerCallback: (entries: unknown[]) => void;

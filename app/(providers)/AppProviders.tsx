@@ -1,7 +1,8 @@
-import { Toaster } from 'react-hot-toast';
-import ReduxProvider from '@/app/(providers)/ReduxProvider';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { Toaster } from 'react-hot-toast';
+
+import ReduxProvider from '@/app/(providers)/ReduxProvider';
 
 function AppProviders({ children }: { children: React.ReactNode }) {
     return (

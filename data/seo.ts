@@ -1,7 +1,8 @@
-import { PAGES } from '@/data/pages';
+import type { IComplexFull } from '@/types/complexes';
+import type { IPostFull } from '@/types/posts';
 import type { Metadata } from 'next';
-import { IPostFull } from '@/types/posts';
-import { IComplexFull } from '@/types/complexes';
+
+import { PAGES } from '@/data/pages';
 
 export const PAGES_METADATA: Record<keyof typeof PAGES, Metadata> = {
     HOME: {

@@ -1,4 +1,4 @@
-import { EMenuItemsVisibility } from '@/utils/constants/menu';
+import type { EMenuItemsVisibility } from '@/utils/constants/menu';
 
 export interface IPanelItem {
     icon: React.FC<React.SVGProps<SVGSVGElement>>;

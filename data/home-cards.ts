@@ -1,4 +1,5 @@
-import { IHomeCard } from '@/types/home-cards';
+import type { IHomeCard } from '@/types/home-cards';
+
 import { PAGES } from '@/data/pages';
 
 export const HOME_CARDS: IHomeCard[] = [

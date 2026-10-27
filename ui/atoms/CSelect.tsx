@@ -1,9 +1,11 @@
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
+
 import { Field, Select } from '@headlessui/react';
-import CLabel from '@/ui/atoms/CLabel';
-import CDescription from '@/ui/atoms/CDescription';
-import { ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
+import { ChevronDown } from 'lucide-react';
+
+import CDescription from '@/ui/atoms/CDescription';
+import CLabel from '@/ui/atoms/CLabel';
 
 interface ISelectProps {
     value: string | number;

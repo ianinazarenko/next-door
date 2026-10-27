@@ -1,10 +1,14 @@
 'use client';
 
-import { EComplexesParams } from '@/utils/constants/complexes';
-import { ChangeEvent, useTransition } from 'react';
-import { useQueryState, debounce } from 'nuqs';
-import CInput from '@/ui/atoms/CInput';
+import type { ChangeEvent} from 'react';
+
+import { debounce,useQueryState } from 'nuqs';
+import { useTransition } from 'react';
 import { PulseLoader } from 'react-spinners';
+
+import CInput from '@/ui/atoms/CInput';
+import { EComplexesParams } from '@/utils/constants/complexes';
+
 import s from './ComplexesSearch.module.css';
 
 export default function ComplexesSearch() {
