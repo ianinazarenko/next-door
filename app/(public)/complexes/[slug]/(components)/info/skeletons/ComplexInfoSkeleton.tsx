@@ -1,5 +1,6 @@
-import s from '@/app/(public)/complexes/[slug]/(components)/info/skeletons/ComplexInfoSkeleton.module.css';
 import clsx from 'clsx';
+
+import s from './ComplexInfoSkeleton.module.css';
 
 export default function ComplexInfoSkeleton() {
     return (

@@ -1,17 +1,16 @@
 'use client';
-// Constants
-import { RESET_BUTTON_TEXT, COMPLEX_ARIA_LABEL, CATEGORY_ARIA_LABEL } from '@/data/posts-filters';
-// Types
-import { EPostsParams } from '@/utils/constants/posts';
-import { ISpec } from '@/types/common';
-// Utils
+import type { ISpec } from '@/types/common';
+import type { ChangeEvent } from 'react';
+
 import clsx from 'clsx';
-// Hooks
-import { ChangeEvent, useTransition } from 'react';
 import { useQueryState } from 'nuqs';
-// Components
-import CSelect from '@/ui/atoms/CSelect';
+import { useTransition } from 'react';
+
+import { CATEGORY_ARIA_LABEL, COMPLEX_ARIA_LABEL, RESET_BUTTON_TEXT } from '@/data/posts-filters';
 import CButton from '@/ui/atoms/CButton';
+import CSelect from '@/ui/atoms/CSelect';
+import { EPostsParams } from '@/utils/constants/posts';
+
 // Styles
 import s from './PostsFilters.module.css';
 

@@ -1,15 +1,14 @@
-// Types
-import { IComplexFull } from '@/types/complexes';
-// Constants
-import { DYNAMIC_PAGES_METADATA } from '@/data/seo';
-// Types
-import { Metadata } from 'next';
-// Utils
+import type { IComplexFull } from '@/types/complexes';
+import type { Metadata } from 'next';
+
 import { notFound } from 'next/navigation';
-import { fetchComplexCached } from '@/lib/data-access/queries/complexes';
+
 // Components
 import ComplexHero from '@/app/(public)/complexes/[slug]/(components)/hero/ComplexHero';
 import ComplexInfo from '@/app/(public)/complexes/[slug]/(components)/info/ComplexInfo';
+// Constants
+import { DYNAMIC_PAGES_METADATA } from '@/data/seo';
+import { fetchComplexCached } from '@/lib/data-access/queries/complexes';
 
 export const revalidate = 86400; // 60 * 60 * 24 – once in 24 hours
 

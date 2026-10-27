@@ -1,16 +1,14 @@
 'use client';
 
-// Types
-import { ReactElement } from 'react';
-import { ETheme } from '@/utils/constants/theme';
-// Utils
+import type { ReactElement } from 'react';
+
 import clsx from 'clsx';
-// Hooks
+import { SunMoon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-// Components
-import { SunMoon } from 'lucide-react';
+
 import ThemeSwitch from '@/ui/common/theme/ThemeSwitch';
+import { ETheme } from '@/utils/constants/theme';
 
 function ThemeToggle(): ReactElement {
     const { theme, setTheme } = useTheme();

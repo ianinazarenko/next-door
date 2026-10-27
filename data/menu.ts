@@ -1,7 +1,9 @@
-import { IPanelItem } from '@/types/menu';
-import { EMenuItemsVisibility } from '@/utils/constants/menu';
-import { PAGES } from '@/data/pages';
+import type { IPanelItem } from '@/types/menu';
+
 import { Building2, House, LayoutDashboard, LogIn } from 'lucide-react';
+
+import { PAGES } from '@/data/pages';
+import { EMenuItemsVisibility } from '@/utils/constants/menu';
 
 export const MENU_LIST: IPanelItem[] = [
     { icon: House, link: PAGES.HOME.link, label: PAGES.HOME.title },

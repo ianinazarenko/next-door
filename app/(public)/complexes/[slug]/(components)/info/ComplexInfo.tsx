@@ -1,12 +1,10 @@
-// Types
-import { IComplexFull } from '@/types/complexes';
-// Utils
+import type { IComplexFull } from '@/types/complexes';
+
 import clsx from 'clsx';
-// Styles
-import s from '@/app/(public)/complexes/[slug]/(components)/info/ComplexInfo.module.css';
-// Components
-import ComplexInfoContacts from '@/app/(public)/complexes/[slug]/(components)/info/info-sections/ComplexInfoContacts';
-import ComplexInfoPhones from '@/app/(public)/complexes/[slug]/(components)/info/info-sections/ComplexInfoPhones';
+
+import s from './ComplexInfo.module.css';
+import ComplexInfoContacts from './info-sections/ComplexInfoContacts';
+import ComplexInfoPhones from './info-sections/ComplexInfoPhones';
 
 export default function ComplexInfo({ complex }: { complex: IComplexFull }) {
     const { phone, email, description, managementCompany, usefulPhones } = complex;

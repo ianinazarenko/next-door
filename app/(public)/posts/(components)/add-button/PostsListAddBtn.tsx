@@ -1,9 +1,8 @@
-import { PAGES } from '@/data/pages';
-
-import s from '@/app/(public)/posts/(components)/add-button/PostsListAddBtn.module.css';
-
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
+
+import s from '@/app/(public)/posts/(components)/add-button/PostsListAddBtn.module.css';
+import { PAGES } from '@/data/pages';
 import CButton from '@/ui/atoms/CButton';
 
 const ADD_BTN_LABEL = 'Create New';

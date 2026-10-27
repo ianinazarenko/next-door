@@ -1,5 +1,6 @@
-import s from './PostsFiltersSkeleton.module.css';
 import clsx from 'clsx';
+
+import s from './PostsFiltersSkeleton.module.css';
 
 export default function PostsFiltersSkeleton() {
     return (

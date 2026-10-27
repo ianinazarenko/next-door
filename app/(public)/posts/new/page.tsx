@@ -1,13 +1,11 @@
-// Constants
-import { PAGES_METADATA } from '@/data/seo';
-// Types
-import { Metadata } from 'next';
-// Utils
-// Components
+import type { Metadata } from 'next';
+
 import { Suspense } from 'react';
+
+import NewPostFormWrapper from '@/app/(public)/posts/new/(components)/form/NewPostFormWrapper';
 import NewPostHeader from '@/app/(public)/posts/new/(components)/header/NewPostHeader';
 import NewPostLoader from '@/app/(public)/posts/new/(components)/loader/NewPostLoader';
-import NewPostFormWrapper from '@/app/(public)/posts/new/(components)/form/NewPostFormWrapper';
+import { PAGES_METADATA } from '@/data/seo';
 
 export const metadata: Metadata = PAGES_METADATA.NEW_POST;
 

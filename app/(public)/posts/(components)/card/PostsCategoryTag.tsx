@@ -1,7 +1,11 @@
-import { ECategorySlug } from '@/utils/constants/categories';
 import type { ICategory } from '@/types/categories';
-import { CalendarDays, Gift, HandHeart, Shapes, Tag, type LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
 import clsx from 'clsx';
+import { CalendarDays, Gift, HandHeart, Shapes, Tag } from 'lucide-react';
+
+import { ECategorySlug } from '@/utils/constants/categories';
+
 import s from './PostsCategoryTag.module.css';
 
 interface ICategoryVisual {

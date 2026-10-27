@@ -1,5 +1,5 @@
-import { IComplexFull } from '@/types/complexes';
-import { IUserBase } from '@/types/users';
+import type { IComplexFull } from '@/types/complexes';
+import type { IUserBase } from '@/types/users';
 
 export const MOCK_DATE = new Date('2024-01-15T00:00:00.000Z');
 

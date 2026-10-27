@@ -1,12 +1,13 @@
-import { baseUrl } from '@/utils/constants/base-url';
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import './globals.css';
 import '@/styles/index.css';
 
+import { Plus_Jakarta_Sans } from 'next/font/google';
+
 import AppProviders from '@/app/(providers)/AppProviders';
 import TheFooter from '@/ui/layout/footer/TheFooter';
+import { baseUrl } from '@/utils/constants/base-url';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
     variable: '--font-plus-jakarta-sans',

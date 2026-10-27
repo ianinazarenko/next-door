@@ -1,5 +1,5 @@
-import { type DefaultSession } from 'next-auth';
-import { ERole } from '@/utils/constants/users';
+import type { ERole } from '@/utils/constants/users';
+import type {DefaultSession} from 'next-auth';
 
 declare module 'next-auth' {
     interface Session {

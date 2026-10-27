@@ -1,15 +1,14 @@
-import { PAGES } from '@/data/pages';
-
-import { IAuthSearchParams } from '@/types/auth';
-
-import { auth } from '@/lib/auth/auth';
-import { getSearchParamValue } from '@/utils/helpers/url-utils';
+import type { IAuthSearchParams } from '@/types/auth';
 
 import Link from 'next/link';
-import CButton from '@/ui/atoms/CButton';
+
 import SignInButtons from '@/app/(public)/sign-in/(components)/buttons/SignInButtons';
 import SignOutButton from '@/app/(public)/sign-in/(components)/buttons/SignOutButton';
 import SignInErrorHandler from '@/app/(public)/sign-in/(components)/SignInErrorHandler';
+import { PAGES } from '@/data/pages';
+import { auth } from '@/lib/auth/auth';
+import CButton from '@/ui/atoms/CButton';
+import { getSearchParamValue } from '@/utils/helpers/url-utils';
 
 const TITLE = 'Sign In';
 const TEXT = 'Access your account to continue';

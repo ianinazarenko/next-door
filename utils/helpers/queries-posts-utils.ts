@@ -1,4 +1,4 @@
-import { IPostsState, IPostsWhereParams } from '@/types/posts';
+import type { IPostsState, IPostsWhereParams } from '@/types/posts';
 
 // Posts where params for query
 export function buildPostsWhere(params: IPostsState) {

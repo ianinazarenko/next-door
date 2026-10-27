@@ -1,4 +1,4 @@
-import { ISpec } from '@/types/common';
+import type { ISpec } from '@/types/common';
 
 // General specs prepare function
 export function prepareSpec<T extends Record<string, string | number>>(

@@ -1,7 +1,9 @@
-import { IPostFull, IPostListItem, IPostsState } from '@/types/posts';
-import { buildPostsWhere } from '@/utils/helpers/queries-posts-utils';
+import type { IPostFull, IPostListItem, IPostsState } from '@/types/posts';
+
 import { cache } from 'react';
+
 import { prisma } from '@/lib/data-access/db';
+import { buildPostsWhere } from '@/utils/helpers/queries-posts-utils';
 import { postsQuerySchema } from '@/utils/validation/schemas';
 
 export async function fetchPosts({

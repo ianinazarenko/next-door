@@ -1,16 +1,17 @@
-import { PAGES } from '@/data/pages';
 // Types
-import { IPostListItem } from '@/types/posts';
-// Utils
-import { dateFormatter, formatPostAge } from '@/utils/helpers/date-utils';
-// Styles
-import s from './PostsListCard.module.css';
+import type { IPostListItem } from '@/types/posts';
+
 import clsx from 'clsx';
-// Components
 import { MapPin, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+
+import { PAGES } from '@/data/pages';
 import UserPic from '@/ui/common/user/UserPic';
+import { formatPostAge } from '@/utils/helpers/date-utils';
+import { dateFormatter } from '@/utils/helpers/date-utils';
+
 import PostsCategoryTag from './PostsCategoryTag';
+import s from './PostsListCard.module.css';
 
 export default function PostsListCard({ post }: { post: IPostListItem }) {
     const {

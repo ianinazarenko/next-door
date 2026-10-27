@@ -1,8 +1,9 @@
 'use client';
 
-import CLinkButton from '@/ui/atoms/CLinkButton';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import CLinkButton from '@/ui/atoms/CLinkButton';
 
 const BTN_LABEL = 'Back';
 export default function BackButton({ backUrl }: { backUrl?: string }) {

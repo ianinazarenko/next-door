@@ -1,10 +1,13 @@
 import type { Session } from 'next-auth';
-import s from './TheHeader.module.css';
+
 import clsx from 'clsx';
-import ThemeToggle from '@/ui/common/theme/ThemeToggle';
-import HeaderMenu from '@/ui/layout/header/HeaderMenu';
-import UserPic from '@/ui/common/user/UserPic';
+
 import SignOutButton from '@/app/(public)/sign-in/(components)/buttons/SignOutButton';
+import ThemeToggle from '@/ui/common/theme/ThemeToggle';
+import UserPic from '@/ui/common/user/UserPic';
+import HeaderMenu from '@/ui/layout/header/HeaderMenu';
+
+import s from './TheHeader.module.css';
 
 function TheHeader({
     session,

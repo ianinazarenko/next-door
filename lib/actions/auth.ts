@@ -1,10 +1,12 @@
 'use server';
 
-import { EAuthProviders } from '@/utils/constants/auth';
-import { PAGES } from '@/data/pages';
-import { getSafeCallbackUrl } from '@/utils/helpers/url-utils';
-import { signIn, signOut } from '@/lib/auth/auth';
+import type { EAuthProviders } from '@/utils/constants/auth';
+
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
+
+import { PAGES } from '@/data/pages';
+import { signIn, signOut } from '@/lib/auth/auth';
+import { getSafeCallbackUrl } from '@/utils/helpers/url-utils';
 
 export async function signInAction(provider?: EAuthProviders, callbackUrl: string = '') {
     try {

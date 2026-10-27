@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { Button } from '@headlessui/react';
+import clsx from 'clsx';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ILinkButtonProps {

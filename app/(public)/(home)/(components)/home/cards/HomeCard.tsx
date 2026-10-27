@@ -1,11 +1,13 @@
-// Types
-import { IHomeCard } from '@/types/home-cards';
-// Styles
-import s from './HomeCard.module.css';
+'use client';
+
+import type { IHomeCard } from '@/types/home-cards';
+import type {LucideIcon} from 'lucide-react';
+
 import clsx from 'clsx';
-// Components
+import { ArrowRight, Building2, LayoutDashboard, SquarePen } from 'lucide-react';
 import Link from 'next/link';
-import { ArrowRight, Building2, LayoutDashboard, SquarePen, type LucideIcon } from 'lucide-react';
+
+import s from './HomeCard.module.css';
 
 const ICON_COMPONENTS: Record<IHomeCard['icon'], LucideIcon> = {
     LayoutDashboard: LayoutDashboard,

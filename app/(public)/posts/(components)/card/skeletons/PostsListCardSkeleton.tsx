@@ -1,5 +1,6 @@
-import s from './PostsListCardSkeleton.module.css';
 import clsx from 'clsx';
+
+import s from './PostsListCardSkeleton.module.css';
 
 export default function PostsListCardSkeleton() {
     return (

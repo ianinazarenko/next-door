@@ -1,5 +1,6 @@
-import { HTML_TAGS_ERROR } from '@/utils/constants/errors';
 import { z } from 'zod';
+
+import { HTML_TAGS_ERROR } from '@/utils/constants/errors';
 import { hasHtmlTags } from '@/utils/helpers/text-utils';
 
 export const e164PhoneNumber = (message = 'Invalid E.164 number') =>

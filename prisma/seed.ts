@@ -1,4 +1,5 @@
 import { PrismaClient } from '@/generated/prisma';
+
 import { POST_IMAGE, POSTS_SEED_DATA } from './seed-data';
 
 const prisma = new PrismaClient();

@@ -1,7 +1,7 @@
-import s from './SignInButtons.module.css';
-
-import { EAuthProviders } from '@/utils/constants/auth';
 import SignInButton from '@/app/(public)/sign-in/(components)/buttons/SignInButton';
+import { EAuthProviders } from '@/utils/constants/auth';
+
+import s from './SignInButtons.module.css';
 
 const providers: EAuthProviders[] = [EAuthProviders.GitHub, EAuthProviders.Google];
 

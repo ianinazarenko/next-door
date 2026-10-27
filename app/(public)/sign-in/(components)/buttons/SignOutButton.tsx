@@ -1,9 +1,11 @@
-import { EButtonTheme } from '@/utils/constants/ui';
-import s from './SignOutButton.module.css';
 import clsx from 'clsx';
+import { LogOut } from 'lucide-react';
+
 import { signOutAction } from '@/lib/actions/auth';
 import CButton from '@/ui/atoms/CButton';
-import { LogOut } from 'lucide-react';
+import { EButtonTheme } from '@/utils/constants/ui';
+
+import s from './SignOutButton.module.css';
 
 const LABEL = 'Sign out';
 

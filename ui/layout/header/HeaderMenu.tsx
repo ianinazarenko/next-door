@@ -1,13 +1,12 @@
 'use client';
 
-import { MENU_LIST } from '@/data/menu';
-
-import s from './HeaderMenu.module.css';
-
 import clsx from 'clsx';
+import Link from 'next/link';
+
+import { MENU_LIST } from '@/data/menu';
 import { isMenuItemVisible } from '@/utils/helpers/menu-utils';
 
-import Link from 'next/link';
+import s from './HeaderMenu.module.css';
 
 export default function HeaderMenu({ isSignedIn }: { isSignedIn: boolean }) {
     return (

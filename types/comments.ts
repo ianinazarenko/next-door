@@ -1,4 +1,4 @@
-import { IUserBase } from '@/types/users';
+import type { IUserBase } from '@/types/users';
 
 export interface IComment {
     id: string;

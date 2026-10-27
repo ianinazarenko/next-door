@@ -1,5 +1,6 @@
-import { PAGES } from '@/data/pages';
 import Link from 'next/link';
+
+import { PAGES } from '@/data/pages';
 import CButton from '@/ui/atoms/CButton';
 
 const BTN = 'Browse All Complexes';

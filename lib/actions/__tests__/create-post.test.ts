@@ -1,10 +1,12 @@
-import { ERole } from '@/utils/constants/users';
-import { DEFAULT_CREATE_POST, DEFAULT_DB_POST, MOCK_DATE } from '@/tests/__fixtures__/post.fixture';
-import { DeepMockProxy } from 'jest-mock-extended';
-import { PrismaClient } from '@/generated/prisma';
-import { prisma } from '@/lib/data-access/db';
+import type { PrismaClient } from '@/generated/prisma';
+import type { DeepMockProxy } from 'jest-mock-extended';
+import type { Session } from 'next-auth';
+
 import { z } from 'zod';
-import { Session } from 'next-auth';
+
+import { prisma } from '@/lib/data-access/db';
+import { DEFAULT_CREATE_POST, DEFAULT_DB_POST, MOCK_DATE } from '@/tests/__fixtures__/post.fixture';
+import { ERole } from '@/utils/constants/users';
 
 jest.mock('@/lib/data-access/db.ts');
 jest.mock('@/lib/auth/auth', () => ({

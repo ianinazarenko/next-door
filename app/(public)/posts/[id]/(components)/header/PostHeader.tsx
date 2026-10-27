@@ -1,6 +1,8 @@
-import { dateFormatter } from '@/utils/helpers/date-utils';
-import s from './PostHeader.module.css';
 import clsx from 'clsx';
+
+import { dateFormatter } from '@/utils/helpers/date-utils';
+
+import s from './PostHeader.module.css';
 
 interface IProps {
     title: string;

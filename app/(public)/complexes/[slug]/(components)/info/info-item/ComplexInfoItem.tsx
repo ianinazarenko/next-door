@@ -1,10 +1,12 @@
 // Types
-import { IContactItem } from '../types';
-// Styles
-import s from '@/app/(public)/complexes/[slug]/(components)/info/info-item/ComplexInfoItem.module.css';
 // Utils
+import type { IContactItem } from '../types';
+
 import clsx from 'clsx';
+
 import { parsePhoneNumber } from '@/utils/helpers/phone-utils';
+
+import s from './ComplexInfoItem.module.css';
 
 export default function ComplexInfoItem({ item }: { item: IContactItem }) {
     let value = item.value;

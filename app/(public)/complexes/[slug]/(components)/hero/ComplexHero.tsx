@@ -1,7 +1,10 @@
-import { IComplexFull } from '@/types/complexes';
+import type { IComplexFull } from '@/types/complexes';
+
+import { TrainFront } from 'lucide-react';
+
 import { COMPLEX_IMG, DEFAULT_IMG } from '@/data/complex-images';
 import BlockHero from '@/ui/common/blocks/hero/BlockHero';
-import { TrainFront } from 'lucide-react';
+
 import s from './ComplexHero.module.css';
 
 function getImages(slug: string) {

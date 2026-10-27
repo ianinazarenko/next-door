@@ -1,6 +1,8 @@
-import { ITEMS_PER_PAGE } from '@/utils/constants/posts';
-import s from './ComplexesListSkeleton.module.css';
 import clsx from 'clsx';
+
+import { ITEMS_PER_PAGE } from '@/utils/constants/posts';
+
+import s from './ComplexesListSkeleton.module.css';
 
 export default function ComplexesListSkeleton() {
     return (

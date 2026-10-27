@@ -1,8 +1,8 @@
-import { INewPostField, TSchema } from '@/types/forms';
+import type { INewPostField, TSchema } from '@/types/forms';
 
 import CInput from '@/ui/atoms/CInput';
-import CTextarea from '@/ui/atoms/CTextarea';
 import CSelect from '@/ui/atoms/CSelect';
+import CTextarea from '@/ui/atoms/CTextarea';
 
 export const DEFAULT_VALUES: Record<keyof TSchema, string> = {
     title: '',

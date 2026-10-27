@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { getImageProps } from 'next/image';
+
 import s from './BlockHero.module.css';
 
 interface IProps {
