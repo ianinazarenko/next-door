@@ -10,14 +10,14 @@ export default function ComplexInfoItem({ item }: { item: IContactItem }) {
     let value = item.value;
     let href: string | null = null;
 
-    if (item.isPhone) {
+    if (item.type === 'phone') {
         const phone = parsePhoneNumber(item.value);
 
         if (phone.isDialable) {
             value = phone.readable;
             href = `tel:${phone.callable}`;
         }
-    } else if (item.isEmail && item.value) {
+    } else if (item.type === 'email' && item.value) {
         href = `mailto:${item.value}`;
     }
 

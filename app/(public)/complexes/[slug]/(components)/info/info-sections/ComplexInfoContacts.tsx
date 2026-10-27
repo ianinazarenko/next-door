@@ -14,39 +14,28 @@ interface IComplexContacts {
     managementCompany: IManagementCompany | null;
 }
 
-// eslint-disable-next-line complexity
+const KEYS = ['phone', 'email'] as const;
+const LABELS = {
+    phone: 'Phone',
+    email: 'Email',
+} as const;
+
+function getItems(item: IComplexContacts | IManagementCompany) {
+    return KEYS.map((key) => ({
+        label: LABELS[key],
+        value: item[key],
+        type: key,
+    }));
+}
+
 export default function ComplexInfoContacts({ contacts }: { contacts: IComplexContacts }) {
-    const { phone, email, managementCompany } = contacts;
-    const { name, phone: companyPhone, email: companyEmail } = managementCompany ?? {};
+    const complexItems: IContactItem[] = getItems(contacts);
+    const mCompany = contacts.managementCompany;
+    const mName = mCompany?.name;
+    const managementItems: IContactItem[] = mCompany ? getItems(mCompany) : [];
+    const hasManagement = Boolean(mName || managementItems.length);
 
-    const complexItems: IContactItem[] = [
-        {
-            label: 'Phone',
-            value: phone,
-            isPhone: true,
-        },
-        {
-            label: 'Email',
-            value: email,
-            isEmail: true,
-        },
-    ].filter((item) => item.value);
-
-    const managementItems: IContactItem[] = [
-        {
-            label: 'Phone',
-            value: companyPhone,
-            isPhone: true,
-        },
-        {
-            label: 'Email',
-            value: companyEmail,
-            isEmail: true,
-        },
-    ].filter((item) => item.value);
-
-    const hasManagement = Boolean(name || managementItems.length);
-
+    // RENDER
     if (!hasManagement && !complexItems.length) return null;
 
     return (
@@ -55,13 +44,13 @@ export default function ComplexInfoContacts({ contacts }: { contacts: IComplexCo
                 {hasManagement ? 'Management company' : 'Complex contacts'}
             </h2>
 
-            {name && <p className={clsx('card-title', s.companyName)}>{name}</p>}
+            {mName && <p className={clsx('card-title', s.companyName)}>{mName}</p>}
 
             {managementItems.length > 0 && (
                 <ul className={s.list}>
                     {managementItems.map((item) => (
                         <ComplexInfoItem
-                            key={item.label}
+                            key={item.type}
                             item={item}
                         />
                     ))}
@@ -75,7 +64,7 @@ export default function ComplexInfoContacts({ contacts }: { contacts: IComplexCo
                     <ul className={s.list}>
                         {complexItems.map((item) => (
                             <ComplexInfoItem
-                                key={item.label}
+                                key={item.type}
                                 item={item}
                             />
                         ))}

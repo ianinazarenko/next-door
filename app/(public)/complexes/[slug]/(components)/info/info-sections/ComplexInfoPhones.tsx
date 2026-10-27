@@ -8,9 +8,10 @@ const TITLE = 'Useful numbers';
 export default function ComplexInfoPhones({ usefulPhones }: { usefulPhones: IUsefulPhone[] }) {
     if (!usefulPhones.length) return null;
 
-    const phones = [...usefulPhones].sort((a, b) =>
-        Number(b.name.trim().toLowerCase() === 'emergency') -
-        Number(a.name.trim().toLowerCase() === 'emergency')
+    const phones = [...usefulPhones].sort(
+        (a, b) =>
+            Number(b.name.trim().toLowerCase() === 'emergency') -
+            Number(a.name.trim().toLowerCase() === 'emergency')
     );
 
     return (
@@ -21,7 +22,7 @@ export default function ComplexInfoPhones({ usefulPhones }: { usefulPhones: IUse
                 {phones.map((phone) => (
                     <ComplexInfoItem
                         key={phone.id}
-                        item={{ label: phone.name, value: phone.number, isPhone: true }}
+                        item={{ label: phone.name, value: phone.number, type: 'phone' }}
                     />
                 ))}
             </ul>
