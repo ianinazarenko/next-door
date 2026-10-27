@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import s from './ComplexHeroSkeleton.module.css';
 
 export default function ComplexHeroSkeleton() {

@@ -1,11 +1,12 @@
-import { PAGES } from '@/data/pages';
-import { EFormStatus, REDIRECT_DELAY, STATUS_DICT } from '@/utils/constants/forms';
-import { act } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useSession } from 'next-auth/react';
+import { act } from 'react';
+
+import { PAGES } from '@/data/pages';
 import { mockPush } from '@/jest.setup';
 import { createPostAction } from '@/lib/actions/create-post';
+import { EFormStatus, REDIRECT_DELAY, STATUS_DICT } from '@/utils/constants/forms';
 
 // 1. Mocking dependencies
 jest.mock('next-auth/react');

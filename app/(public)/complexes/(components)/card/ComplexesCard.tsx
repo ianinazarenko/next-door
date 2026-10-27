@@ -1,15 +1,14 @@
-import { COMPLEX_IMG } from '@/data/complex-images';
-// Types
-import { IComplexBase } from '@/types/complexes';
-// Styles
-import s from './ComplexesCard.module.css';
+import type { IComplexBase } from '@/types/complexes';
+
 import clsx from 'clsx';
-// Constants
-import { PAGES } from '@/data/pages';
-// Components
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { COMPLEX_IMG } from '@/data/complex-images';
+import { PAGES } from '@/data/pages';
 import ComplexesImgDefault from '@/ui/common/placeholders/ComplexesImgDefault';
+
+import s from './ComplexesCard.module.css';
 
 export default function ComplexesCard({
     slug,

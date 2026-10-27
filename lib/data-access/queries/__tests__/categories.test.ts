@@ -1,6 +1,7 @@
-import { DeepMockProxy } from 'jest-mock-extended';
+import type { PrismaClient } from '@/generated/prisma';
+import type { DeepMockProxy } from 'jest-mock-extended';
+
 import { prisma } from '@/lib/data-access/db';
-import { PrismaClient } from '@/generated/prisma';
 import { fetchCategoriesSpecsCallback } from '@/lib/data-access/queries/categories';
 
 jest.mock('@/lib/data-access/db.ts');

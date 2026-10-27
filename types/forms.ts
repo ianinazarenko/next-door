@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { createPostSchema } from '@/utils/validation/schemas';
+import type { createPostSchema } from '@/utils/validation/schemas';
+import type { z } from 'zod';
 
 export type TSchema = z.infer<typeof createPostSchema>;
 

@@ -1,7 +1,8 @@
-import { EButtonTheme } from '@/utils/constants/ui';
 import { Button } from '@headlessui/react';
 import clsx from 'clsx';
 import { PulseLoader } from 'react-spinners';
+
+import { EButtonTheme } from '@/utils/constants/ui';
 
 interface IButtonProps {
     type?: 'button' | 'submit' | 'reset';

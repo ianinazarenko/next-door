@@ -1,5 +1,6 @@
+import type { GitHubEmail } from '@/types/auth';
+
 import 'server-only';
-import { GitHubEmail } from '@/types/auth';
 
 const API = 'https://api.github.com/user/emails';
 

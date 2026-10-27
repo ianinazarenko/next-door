@@ -1,4 +1,4 @@
-import { IContactsItem, IContactsProps } from '@/types/contacts';
+import type { IContactsItem, IContactsProps } from '@/types/contacts';
 
 export const CONTACTS: IContactsItem<IContactsProps>[] = [
     {

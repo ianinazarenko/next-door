@@ -1,14 +1,19 @@
-import { ITEMS_PER_PAGE, OFFSET } from '@/utils/constants/posts';
-import { IComplexesState } from '@/types/complexes';
-import { fetchComplexesAction } from '@/lib/actions/append-complexes';
+import type { IComplexesState } from '@/types/complexes';
+
 import ComplexesList from '@/app/(public)/complexes/(components)/list/ComplexesList';
 import ComplexesListLoader from '@/app/(public)/complexes/(components)/list/ComplexesListLoader';
+import { fetchComplexesAction } from '@/lib/actions/append-complexes';
+import { ITEMS_PER_PAGE, OFFSET } from '@/utils/constants/posts';
 
 export default async function ComplexesListSection({ params }: { params: IComplexesState }) {
     let complexesData: Awaited<ReturnType<typeof fetchComplexesAction>>;
 
     try {
-        complexesData = await fetchComplexesAction({ limit: ITEMS_PER_PAGE, offset: OFFSET, params });
+        complexesData = await fetchComplexesAction({
+            limit: ITEMS_PER_PAGE,
+            offset: OFFSET,
+            params,
+        });
     } catch (error) {
         console.error('[ComplexesListSection]: Error loading complexes:', error);
         throw error;

@@ -1,15 +1,14 @@
 'use client';
 
-// Types
-import { IHomeCard } from '@/types/home-cards';
-// Styles
-import s from './HomeCard.module.css';
-// Hooks
-import { useState } from 'react';
-// Components
-import Link from 'next/link';
-import CLinkButton from '@/ui/atoms/CLinkButton';
+import type { IHomeCard } from '@/types/home-cards';
+
 import { Building2, LayoutDashboard, SquarePen } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+
+import CLinkButton from '@/ui/atoms/CLinkButton';
+
+import s from './HomeCard.module.css';
 
 const ICON_COMPONENTS: Record<string, React.ElementType> = {
     LayoutDashboard: LayoutDashboard,

@@ -1,7 +1,10 @@
-import { IUsefulPhone } from '@/types/complexes';
+import type { IUsefulPhone } from '@/types/complexes';
+
 import clsx from 'clsx';
-import s from './ComplexInfoContacts.module.css';
+
 import ComplexInfoItem from '@/app/(public)/complexes/[slug]/(components)/info/info-item/ComplexInfoItem';
+
+import s from './ComplexInfoContacts.module.css';
 
 const TITLE = 'Useful Phones';
 

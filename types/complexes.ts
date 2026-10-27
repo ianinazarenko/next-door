@@ -1,4 +1,4 @@
-import { IPostBase } from './posts';
+import type { IPostBase } from './posts';
 
 export interface IComplexBase {
     id: string;

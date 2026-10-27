@@ -1,7 +1,10 @@
-import { IPostListItem } from '@/types/posts';
-import s from './PostsList.module.css';
-import PostsListCard from '@/app/(public)/posts/(components)/card/PostsListCard';
+import type { IPostListItem } from '@/types/posts';
+
 import clsx from 'clsx';
+
+import PostsListCard from '@/app/(public)/posts/(components)/card/PostsListCard';
+
+import s from './PostsList.module.css';
 
 interface IProps {
     posts: IPostListItem[];

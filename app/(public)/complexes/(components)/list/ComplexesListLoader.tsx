@@ -1,9 +1,10 @@
 'use client';
 
-import { IComplexBase, IComplexesState } from '@/types/complexes';
+import type { IComplexBase, IComplexesState } from '@/types/complexes';
+
+import ComplexesCard from '@/app/(public)/complexes/(components)/card/ComplexesCard';
 import { fetchComplexesAction } from '@/lib/actions/append-complexes';
 import InfiniteLoader from '@/ui/common/wrappers/infinite-loader/InfiniteLoader';
-import ComplexesCard from '@/app/(public)/complexes/(components)/card/ComplexesCard';
 
 interface IProps {
     initialOffset: number;

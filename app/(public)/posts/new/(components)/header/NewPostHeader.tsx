@@ -1,5 +1,6 @@
-import s from './NewPostHeader.module.css';
 import clsx from 'clsx';
+
+import s from './NewPostHeader.module.css';
 
 const TITLE = 'Create New Announcement';
 const DESCRIPTION = 'Fill out the form below to share something with your community';

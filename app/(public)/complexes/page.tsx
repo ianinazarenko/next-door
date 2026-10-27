@@ -1,17 +1,15 @@
-// Constants
-import { PAGES_METADATA } from '@/data/seo';
-// Types
-import { IComplexesSearchParams, IComplexesState } from '@/types/complexes';
-import { Metadata } from 'next';
-// Styles
-import s from './page.module.css';
-// Utils
-import { getSearchParamValue } from '@/utils/helpers/url-utils';
-// Components
+import type { IComplexesSearchParams, IComplexesState } from '@/types/complexes';
+import type { Metadata } from 'next';
+
 import { Suspense } from 'react';
+
 import ComplexesListSkeleton from '@/app/(public)/complexes/(components)/list/skeletons/ComplexesListSkeleton';
 import ComplexesSearch from '@/app/(public)/complexes/(components)/search/ComplexesSearch';
 import ComplexesListSection from '@/app/(public)/complexes/(components)/section/ComplexesListSection';
+import { PAGES_METADATA } from '@/data/seo';
+import { getSearchParamValue } from '@/utils/helpers/url-utils';
+
+import s from './page.module.css';
 
 export const metadata: Metadata = PAGES_METADATA.COMPLEXES;
 
@@ -19,7 +17,11 @@ const TITLE_H1 = 'Residential Complexes';
 const DESC = 'Find your community to get started';
 const TITLE_H2 = 'Available Complexes';
 
-export default async function ComplexesPage({ searchParams }: { searchParams: Promise<IComplexesSearchParams> }) {
+export default async function ComplexesPage({
+    searchParams,
+}: {
+    searchParams: Promise<IComplexesSearchParams>;
+}) {
     const { search } = await searchParams;
 
     const params: IComplexesState = { search: getSearchParamValue(search) || '' };

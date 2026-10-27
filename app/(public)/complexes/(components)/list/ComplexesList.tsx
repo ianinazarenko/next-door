@@ -1,7 +1,10 @@
-import { IComplexBase } from '@/types/complexes';
+import type { IComplexBase } from '@/types/complexes';
+
 import clsx from 'clsx';
-import s from './ComplexesList.module.css';
+
 import ComplexesCard from '@/app/(public)/complexes/(components)/card/ComplexesCard';
+
+import s from './ComplexesList.module.css';
 
 export default function ComplexesList({ complexes }: { complexes: IComplexBase[] }) {
     if (!complexes?.length) {

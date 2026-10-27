@@ -1,9 +1,11 @@
-import { IPostFull } from '@/types/posts';
-import s from './PostMain.module.css';
+import type { IPostFull } from '@/types/posts';
+
+import PostComments from '@/app/(public)/posts/[id]/(components)/comments/PostComments';
+import PostContacts from '@/app/(public)/posts/[id]/(components)/contacts/PostContacts';
 import PostHeader from '@/app/(public)/posts/[id]/(components)/header/PostHeader';
 import PostImage from '@/app/(public)/posts/[id]/(components)/image/PostImage';
-import PostContacts from '@/app/(public)/posts/[id]/(components)/contacts/PostContacts';
-import PostComments from '@/app/(public)/posts/[id]/(components)/comments/PostComments';
+
+import s from './PostMain.module.css';
 
 export default function PostMain({ post }: { post: IPostFull }) {
     const { title, createdAt, fullText, author, comments } = post;

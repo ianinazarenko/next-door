@@ -1,5 +1,6 @@
-import s from './PostImage.module.css';
 import Image from 'next/image';
+
+import s from './PostImage.module.css';
 
 interface IProps {
     image?: string | null;

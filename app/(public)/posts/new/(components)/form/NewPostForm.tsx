@@ -1,25 +1,24 @@
 'use client';
 
-import s from './NewPostForm.module.css';
+import type { ISpec } from '@/types/common';
+import type { TSchema } from '@/types/forms';
 
-import { DEFAULT_VALUES, FIELDS } from '@/data/new-post-form';
-import { EFormStatus } from '@/utils/constants/forms';
-
-import { TSchema } from '@/types/forms';
-import { ISpec } from '@/types/common';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { createPostSchema } from '@/utils/validation/schemas';
-import { createPostAction } from '@/lib/actions/create-post';
+import { PulseLoader } from 'react-spinners';
 
+import { DEFAULT_VALUES, FIELDS } from '@/data/new-post-form';
+import { createPostAction } from '@/lib/actions/create-post';
 import CButton from '@/ui/atoms/CButton';
 import FormField from '@/ui/common/form/FormField';
-import NewPostFormStatus from '@/app/(public)/posts/new/(components)/form/NewPostFormStatus';
-import { PulseLoader } from 'react-spinners';
+import { EFormStatus } from '@/utils/constants/forms';
+import { createPostSchema } from '@/utils/validation/schemas';
+
+import s from './NewPostForm.module.css';
+import NewPostFormStatus from './NewPostFormStatus';
 
 type TSpecTypes = Extract<keyof TSchema, 'category' | 'complex'>;
 interface IProps {
@@ -33,8 +32,6 @@ const isSpecType = (key: string): key is TSpecTypes => {
 const SIGN_IN_NOTICE = 'You must be signed in to publish a post.';
 const BTN_TEXT = 'Publish';
 
-// TODO: refactor
-// eslint-disable-next-line complexity
 export default function NewPostForm({ specs }: IProps) {
     const { status: sessionStatus } = useSession();
     const isSignedIn = sessionStatus === 'authenticated';
@@ -129,7 +126,9 @@ export default function NewPostForm({ specs }: IProps) {
                             {BTN_TEXT}
                         </CButton>
 
-                        {!isSignedIn && <p className={clsx('card-meta', s.notice)}>{SIGN_IN_NOTICE}</p>}
+                        {!isSignedIn && (
+                            <p className={clsx('card-meta', s.notice)}>{SIGN_IN_NOTICE}</p>
+                        )}
                     </div>
 
                     {status === EFormStatus.Loading && (

@@ -1,9 +1,11 @@
 'use client';
 
-import { IPostListItem, IPostsState } from '@/types/posts';
+import type { IPostListItem, IPostsState } from '@/types/posts';
+
 import { fetchPostsAction } from '@/lib/actions/append-posts';
 import InfiniteLoader from '@/ui/common/wrappers/infinite-loader/InfiniteLoader';
-import PostsListCard from '@/app/(public)/posts/(components)/card/PostsListCard';
+
+import PostsListCard from '../card/PostsListCard';
 
 interface IProps {
     initialOffset: number;

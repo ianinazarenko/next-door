@@ -1,12 +1,11 @@
-// Types
-import { IManagementCompany } from '@/types/complexes';
-import { IContactItem } from '@/app/(public)/complexes/[slug]/(components)/info/types';
-// Styles
-import s from './ComplexInfoContacts.module.css';
-// Utils
+import type { IContactItem } from '@/app/(public)/complexes/[slug]/(components)/info/types';
+import type { IManagementCompany } from '@/types/complexes';
+
 import clsx from 'clsx';
-// Components
-import ComplexInfoItem from '@/app/(public)/complexes/[slug]/(components)/info/info-item/ComplexInfoItem';
+
+import ComplexInfoItem from '../info-item/ComplexInfoItem';
+
+import s from './ComplexInfoContacts.module.css';
 
 interface IComplexContacts {
     metro: string | null;

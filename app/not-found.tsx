@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import CButton from '@/ui/atoms/CButton';
 
 export default function NotFoundPage() {

@@ -1,6 +1,7 @@
-import { e164PhoneNumber, postsQuerySchema, complexesQuerySchema, createPostSchema } from '../schemas';
 import { DEFAULT_CREATE_POST } from '@/tests/__fixtures__/post.fixture';
 import { HTML_TAGS_ERROR } from '@/utils/constants/errors';
+
+import { complexesQuerySchema, createPostSchema,e164PhoneNumber, postsQuerySchema } from '../schemas';
 
 describe('e164PhoneNumber', () => {
     describe('happy path', () => {

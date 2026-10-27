@@ -1,10 +1,12 @@
 'use client';
 
 // Styles
-import s from './InfiniteLoader.module.css';
 // Utils
 import { PulseLoader } from 'react-spinners';
+
 import { useInfiniteScroll } from '@/utils/hooks/infinite-scroll/useInfiniteScroll';
+
+import s from './InfiniteLoader.module.css';
 
 interface IProps<T, P> {
     initialOffset: number;

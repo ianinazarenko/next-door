@@ -1,7 +1,9 @@
-import s from './UserPic.module.css';
 import clsx from 'clsx';
-import { getInitial, getUserColor } from '@/utils/helpers/user-utils';
 import Image from 'next/image';
+
+import { getInitial, getUserColor } from '@/utils/helpers/user-utils';
+
+import s from './UserPic.module.css';
 
 interface IProps {
     image?: string | null;

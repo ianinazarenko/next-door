@@ -1,4 +1,5 @@
 import { SessionProvider } from 'next-auth/react';
+
 import ClientHeader from '@/ui/layout/header/ClientHeader';
 import ClientMenuMob from '@/ui/layout/menu/ClientMenuMob';
 

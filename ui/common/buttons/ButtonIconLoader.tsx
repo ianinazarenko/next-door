@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
+
 import clsx from 'clsx';
-import { ReactNode } from 'react';
 import { PuffLoader } from 'react-spinners';
+
 import s from './ButtonIconLoader.module.css';
 
 export default function ButtonIconLoader({

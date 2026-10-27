@@ -1,8 +1,9 @@
 import 'server-only';
 
-import { z } from 'zod';
 import he from 'he';
 import sanitizeHtml from 'sanitize-html';
+import { z } from 'zod';
+
 import { createPostSchema } from '@/utils/validation/schemas';
 
 const sanitizeOptions: sanitizeHtml.IOptions = {

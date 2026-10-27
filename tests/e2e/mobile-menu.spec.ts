@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { expect,test } from '@playwright/test';
+
 import { PAGES } from '@/data/pages';
 
 test.describe('Mobile Navigation Menu', () => {

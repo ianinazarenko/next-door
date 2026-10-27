@@ -1,6 +1,8 @@
-import { ISpec } from '@/types/common';
-import { prisma } from '@/lib/data-access/db';
+import type { ISpec } from '@/types/common';
+
 import { unstable_cache } from 'next/cache';
+
+import { prisma } from '@/lib/data-access/db';
 import { prepareSpec } from '@/utils/helpers/data-utils';
 
 export async function fetchCategoriesSpecsCallback(hasAllOption: boolean): Promise<ISpec[]> {

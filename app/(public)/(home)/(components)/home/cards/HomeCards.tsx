@@ -1,6 +1,7 @@
 import { HOME_CARDS } from '@/data/home-cards';
+
+import HomeCard from './HomeCard';
 import s from './HomeCards.module.css';
-import HomeCard from '@/app/(public)/(home)/(components)/home/cards/HomeCard';
 
 export default function HomeCards() {
     return (

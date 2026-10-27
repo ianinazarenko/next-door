@@ -1,6 +1,6 @@
-import { fetchComplexesSpecs } from '@/lib/data-access/queries/complexes';
-import { fetchCategoriesSpecs } from '@/lib/data-access/queries/categories';
 import PostsFilters from '@/app/(public)/posts/(components)/filters/PostsFilters';
+import { fetchCategoriesSpecs } from '@/lib/data-access/queries/categories';
+import { fetchComplexesSpecs } from '@/lib/data-access/queries/complexes';
 
 export default async function PostsFiltersSection() {
     let complexSpecs: Awaited<ReturnType<typeof fetchComplexesSpecs>>;

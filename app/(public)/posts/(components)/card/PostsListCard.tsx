@@ -1,18 +1,28 @@
-import { PAGES } from '@/data/pages';
-// Types
-import { IPostListItem } from '@/types/posts';
-// Utils
-import { dateFormatter } from '@/utils/helpers/date-utils';
-// Styles
-import s from './PostsListCard.module.css';
+import type { IPostListItem } from '@/types/posts';
+
 import clsx from 'clsx';
-// Components
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+
+import { PAGES } from '@/data/pages';
 import UserPic from '@/ui/common/user/UserPic';
+import { dateFormatter } from '@/utils/helpers/date-utils';
+
+import s from './PostsListCard.module.css';
 
 export default function PostsListCard({ post }: { post: IPostListItem }) {
-    const { id, title, shortText, author, deadline, commentsCount, createdAt, category, authorId, complex } = post;
+    const {
+        id,
+        title,
+        shortText,
+        author,
+        deadline,
+        commentsCount,
+        createdAt,
+        category,
+        authorId,
+        complex,
+    } = post;
 
     const deadlineDate: string | null = deadline ? dateFormatter.format(deadline) : null;
     const createdAtDate: string | null = createdAt ? dateFormatter.format(createdAt) : null;
@@ -48,7 +58,9 @@ export default function PostsListCard({ post }: { post: IPostListItem }) {
             <hr className={s.line} />
 
             <footer className={s.footer}>
-                <p className={clsx('card-meta', s.deadline)}>{deadlineDate ? `Deadline: ${deadlineDate}` : null}</p>
+                <p className={clsx('card-meta', s.deadline)}>
+                    {deadlineDate ? `Deadline: ${deadlineDate}` : null}
+                </p>
                 <div className={clsx('card-meta', s.comment)}>
                     <MessageCircle className={s.commentIcon} />
                     {commentsCount}
