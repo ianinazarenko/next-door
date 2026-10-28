@@ -20,7 +20,7 @@ export default function SignOutButton() {
                 ariaLabel={LABEL}
                 className={clsx(s.signOutButton, 'fade-in')}
             >
-                <LogOut size={16} />
+                <LogOut size={20} aria-hidden='true' />
             </CButton>
         </form>
     );

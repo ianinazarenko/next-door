@@ -25,22 +25,21 @@ export default function CSwitch({
 }: ICSwitchProps) {
     const sizeClasses: Record<TSwitchSize, string> = {
         [ESize.Md]: 'h-7 w-14', // 2.8rem × 5.6rem
-        [ESize.Lg]: 'h-9 w-18', // 3.6rem × 7.2rem
+        [ESize.Lg]: 'h-12 w-22', // 4.8rem × 8.8rem
     };
 
     const circleClasses: Record<TSwitchSize, string> = {
         [ESize.Md]: 'size-5', // 2rem (2.8rem - 0.8rem padding)
-        [ESize.Lg]: 'size-7', // 2.8rem (3.6rem - 0.8rem padding)
+        [ESize.Lg]: 'size-10', // 4rem (4.8rem - 0.8rem padding)
     };
 
     const translateClasses: Record<TSwitchSize, string> = {
         [ESize.Md]: 'translate-x-0 group-data-checked:translate-x-7', // 5.6rem - 0.8rem - 2rem = 2.8rem
-        [ESize.Lg]: 'translate-x-0 group-data-checked:translate-x-9', // 7.2rem - 0.8rem - 2.8rem = 3.6rem
+        [ESize.Lg]: 'translate-x-0 group-data-checked:translate-x-10', // 8.8rem - 0.8rem - 4rem = 4rem
     };
 
     const baseClasses =
-        'group relative flex cursor-pointer rounded-full ' +
-        'p-1 transition-colors ease-in-out focus:not-data-focus:outline-none data-focus:outline';
+        'group relative flex cursor-pointer rounded-full p-1 transition-[background-color,transform] duration-150 ease-out motion-safe:data-active:scale-[.98] motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)';
     const checkedClasses = `bg-(--${bg}) data-checked:bg-(--${color})`;
 
     return (

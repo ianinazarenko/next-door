@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { CircleAlert } from 'lucide-react';
 
 import s from './FormField.module.css';
 
@@ -14,7 +15,12 @@ export default function FormField({
     return (
         <div className={clsx(s.field, className)}>
             {children}
-            {error && <span className={clsx('card-meta', s.error)}>{error}</span>}
+            {error && (
+                <span className={s.error}>
+                    <CircleAlert size={16} aria-hidden='true' />
+                    {error}
+                </span>
+            )}
         </div>
     );
 }

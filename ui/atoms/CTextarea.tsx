@@ -6,6 +6,8 @@ import React from 'react';
 import CDescription from '@/ui/atoms/CDescription';
 import CLabel from '@/ui/atoms/CLabel';
 
+import s from './FormControl.module.css';
+
 interface ITextareaProps {
     label?: string;
     description?: string;
@@ -23,7 +25,7 @@ function CTextarea({ onChange, label, description, placeholder, rows = 4, classN
             <HeadlessTextarea
                 placeholder={placeholder}
                 rows={rows}
-                className={`mt-1 block min-h-[100px] w-full resize-y rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)`}
+                className={`${s.control} ${s.textarea}`}
                 onChange={onChange}
                 {...props}
             />

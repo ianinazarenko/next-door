@@ -137,23 +137,25 @@
 
     /* Border Radius */
     --radius-card: 0.8rem;
-    --radius-btn: 0.6rem;
-    --radius-input: 0.6rem;
+    --radius-btn: 1.6rem;
+    --radius-btn-lg: 1.8rem;
+    --radius-input: 1.6rem;
     --radius-small: 0.4rem;
     --radius-panel: 2rem;
 
     /* Buttons Sizes */
-    --btn-height-mob: 3.6rem;
-    --btn-height-tab: 4rem;
-    --btn-height-desk: 4.4rem;
+    --btn-height-mob: 4.8rem;
+    --btn-height-tab: 4.8rem;
+    --btn-height-desk: 4.8rem;
+    --btn-height-lg: 5.2rem;
 
     /* Menu Panel Heigh */
     --panel-height: 8.6rem;
 
     /* Header Height */
-    --header-height-mob: 5.6rem;
-    --header-height-tab: 6.8rem;
-    --header-height-desk: 6.8rem;
+    --header-height-mob: 7.2rem;
+    --header-height-tab: 8rem;
+    --header-height-desk: 8rem;
 
     /* Spacing */
     --p-xs: 0.8rem;

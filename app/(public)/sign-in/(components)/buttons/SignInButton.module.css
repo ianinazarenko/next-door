@@ -1,5 +1,10 @@
 .button {
     display: flex;
-    gap: 0.8rem;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--btn-height-lg);
+    border-radius: var(--radius-btn-lg);
+    white-space: nowrap;
+    gap: 0.8rem;
 }

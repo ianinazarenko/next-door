@@ -6,6 +6,8 @@ import React from 'react';
 import CDescription from '@/ui/atoms/CDescription';
 import CLabel from '@/ui/atoms/CLabel';
 
+import s from './FormControl.module.css';
+
 interface IInputProps {
     value: string;
     label?: string;
@@ -24,7 +26,7 @@ function CInput({ onChange, value, label, description, placeholder, disabled, ..
                 value={value}
                 placeholder={placeholder}
                 disabled={disabled}
-                className={`mt-1 block w-full rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)`}
+                className={s.control}
                 onChange={onChange}
                 {...props}
             />

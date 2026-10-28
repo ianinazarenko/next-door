@@ -7,6 +7,8 @@ import { ChevronDown } from 'lucide-react';
 import CDescription from '@/ui/atoms/CDescription';
 import CLabel from '@/ui/atoms/CLabel';
 
+import s from './FormControl.module.css';
+
 interface ISelectProps {
     value: string | number;
     className?: string;
@@ -41,9 +43,7 @@ function CSelect({
                     value={value}
                     name={name}
                     aria-label={ariaLabel}
-                    className={
-                        'mt-1 block w-full appearance-none rounded-(--radius-input) border-none bg-(--bg-secondary) px-(--p-input-x) py-(--p-input-y) text-(--input-text) text-(--text-primary) focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-(--border)'
-                    }
+                    className={clsx(s.control, s.select)}
                     disabled={disabled}
                     onChange={onChange}
                     {...props}
@@ -58,7 +58,7 @@ function CSelect({
                     ))}
                 </Select>
                 <ChevronDown
-                    className='pointer-events-none absolute top-4 right-4 size-3 text-(--text-secondary)'
+                    className='pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-(--text-secondary)'
                     aria-hidden='true'
                 />
             </div>

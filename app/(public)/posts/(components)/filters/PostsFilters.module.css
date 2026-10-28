@@ -15,15 +15,11 @@
     }
 }
 
-.select select {
-    height: 4.4rem;
-}
-
 .button {
     margin-top: 1.6rem;
 
     @media (width >= 744px) {
         min-width: 12rem;
-        height: 4.4rem;
+        height: var(--btn-height);
     }
 }

@@ -1,10 +1,25 @@
 .field {
     position: relative;
-    padding-bottom: 2rem;
+    min-width: 0;
+    padding-bottom: 2.4rem;
+}
+
+.field:has(.error) :is(input, select, textarea) {
+    border-color: var(--error);
 }
 
 .error {
     position: absolute;
     bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    line-height: 2rem;
     color: var(--error);
+    gap: 0.4rem;
+}
+
+.error svg {
+    flex: none;
 }

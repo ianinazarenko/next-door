@@ -1,10 +1,12 @@
 .wrapper {
     display: flex;
     flex-direction: column;
+    width: min(38rem, calc(100vw - 4.8rem));
     gap: 1rem;
 
     @media (width >= 1280px) {
         flex-direction: row;
+        width: min(64rem, calc(100vw - 4.8rem));
     }
 }
 

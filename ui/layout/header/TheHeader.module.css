@@ -14,13 +14,13 @@
 }
 
 img.userPic {
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 4.8rem;
+    height: 4.8rem;
 }
 
 div.userPic {
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 4.8rem;
+    height: 4.8rem;
 }
 
 .userSection {
@@ -30,8 +30,8 @@ div.userPic {
     margin-left: auto;
 }
 
-/* Calculation: 3.6rem (button) + 1.6rem (gap) + 3.2rem (avatar) = 8.4rem, rounded to 8.8rem */
+/* Button + gap + avatar */
 .userPlaceholder {
-    width: 8.8rem;
-    height: 3.2rem;
+    width: 11.2rem;
+    height: 4.8rem;
 }

@@ -53,7 +53,8 @@ describe('CButton', () => {
 
         expect(button).toBeDisabled();
 
-        expect(screen.queryByText(/click me/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/click me/i)).not.toBeVisible();
+        expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
     it('applies correct aria-label', () => {

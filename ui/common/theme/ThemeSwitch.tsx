@@ -26,10 +26,10 @@ export default function ThemeSwitch({
         >
             <span className='none flex h-full items-center justify-center text-(--text-secondary)'>
                 <Sun
-                    className={clsx('text(--secondary) size-3', { hidden: theme !== ETheme.Light })}
+                    className={clsx('size-5', { hidden: theme !== ETheme.Light })}
                 />
                 <Moon
-                    className={clsx('text(--secondary) size-3', { hidden: theme !== ETheme.Dark })}
+                    className={clsx('size-5', { hidden: theme !== ETheme.Dark })}
                 />
             </span>
         </CSwitch>
