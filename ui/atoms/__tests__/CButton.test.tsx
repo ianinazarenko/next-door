@@ -53,7 +53,8 @@ describe('CButton', () => {
 
         expect(button).toBeDisabled();
 
-        expect(screen.getByText(/click me/i)).not.toBeVisible();
+        // Jest does not load Tailwind's CSS, so check the class that hides the label.
+        expect(screen.getByText(/click me/i)).toHaveClass('invisible');
         expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
