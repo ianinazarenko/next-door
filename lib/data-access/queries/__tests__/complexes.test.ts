@@ -1,8 +1,12 @@
-import type { PrismaClient } from '@/generated/prisma';
+import type { PrismaClient } from '@/generated/prisma/client';
 import type { DeepMockProxy } from 'jest-mock-extended';
 
 import { prisma } from '@/lib/data-access/db';
-import { fetchComplex, fetchComplexes, fetchComplexesSpecsCallback } from '@/lib/data-access/queries/complexes';
+import {
+    fetchComplex,
+    fetchComplexes,
+    fetchComplexesSpecsCallback,
+} from '@/lib/data-access/queries/complexes';
 import { AUTHOR_SELECT, MOCK_COMPLEX_FULL } from '@/tests/__fixtures__/complex.fixture';
 
 jest.mock('@/lib/data-access/db.ts');
@@ -88,13 +92,18 @@ describe('fetchComplex', () => {
         it('should throw error when slug is not provided', async () => {
             const emptySlug = '';
 
-            await expect(fetchComplex(emptySlug)).rejects.toThrow('Slug is required to fetch complex');
+            await expect(fetchComplex(emptySlug)).rejects.toThrow(
+                'Slug is required to fetch complex'
+            );
 
             expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
-            expect(consoleErrorSpy).toHaveBeenCalledWith('[queries/fetchComplex]: Error fetching complex:', {
-                slug: 'empty',
-                error: expect.any(Error),
-            });
+            expect(consoleErrorSpy).toHaveBeenCalledWith(
+                '[queries/fetchComplex]: Error fetching complex:',
+                {
+                    slug: 'empty',
+                    error: expect.any(Error),
+                }
+            );
             expect(prismaMock.complex.findUnique).not.toHaveBeenCalled();
         });
 
@@ -122,10 +131,13 @@ describe('fetchComplex', () => {
                 },
             });
             expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
-            expect(consoleErrorSpy).toHaveBeenCalledWith('[queries/fetchComplex]: Error fetching complex:', {
-                slug: SLUG,
-                error: dbError,
-            });
+            expect(consoleErrorSpy).toHaveBeenCalledWith(
+                '[queries/fetchComplex]: Error fetching complex:',
+                {
+                    slug: SLUG,
+                    error: dbError,
+                }
+            );
         });
     });
 });
@@ -406,7 +418,9 @@ describe('fetchComplexesSpecsCallback', () => {
             const dbError = new Error('DB connection error');
             prismaMock.complex.findMany.mockRejectedValue(dbError);
 
-            await expect(fetchComplexesSpecsCallback(hasAllOption)).rejects.toThrow('Failed to fetch complexes specs');
+            await expect(fetchComplexesSpecsCallback(hasAllOption)).rejects.toThrow(
+                'Failed to fetch complexes specs'
+            );
             expect(prismaMock.complex.findMany).toHaveBeenCalledTimes(1);
             expect(prismaMock.complex.findMany).toHaveBeenCalledWith(COMPLEX_ARGS);
             expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(String), dbError);
