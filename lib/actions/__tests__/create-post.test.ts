@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@/generated/prisma';
+import type { PrismaClient } from '@/generated/prisma/client';
 import type { DeepMockProxy } from 'jest-mock-extended';
 import type { Session } from 'next-auth';
 
@@ -111,7 +111,11 @@ describe('createPostAction', () => {
 
         describe('deduplication', () => {
             it('should return existing post and not create a new one', async () => {
-                const { category: categorySlug, complex: complexSlug, ...validData } = DEFAULT_CREATE_POST;
+                const {
+                    category: categorySlug,
+                    complex: complexSlug,
+                    ...validData
+                } = DEFAULT_CREATE_POST;
 
                 const existingPost = {
                     ...validData,
@@ -132,7 +136,11 @@ describe('createPostAction', () => {
         });
 
         it('happy path: should create a post', async () => {
-            const { category: categorySlug, complex: complexSlug, ...validData } = DEFAULT_CREATE_POST;
+            const {
+                category: categorySlug,
+                complex: complexSlug,
+                ...validData
+            } = DEFAULT_CREATE_POST;
 
             const expectedPost = {
                 ...validData,
@@ -189,7 +197,9 @@ describe('createPostAction', () => {
                 Object.defineProperty(process.env, 'NODE_ENV', { value: 'production' });
 
                 const invalidData = { ...DEFAULT_CREATE_POST, title: '' };
-                await expect(createPostAction(invalidData)).rejects.toThrow('title: Title is required');
+                await expect(createPostAction(invalidData)).rejects.toThrow(
+                    'title: Title is required'
+                );
                 expect(prismaMock.post.create).not.toHaveBeenCalled();
             });
         });

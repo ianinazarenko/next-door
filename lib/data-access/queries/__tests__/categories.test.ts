@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@/generated/prisma';
+import type { PrismaClient } from '@/generated/prisma/client';
 import type { DeepMockProxy } from 'jest-mock-extended';
 
 import { prisma } from '@/lib/data-access/db';
