@@ -21,4 +21,16 @@ const config = {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };
 
-module.exports = createJestConfig(config);
+module.exports = async () => {
+    const jestConfig = await createJestConfig(config)();
+
+    return {
+        ...jestConfig,
+        transformIgnorePatterns: [
+            '/node_modules/(?!(sanitize-html|htmlparser2|domhandler|domutils|dom-serializer|domelementtype|entities|geist|next)/)',
+            ...jestConfig.transformIgnorePatterns.filter(
+                (pattern) => !pattern.startsWith('/node_modules')
+            ),
+        ],
+    };
+};

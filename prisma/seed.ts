@@ -1,8 +1,13 @@
-import { PrismaClient } from '@/generated/prisma';
+import * as process from 'node:process';
+
+import { PrismaPg } from '@prisma/adapter-pg';
+
+import { PrismaClient } from '@/generated/prisma/client';
 
 import { POST_IMAGE, POSTS_SEED_DATA } from './seed-data';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
     console.log('database seed...');
@@ -46,7 +51,13 @@ async function clearSeedData() {
     await prisma.usefulPhone.deleteMany({});
 }
 
-async function createUsers({ pixelParkId, buglessHeightsId }: { pixelParkId: string; buglessHeightsId: string }) {
+async function createUsers({
+    pixelParkId,
+    buglessHeightsId,
+}: {
+    pixelParkId: string;
+    buglessHeightsId: string;
+}) {
     const alex = await prisma.user.upsert({
         where: { email: 'alex-coder@example.com' },
         update: {},
