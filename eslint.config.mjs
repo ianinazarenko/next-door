@@ -75,6 +75,13 @@ const eslintConfig = defineConfig([
             'no-label-var': 'error',
             'no-undef-init': 'error',
             'no-use-before-define': ['error', { functions: false, classes: false }],
+            'react/jsx-max-props-per-line': [
+                'error',
+                {
+                    when: 'multiline',
+                    maximum: 2,
+                },
+            ],
         },
     },
     {
