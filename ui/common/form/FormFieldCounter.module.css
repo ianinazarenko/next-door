@@ -1,0 +1,13 @@
+.counter {
+    flex: none;
+    padding-top: 0.4rem;
+    white-space: nowrap;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.error {
+    color: var(--error);
+}

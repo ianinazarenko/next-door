@@ -1,7 +1,7 @@
 'use client';
 
 import type { ISpec } from '@/types/common';
-import type { TSchema } from '@/types/forms';
+import type { INewPostField, TSchema } from '@/types/forms';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
@@ -10,7 +10,7 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PulseLoader } from 'react-spinners';
 
-import { DEFAULT_VALUES, FIELDS } from '@/data/new-post-form';
+import { DEFAULT_VALUES, FIELD_GROUPS } from '@/data/new-post-form';
 import { createPostAction } from '@/lib/actions/create-post';
 import CButton from '@/ui/atoms/CButton';
 import FormField from '@/ui/common/form/FormField';
@@ -50,6 +50,7 @@ export default function NewPostForm({ specs }: IProps) {
         handleSubmit,
         formState: { errors },
         reset,
+        control,
     } = useForm<TSchema>({
         resolver: zodResolver(createPostSchema),
         mode: 'onTouched',
@@ -62,6 +63,14 @@ export default function NewPostForm({ specs }: IProps) {
         }
     }
 
+    function getProps(f: Omit<INewPostField, 'is'>) {
+        return {
+            ...{ ...f, ...register(f.name) },
+            ...(isSpecType(f.name) ? { specs: specs[f.name] } : {}),
+        };
+    }
+
+    // ==== FORM ACTIONS ====
     function resetForm() {
         reset(defaultValues);
         setStatus(EFormStatus.Idle);
@@ -81,16 +90,10 @@ export default function NewPostForm({ specs }: IProps) {
     }
 
     return (
-        <section
-            ref={anchorRef}
-            className={'section'}
-        >
+        <section ref={anchorRef} className={'section'}>
             {/* ==== FORM STATUSES ==== */}
             {(status === EFormStatus.Success || status === EFormStatus.Error) && (
-                <NewPostFormStatus
-                    status={status}
-                    resetForm={resetForm}
-                />
+                <NewPostFormStatus status={status} resetForm={resetForm} />
             )}
 
             {/* ==== FORM ==== */}
@@ -101,22 +104,39 @@ export default function NewPostForm({ specs }: IProps) {
                     onSubmit={handleSubmit(onSubmit)}
                     className={s.form}
                 >
-                    {FIELDS.map(
-                        ({ is: Component, className, ...f }) =>
-                            (!isSpecType(f.name) || specs[f.name].length > 0) && (
-                                <FormField
-                                    key={f.name}
-                                    error={errors[f.name]?.message || ''}
-                                    className={className && s[className]}
-                                >
-                                    <Component
-                                        {...{ ...f, ...register(f.name) }}
-                                        {...(isSpecType(f.name) ? { specs: specs[f.name] } : {})}
-                                        disabled={status === EFormStatus.Loading}
-                                    />
-                                </FormField>
-                            )
-                    )}
+                    {FIELD_GROUPS.map(({ title, fields }) => (
+                        <fieldset key={title} className={s.group}>
+                            <legend className={s.groupTitle}>{title}</legend>
+
+                            <div className={s.fields}>
+                                {fields.map(
+                                    ({ is: Component, className, maxLength, ...f }) =>
+                                        (!isSpecType(f.name) || specs[f.name].length > 0) && (
+                                            <FormField
+                                                key={f.name}
+                                                name={f.name}
+                                                error={errors[f.name]?.message || ''}
+                                                errorId={`new-post-${f.name}-error`}
+                                                maxLength={maxLength}
+                                                control={control}
+                                                className={className && s[className]}
+                                            >
+                                                <Component
+                                                    {...getProps(f)}
+                                                    disabled={status === EFormStatus.Loading}
+                                                    aria-invalid={Boolean(errors[f.name])}
+                                                    aria-errormessage={
+                                                        errors[f.name]
+                                                            ? `new-post-${f.name}-error`
+                                                            : undefined
+                                                    }
+                                                />
+                                            </FormField>
+                                        )
+                                )}
+                            </div>
+                        </fieldset>
+                    ))}
 
                     <div className={s.bottom}>
                         <CButton
@@ -133,10 +153,7 @@ export default function NewPostForm({ specs }: IProps) {
 
                     {status === EFormStatus.Loading && (
                         <div className={s.loader}>
-                            <PulseLoader
-                                color={'var(--text-primary)'}
-                                size={12}
-                            />
+                            <PulseLoader color={'var(--text-primary)'} size={12} />
                         </div>
                     )}
                 </form>

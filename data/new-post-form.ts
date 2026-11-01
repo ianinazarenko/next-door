@@ -12,41 +12,57 @@ export const DEFAULT_VALUES: Record<keyof TSchema, string> = {
     category: '',
 };
 
-export const FIELDS: INewPostField[] = [
+export const FIELD_GROUPS: { title: string; fields: INewPostField[] }[] = [
     {
-        name: 'title',
-        label: 'Title',
-        is: CInput,
-        placeholder: 'e.g. Free puppy for a good home',
+        title: 'Basics',
+        fields: [
+            {
+                name: 'category',
+                label: 'Category',
+                is: CSelect,
+                placeholder: 'Select category',
+                specs: [],
+                className: 'col',
+            },
+            {
+                name: 'complex',
+                label: 'Complex',
+                is: CSelect,
+                placeholder: 'Select complex',
+                specs: [],
+                className: 'col',
+            },
+            {
+                name: 'title',
+                label: 'Title',
+                is: CInput,
+                placeholder: 'e.g. Free puppy for a good home',
+                description: 'Up to 40 characters.',
+                maxLength: 40,
+            },
+        ],
     },
     {
-        name: 'shortText',
-        label: 'Short text',
-        is: CTextarea,
-        placeholder: 'A short summary of your announcement',
-        rows: 2,
-    },
-    {
-        name: 'fullText',
-        label: 'Detailed text',
-        is: CTextarea,
-        placeholder: 'A detailed description of your announcement',
-        rows: 4,
-    },
-    {
-        name: 'category',
-        label: 'Category',
-        is: CSelect,
-        placeholder: 'Select category',
-        specs: [],
-        className: 'col',
-    },
-    {
-        name: 'complex',
-        label: 'Complex',
-        is: CSelect,
-        placeholder: 'Select complex',
-        specs: [],
-        className: 'col',
+        title: 'Details',
+        fields: [
+            {
+                name: 'shortText',
+                label: 'Short summary',
+                is: CTextarea,
+                placeholder: 'A short summary of your announcement',
+                description: 'Shown on the announcement card. Up to 80 characters.',
+                maxLength: 80,
+                rows: 2,
+            },
+            {
+                name: 'fullText',
+                label: 'Description',
+                is: CTextarea,
+                placeholder: 'A detailed description of your announcement',
+                description: 'Shown on the announcement page. Up to 500 characters.',
+                maxLength: 500,
+                rows: 4,
+            },
+        ],
     },
 ];

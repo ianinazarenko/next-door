@@ -40,17 +40,17 @@ export const createPostSchema = z.object({
         .string()
         .refine((val) => !hasHtmlTags(val), HTML_TAGS_ERROR)
         .trim()
-        .nonempty('Short text is required')
-        .min(3, 'Short text should be more than 2 chars')
-        .max(80, 'Short text is too long'),
+        .nonempty('Short summary is required')
+        .min(3, 'Short summary should be more than 2 chars')
+        .max(80, 'Short summary is too long'),
 
     fullText: z
         .string()
         .refine((val) => !hasHtmlTags(val), HTML_TAGS_ERROR)
         .trim()
-        .nonempty('Text is required')
-        .min(3, 'Text should be more than 2 chars')
-        .max(500, 'Text is too long'),
+        .nonempty('Description is required')
+        .min(3, 'Description should be more than 2 chars')
+        .max(500, 'Description is too long'),
 
     complex: z.string().nonempty('Complex is required'),
     category: z.string().nonempty('Category is required'),

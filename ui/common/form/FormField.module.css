@@ -1,25 +1,64 @@
 .field {
-    position: relative;
     min-width: 0;
-    padding-bottom: 2.4rem;
 }
 
-.field:has(.error) :is(input, select, textarea) {
+.field :is(input, select, textarea) {
+    transition: border-color 160ms ease;
+}
+
+.field[data-error='true'] :is(input, select, textarea) {
     border-color: var(--error);
 }
 
-.error {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.footer {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.feedback {
+    visibility: hidden;
+    display: grid;
+    flex: 1;
+    min-width: 0;
+    min-height: 2.4rem;
+    padding-top: 0.4rem;
+    opacity: 0;
+    transition:
+        opacity 160ms ease,
+        grid-template-rows 160ms ease,
+        visibility 160ms;
+    grid-template-rows: 0fr;
+}
+
+.field[data-error='true'] .feedback {
+    visibility: visible;
+    opacity: 1;
+    grid-template-rows: 1fr;
+}
+
+.error {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.errorMessage {
+    display: flex;
+    align-items: flex-start;
     font-size: 1.4rem;
     line-height: 2rem;
     color: var(--error);
     gap: 0.4rem;
 }
 
-.error svg {
+.errorMessage svg {
     flex: none;
+    margin-top: 0.2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .field :is(input, select, textarea),
+    .feedback {
+        transition: none;
+    }
 }

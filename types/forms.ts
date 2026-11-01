@@ -12,4 +12,5 @@ export interface INewPostField {
     className?: string;
     rows?: number;
     description?: string;
+    maxLength?: number;
 }
