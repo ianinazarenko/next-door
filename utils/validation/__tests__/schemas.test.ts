@@ -335,8 +335,8 @@ describe('createPostSchema', () => {
     describe('required validation', () => {
         const requiredFieldsConfig = [
             ['title', 'Title is required'],
-            ['shortText', 'Short text is required'],
-            ['fullText', 'Text is required'],
+            ['shortText', 'Short summary is required'],
+            ['fullText', 'Description is required'],
             ['complex', 'Complex is required'],
             ['category', 'Category is required'],
         ];
@@ -358,8 +358,8 @@ describe('createPostSchema', () => {
     describe('minLength validation', () => {
         const minLengthFieldsConfig = [
             ['title', 3, 'Title should be more than 2 chars'],
-            ['shortText', 3, 'Short text should be more than 2 chars'],
-            ['fullText', 3, 'Text should be more than 2 chars'],
+            ['shortText', 3, 'Short summary should be more than 2 chars'],
+            ['fullText', 3, 'Description should be more than 2 chars'],
         ];
 
         it.each(minLengthFieldsConfig)(
@@ -382,8 +382,8 @@ describe('createPostSchema', () => {
     describe('maxLength validation', () => {
         const maxLengthFieldsConfig = [
             ['title', 40, 'Title is too long'],
-            ['shortText', 80, 'Short text is too long'],
-            ['fullText', 500, 'Text is too long'],
+            ['shortText', 80, 'Short summary is too long'],
+            ['fullText', 500, 'Description is too long'],
         ];
 
         it.each(maxLengthFieldsConfig)(

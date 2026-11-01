@@ -65,9 +65,9 @@ describe('NewPostForm - Integration', () => {
 
         // Заполняем текстовые поля
         await user.type(screen.getByLabelText(/Title/i), 'My New Awesome Post');
-        await user.type(screen.getByLabelText(/Short text/i), 'This is a short description');
+        await user.type(screen.getByLabelText(/Short summary/i), 'This is a short description');
         await user.type(
-            screen.getByLabelText(/Detailed text/i),
+            screen.getByLabelText(/^Description$/i),
             'This is a much longer full text for the post content'
         );
 
@@ -130,9 +130,9 @@ describe('NewPostForm - Integration', () => {
         render(<NewPostForm specs={MOCK_SPECS} />);
 
         await user.type(screen.getByLabelText(/Title/i), 'My New Awesome Post');
-        await user.type(screen.getByLabelText(/Short text/i), 'This is a short description');
+        await user.type(screen.getByLabelText(/Short summary/i), 'This is a short description');
         await user.type(
-            screen.getByLabelText(/Detailed text/i),
+            screen.getByLabelText(/^Description$/i),
             'This is a much longer full text for the post content'
         );
 

@@ -9,20 +9,27 @@ describe('createPostServerSchema', () => {
         const sanitizationTestCases: Array<[keyof TSchema, string, string]> = [
             ['title', '<b>Hello</b> World', 'Hello World'],
             ['shortText', '<em>Italic</em> short text here', 'Italic short text here'],
-            ['fullText', '<p>Paragraph</p> full text content here', 'Paragraph full text content here'],
+            [
+                'fullText',
+                '<p>Paragraph</p> full text content here',
+                'Paragraph full text content here',
+            ],
         ];
 
-        it.each(sanitizationTestCases)('should strip HTML tags from %s', (field, input, expected) => {
-            const result = createPostServerSchema.safeParse({
-                ...DEFAULT_CREATE_POST,
-                [field]: input,
-            });
+        it.each(sanitizationTestCases)(
+            'should strip HTML tags from %s',
+            (field, input, expected) => {
+                const result = createPostServerSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    [field]: input,
+                });
 
-            expect(result.success).toBe(true);
-            if (result.success) {
-                expect(result.data[field]).toBe(expected);
+                expect(result.success).toBe(true);
+                if (result.success) {
+                    expect(result.data[field]).toBe(expected);
+                }
             }
-        });
+        );
 
         it('should accept clean data without modification', () => {
             const result = createPostServerSchema.safeParse(DEFAULT_CREATE_POST);
@@ -80,70 +87,70 @@ describe('createPostServerSchema', () => {
         });
     });
 
-	    describe('XSS protection (advanced cases)', () => {
-	        describe('stable cases (exact expected)', () => {
-	            const stableCases: Array<[input: string, expected: string]> = [
-	                // Basic script tag
-	                ['<script>alert("xss")</script>Safe Title', 'Safe Title'],
+    describe('XSS protection (advanced cases)', () => {
+        describe('stable cases (exact expected)', () => {
+            const stableCases: Array<[input: string, expected: string]> = [
+                // Basic script tag
+                ['<script>alert("xss")</script>Safe Title', 'Safe Title'],
 
-	                // Case-insensitive tags
-	                ['<SCRIPT>alert("xss")</SCRIPT>Title', 'Title'],
+                // Case-insensitive tags
+                ['<SCRIPT>alert("xss")</SCRIPT>Title', 'Title'],
 
-	                // SVG injection (popular bypass)
-	                ['<svg/onload=alert("xss")>Title', 'Title'],
+                // SVG injection (popular bypass)
+                ['<svg/onload=alert("xss")>Title', 'Title'],
 
-	                // Event handlers
-	                ['<img src=x onerror="alert(1)">Title', 'Title'],
+                // Event handlers
+                ['<img src=x onerror="alert(1)">Title', 'Title'],
 
-	                // Nested tags
-	                ['<div><script>alert("xss")</script></div>Title', 'Title'],
+                // Nested tags
+                ['<div><script>alert("xss")</script></div>Title', 'Title'],
 
-	                // JavaScript protocol
-	                ['<img src="javascript:alert(\'XSS\')">Title', 'Title'],
+                // JavaScript protocol
+                ['<img src="javascript:alert(\'XSS\')">Title', 'Title'],
 
-	                // This one is stable enough to keep exact
-	                ['Safe Prefix <<script>alert(1)</script>> Text', 'Safe Prefix <> Text'],
-	            ];
+                // This one is stable enough to keep exact
+                ['Safe Prefix <<script>alert(1)</script>> Text', 'Safe Prefix <> Text'],
+            ];
 
-	            it.each(stableCases)('should sanitize: %s → %s', (input, expected) => {
-	                const result = createPostServerSchema.safeParse({
-	                    ...DEFAULT_CREATE_POST,
-	                    title: input,
-	                });
+            it.each(stableCases)('should sanitize: %s → %s', (input, expected) => {
+                const result = createPostServerSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    title: input,
+                });
 
-	                expect(result.success).toBe(true);
-	                if (result.success) {
-	                    expect(result.data.title).toBe(expected);
-	                    expect(result.data.title).not.toMatch(/<script|<svg|onerror|javascript:/i);
-	                }
-	            });
-	        });
+                expect(result.success).toBe(true);
+                if (result.success) {
+                    expect(result.data.title).toBe(expected);
+                    expect(result.data.title).not.toMatch(/<script|<svg|onerror|javascript:/i);
+                }
+            });
+        });
 
-	        describe('malformed HTML (invariants only)', () => {
-	            const malformedCases: Array<[input: string, mustContain: string]> = [
-	                // sanitize-html behavior can be slightly variable for malformed HTML
-	                ['Safe Prefix <<script> Text', 'Safe Prefix'],
-	                ['Safe Prefix <script>> Text', 'Safe Prefix'],
-	            ];
+        describe('malformed HTML (invariants only)', () => {
+            const malformedCases: Array<[input: string, mustContain: string]> = [
+                // sanitize-html behavior can be slightly variable for malformed HTML
+                ['Safe Prefix <<script> Text', 'Safe Prefix'],
+                ['Safe Prefix <script>> Text', 'Safe Prefix'],
+            ];
 
-	            it.each(malformedCases)('should sanitize: %s', (input, mustContain) => {
-	            const result = createPostServerSchema.safeParse({
-	                ...DEFAULT_CREATE_POST,
-	                title: input,
-	            });
+            it.each(malformedCases)('should sanitize: %s', (input, mustContain) => {
+                const result = createPostServerSchema.safeParse({
+                    ...DEFAULT_CREATE_POST,
+                    title: input,
+                });
 
-	            expect(result.success).toBe(true);
-	            if (result.success) {
-	                expect(result.data.title).toContain(mustContain);
-	                expect(result.data.title).not.toMatch(/<script|<svg|onerror|javascript:/i);
-	            }
-	        });
-	        });
+                expect(result.success).toBe(true);
+                if (result.success) {
+                    expect(result.data.title).toContain(mustContain);
+                    expect(result.data.title).not.toMatch(/<script|<svg|onerror|javascript:/i);
+                }
+            });
+        });
 
-	        // Cases where unescaping restores dangerous tags that Zod should then catch
-	        it('should reject unescaped content that becomes valid HTML tags', () => {
-	            const result = createPostServerSchema.safeParse({
-	                ...DEFAULT_CREATE_POST,
+        // Cases where unescaping restores dangerous tags that Zod should then catch
+        it('should reject unescaped content that becomes valid HTML tags', () => {
+            const result = createPostServerSchema.safeParse({
+                ...DEFAULT_CREATE_POST,
                 title: '&lt;script&gt;alert(1)&lt;/script&gt;',
             });
 
@@ -157,8 +164,8 @@ describe('createPostServerSchema', () => {
     describe('validation after sanitization', () => {
         const validationTestCases = [
             ['title', '<b>Hi</b>', 'Title should be more than 2 chars'],
-            ['shortText', '<div></div>', 'Short text is required'],
-            ['fullText', '<p>   </p>', 'Text is required'],
+            ['shortText', '<div></div>', 'Short summary is required'],
+            ['fullText', '<p>   </p>', 'Description is required'],
         ];
 
         it.each(validationTestCases)(
