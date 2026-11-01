@@ -2,6 +2,7 @@ module.exports = {
     extends: ['stylelint-config-standard'],
     plugins: ['stylelint-order'],
     rules: {
+        'selector-pseudo-class-no-unknown': [true, { ignorePseudoClasses: ['global'] }],
         'declaration-block-single-line-max-declarations': 1,
         'color-hex-length': 'long',
         'selector-class-pattern': '^((_?[a-z][a-zA-Z0-9_]*)|([a-z][a-z0-9_]*(?:-[a-z0-9_]+)*))$',
