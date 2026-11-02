@@ -1,5 +1,7 @@
 import type { IAuthSearchParams } from '@/types/auth';
 
+import clsx from 'clsx';
+import { House } from 'lucide-react';
 import Link from 'next/link';
 
 import SignInButtons from '@/app/(public)/sign-in/(components)/buttons/SignInButtons';
@@ -10,13 +12,27 @@ import { auth } from '@/lib/auth/auth';
 import CButton from '@/ui/atoms/CButton';
 import { getSearchParamValue } from '@/utils/helpers/url-utils';
 
-const TITLE = 'Sign In';
-const TEXT = 'Access your account to continue';
+import s from './page.module.css';
+
+const TITLE = 'Welcome to your neighborhood';
+const PUBLIC_NOTE = 'Public posts and complex information remain available without an account.';
+const TEXT = (
+    <>
+        Sign in to publish announcements
+        <br />
+        and manage your activity.
+    </>
+);
+
 const AUTH_TITLE = "You're already signed in";
 const AUTH_TEXT = 'Go back to the main page to continue';
 const AUTH_BTN = 'Go to Home';
 
-export default async function SignInPage({ searchParams }: { searchParams: Promise<IAuthSearchParams> }) {
+interface IProps {
+    searchParams: Promise<IAuthSearchParams>;
+}
+
+export default async function SignInPage({ searchParams }: IProps) {
     const { callbackUrl } = await searchParams;
     const resolvedCallbackUrl = getSearchParamValue(callbackUrl) ?? PAGES.HOME.link;
 
@@ -24,12 +40,20 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
     const isSignedIn: boolean = Boolean(session?.user);
 
     return (
-        <div className={'page c-container flex flex-col items-center justify-center'}>
-            <div className={'flex h-full max-w-10/12 flex-col items-center justify-center text-center'}>
-                <h1 className={'h1'}>{isSignedIn ? AUTH_TITLE : TITLE}</h1>
-                <p className={'card-description mt-4 text-center'}>{isSignedIn ? AUTH_TEXT : TEXT}</p>
+        <div className={clsx('page c-container', s.page)}>
+            <section className={s.card} aria-labelledby='sign-in-title'>
+                <div className={s.iconWrap} aria-hidden='true'>
+                    <House className={s.icon} />
+                </div>
 
-                <div className={'pt-4'}>
+                <h1 id='sign-in-title' className={s.title}>
+                    {isSignedIn ? AUTH_TITLE : TITLE}
+                </h1>
+                <p className={clsx('card-description', s.description)}>
+                    {isSignedIn ? AUTH_TEXT : TEXT}
+                </p>
+
+                <div className={s.actions}>
                     {isSignedIn ? (
                         <div className={'flex flex-col items-center gap-4 md:flex-row md:gap-3'}>
                             <Link href={PAGES.HOME.link}>
@@ -43,8 +67,10 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
                     )}
                 </div>
 
+                {!isSignedIn && <p className={clsx('card-meta', s.note)}>{PUBLIC_NOTE}</p>}
+
                 <SignInErrorHandler />
-            </div>
+            </section>
         </div>
     );
 }

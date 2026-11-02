@@ -42,13 +42,10 @@ export default function SignInButton({
             onClick={handleClick}
             disabled={isPending}
         >
-            <ButtonIconLoader
-                loading={isPending}
-                size={ICON_SIZE}
-            >
+            <ButtonIconLoader loading={isPending} size={ICON_SIZE}>
                 {providers[providerId].icon}
             </ButtonIconLoader>
-            Sign In with {providers[providerId].name}
+            Continue with {providers[providerId].name}
         </CButton>
     );
 }
