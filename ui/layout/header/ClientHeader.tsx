@@ -10,11 +10,5 @@ export default function ClientHeader() {
     const isSignedIn = status === 'authenticated';
     const isLoading = status === 'loading';
 
-    return (
-        <TheHeader
-            session={data}
-            isSignedIn={isSignedIn}
-            isLoading={isLoading}
-        />
-    );
+    return <TheHeader session={data} isSignedIn={isSignedIn} isLoading={isLoading} />;
 }

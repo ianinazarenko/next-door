@@ -9,15 +9,11 @@ export default async function AuthedLayout({ children }: { children: React.React
 
     return (
         <SessionProvider session={session}>
-            <TheHeader
-                session={session}
-                isSignedIn={Boolean(session?.user)}
-                isLoading={false}
-            />
+            <TheHeader session={session} isSignedIn={Boolean(session?.user)} isLoading={false} />
 
             <main>{children}</main>
 
-            <TheMenuMob isSignedIn={Boolean(session?.user)} />
+            <TheMenuMob />
         </SessionProvider>
     );
 }

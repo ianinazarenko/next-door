@@ -7,41 +7,33 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { MENU_LIST } from '@/data/menu';
-import { isMenuItemVisible } from '@/utils/helpers/menu-utils';
+import { PAGES } from '@/data/pages';
+import { getActivePath } from '@/utils/helpers/menu-utils';
 
 import s from './TheMenuMob.module.css';
 
-export default function TheMenuMob({ isSignedIn }: { isSignedIn: boolean }) {
+export default function TheMenuMob() {
     const path = usePathname();
 
     return (
         <div className={s.panel}>
-            <nav
-                aria-label='Mobile navigation'
-                className={s.wrapper}
-            >
-                {MENU_LIST.map((item: IPanelItem, index: number) => {
+            <nav aria-label='Mobile navigation' className={s.wrapper}>
+                {MENU_LIST.map((item: IPanelItem) => {
                     const Icon = item.icon;
-                    const isVisible = isMenuItemVisible(item.visibility, isSignedIn);
+                    const isActive = getActivePath(item, path);
+
                     return (
                         <Link
-                            key={index}
+                            key={item.link}
                             href={item.link}
                             className={clsx(s.item, {
-                                [s.active]: item.link === path,
-                                [s.itemHidden]: !isVisible,
+                                [s.active]: isActive,
+                                [s.create]: item.link === PAGES.NEW_POST.link,
                             })}
-                            aria-hidden={!isVisible}
-                            tabIndex={!isVisible ? -1 : undefined}
+                            aria-current={isActive ? 'page' : undefined}
                         >
-                            <Icon className={s.icon} />
-                            <span
-                                className={clsx('card-meta', s.text, {
-                                    [s.active]: item.link === path,
-                                })}
-                            >
-                                {item.label}
-                            </span>
+                            <Icon className={s.icon} aria-hidden='true' />
+                            <span className={clsx('card-meta', s.text)}>{item.label}</span>
                         </Link>
                     );
                 })}

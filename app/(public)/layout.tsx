@@ -1,7 +1,7 @@
 import { SessionProvider } from 'next-auth/react';
 
 import ClientHeader from '@/ui/layout/header/ClientHeader';
-import ClientMenuMob from '@/ui/layout/menu/ClientMenuMob';
+import TheMenuMob from '@/ui/layout/menu/TheMenuMob';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -10,7 +10,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
             <main>{children}</main>
 
-            <ClientMenuMob />
+            <TheMenuMob />
         </SessionProvider>
     );
 }

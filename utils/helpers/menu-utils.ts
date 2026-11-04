@@ -1,7 +1,10 @@
-import { EMenuItemsVisibility } from '@/utils/constants/menu';
+import { PAGES } from '@/data/pages';
 
-export function isMenuItemVisible(visibility: EMenuItemsVisibility | undefined, isSigned: boolean) {
-    if (!visibility || visibility === EMenuItemsVisibility.Always) return true;
-    if (visibility === EMenuItemsVisibility.AuthOnly) return isSigned;
-    return !isSigned;
+export function getActivePath(item: { link: string }, path: string) {
+    return (
+        item.link === path ||
+        (item.link === PAGES.POSTS.link &&
+            path.startsWith(PAGES.POSTS.link) &&
+            path !== PAGES.NEW_POST.link)
+    );
 }

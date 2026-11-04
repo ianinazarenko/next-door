@@ -39,7 +39,8 @@ const loaderColor: Record<EButtonTheme, string> = {
 };
 
 const baseClasses =
-    'relative inline-flex h-(--btn-height) items-center justify-center gap-2 rounded-(--radius-btn) px-(--p-btn) text-[1.6rem] font-semibold transition-[color,background-color,border-color,transform] duration-150 ease-out motion-safe:active:scale-[.98] motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)';
+    'relative inline-flex h-(--btn-height) items-center justify-center gap-2 rounded-(--radius-btn) px-(--p-btn) text-[1.6rem] font-semibold transition-[color,background-color,border-color,transform] duration-[180ms] ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)';
+const pressClasses = 'motion-safe:active:scale-[.98]';
 const equalClasses = 'px-0 w-(--btn-height) justify-center items-center flex';
 const roundClasses = 'rounded-[6rem]';
 const disabledClasses = 'cursor-not-allowed opacity-75';
@@ -57,10 +58,12 @@ function CButton({
     onClick,
     children,
 }: IButtonProps) {
+    const isInactive = Boolean(disabled || isLoading);
     const classes = clsx(
         baseClasses,
         themeBaseClasses[theme],
-        !disabled && themeInteractiveClasses[theme],
+        !isInactive && themeInteractiveClasses[theme],
+        !isInactive && pressClasses,
         equal && equalClasses,
         round && roundClasses,
         disabled && disabledClasses,
@@ -71,7 +74,7 @@ function CButton({
         <Button
             className={classes}
             type={type}
-            disabled={disabled || isLoading}
+            disabled={isInactive}
             aria-label={ariaLabel ?? (isLoading ? 'Loading' : undefined)}
             aria-busy={isLoading}
             onClick={onClick}
@@ -89,10 +92,7 @@ function CButton({
                     className='absolute inset-0 flex items-center justify-center'
                     aria-hidden='true'
                 >
-                    <PulseLoader
-                        color={loaderColor[theme]}
-                        size={8}
-                    />
+                    <PulseLoader color={loaderColor[theme]} size={8} />
                 </span>
             )}
         </Button>

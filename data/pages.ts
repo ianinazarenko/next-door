@@ -1,6 +1,8 @@
+import type { IPage } from '@/types/menu';
+
 import { EPages } from '@/utils/constants/menu';
 
-export const PAGES = {
+export const PAGES: Record<string, IPage> = {
     HOME: {
         slug: EPages.Home,
         title: 'Home',
@@ -13,17 +15,18 @@ export const PAGES = {
     },
     COMPLEXES: {
         slug: EPages.Complexes,
-        title: 'Complex',
+        title: 'Complexes',
         link: `/${EPages.Complexes}`,
     },
     NEW_POST: {
         slug: EPages.NewPost,
-        title: 'Create New Post',
+        title: 'Create announcement',
+        shortTitle: 'Create',
         link: `/${EPages.Posts}/new`,
     },
     SIGN_IN: {
         slug: EPages.SignIn,
-        title: 'SignIn',
+        title: 'Sign In',
         link: `/${EPages.SignIn}`,
     },
 };

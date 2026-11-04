@@ -1,0 +1,25 @@
+.brand {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    gap: 0.8rem;
+}
+
+.brandMark {
+    display: grid;
+    width: 3.6rem;
+    height: 3.6rem;
+    place-items: center;
+    border-radius: 1.1rem;
+    background-color: var(--accent-50);
+    color: var(--accent);
+}
+
+.brand:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
