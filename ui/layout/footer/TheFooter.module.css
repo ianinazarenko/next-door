@@ -1,17 +1,79 @@
 .footer {
-    padding-top: var(--margin-gap-base);
+    padding-top: 3.2rem;
     padding-bottom: calc(var(--panel-height) + var(--margin-gap-base));
+    border-top: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+
+    @media (width >= 744px) {
+        padding-top: 4.8rem;
+    }
 
     @media (width >= 1280px) {
-        padding-bottom: var(--margin-gap-base);
+        padding-bottom: 4.8rem;
     }
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    @media (width >= 744px) {
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+}
+
+.brandBlock,
+.details {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    @media (width >= 744px) {
+        gap: 1.2rem;
+    }
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 3rem;
+    gap: 1.6rem;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    gap: 0.8rem;
+}
+
+.tagline {
+    font-size: var(--card-description-mob);
+    line-height: var(--line-height-description);
+    color: var(--text-secondary);
+}
+
+.credit {
+    font-size: var(--card-meta-desk);
+    line-height: 2rem;
+    color: var(--text-secondary);
+}
+
 .link {
-    text-decoration: none;
     color: var(--text-primary);
     transition: color var(--trs);
-    cursor: pointer;
+
+    .links & {
+        font-size: var(--card-description-mob);
+        line-height: var(--line-height-description);
+    }
 
     &:hover {
         color: var(--accent-hover);
@@ -20,4 +82,10 @@
     &:active {
         color: var(--accent);
     }
+}
+
+.brand:focus-visible,
+.link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
