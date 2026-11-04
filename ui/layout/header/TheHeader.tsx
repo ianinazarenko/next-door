@@ -21,7 +21,7 @@ function TheHeader({
 }) {
     return (
         <header className={s.header}>
-            <div className={clsx('c-container', s.inner, isSignedIn && s.innerSigned)}>
+            <div className={clsx('c-container', s.inner)}>
                 <div className={s.left}>
                     <HeaderLogo />
                     <HeaderMenu />
@@ -31,7 +31,7 @@ function TheHeader({
                     <HeaderButtonLInk />
                     <ThemeToggle />
 
-                    <div className={clsx(s.accountSlot, isSignedIn && s.accountSlotSigned)}>
+                    <div className={s.accountSlot}>
                         <span
                             className={clsx(
                                 s.accountSkeleton,

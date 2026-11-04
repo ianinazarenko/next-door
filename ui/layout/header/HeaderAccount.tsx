@@ -2,15 +2,17 @@
 
 import type { Session } from 'next-auth';
 
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import clsx from 'clsx';
+import { ChevronDown, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import SignOutButton from '@/app/(public)/sign-in/(components)/buttons/SignOutButton';
 import { PAGES } from '@/data/pages';
+import { signOutAction } from '@/lib/actions/auth';
 import UserPic from '@/ui/common/user/UserPic';
 
-import s from './TheHeader.module.css';
+import s from './HeaderAccount.module.css';
 
 interface IProps {
     session: Session | null;
@@ -29,7 +31,7 @@ function HeaderAccount({ session, isLoading, isSignedIn }: IProps) {
         return (
             <Link
                 href={PAGES.SIGN_IN.link}
-                className={clsx(s.signIn, isSignInPage && s.signInActive)}
+                className={clsx(s.accountControl, s.signIn, isSignInPage && s.signInActive)}
                 aria-current={isSignInPage ? 'page' : undefined}
             >
                 {PAGES.SIGN_IN.title}
@@ -38,17 +40,28 @@ function HeaderAccount({ session, isLoading, isSignedIn }: IProps) {
     }
 
     return (
-        <div className={s.userSection}>
-            {/* TODO: move to menu */}
-            <SignOutButton />
+        <Menu as='div' className={s.accountMenu}>
+            <MenuButton className={s.accountControl} aria-label='Account menu'>
+                <span aria-hidden='true'>
+                    <UserPic
+                        image={session.user.image}
+                        name={session.user.name}
+                        index={session.user.id}
+                        className={s.userPic}
+                    />
+                </span>
+                <ChevronDown size={16} aria-hidden='true' />
+            </MenuButton>
 
-            <UserPic
-                image={session.user.image}
-                name={session.user.name}
-                index={session.user.id}
-                className={clsx(s.userPic, 'fade-in')}
-            />
-        </div>
+            <MenuItems className={s.accountMenuItems} modal={false} transition>
+                <form action={signOutAction}>
+                    <MenuItem as='button' type='submit' className={s.signOutItem}>
+                        <LogOut size={20} aria-hidden='true' />
+                        Sign out
+                    </MenuItem>
+                </form>
+            </MenuItems>
+        </Menu>
     );
 }
 
