@@ -18,6 +18,7 @@ const cspHeader = `
     .trim();
 
 const nextConfig: NextConfig = {
+    allowedDevOrigins: ['10.83.11.13'],
     images: {
         qualities: [80],
         remotePatterns: [
