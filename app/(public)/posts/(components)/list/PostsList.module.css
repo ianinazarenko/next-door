@@ -3,13 +3,17 @@
     flex-direction: column;
     gap: 1.6rem;
 
+    & > li {
+        min-width: 0;
+    }
+
     @media (width >= 744px) {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: var(--gap-card-desk);
     }
 
     @media (width >= 1024px) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
