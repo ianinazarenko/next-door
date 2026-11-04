@@ -55,7 +55,11 @@ export default async function SignInPage({ searchParams }: IProps) {
 
                 <div className={s.actions}>
                     {isSignedIn ? (
-                        <div className={'flex flex-col items-center gap-4 md:flex-row md:gap-3'}>
+                        <div
+                            className={
+                                'flex flex-col flex-row items-center justify-center gap-4 md:gap-3'
+                            }
+                        >
                             <Link href={PAGES.HOME.link}>
                                 <CButton>{AUTH_BTN}</CButton>
                             </Link>
