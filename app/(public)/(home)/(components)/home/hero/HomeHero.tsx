@@ -1,20 +1,27 @@
-import BlockHero from '@/ui/common/blocks/hero/BlockHero';
+import { PAGES } from '@/data/pages';
+import ButtonLink from '@/ui/atoms/ButtonLink';
 
-const HEADING = 'Help is Next Door';
-const DESC_TOP = 'There is always someone nearby who can help.';
-const DESC_BOTTOM = 'Join our community!';
-const IMG_MOB = '/images/home/home-hero-mob.jpg';
-const IMG_DESK = '/images/home/home-hero-desk.jpg';
+import s from './HomeHero.module.css';
 
 export default function HomeHero() {
+    const TITLE = <>Help is Next&nbsp;Door</>;
+    const DESCRIPTION =
+        'Find local announcements, useful building contacts, and help from your neighbors in one place.';
+    const BTN_BOARD = 'Explore the board';
+
     return (
-        <BlockHero
-            imgMob={IMG_MOB}
-            imgDesk={IMG_DESK}
-            heading={HEADING}
-            descTop={DESC_TOP}
-            descBottom={DESC_BOTTOM}
-            displayHeading
-        />
+        <section className={s.section}>
+            <div className='c-container'>
+                <div className={s.content}>
+                    <h1 className='h1 display'>{TITLE}</h1>
+
+                    <p className={s.description}>{DESCRIPTION}</p>
+
+                    <ButtonLink href={PAGES.POSTS.link} variant='filled' size='large'>
+                        {BTN_BOARD}
+                    </ButtonLink>
+                </div>
+            </div>
+        </section>
     );
 }

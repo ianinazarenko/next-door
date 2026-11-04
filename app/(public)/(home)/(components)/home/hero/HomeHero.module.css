@@ -1,0 +1,25 @@
+.section {
+    padding: var(--margin-gap-section) 0;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+    max-width: 72rem;
+    flex-direction: column;
+    gap: 2.4rem;
+}
+
+.description {
+    max-width: 58rem;
+    font-size: var(--body-large-mob);
+    line-height: var(--line-height-body-large-mob);
+    color: var(--text-secondary);
+
+    @media (width >= 1024px) {
+        font-size: var(--body-large-desk);
+        line-height: var(--line-height-body-large-desk);
+    }
+}
