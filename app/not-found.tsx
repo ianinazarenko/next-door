@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { PAGES } from '@/data/pages';
 import ButtonLink from '@/ui/atoms/ButtonLink';
 
@@ -24,9 +22,14 @@ export default function NotFoundPage() {
                 <p className={s.description}>{DESCRIPTION}</p>
 
                 <div className={s.actions}>
-                    <Link href={PAGES.HOME.link} className={s.primaryAction}>
+                    <ButtonLink
+                        href={PAGES.HOME.link}
+                        variant='filled'
+                        showArrow={false}
+                        className={s.primaryLink}
+                    >
                         {BTN_HOME}
-                    </Link>
+                    </ButtonLink>
 
                     <ButtonLink href={PAGES.POSTS.link}>{BTN_BOARD}</ButtonLink>
                 </div>
